@@ -1,0 +1,198 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+\\
+\section{Vectors in $\mathbb{R}^{N}$}
+\subsection{Properties of Vectors}
+\subsubsection{Vectors, Points and Magnitudes}
+$\mathbb{R}^2 = \{ \left( x,y \right) ~|~x,y \in \mathbb{R}  \} = \{ \langle x , y\rangle~| ~x,y \in \mathbb{R}  \}  $ which is equal to the set of all ordered types of real numbers.\\
+\underline{Notation}: We will use $\left( x,y \right) $ to denote a point in $\mathbb{R}^2$ and $\langle x ,y \rangle $ to denote a vector in $\mathbb{R}^2$.\\
+These two notations are interchangeable since a point determines a vector (a directed line segment joining the origin to that point).\\
+\\
+\[
+\mathbb{R}^{3} = \{ \vec{v} = \langle  v_1,v_2,v_3 \rangle |_{}^{} ~v_1, v_2, v_3 \in \mathbb{R} \} = \text{ the set of all ordered triples of real numbers}
+.\] 
+\[
+\mathbb{R}^{n}= \{ \vec{v} = \langle v_1,v_2,\ldots,v_n  \rangle ~|~ v_1,v_2,\ldots,v_n \in \mathbb{R}, n \in \mathbb{N} \} = \text{ the set of all ordered n-tuples of real numbers}
+.\] Geometrically: A vector is a directed line segment. Algebraically: a vector is defined by its co-ordinates.\\
+\\
+\textit{In what follows the results (unless stated otherwise) hold for all vectors $\vec{v} $ in $\mathbb{R}^{n}$}\\
+On this 'new' set of objects (vectors) we define the operations of addition, scalar multiplication, dot product (also known as scalar product) and cross product for vectors in $\mathbb{R}^{3}$ only.\\
+\\
+\textbf{ Length/ Magnitude} : $\|\vec{v} \|= \sqrt{v_1^2+v_2^2+\ldots+v_n^2}  \text{ is the distance from $\vec{0} $ to } \left( v_1,v_2,\ldots,v_n \right) $.\\
+\\
+\subsection{Addition of vectors in $\mathbb{R}^{n}$ :   } Algebraically- add respective co-ordinates.\\
+\[
+\vec{v} +\vec{w} = \langle v_1+w_1, v_2+w_2 +\ldots, v_n+w_n  \rangle 
+.\] 
+Geometrically: $\vec{v} +\vec{w}$ is the directed line segment which forms the long diagonal of the parallelogram formed by $\vec{v} $ and $\vec{w} $.
+\\
+XXX TEXIT
+\\
+\\
+\textbf{Scalar Multiplication: } (multiplying a vector by a scalar)\\
+Let $c \in \mathbb{R}$, $\vec{v} \in \mathbb{R}^{n}$.\\
+XXX TEXIT\\
+\\
+Algebraically: $c \vec{v} $ is defined to be 
+\[
+c \vec{v} = \langle cv_1, cv_2, \ldots, cv_n \rangle 
+.\] 
+Geometrically: $c\vec{v} $ is a vector who length is $|c|$times the length of  $\vec{v} $ and whos direction is the same as $\vec{v} $ if $c >0$ and the opposite to $\vec{v} $ if $ c<0$.\\
+\\
+If  $c=0$ then $c \vec{v} =\vec{0} = \langle 0,0,\ldots,0  \rangle $ which is known as the \underline{null}  \underline{vector} .\\
+\\
+\textbf{Unit Vectors:}  A \underline{unit } \underline{vector}  is a vector of length 1. For a general vector $\vec{v} \in \mathbb{R}^{n} $ $\frac{1}{\|\vec{v} \|}\vec{v} $ is a unit vector pointing in the direction of $\vec{v} $.\\
+\\
+The \underline{Standard} \underline{basis} \underline{vectors}  are the unit vectors along with the co-ordinate axis e.g. In $\mathbb{R}^2$ $\langle 1,0  \rangle $ and $\langle 0,1  \rangle $.\\
+\\
+You may have encountered them in $\mathbb{R}^3$ under a different disguise in physics,
+\[
+\langle 1,0,0  \rangle = \hat{i}\\
+.\] 
+\[
+\langle 0,1,0  \rangle = \hat{j}\\
+.\] 
+\[
+\langle 0,0,1  \rangle = \hat{k}
+.\] 
+\\
+\textbf{Scalar Product/ Dot Product} \\
+\underline{Algebraic:}  Let $\vec{v} = \langle v_1,v_2,\ldots,v_n  \rangle $, $\vec{w} = \langle w_1,w_2,\ldots, w_n  \rangle $. Then $\vec{v} \cdot \vec{w} $ is defined to be 
+\[
+\vec{v}  \cdot  \vec{w} = v_1w_1_ v_2w_2 + \ldots + w_nw_n
+.\] Note that the dot product of two vectors results in a scalar.\\
+We will talk about the geometric interpretation of the dot product once we have another view on it.\\
+\\
+\textbf{Properties of the dot Product} \\
+\textit{How do all of the operations interact with each other?} \\
+\thm{}{
+Let $\vec{v} $, $\vec{w}  $, $\vec{q} $ $\in \mathbb{R}^{n}$ and let $c \in \mathbb{R}$ \\
+\\
+\begin{enumerate}[label=(\roman*)]
+  \item $\vec{v} \cdot  \vec{w} =  \vec{w} \cdot \vec{v} $ (the dot product is commutative)
+  \item $\vec{v} \cdot \left( \vec{w} +\vec{q}  \right) = \vec{v} \cdot \vec{w} + \vec{v} \cdot \vec{q} $
+  \item $\vec{v} \cdot \left( c \vec{w}  \right) = c \left( \vec{v} \cdot \vec{w}  \right) $ 
+  \item $\vec{v} \cdot \vec{v} = \|\vec{v} \|^2$
+  \item $\vec{v}\cdot \vec{w} = \|\vec{v} \|\|\vec{w} \|\cos\phi   $ where $\phi $ is an angle between $\vec{v} $ and $\vec{w} $, $0 \le \phi  \le \pi$
+
+\end{enumerate}
+
+}
+
+
+
+\thm{}{
+    \label{thm:sec-\thesection.\arabic{theorem}?}
+    Let $\vec{u} $, $\vec{v} $, $\vec{w} \in \mathbb{R}^{3} $ and $c\in \mathbb{R}$ we have
+
+    \begin{enumerate}[label=(\roman*)]
+      \item $\vec{v} \times \vec{w} = -  \vec{w} \times \vec{v} $
+      \item $\vec{v} \times  \left( \vec{w} +\vec{u}  \right) = \vec{v} \times \vec{w} + \vec{v} \times  \vec{u}                  $
+      \item $\vec{v} \times \left( c \vec{w}  \right) = c \left( \vec{v} \times  \vec{w}  \right) $ 
+      \item $\vec{v} \times \vec{v} = \vec{0} $, $\|\vec{v} \times \vec{v} \|=0$, $\implies \vec{v} \times  \vec{v} =\vec{0} $.
+      \item $\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) = - \vec{v} \cdot \left( \vec{u} \times \vec{w}  \right) $ 
+      \item $\vec{u} \times \left( \vec{v} \times \vec{w}  \right) = \left( \vec{u} **\vec{v}  \right) \vec{w}  $
+      \item Jacobi Identity: $\left( \vec{u} \times  \vec{v}  \right)\times \vec{w} + \left( \vec{v} \times \vec{w}  \right) \times  \vec{u}  + \left( \vec{w} \times \vec{u} \right) \times \vec{v}  = \vec{0}   $
+    \end{enumerate}
+}
+    \textbf{Proof} {
+
+Let \[
+\vec{v} = \langle v_1,v_2,v_3  \rangle \quad \vec{w} = \langle w_1,w_2,w_3  \rangle \] \[
+\vec{v} \times \vec{w} = \langle v_2w_3-w_2v_3, v_3w_1-v_1w_3, v_1w_2-v_2w_1  \rangle  
+%= \langle v_2\left( w_3+u_3 \right) -\left( w_2+u_2 \right) v_3, v_3 \left( w_1+u_1 \right) -v_1\left( w_3+u_3 \right)   \rangle 
+.\] 
+\[
+=\langle -1 \left( w_2v_3-w_3v_2, -\left( w_3v_1-w_1v_3 \right) , -\left( w_1v_2-w_2v_1 \right)  \right)   \rangle 
+.\] \[
+= - \left( \vec{w} \times \vec{v}  \right) 
+.\] 
+    }
+
+    ii
+    \\
+    \\
+    $\vec{v} \times  \left( \vec{w} +\vec{u}  \right) = \langle v_1,v_2,v_3  \rangle \times  \left(  \langle w_1+u_1, w_2+u_2, w_3+u_3  \rangle  \right) $ 
+    \[
+    \langle v_2\left( w_3+u_3 \right) - \left( w_2+u_2 \right) v_3, v_3\left( w_1+u_1 \right) - v_1\left( w_3+u_3 \right) , v_1\left( w_2+u_2 \right) - v_2\left( w_1+u_1 \right)   \rangle 
+    .\] \[
+    = \langle v2w_3-w2v_3+v_2u_3-u2v_3, v3w_1-v_1w_3+v_3u_1-v_1u_3, v_1,w_2-v_2w_1+v_1u_2-v_2u_1  \rangle 
+    .\] 
+\[
+= \langle v_2w_3-w_2v_3, v_3w_1-v_1w_3, v_1w_2-v_2w_1  \rangle + \langle v_2u_3-u_2v_3, v_3u_1-v_1u_3, v_1u_2-v_2u_1  \rangle 
+.\] \[
+= \vec{v} \times \vec{w} +\vec{ v} \times \vec{u} 
+.\] 
+\\
+\\
+iii\\
+\\
+\[
+\vec{v} \times \left( c\vec{w} \right) = \langle v_1,v_2,v_3  \rangle \times  \langle cw_1,cw_2,cw_3  \rangle 
+.\] \[
+= \langle c \left( v_2w_3 -w_2v_3 \right) , c\left( v_2w_1-v_1w_3 \right) , c\left( v_1w_2-v_2w_1 \right)   \rangle 
+.\] \[
+=c \left( \vec{v} \times  \vec{w}  \right) 
+.\] 
+\\
+\\
+iv
+\\
+\\
+\[
+\vec{v} \times \vec{v} = \langle v_2v_3- v_2v_3, v_3v_1- v_1v_3, v_1v_2-v_2v_1  \rangle = \langle 0,0,0  \rangle 
+.\] 
+
+Note the property we take for granted in multiplying real numbers: $\left( ab \right)c = a \left( bc  \right)   $ (associativity) is not satisfied for cross products i.e
+\[
+\left( \vec{u} \times  \vec{v}  \right) \times  \vec{w}  \neq \vec{u} \times  \left( \vec{v}  \times  \vec{w}  \right) 
+.\] 
+\textbf{Proof} (i ) $\to$ (iv) can check algebraically\ geometrically and think about geometrically.
+\\
+\\
+(v)  \[
+\vec{u} \cdot  \left(  \vec{v} \times  \vec{w}  \right)= u_1 \left( v_2w_3-w_2v_3  \right) + u_2 \left( v_3w_1-v_1w_3 \right) + u_3 \left(  v1 w_2 -v_2w_1 \right)  
+.\] \[
+\vec{v} \cdot  \left( \vec{u} \times  \vec{w}  \right) = v_1 \left(  u_2w_3-w_2v_3 \right) + v_2\left( u_3w_1-u_1w_3 \right) + v_3 \left( u_1w_2-u_2w_1 \right) 
+.\] 
+Note: These quantities add together to give zero.\\
+
+(vi) and (vii) The Jacobi identity if solved algebraically would be a mess of many terms $\implies$ we won't inflict that upon ourselves \\
+\\
+Instead we'll introduce one of the key ideas of linear algebra- that of linearity and therefore simplify our prof enormously. \\
+\\
+\textbf{Multi linearity:}  Let $\vec{v_1} ,\vec{v_2} ,\ldots, \vec{v_m} , \vec{w_1} ,\vec{w_2} ,\ldots, \vec{w_m} \in \mathbb{R} ^{n} $
+
+\textbf{Definition:} A function $f$ of several vectors is said to be \underline{linear if all its arguments}or multilinear if 
+\[
+f \left( \vec{v_1} +\vec{w_1} , \vec{v_2} ,\ldots, \vec{v_m}  \right) = f \left( \vec{v_1} ,\vec{v_2} ,..,\vec{v_m}  \right) +f \left( \vec{w_1} ,\vec{v_2} ,\ldots,\vec{v_m}  \right) 
+.\] 
+
+\\
+\chapter{Section 2}
+\section{section 2}
+\subsection{subsection 2}
+
+
+
+
+
+
+
+
+
+
+\end{document}
