@@ -1,0 +1,266 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+\\
+\section{Parallelpiped}
+\textit{A parallelepiped is a 3-dimensional figure formed by six parallelograms} \\
+\textbf{Volume of a parallelepiped:} \\
+\\
+Let $\vec{u} $, $\vec{v} $, $\vec{w} \in \mathbb{R}^3$
+XXX TEXIT
+\\
+\\
+The three vectors  $\vec{u} $, $\vec{w} $ and $\vec{v} $ (assuming one doesn't lie on the plane defined by the other two.) determine a parallelpiped. \\
+\\
+The volume of a parallelpiped is given by the \textit{(area of base) ( $\perp$ height)}. If we call the perpendicular height $h$ then
+\[
+V_p = | \vec{v} \times \vec{w} | \cdot h
+.\] 
+The perpendicular height is the length of a projection of $u$ onto the direction perpendicular to the base. $\vec{v} \times \vec{w} $ is perpendicular to the base.\\
+XXX TEXIT\\
+\\
+\\
+\\
+\textbf{EX:} \textit{Find the volume of the parallelpiped determined by the vectors $\vec{u} = \langle 1,2,2  \rangle $, $\vec{v} = \langle 2,3,5  \rangle $ and $\vec{w} = \langle 3,0,1  \rangle $}\\
+\textbf{Solution:} \[
+|\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) | = \|\langle 1,2,2  \rangle \cdot \langle 3,13,-9  \rangle \| = | 3 + 26 -18| =11
+.\] 
+\textbf{Note:}  Since the volume of the parallelpidped determined by $\vec{u} $, $\vec{v} $ and $ \vec{ w} $ is equal to $|\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) |$ it should be true that 
+\[
+|\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) | = |\vec{u} \cdot \left( \vec{w} \times \vec{v}  \right) | = \|\vec{v} \cdot \left( \vec{u} \times  \vec{w}  \right) \|= \|\vec{v} \cdot \left( \vec{w} \times \vec{u}  \right) \|= \|\vec{w} \cdot \left( \vec{v} \times \vec{u}  \right) \|= \|\vec{w} \cdot \left( \vec{u} \times \vec{v}  \right) \|
+.\] 
+These properties come from the following two facts
+\begin{enumerate}[label=(\roman*)]
+  \item $\vec{v} \times \vec{w} = - \vec{w} \times  \vec{v} $
+  \item $\vec{u} \cdot  \left( \vec{v} \times  \vec{w} = -\vec{v} \cdot \left( \vec{u} \times \vec{w}  \right)  \right) $
+\end{enumerate}
+\section{Vectors and Lines in $\mathbb{R}^3$}
+A line in $\mathbb{R}^2 $ is completely determined by knowing 
+\begin{itemize}
+        \item The slope
+        \item A point on the line
+\end{itemize}
+A line in $\mathbb{R}^3 $ is completely determined by knowing 
+\begin{itemize}
+        \item A direction vector
+        \item A point on the line
+\end{itemize}
+Suppose a line $L$ in  $\mathbb{R}^3$ passes through the point $p_0$ and has the direction vector $\vec{v} $and we want to find the vector equation of $L$.\\
+XXX TEXIT\\
+\\
+$L$ passes through $p_0$ and has the same direction as $\vec{v} $. To get to any point on the line, you start at the origin, go to $p_0$ and then go any amount you like in the $\vec{v} $ direction (or $-\vec{v} $ ).\\
+\\
+Vector equation of $L$ :\\
+All vectors $\vec{OX} $, whose tips lie on the line $L$ satisfy the vector equation 
+\[
+\vec{OX} = \vec{Op_0} +t \vec{v} 
+.\] As we vary $t$ the line is traced out by the tips of the vectors $\vec{Op_0} +t \vec{v} $.\\
+\section{Parametric Equations}
+Suppose $P_0 = \left( x_0,y_0,z_0 \right) $ and $\vec{v} = \langle a,b,c  \rangle $, then the vector $\langle x,y,z  \rangle $ lies on $L$ if
+\[
+\langle x,y,z  \rangle = \langle x_0,y_0,z_0  \rangle _ t \langle a,b,c  \rangle 
+.\] i.e
+\[
+\langle x,y,z  \rangle = \langle x_0+ta, y_0+tb, z_0+tc  \rangle 
+.\] 
+$\implies$ Parametric equations of a line through $\left( x_0,y_0,z_0 \right) $ in the direction of $\vec{v} = \langle  a,b,c  \rangle $ are given by 
+\begin{align*}
+        x=x_0+ta,\\
+        y=y_0+tb\\
+        z=z_0+tc
+\end{align*}
+This may look like a lot of unknowns but, remember, $x_0$, $y_0$, $z_0$, $a$, $b$, $c$ are all known.\\
+\\
+\textbf{EX:} \textit{Find the vector equation of the line passing through $P \left( -8,1,4 \right) $ and $Q \left( 3,-2,4 \right) $}\\
+\textbf{Solution:} TEXT XXX \\
+direction vector $\vec{v} $ joining $P$ to $Q$ $= \langle 11,-3,0  \rangle $ \\
+\begin{align*}
+        \vec{r} \left( t \right) = \langle -8,1,4  \rangle + t \langle 11,-3,0  \rangle \\
+        = \langle -8 +11t, 1-3t, 4  \rangle 
+.\end{align*}
+Note we could also have described the line as
+ \begin{align*}
+        \vec{s} \left( t \right) = \langle 3,-2,4  \rangle + t \langle 11,-3,0  \rangle \\
+        = \langle 3+11t, -2-3t,4  \rangle 
+.\end{align*}
+\section{Planes in $\mathbb{R}^3$}
+A plane in $\mathbb{R}^3$ is completely determined by knowing a point that lies on that plane and a vector that is orthogonal to the plane.\\
+\\
+Suppose $P_0\left( x_0,y_0,z_0 \right) $ is a point on a plane with normal vector $\vec{n} = \langle a,b,c  \rangle $ \\
+\\
+XXX TEXIT\\
+\\
+\\
+\textbf{Question:}  \textit{How do we describe every other point $P\left( x,y,z \right) $ that lies on that plane?} \\
+\\
+The vector $\vec{P_0P} $ lies on the plane and hence $\vec{P_0P} \perp \vec{n} $ i.e. $\vec{P_0P \cdot \vec{n} } =0$ 
+\[
+\vec{P_0P} = \langle x-x_0, y-y_0, z-z_0  \rangle 
+.\] This implies that the equation of the plane is given by 
+\begin{align*}
+        \langle x-x_0,y-y_0,z-z_0  \rangle \cdot \langle a,b,c  \rangle =0\\
+        a\left( x-x_0 \right) +b\left( y-y_0 \right) +c\left( z-z_0 \right) =0\\
+        \text{i.e.  } ax+ by +cz = ax_0 + by_0 +cz_0
+.\end{align*}
+Note: The coefficients here are the components of the normal vector $\vec{n} $.\\
+\\
+\textbf{EX:}  \textit{Find the equation of the plane that passes through the point $\left( 1,-1,-1 \right) $ and is parallel to the plane $5x-y-z=6$}\\
+\\
+\textbf{Solution:} $\vec{n} = \langle  5,-1,-1  \rangle $ since the plane is parallel to $5x-y-z=6$.\\
+\begin{align*}
+        5 \left( x-1 \right) - \left( y+1 \right) - \left( z+1 \right) =0\\
+        5x-y -z -5-1-1=0\\
+        5x-y-z=7
+.\end{align*}
+The intersection of two non-parallel planes is a line. That means if we try to solve a system of two equations of the form 
+\begin{align*}
+        a_1x+b_1y+c_1z=d_1\\
+        a_2x\+b_2y+c_2z=d_2
+.\end{align*}
+where $\langle a_1,b_1,c_1  \rangle $ is not proportional to $\langle a_2,b_2,c_2  \rangle $ then the solution set can be described parametrically as 
+\begin{align*}
+        x=x_0+at\\
+        y=y_0+bt\\
+        z=z_0+ct
+.\end{align*}
+\textbf{EX:}  \textit{Find the parametric equations of the line of intersection of the two planes} 
+\begin{align*}
+        x+y+z =1 \quad \vec{n_1} = \langle 1,1,1  \rangle \\
+        x+2y+2z=1 \quad \vec{n_2} = \langle 1,2,2  \rangle 
+.\end{align*}
+\textbf{Solution:} The line $L$ lies on plane $1$  this implies the direction vector is perpendicular to $\vec{n_1} = \langle 1,1,1  \rangle $. $L$ also lies on plane $2$ which implies the direction vector is perpendicular to $\vec{n_2} = \langle 1,2,2  \rangle $.\\
+Hence $\vec{v} $ can be expressed as $\vec{n_1} \times  \vec{n_2} $ 
+\[
+\vec{v} = \langle 2-2,1-2,2-1  \rangle = \langle 0,-1,1  \rangle 
+.\] We need a point on this line. By observation we know that this line passes through the x-y plane which implies by setting $z-0$ in both plane equations and solving for $x$ and $y$ we will obtain a point on the line 
+\begin{align*}
+        x+y=1 & \mathrel{\hspace{1cm}} \to-x-y=-1\\
+        x+2y=1 \mathrel{\hspace{1cm}} x+2y=1\\
+        y=0 \implies x=1
+.\end{align*}
+$\left( 1,0,0 \right) $ lies on the line\\
+Thus the parametric equation of the line of intersection is given by
+\begin{align*}
+        x=1+0t \qquad x=1\\
+        y=0-t \qquad y=-t\\
+        z=0+t \qquad z=t
+.\end{align*}
+In this question we were trying to solve the linear system 
+\begin{align*}
+        x+y+z=1\\
+        x+2y+2z=1
+.\end{align*}   
+Here we have two linear equations with three unknowns. we next try to generalise this system of linear equations with $n$ unknowns.\\
+\\
+Note: Two planes in $\mathbb{R}^3$ could:
+\begin{itemize}
+        \item \textbf{(a)} be parallel and not intersect (e.g. have the same normal vector $\vec{n} = \langle a,b,c  \rangle $ but have a different constant for e.g $ax + by +cz =d_1$ and $ax+by+cz =d_2$
+        \item \textbf{(b)}  be parallel and intersect (this occurs when they are the same plane e.g. $x+y+z=1$ and $2x +2y +2z =2$, (notice they only differ by an overall scalar).
+        \item \textbf{(c)} intersect in a line
+\end{itemize}
+Note: Two planes can not intersect in a point (see justification later).\\
+\\
+Three planes in $\mathbb{R}^3 $ could:
+\begin{itemize}
+        \textbf{(a)} intersect in a point e.g. $xy$, $yz$ and $xz$ plane intersect at the origin $\left( 0,0,0 \right) $
+        \item \textbf{(b)} intersect in a line, e.g. $xy$ plane and the $xz$ plane intersect in the x-axis
+        \item intersect in a plane, e.g.  $xy$ plane and the $xy$ plane
+        \item (d) not intersect at all, e.g. three parallel, non-intersecting planes $x=0$,  $x=1$, $x=2$
+\end{itemize}
+\\
+Given three linear equations in $\mathbb{R}^3$ e.g
+\begin{align*}
+        x-5y+4z=-2\\
+        2x-7y+3z=1\\
+        -2x +y +8z=0\\
+.\end{align*}
+How do we find the solutions to the system? i.e. the points of intersections of the three planes?
+\section{Linear Systems Definitions}
+\begin{itemize}
+        \item A \underline{linear equation}  in $n$ variables $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$ is an equation of the form
+\[
+a_1x_1+a_2x_2+a_3x_3+\ldots+a_nx_n =b
+.\] 
+Where we have $a_1$,$a_2$, $a_3$, $\ldots$, $a_n$, $b \in \mathbb{R}$ are constants.
+\item A \underline{system of linear equations } in $n$ variables (also known as a linear system) is a collection of one, or more, linear equations involving $n$ variables $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$.\\ 
+        For example \begin{align*}
+                x_1 -5x_2 +4x_3 = -2\\
+                2x_1 -7x_2 +3x_3 =1\\
+                -2x_1+x_2+8x_3 =0
+.\end{align*}
+\item A \underline{solution}  of a linear system in $n$ variables is a list of numbers ( $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$) that satisfy every equation in the system.
+\item The \underline{solution set}  of a linear system is the set of all possible solutions of the system.
+\end{itemize}
+We will introduce a second method of solving systems of equations\\
+\newpage
+\begin{multicols}{2}
+        \textbf{Method 1:} 
+  \begin{align*}
+        x+3y=0\\
+        2x+7y =-1\\
+        \Big\downarrow\\
+        -2x-6y=0\\
+        2x+7y=-1\\
+        \implies y=-1 \\
+        \\
+        x+3y =0\\
+        x+3\left( -1 \right) =0\\
+        \implies x = 3
+.\end{align*}
+\break
+\textbf{Method 2:} 
+  \begin{align*}
+\left[
+\begin{array}{cc;{2pt/2pt}c}  % solid | then dashed ; after col-2
+  1 & 3 & 0\\
+  2 & 7 & -1\\
+\end{array}
+\right]\\
+\text{We want to remove 2x below the x. EQN 1 - 2 $\times $(EQN 2)}\\
+\text{row 1 - $2 \times $ row 2}\Big\downarrow\\
+\left[
+\begin{array}{cc;{2pt/2pt}c}  % solid | then dashed ; after col-2
+  1 & 3 & 0\\
+  0 & 7 & -1\\
+\end{array}
+\right]\\
+\text{$r_2 -3 r_1$}\Big\downarrow\\
+\left[
+\begin{array}{cc;{2pt/2pt}c}  % solid | then dashed ; after col-2
+  1 & 0 & 3\\
+  0 & 1 & -1\\
+\end{array}
+\right]
+\end{align*}
+\end{multicols}
+\\
+\\
+\textbf{Solve:} 
+\begin{align*}
+        x-5y+4z =-2\\
+        2x-7y +3z =1\\
+        -2x +y +8z =0\\
+.\end{align*}
+
+
+
+
+
+\end{document}
