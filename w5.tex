@@ -204,35 +204,37 @@ $\implies$ In total it takes $q-p-1+1-p$ neighbouring swaps to interchange $\sig
 \end{tikzpicture}\right]
 \right)
 %--- the arrows (outside the parentheses) ---------------------
-\begin{tikzpicture}[overlay,remember picture,>=Latex,very thick]
-  % a single downward shift keeps all arcs nicely below the permutation
-  \def\yshift{-0.2cm}
+ \[
+ \begin{tikzpicture}[overlay,remember picture,>=Latex,very thick]
+  \def\yshift{-0.2cm}          % vertical offset stays the same
 
-  % blue arrow   : σ(1) -> σ(p)
-  \draw[->,blue ]
-    ($(M-2-1.south) + (0,\yshift)$) .. controls +(-1.0,-1.2) and +(0.3,-1.8) ..
-    ($(M-2-3.south) + (0,\yshift)$)
-    node[midway,below=2pt] {$1$};
+  % blue : σ(p) -> σ(p+1)
+  \draw[->,blue]
+    ($(M-2-3.south)+(0,\yshift)$) to[out=-110,in=-70]
+    node[midway,below=2pt]{1}
+    ($(M-2-4.south)+(0,\yshift)$);
 
-  % teal arrow   : σ(p) -> σ(p+2)
-  \draw[->,teal ]
-    ($(M-2-3.south) + (0,\yshift)$) .. controls +(-0.3,-0.8) and +(0.3,-0.8) ..
-    ($(M-2-5.south) + (0,\yshift)$)
-    node[midway,below=2pt] {$2$};
+  % teal : σ(p+1) -> σ(p+2)
+  \draw[->,teal]
+    ($(M-2-4.south)+(0,\yshift)$) to[out=-110,in=-70]
+    node[midway,below=2pt]{2}
+    ($(M-2-5.south)+(0,\yshift)$);
 
-  % purple arrow : σ(1) -> σ(q-1)
+  % purple : σ(p) -> σ(q-1)
   \draw[->,purple]
-    ($(M-2-1.south) + (0,\yshift)$) .. controls +(0,-2.0) and +(0,-2.0) ..
-    ($(M-2-8.south) + (0,\yshift)$)
-    node[midway,below=2pt] {$q-p-1$};
+    ($(M-2-3.south)+(0,\yshift)$)
+      .. controls +(0,-2.0) and +(0,-2.0) ..
+    ($(M-2-8.south)+(0,\yshift)$)
+      node[midway,below=2pt]{$q-p-1$};
 
-  % red arrow    : σ(1) -> σ(q)
-  \draw[->,red  ]
-    ($(M-2-1.south) + (0,\yshift)$) .. controls +(0,-2.7) and +(0,-2.7) ..
-    ($(M-2-9.south) + (0,\yshift)$)
-    node[midway,below=2pt,red] {$q-p$};
+  % red : σ(p) -> σ(q)
+  \draw[->,red]
+    ($(M-2-3.south)+(0,\yshift)$)
+      .. controls +(0,-2.7) and +(0,-2.7) ..
+    ($(M-2-9.south)+(0,\yshift)$)
+      node[midway,below=2pt,red]{$q-p$};
 \end{tikzpicture}
-\] 
+ .\] 
 \newpage
 \\
 Thus far we have presented permutations in the form 
