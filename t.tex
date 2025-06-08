@@ -29,7 +29,7 @@ $ I_n =\begin{bmatrix}
     1 & 0 & 0 & \dots  & 0 \\
     0 & 1 & 0 & \dots  & 0 \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
-    0 & 0 & 0 & \dots  & 1\end{bmatrix} \text{This diagonal is known as the main diagonal of an $n\times n$ matrix.}$
+    0 & 0 & 0 & \dots  & 1\end{bmatrix} \qquad \text{This diagonal is known as the main diagonal of an $n\times n$ matrix.}$
 }
 For each $m\times n$ matrix we $A$, we have that $I_mA =A$ and $A I_n =A$
  \ex{}{
@@ -110,6 +110,7 @@ z & w\\
 1 & 0\\
 0 & 1\\
 \end{bmatrix}$
+\raggedcolumns
 \begin{multicols}{2}
 \begin{align*}
         ax+bz=1\\
@@ -117,7 +118,6 @@ z & w\\
         cx+dz=0\\
         cy+dw=1\\
 .\end{align*}
-
 \break
 \begin{align*}
         ax=1-bz \implies x= \frac{1-bz}{a}\\
@@ -129,7 +129,8 @@ z & w\\
         \implies z= \frac{-ac}{a \left( ad-bc \right) }\\
         z= \frac{-c}{ad-bc}
 .\end{align*}
-\end{multicols}
+\end{multicols}\\
+
 Hence, $x = - \frac{d }{c}\left(  - \frac{c}{ad-bc} \right) = \frac{d}{ad-bc}$\\
 Similarly it can be show that\\
 $y= - \frac{b}{ad-bc}$ and $w = \frac{a}{ad-bc}$ \\
@@ -210,8 +211,8 @@ c & d\\
                 = \begin{bmatrix}
                 3\\
                 -1\\
-                \end{bmatrix}
-                \text{ i.e. } x_1=3 \text{ } x_2=-1
+                \end{bmatrix}\\
+                \text{ i.e. } x_1=3 \quad  \text{ } x_2=-1
           .\end{align*}
           
 \end{enumerate}
@@ -228,7 +229,7 @@ A \left( A^{-1}\vec{b}  \right) = \left( A A^{-1} \vec{b}  \right) = I_n \vec{b 
 .\] 
 
 i.e. $A^{-1}\vec{b} $ is a solution to the matrix equation $A \vec{x} =\vec{b} $.\\
-\underline{Uniqueness:} Suppose $\vec{u} \in \mathbb{R}^{n}$ is also a solution to $A\vec{x} =\vec{b} $ i.e.  $A\vec{u} = \vec{b} $.\\
+\textbf{Uniqueness:} Suppose $\vec{u} \in \mathbb{R}^{n}$ is also a solution to $A\vec{x} =\vec{b} $ i.e.  $A\vec{u} = \vec{b} $.\\
 Multiplying both sides of this equation by $A^{-1}$ on the left we get     
 }
 
@@ -328,7 +329,7 @@ Note that $r_2 \leftrightarrow r_3$ was exactly the row operation performed on t
   \item The row operation performed on $I_n$ to obtain an elementary matrix  $E$ is the same as the row operation that $E$ induces on $A$ by multiplying $A$  on the left by $E$.\\
   \end{enumerate}
   \textbf{Question:}\\
-  Are row operations reversible?\\
+  \textit{Are row operations reversible?}\\
   Yes!\\
   \begin{itemize}
           \item Scaling: (non-zero scalar) 
@@ -378,7 +379,7 @@ E_1^{-1}= \begin{bmatrix}
 {
 An $n \times n$ matrix $A$ is invertible if and only if $A$ is row equivalent to the $n \times n$ identity matrix $I_n$
 }
-\pf{Proof:}{\\
+\pf{Proof}{\\
 $\implies$\\
 Suppose $A$ is invertible (we want to show that $A$ is equivalent to  $I_n $ ). Then $A\vec{x} =\vec{b}$ has a unique solution for every $\vec{b} \in \mathbb{R}^{n}$. This implies that $A$ has a pivot position in each column. Since  $A$ is a square matrix it also has a pivot in every row. The  $n$ pivots lie along the main diagonal of $A$ (the pivot positions $a_{ij}$ where $i=j$ ). Thus the reduced row echelon form of A has leading $1$'s along the diagonal and zeros above and below them i.e.  reduced row echelon form of $A$ is $I_n$. \\
 $\impliedby$ \\
