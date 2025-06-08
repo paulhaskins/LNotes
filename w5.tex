@@ -1,0 +1,735 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usepackage{enumitem}   % easiest way to customise list labels
+
+% First-level enumerate:  (1) (2) (3) ...
+\setlist[enumerate,1]{      % level 1
+  label=(\arabic*),         % put arabic number inside ( )
+  leftmargin=*,             % leave default indentation
+    font=\bfseries,           % make the whole label bold
+  labelsep=0.6em            % gap between label and text
+}
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+\section{Permutations and Permutation Matrices}
+\dfn{Permutation :}{
+A permutation is a rearrangement of numbers $1,2,3\ldots,n$ in a particular order. In general a permutation of $n$ elements can be represented by a $2 \times  n$ matrix
+\[
+\sigma = \begin{bmatrix}
+    1 & 2 & 3 & \dots  & n \\
+    \sigma\left( 1 \right)  & \sigma\left( 2 \right)  & \sigma\left( 3 \right)  & \dots  & \sigma\left( n \right)  \\
+ 
+\end{bmatrix}
+.\] 
+}
+\dfn{Inversion :}{
+In a permutation  $\sigma$ if $i < j$ and $\sigma \left( i \right) > \sigma\left( j \right) $ then the pair $\left( \sigma\left( i \right) ,\sigma\left( j \right)  \right) $ is called an inversion, i.e.  an inversion is two numbers in the second row that appear in the "wrong order"
+\[
+\text{Example: } \begin{bmatrix}
+        1 & 2 & 3 & 4\\
+        1& 3 & 4 &2\\
+\end{bmatrix}
+.\] 
+$\left( 3,2 \right) $ and $\left( 4,2  \right) $ form inversions.
+}
+\dfn{Parity and Sign of a permutation :}{
+\begin{enumerate} [label=(\alph*)]
+  \item A permutation is \underline{even} if its number of inversions is even, and \underline{odd} otherwise 
+  \item The \underline{sign}  of a permutation $\sigma$ is defined to be $\left( -1 \right) ^{\text{\# of inversions}}$ which is equal to $+1$ if $\sigma$ is even and $-1$ if $\sigma$ is odd. Sign is denoted by  $sgn\left( \sigma \right) $
+  \end{enumerate}
+}
+   \thm{}
+   {
+   If we swap two entries in a permutation of $n$ elements, $\sigma$, it turns an even permutation into an odd one and vice versa.
+   }
+   \pf{Proof}{
+   First we consider the case where we swap neighbouring entries, i.e. we swap $\sigma\left( p \right) $ and $\sigma\left( p+1 \right) $
+   }
+   \nt{Swapping neighbouring entries doesn't change the position relative to other entries an so outside of $\left( \sigma\left( p \right) ,\sigma\left( p +1 \right)  \right) $ the number of inversions remains the same.\\
+           \begin{itemize}
+                   \item If $\left( \sigma\left( p \right) ,\sigma\left( p +1 \right)  \right) $ was an inversion then $\left( \sigma\left( p+1 \right) ,\sigma\left( p  \right)  \right)$ is not
+                   \item If $\left( \sigma\left( p \right) ,\sigma\left( p +1 \right)  \right) $ was not an inversion then $\left( \sigma\left( p+1 \right) ,\sigma\left( p  \right)  \right)$ is 
+           \end{itemize}
+           Hence, swapping neighbouring entries turns an even permutation into an odd one and vice versa
+   }
+  
+Next we consider the general case of swapping two entries $\sigma\left( p \right) $ and $\sigma\left(  q \right) $ (not necessarily adjacent). We'll approach this by counting the number of neighbouring swaps necessary to swap $\sigma \left(  p  \right) $ and $ \sigma \left(  q \right) $.\\
+\[ \sigma =
+        \left[
+\begin{tikzpicture}[baseline=(M.base)]
+  \matrix[matrix of math nodes,
+          nodes in empty cells,
+          column sep=6pt,row sep=6pt] (M)
+  {
+          1 & \dots & p & p\!+\!1 & p\!+\!2 & \dots & q\!-\!2 & q\!-\!1  & q & \ldots & n\\[2pt]
+          \sigma(1) & \dots & \sigma(p) & \sigma(p\!+\!1) & \sigma(p\!+\!2) & \dots & \sigma(q\!-\!2) & \sigma(q\!-\!1)& \sigma(q)& \ldots & \sigma\left( n \right) \\
+  };
+  % curved arrow from σ(p) to σ(p+1)
+  %\draw[->,bend left] (M-2-3.south) to node[below=3pt] {$1$} (M-2-4.south);
+ \right]   \draw[->,bend right=50] (M-2-3.south) to node[below=3pt] {$1$ \text{swap}} (M-2-4.south);
+\end{tikzpicture}
+\right]
+\]
+i.e. we have:
+\[
+\sigma \left( p \right) \text{, } \sigma\left( p +1 \right) \text{, } \sigma\left( p+2 \right)  \text{,} \ldots \to 
+\sigma \left( p+1 \right) \text{, } \sigma\left( p  \right) \text{, } \sigma\left( p+2 \right) \text{, } \ldots \text{ (1 swap)}
+.\] 
+\[
+ \to 
+\sigma \left( p+1 \right) \text{, } \sigma\left( p+2  \right) \text{, } \sigma\left( p \right) \text{, } \ldots \text{ (2 swaps)}
+.\] 
+We continue this process
+
+
+
+
+
+\[
+\renewcommand{\arraystretch}{1.2}   % just a touch of extra vertical space
+\begin{array}{@{}lllllll@{}}
+        \sigma(p+1) & \sigma(p) & \sigma\left( p+2 \right) &\cdots   &    & & \\
+        \sigma(p+1) & \sigma(p+2) & \sigma\left( p \right) &\cdots   &    & & \\
+  \vdots      & \vdots      & \ddots & \vdots      & \vdots      & \vdots      & \vdots  \\[4pt]
+  \sigma(p+1)   & \sigma(p+2) & \sigma(p+3) & \cdots & \underbrace{\sigma(q-1)}_{= \sigma\left(  p+q-p-1\right) } &    \sigma\left( p \right)          & \sigma(q)
+\end{array}
+\begin{array}
+        \text{ Number of swaps}\\
+        1 \text{ swap}\\
+        2 \text{ swaps}\\
+        \vdots\\
+        \text{ q-p-1 swaps }\\
+        \\
+\end{array}
+\]
+
+\\
+\\
+\underline{Backwards} 
+\begin{comment}
+\begin{align*}
+ \sigma\left( p+1 \right)  \sigma\left( p+2 \right) \ldots \sigma\left( q-1 \right)  \sigma\left( q \right) \sigma\left( q \right) \sigma\left(  p \right) \\
+ \sigma\left( p+1 \right) \sigma\left( p+2  \right)  \ldots \sigma\left( q \right) \sigma\left( q-1 \right) \sigma\left(  p \right)\\
+ \sigma\left( p+1 \right) \sigma\left( p+2  \right) \ldots \sigma\left( q \right) \sigma\left( q-2 \right) \sigma\left( q-1 \right) \sigma\left(  p \right)\\
+ \vdots \\
+ \sigma \left( q \right) \underbrace{\sigma \left( p+1 \right)}_{\sigma\left( q- \left( q-p-1 \right)  \right) } \sigma\left( p+1 \right) \ldots \sigma \left( q-1 \right) \sigma\left( p \right) 
+.\end{align*}
+
+\end{comment}
+\[
+\renewcommand{\arraystretch}{1.2}   % just a touch of extra vertical space
+\begin{array}{@{}lllllll@{}}
+  \sigma(p+1) & \sigma(p+2) & \cdots & \sigma(q-1) & \sigma(q)   & \sigma(q)   & \sigma(p)\\
+  \sigma(p+1) & \sigma(p+2) & \cdots & \sigma(q)   & \sigma(q-1) &             & \sigma(p)\\
+  \sigma(p+1) & \sigma(p+2) & \cdots & \sigma(q)   & \sigma(q-2) & \sigma(q-1) & \sigma(p)\\[4pt]
+  \vdots      & \vdots      &  & \vdots      & \vdots      & \vdots      & \vdots  \\[4pt]
+  \sigma(q)   & \underbrace{\sigma(p+1)}_{\sigma\left( q- \left( q-p-1 \right)  \right) } & \sigma(p+2) & \cdots & \sigma(q-1) &             & \sigma(p)
+\end{array} 
+\begin{array}
+        \text{ Number of swaps}\\
+        1 \text{ swap}\\
+        2 \text{ swap}\\
+        3 \text{ swap}\\
+        \vdots\\
+        \\
+        \text{ q-p-1 swaps }\\
+        \\
+        \\
+\end{array}
+\]
+
+
+
+\begin{comment}
+\begin{multicols}{2}
+\underline{Backwards} 
+\begin{align*}
+ \sigma\left( p+1 \right)  \sigma\left( p+2 \right) \ldots \sigma\left( q-1 \right)  \sigma\left( q \right) \sigma\left( q \right) \sigma\left(  p \right) \\
+ \sigma\left( p+1 \right) \sigma\left( p+2  \right)  \ldots \sigma\left( q \right) \sigma\left( q-1 \right) \sigma\left(  p \right)\\
+ \sigma\left( p+1 \right) \sigma\left( p+2  \right) \ldots \sigma\left( q \right) \sigma\left( q-2 \right) \sigma\left( q-1 \right) \sigma\left(  p \right)\\
+ \vdots \\
+ \sigma \left( q \right) \underbrace{\sigma \left( p+1 \right)}_{\sigma\left( q- \left( q-p-1 \right)  \right) } \sigma\left( p+1 \right) \ldots \sigma \left( q-1 \right) \sigma\left( p \right) 
+.\end{align*}
+
+\break
+Number of inversions\\
+1\\
+2
+\end{multicols}
+
+
+\end{comment}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\\
+$\implies$ In total it takes $q-p-1+1-p$ neighbouring swaps to interchange $\sigma\left( p \right) $ and $\sigma\left( q \right) $. Each one of those neighbouring swaps changes the sign of the permutation. $2q-2p+1$ is an odd number of swaps $\implies$ the sign is changed i.e.  an odd permutations becomes and even and vice versa.\\
+\\
+
+\[
+%--- the permutation (inside the parentheses) -----------------
+\left[
+\begin{tikzpicture}[baseline=(M-1-1.base),remember picture]  % <- remember nodes!
+  \matrix (M) [matrix of math nodes,
+               ampersand replacement=\&,
+               column sep=1.2em,
+               row sep=1.0em] {
+        1 \& \dots \& p \& p\!+\!1 \& p\!+\!2 \& \dots \& q\!-\!2 \& q\!-\!1 \& q \& \dots \& n \\[2pt]
+        \sigma(1) \& \dots \& \sigma(p) \& \sigma(p\!+\!1) \& \sigma(p\!+\!2) \&
+        \dots \& \sigma(q\!-\!2) \& \sigma(q\!-\!1) \& \sigma(q) \& \dots \& \sigma(n) \\};
+\end{tikzpicture}\right]
+\right)
+%--- the arrows (outside the parentheses) ---------------------
+\begin{tikzpicture}[overlay,remember picture,>=Latex,very thick]
+  % a single downward shift keeps all arcs nicely below the permutation
+  \def\yshift{-0.2cm}
+
+  % blue arrow   : σ(1) -> σ(p)
+  \draw[->,blue ]
+    ($(M-2-1.south) + (0,\yshift)$) .. controls +(-1.0,-1.2) and +(0.3,-1.8) ..
+    ($(M-2-3.south) + (0,\yshift)$)
+    node[midway,below=2pt] {$1$};
+
+  % teal arrow   : σ(p) -> σ(p+2)
+  \draw[->,teal ]
+    ($(M-2-3.south) + (0,\yshift)$) .. controls +(-0.3,-0.8) and +(0.3,-0.8) ..
+    ($(M-2-5.south) + (0,\yshift)$)
+    node[midway,below=2pt] {$2$};
+
+  % purple arrow : σ(1) -> σ(q-1)
+  \draw[->,purple]
+    ($(M-2-1.south) + (0,\yshift)$) .. controls +(0,-2.0) and +(0,-2.0) ..
+    ($(M-2-8.south) + (0,\yshift)$)
+    node[midway,below=2pt] {$q-p-1$};
+
+  % red arrow    : σ(1) -> σ(q)
+  \draw[->,red  ]
+    ($(M-2-1.south) + (0,\yshift)$) .. controls +(0,-2.7) and +(0,-2.7) ..
+    ($(M-2-9.south) + (0,\yshift)$)
+    node[midway,below=2pt,red] {$q-p$};
+\end{tikzpicture}
+\] 
+\newpage
+\\
+Thus far we have presented permutations in the form 
+\[
+\sigma = \begin{bmatrix}
+    1 & 2 & 3 & \dots  & n \\
+    \sigma\left( 1 \right)  & \sigma\left( 2 \right)  & \sigma\left( 3 \right)  & \dots  & \sigma\left( n \right)  \\
+\end{bmatrix}
+.\] 
+where the top row is the unique rearrangement in which the numbers are strictly increasing. Every permutation of $n$  elements can also be presented in other ways for example 
+ \[
+\begin{bmatrix}
+1 & 2 & 3 & 4\\
+1 & 3 & 2 & 4\\
+\end{bmatrix} = \begin{bmatrix}
+1 &  3& 4 & 2\\
+1 & 2 & 4 & 3\\
+\end{bmatrix} = \begin{bmatrix}
+3 & 4 & 1 & 2\\
+2 & 4 & 1 & 3\\
+\end{bmatrix} 
+.\] 
+Different representations are obtained by rearranging the columns of $\sigma$.\\
+In the case that the numbers in the top row are not presented in increasing order when we count the inversion we count the number of pairs from both rows that appear in the wrong order.\\
+\\
+\textbf{Observation:}  A different representation of the same permutation will have the same sign as the original permutation- why?\\
+Different representations are obtained from each other by rearranging columns, and each swap of a column involves an odd number of swaps in the top row and an odd numbers of swaps in the bottom row. Each swap changes the sing of the permutation $\implies$ an even number of swaps doesn't change the sing of the permutation.\\
+\\
+\ex{}{
+Find the number of inversions in each of the representations of $\sigma $ below and check that they all have the same sign
+\[
+\sigma = \begin{bmatrix}
+1 & 2 & 3 & 4\\
+1 & 3 & 2 & 4\\
+\end{bmatrix} = \begin{bmatrix}
+1 & 3 & 4 & 2\\
+1 & 2 & 4 & 3\\
+\end{bmatrix} = \begin{bmatrix}
+3 & 4 & 1 & 2\\
+ 2& 4 & 1 & 3\\
+\end{bmatrix} 
+.\] 
+We have $\{\left( 3,2 \right) $, $\left( 4,3 \right) $ and $\{ \left( 4,1 \right) , \left( 4,3 \right) , \left( 2,1 \right)  \} $ which has one, one and three inversions respectively. Each of these are an odd number of inversions.
+}
+\ex{}{
+Find all the values of $i, j, k,l$ for which the permutation
+\[
+\begin{bmatrix}
+        1 & i & 3 & j& 5 &6\\
+        6 & 1 & 2 & l & 3 &k\\
+\end{bmatrix} 
+.\] is an odd permutation.\\
+\textbf{Solution:} \\
+Options for $i,j$ : $2,4$ \\
+Options for $l,k$ : $4,5$\\
+\begin{itemize}
+        \item If $i=2$, $j=4$, \qquad $l=4$, $k=5$
+                \[
+ \sigma_1 \;=\;
+\begin{bmatrix}
+  1 & 2 & 3 & 4 & 5 & 6 \\[2pt]
+  6 & 1 & 2 & 4 & 3 & 5
+\end{bmatrix}
+                .\] \[
+\text{inversions: }
+(6,1),\;
+(6,2),\;
+(6,3),\;
+(6,4),\;
+(6,5),\;
+(4,3)
+\]
+\[
+\text{Total of } 6 \text{ inversions}
+\;\Longrightarrow\;
+\text{even.}
+\]
+\item If $i=4$, $j=2$, \qquad $l=4$, $k=5$
+                \[
+ \sigma_2 \;=\;
+\begin{bmatrix}
+  1 & 4 & 3 & 2 & 5 & 6 \\[2pt]
+  6 & 1 & 2 & 4 & 3 & 5
+\end{bmatrix}
+                .\] To get $\sigma_2$ we swapped two entries in the top row of $\sigma_1$ ( an even permutation).\[
+\;\Longrightarrow\; \sigma_2
+\text{ is odd}
+\]
+\item If $i=2$, $j=4$, \qquad $l=5$, $k=4$
+                \[
+ \sigma_2 \;=\;
+\begin{bmatrix}
+  1 & 2 & 3 & 4 & 5 & 6 \\[2pt]
+  6 & 1 & 2 & 5 & 3 & 4
+\end{bmatrix}
+                .\] To get $\sigma_3$ we swapped two entries in the bottom row of $\sigma_1$ .\[
+\;\Longrightarrow\; \sigma_3
+\text{ is odd}
+\]
+\item If $i=4$, $j=2$, \qquad $l=5$, $k=4$
+                \[
+ \sigma_4 \;=\;
+\begin{bmatrix}
+  1 & 4 & 3 & 2 & 5 & 6 \\[2pt]
+  6 & 1 & 2 & 5 & 3 & 4
+\end{bmatrix}
+                .\] To get $\sigma_4$ we swapped two entries in the top row of $\sigma_3$ .\[
+\;\Longrightarrow\; \sigma_4
+\text{ is even}
+\]
+\end{itemize}
+}
+\section{Determinant of an $n \times n$  Matrix}
+      \dfn{ Determinant of $n \times n$ Matrix  :}{
+      Suppose $A$ is an $n \times n$  matrix with entry $a_{ij}$ in the $\left( i,j \right) $ position. We have two equivalent definitions for the determinant of  $A$.
+      \begin{itemize}
+              \item \[
+              \text{det}A = \sum\limits_{\sigma}^{} \text{sgn}\left( \sigma \right) a_{a_1 \sigma\left( 1 \right) } a_{2 \sigma\left( 2 \right) }\ldots a_{n \sigma\left( n \right) }           
+              .\] where the sum is taken over all the permutations of $n$ elements.\\
+      \item (Expansion by minors). Recall $A^{ij}$ is the  $\left( n-1 \right) \times \left( n-1 \right) $ matrix obtained from $A$ by deleting the $i$ th row and the $j$th column of  $A$.\\
+              We can define  det$A$ inductively as follows:
+               \[
+              \text{det}\left[ a \right] =a \qquad \text{ for } 1\times 1    \text{ matrices}
+              .\] \[
+              \text{det}A = \sum\limits_{i=1}^{n} \left( -1 \right) ^{i+1} a_{i1} \text{det}A^{i 1} \qquad \text{ for larger matrices}
+              .\] 
+      \end{itemize}
+      
+}       
+
+
+
+              \textbf{Formula explained in the case where $A$ is the $3\times  3$ matrix i.e.  $n=3$}\\
+              let $A = \begin{bmatrix}
+              a_{11} & a_{12} & a_{13}\\
+              a_{21} & a_{22} & a_{23}\\
+              a_{31} & a_{32} & a_{33}\\
+              \end{bmatrix}$ First lets find all permutations of $3$ elements:
+              \[
+              \sigma = \begin{bmatrix}
+              1 & 2 & 3\\
+              1 & 2 & 3\\
+              \end{bmatrix} \qquad \text{which can be expressed as:} \begin{bmatrix}
+              1 & 2 & 3\\
+              \sigma\left( 1 \right)  & \sigma\left( 2 \right)  & \sigma\left( 3 \right) \\
+              \end{bmatrix}
+              .\] 
+              where $\sigma\left( 1 \right) =1$, $\sigma\left( 2 \right) =2$ , $ \sigma\left( 3 \right) =3$ and sgn $\left(  \sigma\right) =1$.\\
+              \begin{align*}
+                      \alpha = \begin{bmatrix}
+                      1 & 2 & 3\\
+                      2 & 1 & 3\\
+                      \end{bmatrix} \qquad \text{(odd)} \implies \text{sgn}\left( \alpha \right) =-1\\
+    \beta= \begin{bmatrix}
+                      1 & 2 & 3\\
+                      3 & 2 & 1\\
+                      \end{bmatrix} \qquad \text{(odd)} \implies \text{sgn}\left( \beta\right) =-1\\
+\gamma= \begin{bmatrix}
+                      1 & 2 & 3\\
+                      1 & 3 & 2\\
+                      \end{bmatrix} \qquad \text{(even)} \implies \text{sgn}\left( \gamma\right) =-1\\
+\delta= \begin{bmatrix}
+                      1 & 2 & 3\\
+                      3 & 1 & 2\\
+                      \end{bmatrix} \qquad \text{(even)} \implies \text{sgn}\left( \delta\right) =1\\
+\epsilon= \begin{bmatrix}
+                      1 & 2 & 3\\
+                      2 & 1 & 3\\
+                      \end{bmatrix} \qquad \text{(odd)} \implies \text{sgn}\left( \epsilon\right) =1\\
+              .\end{align*}
+              \[
+                      \text{det}A = \left( 1 \right) a_{11}a_{22}a_{33} -1\left( a_{12}a_{21}a_{33} \right) -1\left( a_{13}a_{22}a_{31} \right) -1\left( a_{11}a_{23}a_{32} \right) +1\left( a_{12}a_{23}a_{31} \right) +1 \left( a_{13}a_{21}a_{32} \right) 
+              .\]
+              \textbf{Using the expansion by minors:} 
+              \[
+              A = \begin{bmatrix}
+              a_{11} & a_{12} & a_{13}\\
+              a_{21} & a_{22} & a_{23}\\
+              a_{31} & a_{32} & a_{33}\\
+              \end{bmatrix}
+              .\] 
+              \[
+              \text{det} \left[ a \right] = a   \text{for} 1\times 1 \text{ matrices}
+              .\] 
+              \[
+              \text{det} A = \sum\limits_{i=1}^{n} \left( -1 \right) ^{i+1}a_{i 1} \text{det} A ^{i 1} \text{ for larger matrices.}
+              .\] 
+              \begin{align*}
+                      \text{det} A = \left( -1 \right) ^2 a_{11} \text{det} A^{11}+ \left( -1 \right) ^3 a_{21} \text{det} A^{21} + \left( -1 \right) ^{4} a_{31} \text{det}  A ^{31}\\
+                      = a_{11} \left( a_{22} a_{33} - a_{32} a_{23} \right) - a_{21} \left( a_{12} a_{33} -a_{32} a_{13} \right) +a_{31} \left( a_{12} a_{23} - a_{22} a_{13} \right) 
+              .\end{align*}
+\section{Triangular and Diagonal Matrices and their Determinants}
+        \dfn{Main Diagonal and Upper/Lower Triangular :}{
+        The main diagonal of a square matrix consists of those elements that lie on the diagonal that lies from top left to bottom right.\\ The main diagonal consist of all entries of the form $a_{ii}$
+        }
+        \[
+\begin{tikzpicture}[>=Stealth,   % nice arrow heads
+                    every node/.style={anchor=center}]
+  %--------------------------------------------------------------
+  % 1.  The matrix itself
+  %--------------------------------------------------------------
+  \matrix (m) [matrix of math nodes,
+               nodes in empty cells,
+               row sep   = 10pt,
+               column sep= 16pt,
+               left delimiter={[},
+               right delimiter={]}] {
+      a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+      a_{21} & a_{22} & a_{23} & \cdots & a_{2n} \\
+      a_{31} & a_{32} & a_{33} & \cdots & a_{3n} \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn} \\
+  };
+
+  %--------------------------------------------------------------
+  % 2.  Green “blob” around the diagonal
+  %     (rounded‐corner polyline; adjust the offsets to taste)
+  %--------------------------------------------------------------
+  \draw[blue!70!black, very thick, rounded corners=6pt]
+        ($(m-1-1.north west) +(-9pt, 2pt)$) --
+        ($(m-1-1.north east)+( 4pt, 4pt)$) --
+        ($(m-2-2.south east)+( 4pt,4pt)$) --
+        ($(m-3-3.south east)+( 4pt,4pt)$) --
+        ($(m-5-5.south east)+( 4pt,-4pt)$) --
+        ($(m-5-5.south east)+(1pt,-7pt)$) -- cycle;
+
+  %--------------------------------------------------------------
+  % 3.  Arrow + label pointing to that diagonal
+  %--------------------------------------------------------------
+  \draw[->, blue!70!black, thick]
+        ($(m-3-3.south east)+(2.8,0)$) -- ++(1.2,0)
+        node[right, black] {main diagonal};
+\end{tikzpicture}
+\]
+
+\dfn{Upper Triangular:}{
+A square matrix is called upper triangular if the entries that lie below its main diagonal are zero i.e. $A$ is upper triangular if $a_{ij}=0$ when $i > j$ \\
+\[
+\text{\textbf{Example:} } \begin{bmatrix}
+    a_{11} & a_{12} & a_{13} & \dots  & a_{1n} \\
+    0 & a_{22} & a_{23} & \dots  & a_{2n} \\
+    0 & 0 & a_{33} & \dots  & a_{2n} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \dots  & a_{nn}\end{bmatrix}
+.\] 
+}
+\dfn{Lower Triangular :}{
+A square matrix $A$ is called lower triangular if  $a_{ij}=0$ when $j > i$. \\
+\[
+\text{\textbf{Example:} } \begin{bmatrix}
+    a_{11} & 0 & 0& \dots  & 0\\
+    a_{21} & a_{22} & 0& \dots  & 0\\
+    a_{31} & a_{32} & a_{33} & \dots  &  0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & a_{n 3} & \dots  & a_{nn}\end{bmatrix}
+.\] 
+}
+\thm{}
+{
+The determinant of a lower or upper triangular matrix is equal to the product of its diagonal entries
+}
+\pf{Proof}{
+(Induction)\
+Suppose $A$ is an upper triangular matrix.\\
+\[
+1\times 1 \text{ case: } A = \left[ a \right]  \qquad \text{ det }A =a
+.\] \[
+2\times 2 \text{ case:} \qquad A = \begin{bmatrix}
+a_{11} & a_{12}\\
+0 & a_{22}\\
+\end{bmatrix} \qquad \text{ det}A = a_{11} a_{22}
+.\] 
+Assume statement is true for a $k\times k$ upper triangular matrix. Suppose $A$ is a $\left( k+1 \right) \times  \left( k+1 \right) $ upper triangular matrix:
+\[
+A \;=\;
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \dots & a_{1,k+1} \\[3pt]
+0      & a_{22} & a_{23} & \dots & a_{2,k+1} \\[3pt]
+0      &   0    & a_{33} & \dots & a_{3,k+1} \\[3pt]
+\vdots & \vdots & \vdots & \ddots & \vdots \\[3pt]
+0      & 0      & 0      & \dots & a_{k+1,k+1}
+\end{bmatrix}
+.\] 
+\[
+\text{det}A = \left( -1 \right) ^2 a_{11} \text{ det }A^{11}+0 \qquad  A^{11} \text{ is a }k\times k \text{ upper triangular matrix }
+.\] 
+\begin{align*}
+        \implies \text{det }A^{11} = a_{22} a_{33} \ldots a_{k+1,k+1}\\
+        \implies \text{det }A = a_{11} a_{22} a_{33} \ldots a_{k+1,k+1}\\
+        \text{i.e. det }A \text{ is the product of the entries along the diagonal.} 
+.\end{align*}
+
+}
+\section{Determinant and Elementary Row Operations }
+Suppose $A$, $B$, $C$ are $n \times n$  matrices with $\left( i,j \right) $ entries $a_{ij}$, $b_{ij}$, $c_{ij}$ respectively.\\
+\begin{enumerate}[label=(\roman*)]
+  \item Suppose $a_{lj}=b_{lj}=c_{lj}$ i.e.  $A$, $B$ and $C$ have all rows except the $i$th row in common and  \[
+    i^{\text{th}} \text{ row of } A 
+= i^{\text{th}} \text{ row of } B 
+= i^{\text{th}} \text{ row of } C 
+  .\] then \[
+  \text{det} A = \text{det} B + \text{det} C
+  .\] 
+  \pf{Proof}{
+  \begin{align*}
+          \text{det} A = \sum\limits_{\sigma}^{} \text{sgn } \sigma a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots a_{i \sigma\left( i  \right) }\ldots a_{n \sigma\left( n \right) }\\
+ \text{det} A = \sum\limits_{\sigma}^{} \text{sgn } \sigma a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots \left(b_{i \sigma\left( i  \right) }+c_{i \sigma\left( i \right) }\right)\ldots a_{n \sigma\left( n \right) }\\
+ =\sum\limits_{\sigma}^{} \text{sgn } \sigma \; a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots \left(b_{i \sigma\left( i  \right) }\right)\ldots a_{n \sigma\left( n \right) }+\sum\limits_{\sigma}^{} \text{sgn } \sigma \; a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots \left(c_{i \sigma\left( i  \right) }\right)\ldots a_{n \sigma\left( n \right) }\\
+ = \sum\limits_{\sigma}^{} \text{sgn } \sigma \; b_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots \left(b_{i \sigma\left( i  \right) }\right)\ldots b_{n \sigma\left( n \right) }+\sum\limits_{\sigma}^{} \text{sgn } \sigma \; a_{1 \sigma \left( 1 \right) }c_{2 \sigma\left( 2 \right) }\ldots \left(c_{i \sigma\left( i  \right) }\right)\ldots c_{n \sigma\left( n \right) }\\
+ \text{det} A = \text{det} B + \text{det} C
+  .\end{align*}
+  }
+\item Suppose $a_{lj }= b _{lj}$ $\forall j \in \{ 1,2,\ldots , n\} $, $\forall  l \in \{ 1,2,\ldots , n\} \symbol{92}\{ i \} $ and suppose $\lambda a_{ij}= b_{ij}$ i.e. $A$ and $B$ have all rows except the  $i^{\text{th}}$ row in common and the $i^{\text{th}}$ row of $B = \lambda \left( i^{\text{th}} \text{ row of }A \right) $ then $\text{det} B = \lambda \text{det} A$.
+        \pf{Proof}{
+        \begin{align*}
+          \text{det} A = \sum\limits_{\sigma}^{} \text{sgn } \sigma b_{1 \sigma \left( 1 \right) }b_{2 \sigma\left( 2 \right) }\ldots b_{i \sigma\left( i  \right) }\ldots b_{n \sigma\left( n \right) }\\
+= \sum\limits_{\sigma}^{} \text{sgn } \sigma a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots \lambda a_{i \sigma\left( i  \right) }\ldots a_{n \sigma\left( n \right) }\\
+= \lambda \sum\limits_{\sigma}^{} \text{sgn } \sigma a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots a_{i \sigma\left( i  \right) }\ldots a_{n \sigma\left( n \right) }\\
+= \lambda \text{ det}  A
+        .\end{align*}
+        }
+  \item  Suppose $a_{lj}= b _{lj}$ $\forall j \in \{ 1,2,\ldots , n\} $, $\forall  l \in \{ 1,2,\ldots , n\} \symbol{92}\{ i,k \} $ and suppose $a_{ij}= b _{kj}$ and $a_{kj}= b _{ij}$ i.e. $A$ and $B$ have all rows except for the $i$ and $k$ rows in common and the 
+          \begin{align*}
+i^{\text{th}} \text{ row of } A = k^{\text{th}} \text{ row of } B\\
+k^{\text{th}} \text{ row of } A = i^{\text{th}} \text{ row of } B\\
+\text{then } \text{det} A = - \text{det}  B
+          .\end{align*}
+
+          \pf{Proof}{
+          \begin{align*}
+\text{det} B = \sum\limits_{\sigma}^{} \text{sgn } \sigma b_{1 \sigma \left( 1 \right) }b_{2 \sigma\left( 2 \right) }\ldots b_{i \sigma\left( i  \right) }\ldots b_{n \sigma\left( n \right) }\\
+= \sum\limits_{\sigma}^{} \text{sgn } \sigma a_{1 \sigma \left( 1 \right) }a_{2 \sigma\left( 2 \right) }\ldots b_{i \sigma\left( i  \right) }\ldots a_{n \sigma\left( n \right) }\\
+          .\end{align*}
+          \nt{
+\[
+\sigma = \begin{bmatrix}
+        1 & 2 & \dots & i  & \dots & k & \dots & n \\
+        \sigma\left( 1 \right)  & \sigma\left( 2 \right) & \dots & \sigma\left( i \right)   & \dots & \sigma\left( k \right)  & \dots & \sigma\left( n \right)  \\
+\end{bmatrix}
+.\] Swapping $i$ and $k$  in the top row gives rise to a different permutation, with a different sign.\\
+          }
+       Let   
+\begin{align*}
+        \tilde{\sigma} =\begin{bmatrix}
+        1 & 2 & \dots & i  & \dots & k & \dots & n \\
+        \sigma\left( 1 \right)  & \sigma\left( 2 \right) & \dots & \sigma\left( i \right)   & \dots & \sigma\left( k \right)  & \dots & \sigma\left( n \right)  \\
+\end{bmatrix}\\
+=\begin{bmatrix}
+        1 & 2 & \dots & i  & \dots & k & \dots & n \\
+        \tilde{\sigma}\left( 1 \right)  & \tilde{\sigma}\left( 2 \right) & \dots & \tilde{\sigma}\left( i \right)   & \dots & \tilde{\sigma}\left( k \right)  & \dots & \tilde{\sigma}\left( n \right)  \\
+\end{bmatrix}\\
+\text{sgn } \tilde{\sigma} = -1 \cdot  \text{sgn } \sigma
+.\end{align*}
+\[
+\implies \text{det} B = \sum\limits_{\tilde{\sigma}}^{} \text{sgn } \tilde{\sigma} a_{1 \tilde{\sigma} \left( 1 \right) }a_{2 \tilde{\sigma}\left( 2 \right) }\ldots a_{k \tilde{\sigma}\left( k  \right) }\ldots a_{i \tilde{\sigma}\left( i \right) }\ldots a_{n \tilde{\sigma}\left( n \right) }
+=-\text{det} A\\
+
+.\] 
+          }
+  \item Suppose $a_{lj }= b _{lj}$ $\forall j \in \{ 1,2,\ldots , n\} $, $\forall  l \in \{ 1,2,\ldots , n\} \symbol{92}\{ i \} $ 
+          \[
+          b_{ij}= a_{ij} + \lambda a _{kj}
+          .\] 
+          i.e.  $A$, $B$ have all rows except the $i^{\text{th}}$ row in common and the 
+          \[
+i^{\text{th}} \text{ row of } B 
+= i^{\text{th}} \text{ row of } A + \lambda \left(  k^{\text{th}} \text{ row of } A \right)  
+          .\] 
+          Then $\text{det} A = \text{det} B$
+          \pf{Proof}{
+                  Let $\tilde{A} $ be the matrix with entries $a_{ij}$ (same as $A$ ) for all rows except for the $i^{\text{th}}$ row, and the $i^{\text{th}}$ row of $\tilde{A} = \left[ a_{k1}, a_{k2}, \ldots , a_{kn}\right] $ 
+                  Note: $\tilde{A}$ has two equal rows, its $k^{\text{th}}$ row $=$ its $i^{\text{th}}$ row.
+\[
+\tilde{A} =
+\begin{bmatrix}
+  a_{11} & a_{12} & \cdots & a_{1n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{i1} & a_{i2} & \cdots & a_{in} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{k1} & a_{k2} & \cdots & a_{kn} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{bmatrix}
+\!
+\begin{array}{l}
+ \\[1.5ex]  % space down to the i-th row
+ \leftarrow\ \text{$i$-th row}\\[3.5ex]   % adjust spacing as needed
+ \leftarrow\ \text{$k$-th row}
+\end{array}
+\]
+
+                  Let $\tilde{C}$ be the matrix obtained from $\tilde{A}$ by multiplying the $i^{\text{th}}$ row of $\tilde{A}$ by $\lambda$  
+\[
+\tilde{C} =
+\begin{pmatrix}
+  a_{11} & a_{12} & \cdots & a_{1n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  \lambda a_{k1} & \lambda a_{k2} & \cdots & \lambda a_{kn} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{k1} & a_{k2} & \cdots & a_{kn} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{pmatrix}
+\!
+\begin{array}{l}
+ \\[1.5ex]
+ \leftarrow\; \text{$i$-th row }  \\[3.5ex]
+ \leftarrow\; \text{$k$-th row}
+\end{array}
+\]
+\begin{itemize}
+        \item The matrices $\tilde{A}$ and $\tilde{C}$ have all rows except for their $i^{\text{th}}$  rows equate to each other and $i^{\text{th}}$  row of $\tilde{C} = \lambda \left( i^{\text{th}} \text{row of } \tilde{A} \right) $.\\
+                Thus by property \textbf{(ii)} above we have that
+                \[
+                \text{det } \tilde{C} = \lambda\text{det } \tilde{A} 
+                .\] Putting all of this together  we get that 
+                \[
+                \text{det } B = \text{det } A + \lambda \text{det }  \tilde{A}
+                .\] 
+        \item The $i^{\text{th}}$  row of $\tilde{A}= k^{\text{th}}$ row of $\tilde{A}$.\\
+                If we swap these rows in $\tilde{A}$ we get $\tilde{A} $ back but in terms of determinants (using property \textbf{(iii)} ) \\
+                We get:\\
+                \begin{align*}
+                        \text{det} \tilde{A} = - \text{det} \tilde{A}\\
+                        \implies 2 \text{det} \tilde{A}=0\\
+                        \text{det} \tilde{A}=0
+                .\end{align*}
+                Hence,  $\text{det}  B = \text{det} A$\\
+                These properties enable us to relate the determinant of a matrix $A$, to the determinant of a matrix obtained from $A$ by performing a row operation on $A$.\\
+                In particular, we car relate $\text{det} A$ to the determinant of an echelon for of  $A$. Bearing in mind that an echelon form of $A$ is upper triangular, and the determinant of an upper triangular matrix is easy to find this gives us another way of calculating determinants 
+\end{itemize}
+          }
+  \end{enumerate}
+  \ex{}{
+  \textit{Find the determinant of the matrix} 
+  \begin{align*}
+          A = \begin{bmatrix}
+          3 & 4 & 2\\
+          1 & 3 & 5\\
+          2 & 1 & 1\\
+          \end{bmatrix}\\
+          \text{det} A = - \text{det} \begin{bmatrix}
+          1 & 3 & 5\\
+          3 & 4 & 2\\
+          2 & 1 & 1\\
+          \end{bmatrix}= - \text{det} \begin{bmatrix}
+          1 & 3 & 5\\
+          0 & -5 & -13\\
+          0 & -5 & -9\\
+          \end{bmatrix}= - \text{det} \begin{bmatrix}
+          1 & 3 & 5\\
+          0 & -5 & -13\\
+          0 & 0 & 4\\
+          \end{bmatrix}= \left( -1 \right) \left( 1 \right) \left( -5 \right) \left( 5 \right) =20
+  .\end{align*}
+  }
+  \ex{}{
+  \textit{Find the determinant of the matrix} \[
+  A = \begin{bmatrix}
+  1 & 2 & 7 & -1\\
+  4 & 9 & 31 & -4\\
+  -2 & 2 & 6 & -2\\
+  -3 & -11 & -35 & 2\\
+  \end{bmatrix}
+  .\] 
+  \begin{align*}
+          \text{det} A = \text{det} \begin{bmatrix}
+          1 & 2 & 7 & -1\\
+          0 & 1 & 3 & 0\\
+          0 & 6 & 20 & -4\\
+          0 & -5 & -14 & -1\\
+          \end{bmatrix}= \frac{1}{\frac{1}{2}} \text{det} \begin{bmatrix}
+          1 & 2 & 7 & -1\\
+          0 & 1 & 3 & 0\\
+          0 & 3 & 10 & -2\\
+          0 & -5 & -14 & -1\\
+          \end{bmatrix}\\
+          = 2 \text{ det} \begin{bmatrix}
+          1 & 2 & 7 & -1\\
+          0 & 1 & 3 & 0\\
+          0 & 0 & 1 & -2\\
+          0 & 0 & 1 & -1\\
+          \end{bmatrix}= 2 \text{ det}  \begin{bmatrix}
+          1 & 2 & 7 & -1\\
+          0 & 1 & 3 & 0\\
+          0 & 0 & 1 & -2\\
+          0 & 0 & 0 & 1\\
+          \end{bmatrix}\\
+          \implies \text{det} A =2
+  .\end{align*}
+  }
+  
+  
+
+ 
+
+
+
+
+\end{document}
