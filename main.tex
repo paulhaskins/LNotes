@@ -1,0 +1,43 @@
+\documentclass{report}
+
+\usepackage{tocloft}
+\usepackage{subfiles}
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+%\usepackage[tagged, highstructure]{accessibility}
+
+
+% First-level enumerate:  (1) (2) (3) ...
+\setlist[enumerate,1]{      % level 1
+  label=(\arabic*),         % put arabic number inside ( )
+  leftmargin=*,             % leave default indentation
+    font=\bfseries,           % make the whole label bold
+  labelsep=0.6em            % gap between label and text
+}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+
+%\input{w1/w1.tex}\\
+%\input{w2/w2.tex}\\
+
+%\subfile{w1/w1}
+%\hline
+%\newpage
+%\subfile{w2/w2}
+\subfile{w4/w4}
+\hline
+\newpage
+\subfile{w5/w5}
+
+
+\footnote{Any typos please contact haskinsp@tcd.ie}:
+\end{document}
