@@ -1,0 +1,908 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+\section{Linear Dependence and Independence}
+        
+     \dfn{Linearly Independent Vectors :}{
+     A set of vectors $\{v_1, v_2, \ldots, v_n\}$ is said to to be \underline{linearly independent} if the only linear comibination which is equal to the zero vector is the combination where all the coefficients are zero, i.e. if the equation
+     \[
+     c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_n \vec{ v_n} = \vec{0}
+     .\]              only has the solution $c_1 = c_2 = \ldots = c_n = 0$.\\
+     Otherwise, the vectors are said to be \underline{linearly dependent}.\\
+     }
+\dfn{Linear Dependence relation :}{
+Suppose a set of vectors $\{v_1, v_2, \ldots, v_n\} \subseteq \mathbb{R} ^{ n}$ is linearly dependent and $ c_1 \vec{ v_1} + c_2 \vec{ v_2} +\ldots c_k \vec{ v_k} = \vec{0} $ with not all of the $ c_i$ equald to zero then $ c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_k \vec{ v_k} $  is called a \underline{linear dependence relation}\\
+}
+       \ex{}{
+       \textit{Are the following sets of vectors linearly independent or dependent?}
+\\
+\begin{enumerate} [label=(\alph*)]
+  \item \[
+                  \left\{ \begin{bmatrix}
+                  1\\
+                  0\\
+                  \end{bmatrix}
+                  , \begin{bmatrix}
+                  1\\
+                  1\\
+                  \end{bmatrix}
+                   \right\} 
+  .\] 
+  \[
+  \text{ Solve}\quad c_1 \begin{bmatrix}
+  1\\
+  0\\
+  \end{bmatrix}
+  +   c_2 \begin{bmatrix}
+  1\\
+  1\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  0\\
+  0\\
+  \end{bmatrix}
+  .\] 
+  \[
+  \begin{bmatrix}
+  c_1+c_2\\
+  c_2\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  0\\
+  0\\
+  \end{bmatrix}
+   \implies c_2=0 \quad \implies c_1 +0 =0 \quad \implies c_1=0
+  .\]       Hence, the vectors are linearly independent.
+  \item \[
+		  \left\{  \begin{bmatrix}
+		  1\\
+		  4\\
+		  \end{bmatrix}
+		  , \begin{bmatrix}
+		  3\\
+		  12\\
+		  \end{bmatrix}
+		  \right\} 
+  .\] 
+       \[
+       \text{ \textbf{Note:} } 3 \begin{bmatrix}
+       1\\
+       4\\
+       \end{bmatrix}
+       - \begin{bmatrix}
+       3\\
+       12\\
+       \end{bmatrix}
+       = \begin{bmatrix}
+       0\\
+       0\\
+       \end{bmatrix}
+       .\]
+       $ \implies$ They are linearly dependent.\\
+       If you didn't see this, you could have solved the equation
+       \begin{align*}
+       	c_1 \begin{bmatrix}
+       	1\\
+       	4\\
+       	\end{bmatrix}
+       	+ c_2 \begin{bmatrix}
+       	3\\
+       	12\\
+       	\end{bmatrix}
+       	= \begin{bmatrix}
+       	0\\
+       	0\\
+       	\end{bmatrix}\\
+	\begin{bmatrix}
+	1 & 3\\
+	4 & 12\\
+	\end{bmatrix} \begin{bmatrix}
+	c_1\\
+	c_2\\
+	\end{bmatrix}
+	= \begin{bmatrix}
+	0\\
+	0\\
+	\end{bmatrix}
+       .\end{align*}
+       \[
+	       \text{ augmented}   \left[
+	       \begin{array}{cc;{2pt/2pt}c}  
+	       1 & 3 & 0\\
+	       4 & 12 & 0\\
+	       \end{array}
+	       \right]  \xrightarrow[r_2 -4r_1]{} \left[
+	       \begin{array}{cc;{2pt/2pt}c}  
+	       1 & 3 & 0\\
+	       0 & 0 & 0\\
+	       \end{array}
+	       \right]
+       .\] 
+       Free variables $ \implies$ an infinite number of solutions i.e.  there are more solutions than just $c_1 = c_2 = 0$.\\
+       $ \implies$ linearly dependent.
+  \item         \[
+		  \left\{ \begin{bmatrix}
+		  1\\
+		  1\\
+		  2\\
+		  \end{bmatrix}
+		  , \begin{bmatrix}
+		  1\\
+		  2\\
+		  4\\
+		  \end{bmatrix}  , \begin{bmatrix}
+		  3\\
+		  1\\
+		  2\\
+		  \end{bmatrix}
+		    \right\} 
+  .\] 
+  \[
+	  \text{ Solve } \quad c_1 \begin{bmatrix}
+	  1\\
+	  1\\
+	  2\\
+	  \end{bmatrix}
+	  + c_2 \begin{bmatrix}
+	  1\\
+	  2\\
+	  4\\
+	  \end{bmatrix}
+	  + c_3 \begin{bmatrix}
+	  3\\
+	  1\\
+	  2\\
+	  \end{bmatrix}
+	  = \begin{bmatrix}
+	  0\\
+	  0\\
+	  0\\
+	  \end{bmatrix}
+  .\] 
+  \[
+  \text{ Augmented matrix: } \quad \left[
+  \begin{array}{ccc;{2pt/2pt}c}  
+  1 & 1 & 3 & 0\\
+  1 & 2 & 1 & 0\\
+  2 & 4 & 2 & 0\\
+  \end{array}
+  \right]      \xrightarrow[ \text{After }]{}  \xrightarrow[ \text{row }]{}\xrightarrow[ \text{ reducing}]{} \left[
+  \begin{array}{ccc;{2pt/2pt}c}  
+  1 & 0 & 5 & 0\\
+  0 & 1 & -2 & 0\\
+  0 & 0 & 0 & 0\\
+  \end{array}
+  \right]
+  .\] 
+  There are free variables, so there are infinitely many solutions.\\
+   $ \implies$ vectors are linearly dependent.\\
+   \textbf{Solution:} \\
+   \[
+   c_1 = -5c_3, \quad c_2 = 2c_3, \quad c_3 \text{ free}
+   .\] 
+   We can use the solutions to create a linear combination that is equal to the zero vector where not all the coefficients are zero.\\
+   \[
+   c_3=1 \qquad -5 \begin{bmatrix}
+   1\\
+   1\\
+   2\\
+   \end{bmatrix}
+   +2 \begin{bmatrix}
+   1\\
+   2\\
+   4\\
+   \end{bmatrix}
+   + \begin{bmatrix}
+   3\\
+   1\\
+   2\\
+   \end{bmatrix}
+   = \begin{bmatrix}
+   0\\
+   0\\
+   0\\
+   \end{bmatrix}
+   .\]
+   \[
+   c_3=-2  \qquad  10 \begin{bmatrix}
+   1\\
+   1\\
+   2\\
+   \end{bmatrix}
+   -4 \begin{bmatrix}
+   1\\
+   2\\
+   4\\
+   \end{bmatrix}
+   -2 \begin{bmatrix}
+   3\\
+   1\\
+   2\\
+   \end{bmatrix}
+   = \begin{bmatrix}
+   0\\
+   0\\
+   0\\
+   \end{bmatrix}
+   .\] 
+  \end{enumerate}
+  }
+    \ex{}{
+        \begin{enumerate}[label=(\roman*)]
+        \item \textit{Find two linearly dependent vecotres in $ \mathbb{R} ^{2}$} 
+        \item                  Find three linearly independent vectors in $ \mathbb{R} ^{2}$.
+        \item                                      Find three linearly dependent vectors in $ \mathbb{R} ^{3}$.
+	\item Find three linearly independent vectors in $ \mathbb{R} ^{3}$.
+	\item Find two linearly independent vectors in $ \mathbb{R} ^{3}$.
+	\item Find three linearly independent vectors in $ \mathbb{R} ^{3}$.
+	\item Find four linearly dependent vectors in $ \mathbb{R} ^{3}$.\\
+	\item Find four linearly independent vectors in $ \mathbb{R} ^{4}$.
+        \end{enumerate}
+        
+        
+    }
+       \thm{}
+       {
+        For every $  m\times  n$ matrix $ B$, the following statements are equivalent:
+	\begin{enumerate}[label=(\roman*)]
+	\item The columns of $ B$ are linearly independent.
+	\item The system $ B \vec{x}= \vec{0}  $ has a unique solution, namely $ \vec{x} = \vec{0}$ (also known as the trivial solution).
+	\item                              The reduced row echelon form of $ B$ has a pivot in every column.
+	\end{enumerate}
+	      \pf{Proof:}{    \\
+	           \textbf{(i)} $ \iff$ \textbf{(ii)} by definition\\
+	           \textbf{(ii)} $ \iff$ \textbf{(iii)} proven already.\\
+	      }
+	      
+	
+       }
+\nt{
+	\begin{enumerate}[label=(\arabic*).]  % “(1).”, “(2).”, …
+  \item  If a set of vectors contains the zero vector, then it is linearly dependent, since, in any linear combination of the set that equals zero the coefficients of the zero vector can be non-zero.\\
+	  \textbf{Example:} Suppose $ \{ \vec{ v_1}, \ldots , \vec{ v_k}   \} \subseteq \mathbb{R^{}}n$  with $ \vec{ v_j} = \vec{0}  $
+   \[
+   0 \vec{ v_1} + 0 \vec{ v_2} + \ldots + 1 \vec{ v_j} + \ldots + 0 \vec{ v_k} = \vec{0} 
+   .\]        
+  \item If a set of non-zero vectors contains tow vectors that are equal to each other, or proprotional to each other, then the set is linearly dependent.\\
+	  \textbf{Example:} Suppose $ \{ \vec{ w} , \lambda \vec{w} , \vec{ v_1}, \ldots , \vec{ v_k}   \} \subseteq \mathbb{R}^{n}$, where $ \lambda \in \mathbb{R} \backslash \{ 0 \} $\\
+	  \[
+	  \left( -\lambda \right) \vec{w}+ 1 \left( \lambda \vec{ w}  \right) + 0 \vec{ v_1} + \ldots + 0 \vec{ v_k} = \vec{0} 
+	  .\]                       with not all of the coefficients equal to zero. $ \left( \lambda,1 \neq 0 \right) $\\
+  \item More generally, a set of non-zero vectors is linearly dependent if and only if one of the vectors can be written as a linear combination of the  others.\\
+	  \pf{Proof:}{
+	   $ \impliedby$  \\
+	   Suppose $ \{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \} \subset \mathbb{R^} ^{n}$  is a set of non-zero vectors, and
+	   \[
+	   \vec{ v_j} = \sum\limits_{i\neq j}^{} c_i \vec{ v_i}
+	   .\] 
+	   Note that sicne $ \vec{ v_j} \neq \vec{0}$, at least one of the coefficients $ c_i$ must be non-zero.\\
+	   Then, we can write
+	   \[
+	   \vec{0} = - \vec{ v_j} + \sum\limits_{i\neq j}^{} c_i \vec{ v_i}
+	   .\] 
+	   i.e. we have a linear combination of the vectors that equals the zero vector, where not all of the coefficients are zero.\\
+	   $ \implies$ the set is linearly dependent.\\
+	   \\
+	   \\
+	   $ \implies$ \\
+                Suppose $ \{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \} \subset \mathbb{R^} ^{n}$ is a set of non-zero vectors that is linearly dependent.\\
+		Then, there exists a linear combination of the vectors that equals the zero vector, where not all of the coefficients are zero, i.e. for $ c_1,c_2,\ldots , c_k \neq 0$ 
+		
+	 \[
+	 c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_k \vec{ v_k} = \vec{0}
+	 .\]  }
+	  
+	 At least two of the $ c_i$ must be non-zero.\\
+	 Suppose $ c_i, c_j \neq 0$ then 
+	 \begin{align*}
+	 	c_j \vec{ v_j} = \sum\limits_{i \neq j}^{} c_i \vec{ v_i} \\
+		\vec{ v_j} = \frac{1}{c_j} \sum\limits_{i \neq j}^{} c_i \vec{ v_i}\\
+	 .\end{align*}
+	 i.e.  one of the vectors can be written as a linear combination of the others.\\
+ \item If a given set of vectors is linearly independent then removing any vector from the set keeps the set linearly independent.\\
+	 \pf{Proof:}{
+	  Suppose $ \{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \} \subset \mathbb{R^} ^{n}$ is a set of linearly independent vectors.\\
+	  Without loss of generality (WLOG), suppose we remove the vector $ \vec{ v_1}$.\\
+	  Claim: The set $ \{ \vec{ v_2} ,\ldots , \vec{ v_k}  \}$ is linearly independent.\\
+	  Suppose not, for the sake of contradiction (FTSOC) then $ \exists $ scalars $ c_2, c_3,\ldots, c_k \in \mathbb{R}$, not all zero, such that
+	  \[
+	  c_2 \vec{ v_2} + c_3 \vec{ v_3} + \ldots + c_k \vec{ v_k} = \vec{0}
+	  .\] 
+	  But then $ 0 \vec{ v_1} + c_2 \vec{ v_2} + c_3 \vec{ v_3} +\ldots + c_k \vec{ v_k} = \vec{0} $  is a linear dependence relation amongst the set $ \{ \vec{ v_1} , \vec{ v_2} ,\ldots, \vec{ v_k}  \}  $ which contradicts the assumption that the set is linearly independent.\\
+
+	  
+	 }
+ \item Suppose $ \{ \vec{ v_1} , \vec{ v_2} , \ldots \vec{v_k}  \} \subseteq \mathbb{R} ^{n}$  and $ k >n$ then the set must be linearly dependent, i.e. if a set of vectors in $ \mathbb{R} ^{n}$ contains more vectors than entries in each vector the set is linearly dependent.\\
+\end{enumerate}
+}
+\section{Span}
+ \dfn{Span :}{
+	 Suppose $ \{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \} \subseteq \mathbb{R} ^{n}$, then the set of all linear combinations of the vectors in the set is called the \underline{span} of the set, denoted by $ \text{span}\left\{ \vec{ v_1},\ldots, \vec{ v_k}  \right\}$.
+	 \[
+	 \text{ i.e. } \text{span}\left\{ \vec{ v_1},\ldots, \vec{ v_k}  \right\} = \left\{ c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_k \vec{ v_k} : c_i \in \mathbb{R}  \text{ for } i=1,2,\ldots,k  \right\}
+	 .\] 
+ }
+          If span$\left\{ \vec{ v_1},\ldots, \vec{ v_k}  \right\} = \mathbb{R} ^{n}$, then the set is said to \underline{span} $ \mathbb{R} ^{n}$.\\
+\ex{}{
+\begin{lalign*}
+	\text{ span} \left\{ \begin{bmatrix}
+	1\\
+	1\\
+	\end{bmatrix}
+	, \begin{bmatrix}
+	2\\
+	2\\
+	\end{bmatrix}
+\right\} = \left\{ c_1 \begin{bmatrix}
+1\\
+1\\
+\end{bmatrix}
++ c_2 \begin{bmatrix}
+2\\
+2\\
+\end{bmatrix}
+ \right\} \bigg|_{,}^{} c_1,c_2 \in \mathbb{R}\\
+ = \left\{ c_1 \begin{bmatrix}
+ 1\\
+ 1\\
+ \end{bmatrix}
+ +2c_2 \begin{bmatrix}
+ 1\\
+ 1\\
+ \end{bmatrix}
+  \right\}\\ 
+ =\left\{ \left( c_1+2 c_2 \right)  \begin{bmatrix}
+ 1\\
+ 1\\
+ \end{bmatrix}                                      \bigg|_{,}^{} c_1,c_2 \in \mathbb{R} \right\}\\
+ =\left\{ \alpha \begin{bmatrix}
+ 1\\
+ 1\\
+ \end{bmatrix}
+ \bigg|_{,}^{} \alpha \in \mathbb{R} \right\}  \\
+ = \text{ line through the origin in $ \mathbb{R}^2$ that passes through the point $ \left( 1,1 \right) $ .}
+\end{lalign*}
+
+\begin{tikzpicture}[>=stealth, thick]
+  %--- coordinate axes -------------------------------------------------
+  \draw[->,blue,line width=1.2pt]     (-0.5,0) -- (3.2,0);   % x-axis
+  \draw[->,blue,line width=1.2pt]     (0,-0.5) -- (0,3.2);   % y-axis
+  
+  %--- main vector (2,2) ----------------------------------------------
+  \draw[->,magenta,line width=1pt]    (0,0) -- (2,2);
+  \node[magenta,right=2pt] at (2,2)   {$\displaystyle\begin{bmatrix}2\\[-2pt]2\end{bmatrix}$};
+  
+  %--- helper arrow and label {1} -------------------------------------
+
+  \draw[->,teal,line width=1pt]    (0,0) -- (1,1);
+  \node[teal,right=2pt] at (1,1)   {$\displaystyle\begin{bmatrix}1\\[-2pt]1\end{bmatrix}$};
+\end{tikzpicture}
+
+\begin{lalign*}
+	\text{ span}  \left\{ \begin{bmatrix}
+	1\\
+	0\\
+	\end{bmatrix}
+	, \begin{bmatrix}
+	0\\
+	1\\
+	\end{bmatrix}
+\right\}  = \left\{ c_1 \begin{bmatrix}
+1\\
+0\\
+\end{bmatrix}                                          +c_2 \begin{bmatrix}
+0\\
+1\\
+\end{bmatrix}
+\bigg|_{,}^{} c_1,c_2 \in \mathbb{R} \right\}  \\
+ = \left\{ \begin{bmatrix}
+ c_1\\
+ c_2\\
+ \end{bmatrix}
+ | c_1,c_2 \in \mathbb{R} \right\}  \\
+ =\mathbb{R} ^2
+\end{lalign*}
+ \\
+ \vspace{1cm}
+ \begin{tikzpicture}[>=stealth, thick]
+  %--- coordinate axes -------------------------------------------------
+  \draw[->,blue,line width=1.2pt]     (-0.5,0) -- (3.2,0);   % x-axis
+  \draw[->,blue,line width=1.2pt]     (0,-0.5) -- (0,3.2);   % y-axis
+  
+  %--- main vector (2,2) ----------------------------------------------
+  \draw[->,magenta,line width=1pt]    (0,0) -- (1,0);
+  \node[magenta,right=2pt] at (1,-0.5)   {$\displaystyle\begin{bmatrix}1\\[-2pt]0\end{bmatrix}$};
+  
+  %--- helper arrow and label {1} -------------------------------------
+
+  \draw[->,teal,line width=1pt]    (0,0) -- (0,1);
+  \node[teal,right=2pt] at (0,1)   {$\displaystyle\begin{bmatrix}0\\[-2pt]1\end{bmatrix}$};
+\end{tikzpicture}
+ 
+
+
+
+
+\begin{lalign*}
+.\end{lalign*}
+
+
+
+\begin{lalign*}
+	\text{ span }  \left\{ \begin{bmatrix}
+	1\\
+	0\\
+	\end{bmatrix}
+	\begin{bmatrix}
+	1\\
+	1\\
+	\end{bmatrix}
+\right\} =  \left\{ c_1 \begin{bmatrix}
+1\\
+0\\
+\end{bmatrix}
++c_2 \begin{bmatrix}
+1\\
+1\\
+\end{bmatrix}
+\bigg|_{,}^{}  c_1 ,c_2 \in \mathbb{R} \right\}  \\
+= \left\{  \begin{bmatrix}
+1 & 1\\
+0 & 1\\
+\end{bmatrix} \begin{bmatrix}
+c_1\\
+c_2\\
+\end{bmatrix}
+ \bigg|_{,}^{} c_1, c_2 \in \mathbb{R} \right\}  \\
+ = \left\{  \begin{bmatrix}
+ y_1\\
+ y_2\\
+ \end{bmatrix}  \bigg|_{,}^{} \begin{bmatrix}
+ y_1\\
+ y_2\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 1 & 1\\
+ 0 & 1\\
+ \end{bmatrix} \begin{bmatrix}
+ c_1\\
+ c_2\\
+ \end{bmatrix}
+ , c_1,c_2 \in \mathbb{R} \right\}  \\
+.\end{lalign*}
+\textbf{Note:} Since there is a pivot in every row of $  \begin{bmatrix}
+1 & 1\\
+1 & 0\\
+\end{bmatrix}$ this means that the system $ \left[
+\begin{array}{cc;{2pt/2pt}c}  
+1 & 1 & y_1\\
+0 & 1 & y_2\\
+\end{array}
+\right] $ will be consistent for all $ y_1,y_2 \in \mathbb{R}$.\\
+\[
+ \text{ i.e. } \text{span} \left\{ \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ , \begin{bmatrix}
+ 1\\
+ 1\\
+ \end{bmatrix}
+\right\} = \left\{ \begin{bmatrix}
+y_1\\
+y_2\\
+\end{bmatrix} \bigg|_{}^{}  y_1,y_2 \in \mathbb{R} \right\} = \mathbb{R} ^2
+ \right\}
+.\] 
+}
+ \qs{}{
+ \begin{enumerate} [label=(\alph*)]
+ \item \textit{ Can you find two vectors in $ \mathbb{R} ^{2}$ that span $ \mathbb{R} ^{2}$? (different rom the last example)}
+ \item \textit{ Can you find three vectors in $ \mathbb{R} ^{2}$ that span $ \mathbb{R} ^{2}$? }
+ \item  \textit{ Can you find  one vector in $ \mathbb{R} ^{2}$ that spans $ \mathbb{R} ^{2}$?}
+ \item \textit{ Can you find three vectors in $ \mathbb{R} ^{3}$ that span $ \mathbb{R} ^{3}$?}
+ \item \textit{ Can you find four vectors in $ \mathbb{R} ^{3}$ that span $ \mathbb{R} ^{3}$?}
+ \item \textit{ Can you find two vectors in $ \mathbb{R} ^{3}$ that span $ \mathbb{R} ^{3}$?}
+ \item  \textit{Can you find two vectors in $ \mathbb{R} ^{3}$ that span $ \mathbb{R} ^{3}$?}
+ \end{enumerate}
+ }
+ \thm{}
+ {
+ For every $ m\times n$ matrix $ B$, the following statements are equivalent:
+ \begin{enumerate} [label=(\alph*)]
+ \item The columns of $ B$ span $ \mathbb{R} ^{m}$.
+ \item The system $ B \vec{x} = \vec{b}$ has a solution for every $ \vec{b} \in \mathbb{R} ^{m}$.
+ \item The reduced row echelon form of $ B$ has a pivot in every row.
+ \end{enumerate}
+}
+   \nt{ 
+   \begin{enumerate} [label=(\alph*)]
+   \item If a given set of vectors spans $ \mathbb{R} ^{n}$, then adding extra vectors to the set does not change this prorerty (taking vectors out could change this property).\\
+	   \[
+		   \text{ \textbf{Ex:}  }  \left\{ \begin{bmatrix}
+		   1\\
+		   0\\
+		   \end{bmatrix}
+		    \begin{bmatrix}
+		    0\\
+		    1\\
+		    \end{bmatrix}
+		     \right\} \text{ spans } \mathbb{R} ^{2} 
+	   .\] 
+	   \[
+		   \left\{ \begin{bmatrix}
+		   1\\
+		   0\\
+		   \end{bmatrix}
+		   , \begin{bmatrix}
+		   0\\
+		   1\\
+		   \end{bmatrix}
+		   , \begin{bmatrix}
+		   2\\
+		   5\\
+		   \end{bmatrix}
+		   , \begin{bmatrix}
+		   3\\
+		   7\\
+		   \end{bmatrix}
+		    \right\}  \text{ spans } \mathbb{R} ^{2}
+	   .\] 
+	   \[
+		   \text{ but} \left\{ \begin{bmatrix}
+		   1\\
+		   0\\
+		   \end{bmatrix}
+		    \right\}  \text{ does not span } \mathbb{R} ^{2}
+	   .\] 
+   \item   If $ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k} \in \mathbb{R} ^{m}$ span $ \mathbb{R} ^{m}$ then $ k \ge m$ since there must be a pivto in every row of the matrix whose columns are $ \vec{ v_1} ,\vec{ v_2} ,\ldots, \vec{ v_k} $ (and since there are $ m$ rows, there must at least $ m$ columns in the matrix in order to accomodate a pivot in each row).\\
+   \end{enumerate}
+   
+   
+   }
+ \dfn{A Basis :}{
+ A \underline{basis} of $ \mathbb{R} ^{ n}$ is a set of linearly independent which span $ \mathbb{R} ^{n}$.\\
+ }
+ \ex{Basis of $ \mathbb{R} ^{2}$}{
+    \begin{enumerate} [label=(\alph*)]
+    \item  \[
+		    \left\{ \begin{bmatrix}
+		    1\\
+		    0\\
+		    \end{bmatrix}
+		    , \begin{bmatrix}
+		    0\\
+		    1\\
+		    \end{bmatrix}
+		     \right\} 
+    .\] 
+    \item       \[
+		    \left\{ \begin{bmatrix}
+		    1\\
+		    0\\
+		    \end{bmatrix}
+		    , \begin{bmatrix}
+		    1\\
+		    1\\
+		    \end{bmatrix}
+		     \right\}  
+    .\] 
+    \[
+    \text{ \textit{Why?} The matrix  } B = \begin{bmatrix}
+    1 & 1\\
+    0 & 1\\
+    \end{bmatrix} \text{ has a pivot in every row and column.}\\
+    .\]      \[
+\implies \text{ The set is linearly independent and spans } \mathbb{R} ^{2}
+    .\] 
+    \item 
+    \end{enumerate}
+
+}
+           \ex{Basis of $ \mathbb{R} ^{3}$}{
+                                          \begin{enumerate} [label=(\alph*)]
+                                          \item \[
+							  \left\{ \begin{bmatrix}
+							  1\\
+							  0\\
+							  0\\
+							  \end{bmatrix}
+							  , \begin{bmatrix}
+							  0\\
+							  1\\
+							  0\\
+							  \end{bmatrix}
+							  , \begin{bmatrix}
+							  0\\
+							  0\\
+							  1\\
+							  \end{bmatrix}
+							   \right\} 
+                                          .\] 
+                                          \item  \[
+							  \left\{ \begin{bmatrix}
+							  1\\
+							  0\\
+							  0\\
+							  \end{bmatrix}
+							  , \begin{bmatrix}
+							  3\\
+							  4\\
+							  0\\
+							  \end{bmatrix}
+					, \begin{bmatrix}
+					5\\
+					7\\
+					-9\\
+					\end{bmatrix}
+							   \right\} 
+                                          .\] 
+					  \textit{Why?} Same reasoning as in the previous example.\\
+                                          \end{enumerate}
+                                          
+                                          
+           }
+\ex{\textit{Which of the following sets form a basis for $ \mathbb{R} ^{4}$} }{
+                     \begin{enumerate}[label=(\roman*)]
+                     \item \[
+				     \left\{  \begin{bmatrix}
+				     1\\
+				     0\\
+				     0\\
+				     0\\
+				     \end{bmatrix}
+				     , \begin{bmatrix}
+				     2\\
+				     3\\
+				     0\\
+				     0\\
+				     \end{bmatrix}
+				     , \begin{bmatrix}
+				     4\\
+				     5\\
+				     6\\
+				     0\\
+				     \end{bmatrix}
+				     \right\} 
+                     .\] 
+                     \item            \[
+				     \left\{ \begin{bmatrix}
+				     0\\
+				     2\\
+				     5\\
+				     0\\
+				     \end{bmatrix}, \begin{bmatrix}
+				     8\\
+				     -10\\
+				     0\\
+				     0\\
+				     \end{bmatrix}
+				     , \begin{bmatrix}
+				     1\\
+				     3\\
+				     -4\\
+				     -8\\
+				     \end{bmatrix} , \begin{bmatrix}
+				     -4\\
+				     0\\
+				     0\\
+				     0\\
+				     \end{bmatrix}
+				      \right\}  
+                     .\] 
+                     \item 
+			     \[
+				     \left\{ \begin{bmatrix}
+				     1\\
+				     -1\\
+				     1\\
+				     -1\\
+				     \end{bmatrix}
+				     , \begin{bmatrix}
+				     -2\\
+				     1\\
+				     -3\\
+				     1\\
+				     \end{bmatrix} , \begin{bmatrix}
+				     4\\
+				     2\\
+				     5\\
+				     2\\
+				     \end{bmatrix}
+				     , \begin{bmatrix}
+				     -10\\
+				     8\\
+				     10\\
+				     8\\
+				     \end{bmatrix}
+				     , \begin{bmatrix}
+				     7\\
+				     -3\\
+				     -7\\
+				     -3\\
+				     \end{bmatrix}
+				      \right\} 
+			     .\] 
+                     \end{enumerate}
+                     
+                     
+}
+  
+\thm{}
+{
+Every basis of $ \mathbb{R} ^{n}$ has exactly $ n$  elements.\\
+}
+\pf{Proof:}{
+ Suppose the set $ \{ \vec{ v_1} , \vec{ v_2} ,\ldots, \vec{ v_k}  \} \subseteq \mathbb{R} ^{n}$  spans $ \mathbb{R} ^{n}$ and is linearly independent.\\
+ Since it spans $ \mathbb{R} ^{n}$ $ k \ge n$ \\
+ Since it is linearly independent, $ k \le n$\\
+ $ \implies n=k$
+}
+\dfn{Dimension  :}{
+        $ n$ is called the \underline{dimension} of $ \mathbb{R} ^{n}$, denoted by $ \dim \mathbb{R} ^{n}$, and is equal to the number of elements in any basis of $ \mathbb{R} ^{n}$.\\
+}
+ \thm{}
+ {
+ The following statements are equivalent for every $ m\times n$ matrix $ B$:
+ \begin{enumerate}[label=(\arabic*).]  
+ \item The columns of $ B$ span $ \mathbb{R^} ^{n}$.
+ \item   The columns of $ B$ are linearly independent.
+ \item The columns of $ B$ form a basis for $ \mathbb{R} ^{n}$.
+ \item The matrix $ B$ is invertible.
+ \end{enumerate}
+ 
+ }
+  \\
+  $ (1) \iff (2)$ : The columns of $ B$ span $ \mathbb{R} ^{n}$ if and only if there is a pivot in eevery row of $ B$ $ \iff$ $ B$ has $ n$ pivots, and so there is a pivot in every column of $ B$ i.e. the columns of $ B$ are linearly independent.\\
+  \\
+  $ (1)\iff (2) \iff (3)$ \\
+   $ (1) \iff (4)$ An  $n \times n$ matix $ B$ has n pivot entries if and only if it is invertible.\\
+\nt{
+         \begin{enumerate}[label=(\arabic*).]  
+         \item A set of vectors that span $ \mathbb{R} ^{n}$ can be reduced to a basis.
+         \item    A set of vectors that are linearly independent can be extended to a basis.
+         \end{enumerate}
+}
+
+\section{Subspaces of $ \mathbb{R} ^{n}$}
+	\dfn{Subspace of $ \mathbb{R} ^{n}$ :}{
+	                                         A non-empty subset $ U$ of $ \mathbb{R} ^{n}$ is called a \underline{subspace} of $ \mathbb{R} ^{n}$ if it is closed under addition and scalar multiplication, i.e. 
+						 \begin{enumerate}[label=(\roman*)]
+						 \item \[
+						 \vec{ v} \text{ ,} \vec{ w}  \in U \text{ implies } \vec{ v} + \vec{ w} \in U 
+						 .\] 
+						 \item \[
+						 \vec{ v} \in U , \lambda \in R \text{ implies } \lambda \vec{ v} \in U
+						 .\] 
+						 \end{enumerate}
+	These two conditions  imply that every linear combination of vectors in $ U$ is also in $ U$.\\
+						 
+	}
+     \nt{
+              By definition, $ U$ is non-empty, so $ \exists $ some vector $ \vec{ v} \in U$. Since $ 0 \in R$        and $ 0 \vec{ v} = \vec{ 0} $ $ \implies$ $ \vec{ 0 \in U} $ for all subspaces of $ \mathbb{R} ^{n}$
+
+     }
+  In summary, to check if a subset $ U$ of $ \mathbb{R} ^{n}$ is a subspace, we need to check the following three conditions:
+  \begin{enumerate}[label=(\roman*)]
+  \item $ U$ is closed under addition
+  \item                              $ U$ is closed under scalar multiplication.
+  \item                    $ U$ is non-empty, (the easiest way to check this is to see if $ \vec{0} \in U$).
+  \end{enumerate}
+  
+      \nt{
+               $ \mathbb{R} ^{n}$ is a subspace  of $ \mathbb{R} ^{n}$ 
+\begin{enumerate}[label=(\arabic*).]  
+\item If $ \vec{ x} $, $ \vec{ y} \in \mathbb{R} ^{n}$ then $ \vec{ x} +\vec{ y} \in \mathbb{R} ^{n}$ by definition of vector addition.
+\item                    If $ \lambda \in \mathbb{R}$, $ \vec{  x} \in \mathbb{R} ^{n}$ then $ \lambda \vec{ x} \in \mathbb{R} ^{n}$ by definition of scalar multiplication.
+	\item $ \vec{ 0} \in \mathbb{R} ^{n}$
+\end{enumerate}
+      }
+ 
+      \ex{Trivial Subspace}{
+	\begin{enumerate}[label=(\arabic*).]  
+	\item $ \vec{ 0} + \vec{ 0} = \vec{ 0}  \implies $  closed under addition.
+	\item                      $ \lambda \vec{ 0} = \vec{ 0} $  $ \forall \lambda \in \mathbb{R}$ $ \implies$ closed under scalar multiplication.
+		\item $ \vec{ 0} \in U$ $ \implies$ non-empty.
+	\end{enumerate}
+	
+      
+      }
+      
+     \ex{}{
+	     Let $ U = \left\{ c \begin{bmatrix}
+	     1\\
+	     1\\
+	     \end{bmatrix}
+\bigg|_{}^{} c \in \mathbb{R} \right\} = \left\{ \begin{bmatrix}
+c\\
+c\\
+\end{bmatrix}
+\bigg|_{}^{} c \in \mathbb{R} \right\}  $\\
+\textit{Is $ U$ a subspace of $ \mathbb{R} ^{2}$?}\\
+     }                                              \\
+     $ U$ is a subspace of $ \mathbb{R} ^{2}$ \\
+     \begin{enumerate}[label=(\roman*)]
+     \item \textit{Closed under addition:}         \\
+	     Let $ \vec{ v}$ , $ \vec{  w} \in U$, $ \vec{ v} = \begin{bmatrix}
+	     c\\
+	     c\\
+	     \end{bmatrix}   
+	     $               , $ \vec{ w} = \begin{bmatrix}
+	     d  \\
+	     d\\
+	     \end{bmatrix}
+	     $ $ c$, $ d \in \mathbb{R}$ 
+	                  \[
+	                  \vec{ v} + \vec{ w} = \begin{bmatrix}
+	                  c\\
+	                  c\\
+	                  \end{bmatrix}
+	                  + \begin{bmatrix}
+	                  d \\
+			  d \\
+	                  \end{bmatrix}
+	                      = \begin{bmatrix}
+	                      c+d  \\
+	                     c+d\\
+	                      \end{bmatrix}          = \left( c+d  \right) \begin{bmatrix}
+	                      1\\
+	                      1\\
+	                      \end{bmatrix}
+	                      \in U
+	                  .\]   Since $ \vec{ v} + \vec{ w} \in U \implies U$ is closde under addition
+     \item    \textit{Closed under scalar multiplication?} Let $ \vec{  v} \in U$ , $ \vec{ v} = \begin{bmatrix}
+     c\\
+     c\\
+     \end{bmatrix}
+     $, $ c \in \mathbb{R}$ and let $ \lambda \in \mathbb{R}$
+     \[
+     \lambda \vec{ v} = \lambda \begin{bmatrix}
+     c\\
+     c\\
+     \end{bmatrix}
+     = \begin{bmatrix}
+     \lambda c\\
+     \lambda c\\
+     \end{bmatrix}
+     = \lambda c  \begin{bmatrix}
+     1\\
+     1\\
+     \end{bmatrix}
+     \in U
+     .\]           Since $ \lambda \vec{ v} \in U \implies U$ is closde under scalar multiplicaton
+     \item              Letting $ c=0$ we see that $ \begin{bmatrix}
+     0\\
+     0\\
+     \end{bmatrix}
+     \in U$. $ \implies U$ is a  subspace of $ \mathbb{R} ^{2}$
+     	
+     	
+     \end{enumerate}
+     
+     
+     	
+     
+                
+  
+       
+     
+                                          
+  
+\end{document} 
