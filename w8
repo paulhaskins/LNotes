@@ -1,0 +1,1154 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+ 
+\ex{Any line through the origin in $ \mathbb{R} ^2$ is a subspace  of $ \mathbb{R} ^2$
+	}{
+         \textbf{Geometrically:} Adding two vectors that lie on the same line result in a vector that lines on the line. Multiplying a vecotor on the line by a scalar results in another vector that lies on the line. 
+
+
+                 \begin{tikzpicture}[>=stealth, thick]
+
+  %--- coordinate axes -------------------------------------------------
+  \draw[->,line width=1.3pt,blue!60!black] (-0.3,0) -- (4,0);   % x-axis
+  \draw[->,line width=1.3pt,blue!60!black] (0,-0.3) -- (0,4);   % y-axis
+
+  %--- line through the origin ----------------------------------------
+  % left half with an arrow head (shows the “direction” of v)
+  \draw[->,teal!80!black,line width=1pt] (0,0) -- (-3,1.6);
+  % right half, same line but no arrow head
+  \draw[teal!80!black,line width=1pt] (0,0) -- (3,-1.6);
+
+  %--- label v ---------------------------------------------------------
+  \node[blue!70!black,below] at (-1.7,1.0) {$\mathbf v$};
+
+\end{tikzpicture}
+        XXX FIX SO ARROW IS BLUE
+
+
+
+
+
+
+
+
+
+
+
+	 \pf{Proof:}{
+	  Fix $ \vec{ v} \in \mathbb{R} ^2$, suppose $ U$ is the set of vectors in $ \mathbb{R} ^2$ whose tips lie on the line through the orign tthat contains $ \vec{  v} \in \mathbb{R} ^2$ 
+	  \[
+		  \text{ie} U = \text{ span } \left\{ \vec{ v}  \right\}  = \left\{ c \vec{ v} |c \in \mathbb{R} \right\} 
+	  .\] 
+	 }
+	 \begin{enumerate}[label=(\roman*)]
+	 \item \textit{closed under addition?}\\
+		 Let $ c \vec{ v} $, $ d \vec{ v} \in U$ $ c$, $ d \in \mathbb{R} $.\\
+		 \[
+		 c \vec{ v} + d \vec{ v} = \left( c+d  \right)  \vec{ v } \in U
+		 .\] 
+		 $ \implies U$  is closed under addition
+	 \item   \textit{Scalar multiplication?}\\
+		 Let $ c \vec{ v } \in U$ and $ \lambda \in \mathbb{R}$ 
+\left[
+	    \begin{array}{ccccc;{2pt/2pt}c}
+	      &   &   &   &   & \
+	      &   &   &  &  & \
+	     &  &  &  &  & \
+	    \end{array}
+	    \right]		     \[
+		     \lambda \left( c \vec{ v}  \right) = \left( \lambda c  \right) \vec{ v}  \in U 
+		     .\] 
+		     $ \implies U $ is closed under scalar mulitplication.
+	 \item  \textit{Zero vector?}\\
+		 $ 0 \vec{ v} = \vec{ 0} \in U$ \\
+		 $ \implies U$ contains the zero vector
+	 \end{enumerate}
+Hence, $ U$ is a subspace of $ \mathbb{R} ^2$
+	 
+}
+
+ \nt{
+          Whileas, a line that doesn't pass through the origin in $ \mathbb{R} ^2$ is not a subspace of $ \mathbb{R} ^3$. \textit{Why?}  There are many reasons, but only one is sufficient to show that it's not a subspace
+
+
+
+
+
+
+
+
+
+
+
+          \begin{tikzpicture}[>=stealth,thick,scale=.9]
+
+  %------------------------------------------------------------------
+  % 1. coordinate axes
+  %------------------------------------------------------------------
+  \draw[->,blue!60!black,line width=1.3pt] (-5,0) -- ( 6,0); % x–axis
+  \draw[->,blue!60!black,line width=1.3pt] ( 0,-3) -- ( 0,6); % y–axis
+
+  %------------------------------------------------------------------
+  % 2. the line  L :  y = 0.5 x
+  %------------------------------------------------------------------
+  \draw[blue,line width=1.2pt] (-5,-2.5) -- (6,3);
+  \node[blue] at (5.6,3.3) {$L$};
+
+  %------------------------------------------------------------------
+  % 3. define the vectors’ endpoints
+  %------------------------------------------------------------------
+  \coordinate (O)      at (0,0);            % origin
+  \coordinate (v)      at (3,2);            %  \mathbf v
+  \coordinate (w)      at (-2,1);           %  \mathbf w
+  \coordinate (twov)   at ($(v)+(v)$);      % 2\mathbf v
+  \coordinate (vplusw) at ($(v)+(w)$);      % \mathbf v+\mathbf w
+
+  %------------------------------------------------------------------
+  % 4. draw  \mathbf v  and  \mathbf w  (green/teal)
+  %------------------------------------------------------------------
+  \draw[->,teal!80!black,line width=1pt] (O) -- (v);
+  \node[teal!80!black,above right] at ($(O)!0.7!(v)$) {$\mathbf v$};
+
+  \draw[->,teal!80!black,line width=1pt] (O) -- (w);
+  \node[teal!80!black,below left]  at ($(O)!0.6!(w)$) {$\mathbf w$};
+
+  %------------------------------------------------------------------
+  % 5. draw  \mathbf v+\mathbf w  (violet)  and  2\mathbf v  (magenta)
+  %------------------------------------------------------------------
+  \draw[->,violet,line width=1pt] (O) -- (vplusw);
+  \node[violet,above right] at ($(O)!0.65!(vplusw)$) {$\mathbf v+\mathbf w$};
+
+  \draw[->,magenta,line width=1pt] (O) -- (twov);
+  \node[magenta,above]     at ($(O)!0.75!(twov)$) {$2\mathbf v$};
+
+  %------------------------------------------------------------------
+  % 6. dashed sides of the parallelogram used for the sum
+  %------------------------------------------------------------------
+  \draw[violet,dashed] (v) -- (vplusw);
+  \draw[violet,dashed] (w) -- (vplusw);
+
+\end{tikzpicture}
+
+It doesn't contain the zero vector.\\
+\\
+\\
+\textbf{Not closed under addition:}\\
+If $ \vec{ v} $, $ \vec{ w} $ lie on the line, $ \vec{ v} + \vec{ w} $ doesn't necessarily lie on the line.\\
+
+          	}
+\ex{}{
+Let $ \vec{ u}  = \left\{ \begin{bmatrix}
+1\\
+1\\
+\end{bmatrix}
+t + \begin{bmatrix}
+0\\
+1\\
+\end{bmatrix}        \bigg|_{}^{} t \in \mathbb{R}
+ \right\}$
+ (  $ u$ is the line through $ \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ $ with the direction vector $ \begin{bmatrix}
+ 1\\
+ 1\\
+ \end{bmatrix}
+ $)
+ 
+    \begin{tikzpicture}[>=stealth,thick,scale=1.1]
+\left[
+	          \begin{array}{ccccc;{2pt/2pt}c}
+	            &   &   &   &   & \
+	            &   &   &  &  & \
+	           &  &  &  &  & \
+	          \end{array}
+	          \right]
+  %--------------------------------------------------------------------
+  % 1. coordinate axes
+  %--------------------------------------------------------------------
+  \draw[->,blue!60!black,line width=1.3pt] (-3.5,0) -- ( 3.5,0); % x-axis
+  \draw[->,blue!60!black,line width=1.3pt] ( 0,-3.5) -- ( 0,3.5); % y-axis
+
+  %--------------------------------------------------------------------
+  % 2. tick marks and numeric labels
+  %--------------------------------------------------------------------
+  % x-axis ticks at −2, −1, 1, 2
+  \foreach \x/\lbl in {-2/-2,-1/-1,1/1,2/2}{
+    \draw[blue!60!black] (\x,0.08) -- (\x,-0.08);
+    \node[blue!60!black,below] at (\x,-0.1) {\scriptsize \lbl};
+  }
+
+  % y-axis ticks at −3, 1, 2
+  \foreach \y/\lbl in {-3/-3,1/1,2/2}{
+    \draw[blue!60!black] (0.08,\y) -- (-0.08,\y);
+    \node[blue!60!black,left] at (-0.12,\y) {\scriptsize \lbl};
+  }
+
+  %--------------------------------------------------------------------
+  % 3. the line  u :  y = x + 1
+  %--------------------------------------------------------------------
+  \draw[teal!80!black,line width=1pt] (-3,-2) -- (3,4);
+  \node[teal!80!black,above right] at (3,4) {$\mathbf u$};
+
+\end{tikzpicture}
+      \[
+      \begin{bmatrix}
+      0\\
+      0\\
+      \end{bmatrix}
+      \notin U \qquad \begin{bmatrix}
+      0\\
+      1\\
+      \end{bmatrix}
+      , \begin{bmatrix}
+      -1\\
+      0\\
+      \end{bmatrix}
+      \in U
+      .\] 
+      \[
+      \text{but } \begin{bmatrix}
+      0\\
+      1\\
+      \end{bmatrix}
+      + \begin{bmatrix}
+      -1\\
+      0\\
+      \end{bmatrix}
+      = \begin{bmatrix}
+      -1\\
+      1\\
+      \end{bmatrix}
+      \\not\in  U
+      .\] 
+      \[
+      \text{ Also }  \begin{bmatrix}
+      0\\
+      1\\
+      \end{bmatrix}
+      \in U \text{ but  } \lambda \begin{bmatrix}
+      0\\
+      1\\
+      \end{bmatrix}
+       \notin U \forall \lambda \in \mathbb{R}
+      .\] 
+}
+It is also true that lines and planes that pass through the origin in $ \mathbb{R} ^3$ are subspaces of $ \mathbb{R} ^3$ while lines and planes that don't pass through aren't.
+ \ex{}{
+	 Let $ U = \left\{ \begin{bmatrix}
+	 x\\
+	 y\\
+	 z\\
+	 \end{bmatrix}
+	 \in \mathbb{R} ^2 \bigg|_{}^{} x \ge 0 , y \ge 0, z \ge 0 \right\}$ \qquad   (first octant in $ \mathbb{R} ^3$-)  \\
+	 \textit{Is $ U$ a subsapce of $ \mathbb{R} ^3$?} 
+	 \textit{Closed under addition?} \\
+	 \[
+	 \text{ Let} \begin{bmatrix}
+	 x\\
+	 y\\
+	 z\\
+	 \end{bmatrix}
+	 , \quad \begin{bmatrix}
+	 p \\
+	 q\\
+	 r\\
+	 \end{bmatrix}
+	 \in U \qquad  \implies x, y,z, p, q, r \ge 0
+	 .\]
+
+	 \[
+	 \begin{bmatrix}
+	 x\\
+	 y\\
+	 z\\
+	 \end{bmatrix}
+	 + \begin{bmatrix}
+	 p \\
+	 q \\
+	 r\\
+	 \end{bmatrix}
+	 = \begin{bmatrix}
+	 x+p \\
+	 y+q\\
+	 z+r\\
+	 \end{bmatrix}
+	 \in U \text{ since} \left( x+p \right), \left( y+q \right), \left( z+r \right) \ge 0
+	 .\] 
+	 \[
+	 \implies U \text{ is closed under addition }
+	 .\] 
+
+	 \textit{Closed under scalar multiplication?}\\
+                       Let $ \begin{bmatrix}
+                       x\\
+                       y\\
+                       z\\
+                       \end{bmatrix}
+                       \in U$, $ \lambda \in \mathbb{R}$. Note $ x$, $ y$, $ z \ge 0$
+  \[
+  \lambda \begin{bmatrix}
+  x\\
+  y\\
+  z\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  \lambda x \\
+  \lambda y \\
+  \lambda z\\
+  \end{bmatrix}
+           \text{ if }  \lambda <0 \text{ then} \lambda x, \lambda y, \lambda z <0 \text{ and so } \lambda \begin{bmatrix}
+           x\\
+           y\\
+           z\\
+           \end{bmatrix}
+           \notin  U
+  .\]       
+  For example,\\
+  \[
+  \begin{bmatrix}
+  1\\
+  2\\
+  3\\
+  \end{bmatrix}
+  \in U \text{ but }  -2 \begin{bmatrix}
+  1\\
+  2\\
+  3\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  -2\\
+\left[
+	       \begin{array}{ccccc;{2pt/2pt}c}
+	         &   &   &   &   & \
+	         &   &   &  &  & \
+	        &  &  &  &  & \
+	       \end{array}
+	       \right]  -4\\
+  -6\\
+  \end{bmatrix}
+  \notin  U
+  .\] 
+  $ \implies U$ is not closed under scalar multiplicatoin and so $ U$ is not a subspace of $ \mathbb{R} ^3$
+ }
+ 
+ \ex{}{
+	 Suppose $ \vec{ v_1} , \ldots \vec{ v_k} \in \mathbb{R} ^{n} $. Let $ U = \text{span} \left\{ \vec{ v_1} , \vec{ v_2}, \ldots \vec{ v_k}   \right\} = \left\{ \sum\limits_{i=1}^{k} c_i \vec{ v_i} \bigg|_{}^{} c_i \in \mathbb{R} \right\} 
+	  \right\} $\\
+	  \textit{Is $ U$ a subspace of $ \mathbb{R} ^{n}$?}\\
+	  \begin{enumerate}[label=(\roman*)]
+	  \item \textbf{Closed under addition?}\\
+		Let $ \vec{ w} $, $ \vec{ p } \in U$ i.e. 
+		\[
+		\vec{ w} = \sum\limits_{i=1}^{k} c_i \vec{ v_i} , \quad \vec{ p} = \sum\limits_{i=1}^{k} d_i \vec{ v_i} \qquad a_i, d_i \in \mathbb{R}
+		.\] 
+		\[
+		\vec{ w} + \vec{ p} = \sum\limits_{i=1}^{k} c_i \vec{ v_i} + \sum\limits_{i=1}^{k} d_i \vec{ v_i} = \sum\limits_{i=1}^{k} \left( c_i + d_i  \right)  \vec{ v_i} \in U
+		.\] 
+		\[
+		\implies U \text{ is closed under addition}
+		.\] 
+	  \item \textbf{Closed under scalar multiplication?}\\
+		  Let $ \vec{ w} \in U$ and $ \lambda \in \mathbb{R}$, then
+		  \[
+		  \lambda \vec{ w} = \lambda \sum\limits_{i=1}^{k} c_i \vec{ v_i} = \sum\limits_{i=1}^{k} \left( \lambda c_i  \right)  \vec{ v_i} \in U
+		  .\] 
+		  \[
+		  \implies U \text{ is closed under scalar multiplication}
+		  .\] 
+	  \item \textbf{Contains the zero vector?}\\
+		  \[
+		  \vec{ 0} = 0 \vec{ v_1} + 0 \vec{ v_2} + \ldots + 0 \vec{ v_k} \in U
+		  .\]                            \[
+		  \implies U \text{ contains the zero vector}
+		  .\] 
+	  \end{enumerate}
+Hence, $ U$ is a subspace of $ \mathbb{R} ^{n}$.
+ }
+ 
+ \ex{}{
+ Let $ U = \begin{bmatrix}
+ 2t+7s\\
+ -8t\\
+ -3t-2s\\
+ s+r\\
+ 10r\\
+ \end{bmatrix}
+ \bigg|_{}^{} t,s,r \in \mathbb{R}$.
+ Is $ U$ a subspace of $ \mathbb{R} ^5$?\\
+ \[
+	 U = \left\{ \begin{bmatrix}
+	 2t\\
+	 -8t\\
+	 -3t\\
+	 0\\
+	 0\\
+	 \end{bmatrix}
+	   + \begin{bmatrix}
+	  7s\\
+	  0\\
+	  -2s\\
+	  s\\
+	  0\\
+	  \end{bmatrix}
+	   + \begin{bmatrix}
+	   0\\
+	   0\\
+	   r\\
+	   10r\\
+	   \\
+	   \end{bmatrix}
+	    \quad \big|_{}^{} \ t,s,r \in \mathbb{R}     \right\}
+ .\] 
+  \[
+	 U = \left\{ t\begin{bmatrix}
+	 2\\
+	 -8\\
+	 -3\\
+	 0\\
+	 0\\
+	 \end{bmatrix}
+	   + s\begin{bmatrix}
+	  7\\
+	  0\\
+	  -2\\
+	  1\\
+	  0\\
+	  \end{bmatrix}
+	   + r\begin{bmatrix}
+	   0\\
+	   0\\
+	   1\\
+	   10\\
+	   \\
+	   \end{bmatrix}
+	    \quad \big|_{}^{} \ t,s,r \in \mathbb{R}     \right\}
+ .\] 
+ \[
+	 U = \text{span} \left\{ \begin{bmatrix}
+\left[
+	       \begin{array}{ccccc;{2pt/2pt}c}
+	         &   &   &   &   & \
+	         &   &   &  &  & \
+	        &  &  &  &  & \
+	       \end{array}
+	       \right]	 2\\
+	 -8\\
+	 -3\\
+	 0\\
+	 0\\
+	 \end{bmatrix}
+	 , \begin{bmatrix}
+	 7\\
+	 0\\
+	 -2\\
+	 1\\
+	 0\\
+	 \end{bmatrix}
+	 , \begin{bmatrix}
+	 0\\
+	 0\\
+	 0\\
+	 1\\
+	 10\\
+	 \end{bmatrix}
+	  \right\} 
+ .\] 
+ $ \implies U$ is a subspace of $ \mathbb{R} ^5$.
+ }
+ \ex{}{
+ Let $ U = \left\{ \begin{bmatrix}
+ 2a-5b+7\\
+ -8a\\
+ 2b\\
+ \end{bmatrix}
+ \bigg|_{}^{} a,b \in \mathbb{R} \right\} $ \\
+ Is $ U$ a subspace of $ \mathbb{R} ^3$?\\
+ \textbf{zero vector?}\\
+ \[
+ 2b =0 \quad, -8a=0 \qquad a,b =0 
+ .\] 
+ \[
+ \text{ but that gives } \begin{bmatrix}
+ 7\\
+ 0\\
+0\\
+ \end{bmatrix}        \neq \vec{ 0} 
+ .\] 
+ $ \implies $ zero vector is not in $ U$ and so $ U$ is not a subspace of $ \mathbb{R} ^3$.
+ }
+ \dfn{ Basis :}{
+ A basis for a subspace $ U \subseteq \mathbb{R} ^{n}$  is a set of linearly independent vectors whose span is $ U$.
+ }
+ 
+ \nt{
+          If a subspace has a basis consisting of $ m$ vectors then every other basis of the subspace must also consist of $ m$ vectors.\\
+	  $ m$ is called the \textbf{dimension} of the subspace $ U$ and is denoted by $ \dim U$.
+
+ }
+ 
+ \section{The Nullspace}
+ 	      Suppose $ A$ is an $n \times k$ matrix.
+                                            \dfn{Nullspace :}{
+					    The \underline{nullspace} of $ A$ is the set of all vectors $ \vec{ x} \in \mathbb{R} ^{k}$ such that $ A \vec{ x} = \vec{ 0}$, it is denoted by $ \text{Nul } A$ or $ \mathcal{N}(A)$.}
+
+\dfn{Column Space :}{
+The column space of $ A$ is the span of the columns of $ A$. It is the set of all possilbe linear combinations of the columns of $ A$ and is denoted by $ \text{Col } A$ or $ \mathcal{C}(A)$.
+}
+  \thm{}
+  {
+  The nullspace of an $n \times k$ matrix $ A$ is a subspace of $ \mathbb{R} ^{k}$ .
+  }
+   \pf{Proof:}{
+	   Clearly $ \mathcal{N} \left( A \right) \subseteq \mathbb{R} ^2$
+	   \begin{enumerate}[label=(\roman*)]
+	   \item \textbf{Zero vector?}\\
+		   $ A \vec{ 0} = \vec{ 0}$, so $ \vec{ 0} \in \mathcal{N} \left( A \right)$.
+	   \item     \textbf{Addition?}\\
+		   Let $ \vec{ x} , \vec{ y} \in \mathcal{N} \left( A \right)$, then $ A \vec{ x} = \vec{ 0}$ and $ A \vec{ y} = \vec{ 0}$.
+		   \[
+		   A \left( \vec{ x} + \vec{ y}  \right) = A \vec{ x} + A \vec{ y} = \vec{ 0} + \vec{ 0} = \vec{ 0}
+		   .\] 
+		   $ \implies  \vec{ x} + \vec{ y}  \in  \mathcal{N} (A)$   \\
+		   ie. $ \mathcal{N} (A)$ is closed under addition.
+	   \item    \textbf{Scalar multiplication?}\\
+		   Let $ \vec{ x} \in \mathcal{N} (A)$ and $ \lambda \in \mathbb{R}$, then $ A \vec{ x} = \vec{ 0}$.
+		   \[
+		   A \left( \lambda \vec{ x}  \right) = \lambda A \vec{ x} = \lambda \vec{ 0} = \vec{ 0}
+		   .\] 
+		   $ \implies  \lambda \vec{ x}  \in  \mathcal{N} (A)$   \\
+
+		   ie. $ \mathcal{N} (A)$ is closed under scalar multiplication.
+	   \end{enumerate}
+   }
+
+   \ex{}{
+	   \textit{Find the basis for $ \mathcal{N}$ where} $ A =  \begin{bmatrix}
+	   1 & 2 & 4 & 5 & 4\\
+	   3 & 1 & 7 & 2 & 3\\
+	   2 & 1 & 5 & 1 & 5\\
+	   \end{bmatrix}
+	    $  i.e. we want to find a linearly independent set of vectors that spans the solution set of the equation $ A \vec{ x} = \vec{ 0}$.\\
+	    Lets find the solution set first:\\
+	    \[
+	         \left[
+	         \begin{array}{ccccc;{2pt/2pt}c}
+	           1& 2  & 4  & 5  & 4  & 0\\
+\left[
+	       \begin{array}{ccccc;{2pt/2pt}c}
+	         &   &   &   &   & \
+	         &   &   &  &  & \
+	        &  &  &  &  & \
+	       \end{array}
+	       \right]	         3  & 1  & 7  & 2 & 3 & 0\\
+	         2 & 1 & 5 & 1 & 5 & 0\\
+	         \end{array}
+	         \right]
+	    .\] 
+	    \[
+	          \xrightarrow[ r_2- 3r_1]{ r_3 -2r_1} \left[
+	          \begin{array}{ccccc;{2pt/2pt}c}
+	            1& 2  & 4  & 5  & 4  & 0\\
+	          0  & -5  & -5  & -13 & -9 & 0\\
+	          0 & -3 & -3 & -9 & -3 & 0\\
+	          \end{array}
+	          \right]
+	    .\] 
+               \[
+               	          \xrightarrow[ r_3 \times \frac{1}{3}]{ r_3 \leftrightarrow r_2}  \left[
+               	          \begin{array}{ccccc;{2pt/2pt}c}
+               	           1 & 2  & 4  & 5  & 4  & 0\\
+               	          0  & 1  & 1  & 3 & 1 & 0\\
+               	          0 & -5 & -5 & -13 & -9 & 0\\
+               	          \end{array}
+               	          \right]
+               .\] 
+	       \[
+	       \xrightarrow[ r_3 + 5r_2]  \left[
+	       \begin{array}{ccccc;{2pt/2pt}c}
+	         1& 2  & 4  & 5  & 4  & 0\\
+	       0  & 1  & 1  & 3 & 1 & 0\\
+	       0 & 0 & 0 & 2 & -4 & 0\\
+	       \end{array}
+	       \right]
+	       .\] 
+	       \[
+	       \xrightarrow[ r_3 \times \frac{1}{2}]  \left[
+	       \begin{array}{ccccc;{2pt/2pt}c}
+	         1& 2  & 4  & 5  & 4  & 0\\
+	       0  & 1  & 1  & 3 & 1 & 0\\
+	       0 & 0 & 0 & 1 & -2 & 0\\
+	       \end{array}
+	       \right]
+	       .\] 
+	        \[
+	       \xrightarrow[ r_2 - 3r_3]{ r_1 - 5r_3}  \left[
+	       \begin{array}{ccccc;{2pt/2pt}c}
+	         1& 2  & 4  & 0  & 14  & 0\\
+	       0  & 1  & 1  & 0 & 7 & 0\\
+	       0 & 0 & 0 & 1 & -2 & 0\\
+	       \end{array}
+	       \right]
+	       .\] 
+	       \[
+		       \xrightarrow[ r_1 - 2r_2]  \left[
+		       \begin{array}{ccccc;{2pt/2pt}c}
+		         1 & 0  & 2  & 0  & 0  & 0\\
+		       0  & 1  & 1  & 0 & 7 & 0\\
+		       0 & 0 & 0 & 1 & -2 & 0\\
+		       \end{array}
+		       \right]
+	       .\] 
+	       Solution set:
+	       \begin{align*}
+	       	x_1+2x3 =0 \\
+		x_2+x_3 +7 x_5=0\\
+		x_4-2x5=0
+	       .\end{align*}
+	       Let $ x_3=s$ and $ x_5 =t$ 
+	Then $ x_1 = -2s$, $ x_2 = -s - 7t$, $ x_4 = 2t$, $ x_3 = s$, $ x_5 = t$\\
+	\[
+	\begin{bmatrix}
+	x_1\\
+	x_2\\
+	x_3\\
+	x_4\\
+	x_5\\
+	\end{bmatrix}
+	= \begin{bmatrix}
+	-2s\\
+	-s-7t\\
+	s\\
+	2t\\
+	t\\
+	\end{bmatrix}
+	= s \begin{bmatrix}
+	-2\\
+	-1\\
+	1\\
+	0\\
+	0\\
+	\end{bmatrix}
+	 + t \begin{bmatrix}
+	 0\\
+	 -7\\
+	 0\\
+	 2\\
+	 1\\
+	 \end{bmatrix}
+	.\] 
+	\[
+		\implies \mathcal{N} (A) = \text{span} \left\{ \begin{bmatrix}
+	-2\\
+	-1\\
+	1\\
+	0\\
+	0\\
+	\end{bmatrix}, \begin{bmatrix}
+	 0\\
+	 -7\\
+	 0\\
+	 2\\
+	 1\\
+	 \end{bmatrix}   \right\} 
+	.\] 
+	\[
+	\implies \text{ basis for } \mathcal{N} (A) = \left\{ \begin{bmatrix}
+	-2\\
+	-1\\
+	1\\
+	0\\
+	0\\
+	\end{bmatrix}, \begin{bmatrix}
+	 0\\
+	 -7\\
+	 0\\
+	 2\\
+	 1\\
+	 \end{bmatrix}   \right\}                       
+	.\] 
+       }
+
+\nt{
+   In general, to find a basis for the nullspace of a $n \times k$  matrix, express the solutions to the equation $ A \vec{ x} = \vec{ 0}$ in vector form as the span of vectors with coeffficients given by the free variables. The vectors in the span form a basis for the nullspace of $ A$.\\
+   \[
+	   \text{dim } \left( \mathcal{N}  \left( A \right) \right)    = \text{ number of free variables.}
+\] 
+}
+
+\section{The Column Space}
+Suppose $ A$ is an $n \times k$ matrix.\\
+
+$ \mathcal{C}  \left( A \right) $ = span of the columns of $ A$\\
+Since $ \mathcal{C} \left( A \right) $ is the span of a set of vectors in $ \mathbb{R} ^{n}$  we know from a previos result that $ \mathcal{C} \left( A \right) $ is a subspace of $ \mathbb{R} ^{n}$.\\
+\begin{align*}
+	\mathcal{C} \left( A \right) & =  \left\{ A \vec{ x}  | \vec{ x} \in \mathbb{R} ^{k} \right\} \\
+	& = \left\{ \vec{ b} \in \mathbb{R} ^{n} | \vec{ b} = A \vec{ x} \text{ for some } \vec{ x} \in \mathbb{R} ^{k} \right\} 
+.\end{align*}
+\\
+How to find a basis for the column space of a matrix $ A$?\\
+\ex{}{
+\[
+\text{ Suppose }  A = \begin{bmatrix}
+1 & 4 & 0 & 2 & 0 & -7\\
+0 & 0 & 1 & 3 & 0 & 5\\
+0 & 0 & 0 & 0 & 1 & 13\\
+0 & 0 & 0 & 0 & 0 & 0\\
+\end{bmatrix}
+.\] 
+Note that each non-pivot column is a linear combination of the pivot columns.\\
+Hence the pivot columns form a basis for the column space of $ A$. and are clearly linearly independent since they are the standard basis vectors in $ \mathbb{R} ^{4}$. \\
+\[
+\implies \text{ pivot columns of } A  \text{ form a basis for } \mathcal{C} \left( A \right)
+.\] 
+\\
+What if $ A$ was not in echelon form?\\
+\textbf{Note:}  The columns of $ A$ span $ \mathcal{C} \left( A \right) $ (by definition). We just need to possilby reduce this spanning set to a linearly independent  set.\\
+\\
+Linear dependence amongst the columns can be expressed as $ A \vec{ x} = \vec{ 0} $  where $ \vec{ x} $ is the column of weights.\\
+\\
+When $ A$ is in echelon form, the columns change but the solutions to the equation $ A \vec{ x} = \vec{ 0}$ and $ R \vec{ x} = \vec{ 0} $ remain the same i.e. the columns of $ A$ have the same linear dependence relationships as the columns of $ R$. Since the pivot columns of $ R$ are linearly independent.} \\
+\\
+$ \implies$ The pivot columns of $ A$ are linearly independent and hence, form a basis for $ \mathcal{C} \left( A \right)$.\\
+
+
+
+}
+
+
+\ex{}{
+\textit{Find a basis for $ \mathcal{C} \left( A \right) $ where} 
+\[
+A = \begin{bmatrix}
+1 & 2 & 4 & 5 & 4\\
+3 & 1 & 7 & 2 & 3\\
+2 & 1 & 5 & 1 & 5\\
+\end{bmatrix}
+.\]
+Note, we row reduce this matrix in the last example
+\[
+\text{ echolon form of } A =  \begin{bmatrix}
+1 & 2 & 4 & 5 & 4\\
+0 & 1 & 1 & 3 & 1\\
+0 & 0 & 0 & 1 & -2\\
+\end{bmatrix}
+.\]
+\[
+	\implies \text{ basis of } \mathcal{C} \left( A \right) = \left\{ \begin{bmatrix}
+	1\\
+	3\\
+	2\\
+	\end{bmatrix}
+	, \begin{bmatrix}
+	2\\
+	1\\
+	1\\
+	\end{bmatrix}
+	, \begin{bmatrix}
+	5\\
+	2\\
+	1\\
+	\end{bmatrix}
+	 \right\} 
+.\] 
+Note the dimension of $ \mathcal{C} \left( A \right) $ is the number of pivot columns in $ A$\\
+}
+
+ \nt{
+ \textbf{The following is a useful characterization:}\\
+ \begin{itemize}
+ 	\item A vector $ \vec{ x} $ is in the column space of $ A $ $ \iff $ $ \vec{ x} =A \vec{ y} $ for some $ \vec{ y} \in \mathbb{R} ^{k}$.
+	\item A vector $ \vec{ x} $ is in the nullspace of $ A $ $ \iff $ $ A \vec{ x} = \vec{ 0}$.
+	\item dim $ \left(  \mathcal{C} \left( A \right)  \right) $ is the number of pivot columns in $ A$.
+	\item dim $ \left(  \mathcal{N} \left( A \right)  \right) $ is the number of free variables.
+	\item $ \implies$   dim $ \left(  \mathcal{C} \left( A \right)  \right) +$ dim $ \left(  \mathcal{N} \left( A \right)  \right) = k$ where $ k$ is the number of columns of $ A$.
+ \end{itemize}
+ }
+ 
+
+ \ex{}{
+ \[
+ \text{ Let} \quad A = \begin{bmatrix}
+ 1 & 3 & -5\\
+ -2 & -6 & 11\\
+ 1 & 3 & -1\\
+ \end{bmatrix}
+ .\] 
+\textit{Find a basis for the \textbf{(a)} column space of $ A$ and \textbf{(b)} the nullspace of $ A$}\\ 
+
+ \begin{enumerate} [label=(\alph*)]
+ \item 
+	 \[
+	 \begin{bmatrix}
+	 1 & 3 & -5\\
+	 -2 & -6 & 11\\
+	 1 & 3 & -1\\
+	 \end{bmatrix} \xrightarrow[ r_2 + 2r_1]{ r_3 - r_1}  \begin{bmatrix}
+	 1 & 3 & -5\\
+	 0 & 0 & 1\\
+	 0 & 0 & 4\\
+	 \end{bmatrix}
+	 .\] 
+	 \[
+	 \xrightarrow[ r_3 - 4r_2]  \begin{bmatrix}
+	 1 & 3 & -5\\
+	 0 & 0 & 1\\
+	 0 & 0 & 0\\
+	 \end{bmatrix} \xrightarrow[ r_1 + 5r_2]  \begin{bmatrix}
+	 1 & 3 & 0\\
+	 0 & 0 & 1\\
+	 0 & 0 & 0\\
+	 \end{bmatrix}
+	 .\] 
+	 Pivot columns are 1 and 3.\\
+	$ \implies$ Basis for $ \mathcal{C} \left( A \right) $ is given by $  \left\{ \begin{bmatrix}
+	1\\
+	-2\\
+	1\\
+	\end{bmatrix}
+	, \begin{bmatrix}
+	-5\\
+	11\\
+	-1\\
+	\end{bmatrix}
+	 \right\} $ \\
+	 \item
+	 Solving $ A \vec{ x} = \vec{ 0}  $   we get
+	 \begin{align*}
+		 x_1 + 3x_2 =0\\
+		 x_3 = 0\\
+		 x_2 \text{ free}
+	 .\end{align*}            \[
+	 \text{ Let }  x_2 =t, \quad x_1 = -3t, \quad x_3 = 0
+	 .\] 
+	 \[
+	 \begin{bmatrix}
+	 x_1\\
+	 x_2\\
+	 x_3\\
+	 \end{bmatrix}
+	 = \begin{bmatrix}
+	 -3t\\
+	 t\\
+	 0\\
+	 \end{bmatrix}
+	  = t \begin{bmatrix}
+	  -3\\
+	  1\\
+	  0\\
+	  \end{bmatrix}
+	 .\] 
+	 Basis for $ \mathcal{N} \left( A \right) $ is given by $ \left\{ \begin{bmatrix}
+	 -3\\
+	 1\\
+	 0\\
+	 \end{bmatrix}
+	  \right\} $
+ \end{enumerate}
+ 
+ 
+
+
+ }
+ 
+                    
+\section{Vector Spaces}
+  \dfn{Vector Space :}{
+  A vector space $ V$, over the real numbers, is a non-empty set of objects called vectors, on which two operations, vector addition and scalar multiplication (by real numbers), are defined, such that $ V $ is 
+  \begin{itemize}
+	  \item \textit{Closed under vector addition}\\
+		  i.e. if $ \vec{ v_1} $, $ \vec{ v_2} \in V$ then $ \vec{ v_1} + \vec{ v_2} \in V$.
+		  	  \item \textit{Closed under scalar multiplication}\\
+				  i.e. if $ \vec{ v} \in V$ and $ \lambda \in \mathbb{R}$ then $ \lambda \vec{ v} \in V$.
+  \end{itemize}
+  }
+        
+
+   The operations also satisfy the following eight axioms:
+   \begin{enumerate}[label=(\arabic*).]  
+   \item \textbf{Associativity of vector addition:}\\
+	      For all $ \vec{ v_1} , \vec{ v_2} , \vec{ v_3} \in V$ we have,
+	      \[
+	      \vec{ v_1} + \left( \vec{ v_2} + \vec{ v_3} \right) = \left( \vec{ v_1} + \vec{ v_2} \right) + \vec{ v_3}
+	      .\] 
+      \item \textbf{Commutativity of vector addition:}\\
+	      For all $ \vec{ v_1} , \vec{ v_2} \in V$ we have,
+	      \[
+	      \vec{ v_1} + \vec{ v_2} = \vec{ v_2} + \vec{ v_1}
+	      .\]
+      \item \textbf{Existence of additive identity:}\\
+	      There exists a vector $ \vec{ 0} \in V$ such that for all $ \vec{ v} \in V$ we have,
+	      \[
+	      \vec{ v} + \vec{ 0} = \vec{ v} \qquad \forall \vec{ v} \in V
+	      .\]
+      \item \textbf{Existence of additive inverses:}\\
+	      For every $ \vec{ v} \in V$ there exists a vector $ \vec{ w} $  such that
+	      \[
+	      \vec{ v} + \vec{ w} = \vec{ 0} \qquad \text{ where } \vec{ w} \text{ is denoted by } -\vec{ v}
+	      .\] 
+      \item \textbf{ Distributive of scalar multiplication with respect to vector addition:}\\
+	      For all $ \lambda \in \mathbb{R}$ and $ \vec{ v_1} , \vec{ v_2} \in V$ we have,
+	      \[
+	      \lambda \left( \vec{ v_1} + \vec{ v_2} \right) = \lambda \vec{ v_1} + \lambda \vec{ v_2}
+	      .\]
+      \item \textbf{Distributive of scalar multiplication with respect to scalar addition:}\\
+	      For all $ \lambda_1, \lambda_2 \in \mathbb{R}$ and $ \vec{ v} \in V$ we have,
+	      \[
+	      \left( \lambda_1 + \lambda_2 \right) \vec{ v} = \lambda_1 \vec{ v} + \lambda_2 \vec{ v}
+	      .\] 
+      \item \textbf{ $ 1$ is the multiplicative identity for scalar multiplication:}\\
+	      For all $ \vec{ v} \in V$ we have,
+	      \[
+	      1 \vec{ v} = \vec{ v}
+	      .\]
+   \end{enumerate}
+   
+\section{Examples of Vector Spaces}
+ In general when showing that a set is a vector space, we need to show that it is: 
+ \begin{enumerate}[label=(\arabic*).]  
+ \item Closed under vector addition
+ \item Closed under scalar multiplication
+	 \item Contains the zero vector
+ \end{enumerate}
+ The rest of the axioms follow in the sets we consider.\\
+ \ex{}{
+ $ \mathbb{R} ^{n}$ is a vector space $ \forall n$
+ }
+  \ex{}{
+  The set of all $ n \times k$ matrices is a vector space. We denote this by $ M _{n \times k}$
+  \[
+	  M _{n \times k} =  \left\{ \begin{bmatrix}
+	  a_{11} & a_{12} & a_{13} & \dots  & a_{1k} \\
+	  a_{21} & a_{22} & a_{23} & \dots  & a_{2k} \\
+	  \vdots & \vdots & \vdots & \ddots & \vdots \\
+a_{ n 1} & a_{n 2} & a_{n 3} & \dots  & a_{n k}\end{bmatrix}  \bigg|_{}^{}  a_{ij} \in \mathbb{R} \quad \forall i,j\right\}
+  .\] 
+  \textbf{Addition} \\
+  Can easily show that if $ A, B \in M _{n \times k}$ then $ A + B \in M _{n \times k}$. If $ a_{ij}$ and $ b_{ij}$  are the $ (i,j) $ entries of $ A$ and $ B$ respectively then the $ (i,j)$ entry of $ A + B$ is given by $ a_{ij} + b_{ij}$ which is also a real number.\\
+  \textbf{Scalar multiplication}\\
+  If $ \lambda \in \mathbb{R}$, $ A \in M _{n \times k}$ then the $ (i,j)$ entry of $ \lambda A$ is given by $ \lambda a_{ij}$ which is also a real number.\\
+  $ \implies \lambda A \in M_{n \times  k}$ \\
+  \\
+  \textbf{Zero vector}\\
+  The zero vector in $ M _{n \times  k}$ is the $ n \times k$ matrix with all entries equal to zero.\\
+  \\
+  Hence, $ M _{n \times k}$ is a vector space.
+}                                     
+\ex{}{
+	$ \mathcal{P} _k\left[ x \right] ] = \left\{ a_0+a_1x+ a_2 x^2 + \ldots + a_k x^{k} \bigg|_{}^{} a_i \in \mathbb{R} \forall i \right\} $ is the set of all polynomials of degree at most $ k$.\\
+	\\
+	\textbf{Addition}\\
+	Let $ p \left( x \right) $, $ q \left( x \right)  \in \mathcal{P}_k \left[ x \right] ]$ \\
+	\[
+	p \left( x \right) = a_0 + a_1 x + a_2 x^2 + \ldots + a_k x^{k} , \quad q \left( x \right) = b_0 + b_1 x + b_2 x^2 + \ldots + b_k x^{k} \forall i \text{ such that } a_i, b_i \in \mathbb{R}
+	.\]
+	\[
+	p \left( x \right) + q \left( x \right) = \left( a_0 + b_0 \right) + \left( a_1 + b_1 \right) x + \left( a_2 + b_2 \right) x^2 + \ldots + \left( a_k + b_k \right) x^{k}
+	.\] 
+	Since $ a_i + b_i \in \mathbb{R}$ for all $ i$, we have that $ p \left( x \right) + q \left( x \right)  \in \mathcal{P}_k \left[ x \right] ]$.\\
+	$ \implies \mathcal{P}_k \left[ x \right] $ is closed under addition.\\
+	\\
+	\textbf{Scalar multiplication}\\
+	Let $ p \left( x \right) \in \mathcal{P}_k \left[ x \right] $, $ p \left( x \right) = a_0 + a_1 x + \ldots + a_k x^{k} $. Let $ \lambda \in \mathbb{R}$ 
+	
+	\[
+	\lambda p \left( x \right) = \lambda a_0 + \lambda a_1 x + \ldots + \lambda a_k x^{k}
+	.\] 
+	Since $ \lambda a_i \in \mathbb{R}$ for all $ i$, we have that $ \lambda p \left( x \right)  \in \mathcal{P}_k \left[ x \right] $.\\
+	$ \implies \mathcal{P}_k \left[ x \right] $ is closed under scalar multiplication.\\
+	\\
+	\\
+	\textbf{Zero vector}\\
+	\[
+	0 + 0x + 0x^2 + \ldots + 0x^{k} \in \mathcal{P}_k \left[ x \right]
+	.\] 
+	\[
+	\text{ and } p \left( x \right) + 0 + 0x +0 x^2 + \ldots + 0x^{k} = p \left( x \right)
+	.\] 
+	\[
+	\forall  p \left( x \right) \in \mathcal{P}_k \left[ x \right]
+	.\] 
+Hence $ \mathcal{P}_k \left[ x \right] $ is a vector space.\\
+}
+\ex{}{
+The set of all polynomials is a vector space,
+\[
+	V = \mathcal{P}\left[ x \right] = \left\{ \sum\limits_{i=1}^{k} a_i x^i \bigg|_{}^{} a_i \in \mathbb{R} \text{ for all } k \in \mathbb{Z}, k \ge 0 \right\}
+	 \right\}
+.\] 
+
+}
+ \ex{}{
+ The set of all possible matrices is not a vector space
+ \[
+	 \chi = \left\{ A \in M_{n \times  k} \bigg|_{}^{} 1 \le n, k, \quad n,k \in \mathbb{Z} \right\} 
+ .\] 
+ \[
+ \begin{bmatrix}
+ 1 & 2\\
+ 3 & 4\\
+ \end{bmatrix} \in \chi \quad \text{ and } \quad \begin{bmatrix}
+ 1 & 1 & 2\\
+ -7 & 5 & 3\\
+ \end{bmatrix} \in \chi 
+ .\] 
+ but additions is not defined on matrices of different  dimensions.\\
+ $ \implies$ not a vector space.\\
+ }
+ 
+ \ex{}{
+	 Let $ U = \left\{ \begin{bmatrix}
+	 a & b\\
+	 0 & c\\
+	 \end{bmatrix} \bigg|_{}^{} a, b, c \in \mathbb{R} \right\}  $\\
+	 \textit{Is $ U$ a vector space?}\\
+	 \\
+	 \textbf{ Addition?}\\
+	 \[
+	 \text{ Let } \begin{bmatrix}
+	 a_1 & b_1\\
+	 0 & c_1\\
+	 \end{bmatrix}, \begin{bmatrix}
+	 a_2 & b_2\\
+	 0 & c_2\\
+	 \end{bmatrix} \in U
+	 .\] 
+	 \[
+	 \begin{bmatrix}
+	 a_1 & b_1\\
+	 0 & c_1\\
+	 \end{bmatrix}+ \begin{bmatrix}
+	 a_2 & b_2\\
+	 0 & c_2\\
+	 \end{bmatrix}= \begin{bmatrix}
+	 a_1+ a_2 & b_1+b_2\\
+	 0 & c_1+c_2\\
+	 \end{bmatrix}\in U
+	 .\] 
+	 \[
+	 \implies U \text{ is closed under addition.}
+	 .\] 
+	 \\
+	 \textbf{Scalar multiplication?}\\
+	 \[
+	 \text{ Let } \begin{bmatrix}
+	 a & b\\
+	 0 & c\\
+	 \end{bmatrix} \in U \text{ and } \lambda \in \mathbb{R}
+	 .\] 
+	 \[
+	 \lambda \begin{bmatrix}
+	 a & b\\
+	 0 & c\\
+	 \end{bmatrix}= \begin{bmatrix}
+	 \lambda a & \lambda b\\
+	 0  & \lambda c\\
+	 \end{bmatrix} \in U
+	 .\] 
+	 \[
+	 \implies U \text{ is closed under scalar multiplication.}
+	 .\] 
+	 \\
+	 \\
+	 \textbf{Zero vector?}\\
+	 \[
+	 \text{ Letting }  a = 0, b = 0, c = 0 \text{ gives us the zero vector } 
+	 .\] 
+
+Hence $ U$ is a vector space
+ }
+ 
+  \ex{}{
+	  Let $ U = \left\{ A \in M_{2\times 2} \bigg|_{}^{} \text{ det } A =0 \right\} $ \\
+	  \textit{Is $ U$ a vector space?}\\
+	  \[
+	  \begin{bmatrix}
+	  1 & 0\\
+	   0& 0\\
+	  \end{bmatrix} \in U \quad \text{ and } \quad                                         \begin{bmatrix}
+	  0 & 0\\
+	  0 & 1\\
+	  \end{bmatrix} \in U
+	  .\] 
+	  \[
+	  \text{ but }  \begin{bmatrix}
+	  1 & 0\\
+	  0 & 0\\
+	  \end{bmatrix}+ \begin{bmatrix}
+	  0 & 0\\
+	  0 & 1\\
+	  \end{bmatrix} = \begin{bmatrix}
+	  1 & 0\\
+	  0 & 1\\
+	  \end{bmatrix} \notin U
+	  .\] 
+	  \[
+	  \text{ Since } \text{ det } \begin{bmatrix}
+	  1 & 0\\
+	  0 & 1\\
+	  \end{bmatrix} = 1 \neq 0
+	  .\] 
+	  \[
+	  \implies U \text{ is not closed under addition.}
+	  .\] 
+	  \[
+	  \implies U \text{ is not a vector space.}
+	  .\] 
+  }
+  
+  \ex{}{
+Let $ A = \left\{ p \left( x \right) \in \mathcal{P}_k \left[ x \right] \bigg|_{}^{} p\left( 2 \right) =1 \right\} $, $ k \in \mathbb{Z}$, $ k \ge 0$ 
+zero vector in $ \mathcal{P}_k \left[ x \right] $ is $ 0 + 0x + 0x^2 + \ldots + 0x^{k}$.\\
+$ z \left( 2 \right) =0 \neq 1$ $ \implies z \left( x  \right) \notin A$ \\
+\[
+\implies A \text{ is not a vector space 
+.\] 
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}    
