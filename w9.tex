@@ -1,0 +1,673 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+ For the following definitions let $ V$ be a vector space and $ \left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{  v_k}  \right\} \subseteq V $.\\
+ \dfn{Span :}{
+	 span $\left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{  v_k}  \right\} = \left\{ \sum\limits_{i=1}^{k} c_i \vec{ v_i} \mid c_i \in \mathbb{R}
+	  \right\} $ is the set of all linear combinations of the vectors in the set.
+ }
+ \dfn{Linear Independence :}{
+  The set $\left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{  v_k}  \right\}$ is linearly independent  if $ \sum\limits_{i=1}^{k} c_i \vec{ v_i} = \vec{ 0} $ implies that $ c_i = 0$ for all $ i = 1,2,\ldots,k$.
+ }
+
+ \dfn{ Basis :}{
+ A basis for $ V$ is a linearly independent set of vectors that spans $ V$. All bases of $ V$ have the same number of vectors, which is called the dimension of $ V$.
+ }
+   \dfn{Subspace :}{
+   Suppose $ V$ is a vector space and $ U \subseteq V$. If $ U$ is a vector space then $ U$ is called a subspace of $ V$. 
+   }
+   
+\section{Bases for Vector Spaces}
+	
+\ex{}{
+The standard basis of $ \mathbb{R}^n$ is the set of vectors $ \left\{ \vec{ e_1} , \vec{ e_2} ,\ldots , \vec{  e_n}  \right\}$ where
+\[
+\vec{ e_1} = \begin{bmatrix}
+1\\
+0\\
+\vdots\\
+0\\
+\end{bmatrix} \quad \vec{ e_2} =  \begin{bmatrix}
+0\\
+1\\
+\vdots\\
+0\\
+\end{bmatrix} 
+\ldots \vec{ e_j} = } 
+.\] 
+}
+
+\ex{}{
+\[
+	V = \mathcal{P}_k \left[ x \right]  = \left\{ a_0 + a_1 x + a_2 x^2 +\ldots + a_k x^{k} \mid  a_i \in \mathbb{R}\right\} 
+.\] 
+$ \left\{ 1,x,x^2,\ldots, x^{k} \right\}$  clearly spans $ \mathcal{P}_k \left[ x \right] $ \\
+\textit{Is the set linearly independent?}\\
+Suppose $ c_0 + c_1 x + c_2 x^2 +\ldots + c_k \in \mathbb{R}$ such that 
+\[
+c_0 + c_1 x + c_2 x^2 +\ldots + c_k x^{k} = 0 + 0x + \ldots + 0x^{k}
+.\] 
+Compare coefficients we get
+\[
+c_0 = 0, c_1 = 0, c_2 = 0, \ldots, c_k = 0
+.\] 
+i.e. $ c_i =0 \forall i$ \\
+Hence the set is linearly independent and so        $ \left\{ 1,x,x^2,\ldots, x^{k} \right\}$        forms a basis for $ \mathcal{P}_k \left[ x \right] $.
+}
+ \nt{
+ The dimension of $ \mathcal{P}_k \left[ x \right] $ is $ k+1$ since the basis has $ k+1$ vectors.\\
+ }
+ \ex{}{
+	 Which of the following sets is forms a basis for $ \mathcal{P} _2 \left[ x \right] $?\\
+	 \\
+	 \begin{enumerate} [label=(\alph*)]
+	 \item $ \left\{ 1,1+x,1+x+x^2 \right\} $\\
+	 \item $ \left\{ x+x^2,1,2+2x+3x^2 \right\} $\\
+	 \item $ \left\{ x,5x-x^2,2 \right\} $\\
+	 \item $ \left\{ 1+x^2,x-3x^2,1+x-3x^2 \right\} $\\
+	 \end{enumerate}
+	 \textbf{Note:} dim $ \left( \mathcal{P}_2 \left[ x \right]  \right) =3$ so \textbf{(b)} or \textbf{(c)}  don't form a basis for $ \mathcal{P}_2 \left[  x\right] $.\\ 
+	 \\
+	 \textbf{(a)}  \textit{Linearly Independent?}\\
+	 Suppose $ c_0 , c_1 , c_2 \in \mathbb{R}$ such that
+	 \[
+	 c_0\left( 1 \right) +c_1 \left( 1+x \right) + c_2 \left( 1+x+x^2 \right) = 0+ -x + 0x^2
+	 .\] 
+	 i.e. $ c_0+c_1+c_2 =0$,  $ c_1+c_2 =0$, $ c_2 = 0$\\
+	 Using back substitution we get $ c_2 = 0$, $ c_1 = 0$, $ c_0 = 0$\\
+	 $ \implies$ the set is linearly independent.\\
+	 \textbf{Note:}  We could have also have considered the augmented matrix associated with the system  and observed that since there is a pivto in every column $ c_0 = c_1 = c_2 = 0$ 
+	 
+	 \[
+	 \left[
+	 \begin{array}{ccc;{2pt/2pt}c}  
+	 1 & 1 & 1 & 0\\
+	 0 & 1 & 1 & 0\\
+	 0 & 0 & 1 & 0\\
+	 \end{array}
+	 \right]
+	 .\] 
+	 Does $  \left\{ 1, 1+x , 1+x+x^2 \right\}$  span $ \mathcal{P}_2 \left[ x \right] $?\\\\
+	 Let $ a +bx +dx^2$ be a n arbitrary vector in $ \mathcal{P}_2 \left[ x \right] $. Does there exist $ c_0,c_1,c_2 \in \mathbb{R}$ such that
+	 \[
+	 c_0\left( 1 \right) c_1 \left( 1+x \right) + c_2 \left( 1+x+x^2 \right) = a + bx + dx^2
+	 .\] 
+	 Comparing coefficients we get
+	 \begin{lalign*}
+	 	c_0 + c_1 + c_2 &= a\\
+			 	c_1 + c_2 &= b\\
+							 	c_2 &= d
+	 .\end{lalign*}
+	 i.e. does there exist a solution to the system:
+	 \[
+	 \left[
+	 \begin{array}{ccc;{2pt/2pt}c}  
+	 1 & 1 & 1 & a\\
+	 0 & 1 & 1 & b\\
+	 0 & 0 & 1& d\\
+	 \end{array}
+	 \right]
+	 .\]         Yes, since there is a pivot in every row.\\
+Hence the set forms a basis for $ \mathcal{P}_2 \left[ x \right] $ \\
+\\
+\textbf{(d)} \\
+\[
+	\left\{ 1+x^2, x -3x^2, 1+x-3x^2 \right\} 
+.\] 
+Linearly independent?\\
+Suppose $ c_0, c_1, c_2 \in \mathbb{R}$ such that
+\[
+c_0 \left( 1+x^2 \right) + c_1 \left( x -3x^2 \right) + c_2 \left( 1+x-3x^2 \right) = 0 + 0x + 0x^2
+.\] 
+i.e. $ c_0+c_2 =0$, $ c_1+ c_2 =0$, $ c_0 -3c_1 -3c_2 =0$
+
+
+
+   
+\[
+\text{Augmented matrix:}\;
+\left[
+  \begin{array}{ccc:c}
+    1 & 0 & 1 & 0\\
+    0 & 1 & 1 & 0\\
+    1 & -3 & -3 & 0
+  \end{array}
+\right]
+\;\xrightarrow{\;r_{3}-r_{1}\;}
+\left[
+  \begin{array}{ccc:c}
+    1 & 0 & 1 & 0\\
+    0 & 1 & 1 & 0\\
+    0 & -3 & -4 & 0
+  \end{array}
+\right].
+\]
+
+ 
+ \[
+\xrightarrow[\,r_{3}+3r_{2}\,]{}
+\left[
+  \begin{array}{ccc:c}
+    1 & 0 & 1 & 0\\
+    0 & 1 & 1 & 0\\
+    0 & 0 & -1 & 0
+  \end{array}
+\right].
+\]   
+Piv in every column $ \implies$ only solution is $ c_0 = c_1 = c_2 = 0$\\
+$ \implies$ The set is linearly independent.\\
+Does the set $ \left\{ 1+x^2, x-3x^2, 1+x-3x^2 \right\} $  span  $ \mathcal{P}_2 \left[ x \right] $?\\
+i.e. given $ a +bx +dx^2 \in \mathcal{P}_2 \left[ x \right]$ does there exist $ c_0,c_1,c_2 \in \mathbb{R}$ such that
+\[
+c_0 \left( 1+x^2 \right) + c_1 \left( x -3x^2 \right) + c_2 \left( 1+x-3x^2 \right) = a + bx + dx^2
+.\] 
+i.e for fixed $ a,b,d \in \mathbb{R}$ does there exist a solution to the system
+\raggedcolumns
+\begin{multicols}{2}
+\begin{align*}
+	c_0+c_2 =a\\
+	c_1+c_2 = b\\
+	c_0 -3c_1 -3c_2 = d\\
+.\end{align*}
+
+\break
+ \[
+ \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 0 & 1 & a\\
+ 0 & 1 & 1 & b\\
+ 1 & -3 & -3 & d\\
+ \end{array}
+ \right]
+ .\] 
+
+\end{multicols}
+     We know that the echelon form of the augmented matrix has a pivot in every row, hence there is a solution to the system for all $ a,b,d \in \mathbb{R}$.\\
+Hence the set $ \left\{ 1+x^2, x-3x^2, 1+x-3x^2 \right\} $ spans $ \mathcal{P}_2 \left[ x \right] $ and thus forms a basis for $ \mathcal{P}_2 \left[ x \right] $.\\
+ }   
+ \ex{}{
+ \[
+	 \text{ Let} U = \text{ span } \left\{ 1+x-2x^2+3x^3, 2+3x^3, 2+3x =4x^2 +6x^3, -7-4x+15x^2-18x^3, 5-4x-11x^2+12x^3 \right\} 
+ .\] 
+ \textit{Find a basis for $ U$ }\\
+  The set of vectors clearly spans $ U$, we just need to check if the set is linearly independent, and if not we need to reduce the set to a linearly independent set.\\
+  Suppose $ c_1,c_2,c_3,c_4 \in \mathbb{R} $ such that 
+  \[
+  c_1 \left( 1+x-2x^2+3x^3 \right) + c_2 \left( 2+3x^3 \right) + c_3 \left( 2+3x -4x^2 +6x^3 \right) + c_4 \left( -7-4x+15x^2-18x^3 \right) = 0
+  .\] 
+  Comparing coefficients we get the following system of equations:
+  \begin{align*}
+  	c_1 + 2c_2 -7c_3 +5 c_4 =0\\
+	  	c_1 + 3c_3 -4 c_3-4c_4 =0\\
+		  	-2c_1 -4c_2 + 15c_3 -11c_4 =0\\
+			  	3c_1 + 3c_2 + 6c_3 + 18c_4 =0
+  .\end{align*}
+  \[
+  \left[
+  \begin{array}{cccc;{2pt/2pt}c}  
+  1 & 2 & -7 & 5 & 0\\
+  1 & 3 & -4 & -4 & 0\\
+  -2 & -4 & 15 & -11 & 0\\
+  3 & 6 & -18 & 12 & 0\\
+  \end{array}
+\right] \xrightarrow[r_1+ r_3\\ r_4-3r_1]{r_2-r_1} \left[
+\begin{array}{cccc;{2pt/2pt}c}  
+1 & 2 & -7 & 5 & 0\\
+0 & 1 & 3 & -9 & 0\\
+0 & 0 & 1 & -1 & 0\\
+0 & 0 & 3 & -3 & 0\\
+\end{array}
+\right]     
+  .\] 
+  $ c_4$ is a free variable, this implies there are non-trivial solutions to the system.\\
+  $ \implies$ The four polynomials are not linearly independent. But note that the first three polynomials are linearly independent, hence 
+  \[
+  \left\{ 1+x-2x^2+3x^3, 2+3x^3, 2+3x -4x^2 +6x^3 , -7-4x+15x^2- 18x^3 \right\}
+  .\]  forms a basis for $ U$.\\
+ }
+   \ex{}{
+Let $ U_1 = \left\{ a +bx^2 \mid  a ,b \in \mathbb{R} \right\} $.\\
+\textit{Is $ U_1$ a subspace of $ \mathcal{P}_2 \left[ x \right] $?}\\
+\underline{zero vector:} \\
+$ 0 + 0 x^2 \in U_1$. Yes $ U_1$ contains the zero vector.\\
+\\
+\underline{closed under addition:}\\
+Let $ a+bx^2$, $ c+ dx^2 \in U_1$ 
+\[
+a+bx^2 + c+ dx^2 = (a+c) + (b+d)x^2 \in U_1
+.\] 
+$ \implies U_1$ is closed under addition.\\
+\underline{closed under scalar multiplication:}\\
+Let $ a+bx^2 \in U_1$ and $ \lambda \in \mathbb{R}$, then
+\[
+\lambda \left( a+bx^2 \right) = \lambda a + \lambda b x^2 \in U_1
+.\] 
+$ \implies U_1$ is closed under scalar multiplication.\\\\
+Hence $ U_1$ is a subspace of $ \mathcal{P}_2 \left[ x \right] $.\\
+   }
+ \ex{}{
+    Let $ U_2 = \left\{ a +bx^2   \mid  a ,b \in \mathbb{R} , a \cdot b = 0 \right\} $.\\
+    \textit{Is $ U_2$ a subspace of $ \mathcal{P}_2 \left[ x \right] $?}\\
+    \underline{zero vector:} \\
+    $ 0 + 0x^2 \in U_2$ since $ \left( 0 \right) \left( 0 \right) =0$. Yes $ U_2$ contains the zero vector.\\
+    \underline{closed under addition:}\\
+    Let $ a+bx^2$, $ c+ dx^2 \in U_2$ such that $ ab = 0$ and $ cd = 0$.\\
+    \begin{align*}
+    	a+bx^2 + c+ dx^2 &= (a+c) + (b+d)x^2\\
+	    	&= \left( a+c \right) \left( b + d  \right) = ab + ad + bc + cd \\
+			    	&= 0 + ad + bc + 0 = ad + bc\\
+    .\end{align*}
+     Which is not necessarily zerom\\
+     Counter example: $ 5x^2$, $ 7 \in U_2$
+     but $ 7+ 5x^2  \notin U_2 $ \\
+     Hence $ U_2$ is not closed under addition.\\
+     $ \implies U_2$ is not a subspace of $ \mathcal{P}_2 \left[ x \right] $.\\
+ }
+  \ex{}{
+  \textit{Determine if the following sets are bases for $ \mathcal{P}_2 \left[ x \right] $:}\\
+  \[
+	  A = \left\{ 1, 1-x, 2-4x +x^2, 6-18x +9x^2 =x^3 \right\} 
+  .\] 
+  Note  that $ \dim \left( \mathcal{P}_3 \left[ x \right] \right) = 4$  $ \implies$ if $ A$ is linearly independent then it is a basis for $ \mathcal{P}_3 \left[ x \right] $.\\
+  Suppose $ c_1,c_2,c_3,c_4 \in \mathbb{R}$ such that
+  \[
+  c_1 \left( 1 \right) + c_2 \left( 1-x \right) + c_3 \left( 2-4x +x^2 \right) + c_4 \left( 6-18x +9x^2 =x^3 \right) = 0
+  .\] 
+  \[
+   \text{ i.e. } c_1 + c_2 + 2c_3 + 6c_4 + x \left( -c_2 -4c_3 -18 c_4 \right) + x^2 \left( c_3 + 9 c_4 \right) + x^3 \left(  - c_4 \right) = 0 + 0x + 0x^2 + 0x^3
+  .\] 
+  Equating coefficients we get the following system of equations:
+  \begin{align*}
+  	   c_1 + c_2 + 2c_3 + 6c_4 &= 0\\
+   -c_2 -4c_3 -18 c_4 &= 0\\
+   c_3 + 9 c_4 &= 0\\
+   -c_4 &= 0
+  .\end{align*}
+  to determine if the set is linearly independent we need to determine if the following system has only free variables:
+  \[
+  \left[
+  \begin{array}{cccc;{2pt/2pt}c}  
+  1 & 1 & 2 & 6 & 0\\
+  0 & -1 & -4 & -18 & 0\\
+  0 & 0 & 1 & 9 & 0\\
+  0 & 0 & 0 & -1 & 0\\
+  \end{array}
+  \right]
+  .\]               Pivot in every column $ \implies$ $ A$ is linearly independent and hence $ A$ is a basis for $ \mathcal{P}_3 \left[ x \right] $.\\
+  }
+\ex{}{
+Which of the following sets is a basis for $ M_{2\times  2}$ 
+\begin{enumerate} [label=(\alph*)]
+\item 
+	\[
+		\left\{ \begin{bmatrix}
+		5 & 0\\
+		0 & 0\\
+		\end{bmatrix} , \begin{bmatrix}
+		-2 & 7\\
+		0 & 0\\
+		\end{bmatrix}, \begin{bmatrix}
+		6 & 3\\
+		-1 & 0\\
+		\end{bmatrix} \right\}
+	.\] 
+\item 
+	\[
+		\left\{ \begin{bmatrix}
+		1 & 1\\
+		1 & 1\\
+		\end{bmatrix}, \begin{bmatrix}
+		0 & 1\\
+		1 & 1\\
+		\end{bmatrix}, \begin{bmatrix}
+		0 & 0 \\
+		1 & 1\\
+		\end{bmatrix}, \begin{bmatrix}
+		0 & 0\\
+		0 & 1\\
+		\end{bmatrix} \right\} 
+	.\] 
+\item 
+	\[
+		\left\{ \begin{bmatrix}
+		1 & 1\\
+		1 & 1\\
+		\end{bmatrix}, \begin{bmatrix}
+		2 & -3\\
+		0 & 4\\
+		\end{bmatrix}\right\}
+	.\] 
+	\item 
+		\[
+			\left\{ \begin{bmatrix}
+			2 & 0\\
+			0 & -2\\
+			\end{bmatrix} , \begin{bmatrix}
+			0 & 3\\
+			3 & 0\\
+			\end{bmatrix}, \begin{bmatrix}
+			4 & 0\\
+			0 & 0\\
+			\end{bmatrix}, \begin{bmatrix}
+			2 & 9\\
+			9 & -10\\
+			\end{bmatrix}\right\} 
+		.\] 
+\end{enumerate}
+  \textbf{Solution:}\\
+  Note that $ \dim \left( M_{2\times 2} \right) = 4$ \\
+  $ \implies$ all bases for $ M_{2\times 2}$ have 4 vectors.\\
+  This eliminates \textbf{(a)}, and \textbf{(c)}.\\
+  \textbf{(b)}: since dim $ \left( M_{2\times 2} \right) = 4$ all we need to show is that the set is linearly independent.\\
+  Suppose $ c_1,c_2,c_3,c_4 \in \mathbb{R}$ such that
+  \[
+  c_1 \begin{bmatrix}
+  1 & 1\\
+  1 & 1\\
+  \end{bmatrix} + c_2 \begin{bmatrix}
+  0 & 1\\
+  1 & 1\\
+  \end{bmatrix} + c_3 \begin{bmatrix}
+  0 & 0\\
+  1 & 1\\
+  \end{bmatrix} + c_4 \begin{bmatrix}
+  0 & 0\\
+  0 & 1\\
+  \end{bmatrix} = \begin{bmatrix}
+  0 & 0\\
+  0 & 0\\
+  \end{bmatrix}
+  .\] 
+   \[
+   \text{ i.e. } \begin{bmatrix}
+   c_1 & c_1+c_2\\
+   c_1+c_2 c_3 & c_1 +c_2 +c_3 +c_4\\
+   \end{bmatrix}= \begin{bmatrix}
+   0 & 0\\
+   0 & 0\\
+   \end{bmatrix}
+   .\] 
+   equating entries:
+   \begin{align*}
+   	    c_1 &= 0\\
+    c_1 + c_2 &= 0\\
+    c_1 + c_2 + c_3 &= 0\\
+    c_1 +c_2 +c_3 +c_4 &= 0
+   .\end{align*}
+   By observation (or looking at the augmented matrix) we get that the only solution is $ c_1 = c_2 = c_3 = c_4 = 0$ i.e. the set is linearly independent.\\
+   $ \implies$ \textbf{(b)} is a basis for $ M_{2\times 2}$.\\
+  \textbf{(d)}:  Similarly we check that the set is linearly independent $ c_1$, $ c_2$, $ c_3$, $ c_4 \in \mathbb{R}$ such that
+  \[
+  c_1 \begin{bmatrix}
+  2 & 0\\
+  0 & -2\\
+  \end{bmatrix} + c_2 \begin{bmatrix}
+  0 & 3\\
+  3 & 0\\
+  \end{bmatrix}+ c_3 \begin{bmatrix}
+  4 & 0\\
+  0 & 0\\
+  \end{bmatrix} + c_4 \begin{bmatrix}
+  4 & 0\\
+  0 & 0\\
+  \end{bmatrix} = \begin{bmatrix}
+  0 & 0\\
+  0 & 0\\
+  \end{bmatrix}
+  .\] 
+  After similar calculations we get:\\
+  \[
+  \left[
+  \begin{array}{cccc;{2pt/2pt}c}  
+  2 & 0 & 4 & 2 & 0\\
+  0 & 3 & 0 & 9 & 0\\
+  0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & -8 & 0\\
+  \end{array}
+  \right]
+  .\] 
+  Only 3 pivots, one free variable \\
+  $ \implies$ the set is linearly dependent and does not form a basis for $ M_{2\times 2}$.\\
+}
+\dfn{Trace of a Matrix :}{
+Suppose $ A$ is an $n \times n$  matrix with $ (i,j) $ entry $ a_{ij}$. The trace of $ A$ is defined as
+\[
+a_{11} + a_{22} + \ldots + a_{nn} = \sum\limits_{i=1}^{n} a_{ii}
+.\] 
+}
+
+ \ex{}{
+	 Let $ U = \left\{ A \in M_{n \times  n } \mid \text{trace } A =0\right\} $.\\
+	 \textit{Is $ U$ a subspace of $ M_{n \times n}$?}\\ 
+	 Examples of $ 2\times 2$ matrices with trace $ 0$ are
+	 \[
+	 \begin{bmatrix}
+	 3 & 0\\
+	 7 & -3\\
+	 \end{bmatrix} \qquad \begin{bmatrix}
+	 a & b\\
+	 c & -a\\
+	 \end{bmatrix} \qquad a,b,c \in \mathbb{R}
+	 .\] 
+	 \underline{zero vector:}\\
+	 \[
+	 \begin{bmatrix}
+	 0 & 0 & 0 & \dots  & 0 \\
+	 0 & 0 & 0 & \dots  & 0 \\
+	 \vdots & \vdots & \vdots & \ddots & \vdots \\
+	 0 & 0 & 0 & \dots  & 0\end{bmatrix} \in U \text{ since }  \left( 0 \right) \left( n \right) =0
+	 .\] 
+	 \underline{closed under addition:}\\
+	 Let $ A$, $ B \in U$ \\
+	 Suppose $ (i,j) $ entry of $ A$ is $ a_{ij}$ and the $(i,j)$ entry of $ B$ is $ b_{ij}$.\\
+	\[
+	\sum\limits_{i=1}^{n} a_{ii}=0 \qquad \sum\limits_{i=1}^{n} b_{ii} = 0
+	.\] 
+	The $ (i,j) $ entry of $ A+B$ is $ a_{ij} + b_{ij}$, hence
+	\[
+	\text{ trace } \left( A+B \right) = \sum\limits_{i=1}^{n} \left( a_{ii} + b_{ii} \right) = \sum\limits_{i=1}^{n} a_{ii} + \sum\limits_{i=1}^{n} b_{ii} = 0+0=0
+	.\] 
+	$ \implies U$ is closed under addition.\\
+	\underline{ closed under scalar multiplication:}\\
+	 Let $ A \in U$ and  $ \implies \text{ trace } \left( A \right) =0 = \sum\limits_{i=1}^{n} a_{ii}$.\\
+	 Let $ \lambda \in \mathbb{R}$, then the $(i,j)$ entry of $ \lambda A$ is $ \lambda a_{ij}$.\\
+	 \[
+	 \implies \text{ trace } \left( \lambda A \right) = \sum\limits_{i=1}^{n} \lambda a_{ii} = \lambda \sum\limits_{i=1}^{n} a_{ii} = \lambda \cdot 0 = 0
+	 .\] 
+	 $ \implies U$ is closed under scalar multiplication.\\
+	 Hence $ U$ is a subspace of $ M_{n \times n}$.\\
+ }
+ \section{Linear Transformations}
+ 	
+ \dfn{Linear Transformation :}{
+ A linear transformation $ T$ from a vector space $ V$ to a vector space $ W$, $ T: V \to W$ is a map that assigns to each vector $ \vec{ v} \in V$ a unique vector $ T \left( \vec{ x} \right) \in W$ such that $ T$ preserves vector addition and scalar multiplication, i.e. 
+ \begin{enumerate}[label=(\roman*)]
+ \item $ T \left( \vec{ v_1} + \vec{ v_2} \right) = T \left( \vec{ v_1} \right) + T \left( \vec{ v_2} \right)$ for all $ \vec{ v_1},\vec{ v_2} \in V$.
+ \item      $ T \left( \lambda \vec{ v}  \right) = \lambda T \left( \vec{ v}  \right)  \forall  \lambda \in \mathbb{R}, \vec{ v}  \in V$\\
+	 \begin{tikzpicture}[>=stealth, every node/.style={inner sep=1pt}, scale=1.1]
+
+  %--- the two vector-space “blobs” --------------------------
+  \draw (-2,0) ellipse (1.6 and 3);          % V
+  \node at (-2,  3.3) {$V$};
+
+  \draw ( 4,0) ellipse (1.6 and 3);          % W
+  \node at ( 4,  3.3) {$W$};
+
+  %--- the label for the transformation ---------------------
+  \draw[->] (-0.5, 2.9)  
+            .. controls ( 1, 3.4) and ( 2.5, 3.4) .. 
+            ( 3.5, 2.9)
+            node[midway, above] {$T$};
+
+  %--- points in V ------------------------------------------
+  \node (v1)  at (-2,  2) {$\vec v_{1}$};
+  \node (v2)  at (-2,  1) {$\vec v_{2}$};
+  \node (v12) at (-2,  0) {$\vec v_{1}+\vec v_{2}$};
+  \node (v)   at (-2, -1) {$\vec v$};
+  \node (lv)  at (-2, -2) {$\lambda\vec v$};
+
+  %--- images in W ------------------------------------------
+  \node (Tv1) at ( 4,  2) {$T(\vec v_{1})$};
+  \node (Tv2) at ( 4,  1) {$T(\vec v_{2})$};
+  \node (Tsum)at ( 5.5,  0) {$T(\vec v_{1})+T(\vec v_{2})\;\neq\;T(\vec v_{1}+\vec v_{2})$};
+  \node (Tv)  at ( 4, -1) {$T(\vec v)$};
+  \node (lTv) at ( 4, -2) {$\lambda\,T(\vec v)=T(\lambda\vec v)$};
+
+  %--- arrows between corresponding points ------------------
+  \foreach \from/\to in {v1/Tv1, v2/Tv2, v12/Tsum, v/Tv, lv/lTv}
+      \draw[->] (\from) -- (\to);
+
+\end{tikzpicture}
+
+     
+ \end{enumerate}
+}
+   \mlem{}{
+   Suppose $ T: V \to W$ is a linear transformation. Let $ \vec{ 0}_v $ and $ \vec{ 0}_w$ be the zero vectors in $ V$ and $ W$ respectively. Then
+   \begin{enumerate}[label=(\roman*)]
+   \item $ T \left( \vec{ 0}_v \right) = \vec{ 0}_w$
+   \item      $ T \left( - \vec{ v}  \right) = - T \left( \vec{ v}  \right)  \forall  \vec{ v}  \in V$
+   \end{enumerate}
+    \pf{Proof:}{
+    (i)\\
+          We note that $ 0 _{  \vec{ v} } = \vec{ 0 _v} \forall \vec{ v}  \in V $ also $ 0 _{  \vec{ w} } = \vec{ 0 _w} \forall \vec{ w}  \in W $.\\
+	  $ T \left( \vec{ 0}_{  v } \right) = T \left( 0_{ \vec{ v} } \right) $  for some $ \vec{ v}  \in V$\\
+	  $ = 0 T \left( \vec{ v}  \right) $ by the property of linear transformations\\
+	  $ = 0 \vec{ 0}_w$ since $ T \left( \vec{ v}  \right) \in W$\\
+	  \\
+	  (ii)\\
+	  Let $ \vec{ v} \in V$ 
+	  
+   	  $ T \left( - \vec{ v}  \right) = \left( -1 \right) T \left( \vec{ v}  \right) $ by the property of linear transformations\\
+	  $ = - T \left( \vec{ v}  \right) $ since $ T \left( \vec{ v}  \right) \in W$\\
+ }
+   \ex{}{
+	   Suppose $ T : \mathcal{P}_k \left[ x \right]  \to \mathcal{P} _{k-1}\left[x \right] $ is defined  as $ T\left( p \left( x \right)  \right) = p ^{1}\left( x\right) $. Show that $ T$ is a linear transformation.\\
+	   \underline{Preserves vector addition:}\\
+	   Suppose $ p\left( x \right) $, $ q \left( x \right)  \in \mathcal{P}_k \left[ x \right] $.
+	   \begin{align*}
+	   		    T \left( p \left( x \right) + q \left( x \right)  \right) &=  \frac{d}{dx} \left(  p \left( x \right) + q \left( x \right)  \right) \\
+			    	   		    &= \frac{d}{dx} \left( p \left( x \right)  \right) + \frac{d}{dx} \left( q \left( x \right)  \right)\\
+						    &= p' \left( x \right) + q' \left( x \right)\\
+						    			    	   		    &= T \left( p \left( x \right)  \right) + T \left( q \left( x \right)  \right)
+	   .\end{align*}
+	   $ \implies T$  preserves vector addition.\\
+	   \underline{Preserves scalar multiplication:}\\
+	   Suppose $ p\left[ x \right]  \in \mathcal{P}_k \left[ x \right]$, $ \lambda \in \mathbb{R}$ \\
+	   \begin{align*}
+	   	        T \left( \lambda p\left( x \right)  \right) = \frac{d}{dx} \left( \lambda p \left( x \right)  \right) = \lambda  \frac{ d   }{ dx }\left( p \left( x \right)  \right) \\
+			&= \lambda T \left( p \left( x \right)  \right) 
+	   .\end{align*}
+	   $ \implies T $ preserves scalar multiplication.\\
+	   Hence $ T$ is a linear transformation.
+   }  
+   \ex{}{
+   Show that the map 
+\[
+	T: \mathcal{P}_2 \left[ x \right] \to \mathcal{P}_3   \left[ x \right]
+.\] 
+\[
+T \left( p \left( x \right)  \right) = x \left( p \left( x \right)  \right) 
+.\]                  is a linear transformation
+\begin{enumerate}[label=(\roman*)]
+\item Let $ p\left( x \right) $, $ q \left( x \right)  \in \mathcal{P}_2 \left[ x \right]$
+ \[
+ T \left( p \left( x \right) + q \left( x \right)  \right) = x \left( p \left( x \right) + q \left( x \right)  \right) = x \left( p \left( x \right)  \right) + x \left( q \left( x \right)  \right) 
+ .\]        
+ \[
+ = T \left(  p \left( x \right)  \right) + T \left( q \left( x \right)  \right) 
+ .\] 
+\item                     Let $ p \left( x \right)  \in \mathcal{P}_2 \left[  x\right] $ and $ \lambda \in \mathbb{R}$
+ \begin{align*}
+ 	T \left( \lambda p\left( x \right)  \right) = x \left( \lambda p \left( x \right)  \right) = \lambda \left( x p\left( x \right)  \right) \\
+	\lambda T \left( p \left( x \right)  \right) 
+ .\end{align*}  
+ $ \implies T$ is a linear transformation.
+\end{enumerate}
+   }
+   
+   \ex{}{
+	   Let $ \alpha : \mathcal{P} \left[ x \right] \to \mathcal{P} \left[ x \right] $ be defined as $ \alpha \left(  p \left( x \right)  \right) = 3 p \left( x \right) p ' \left( x \right)$
+    \textit{Is $ \alpha$ a linear transformation?}\\
+    Let $ p \left( x \right) , q \left( x \right)  \in \mathcal{P} \left[ x \right]$
+    \[
+    \alpha \left( p \left( x \right) + q \left( x \right)  \right) = 3 \left( p \left( x \right) + q \left( x \right)  \right) \left( p \left( x \right) + q \left( x \right)  \right) '
+    .\] 
+    and $ 3 \left(  p\left( x \right) + q \left( x \right)  \right) \left( p \left( x \right) + q \left( x \right)  \right) '$ is not, in general equal to $ 3 p \left( x \right) p' \left( x \right) + 3 q \left( x \right) q' \left( x \right)  $
+    $ \implies \alpha$ is not a linear transformation\\
+    \\
+    Counter example:\\
+    Consider $ p\left( x \right) = x+5$, $ q \left( x \right) = x^2 -x +2$
+    \begin{align*}
+    	\alpha \left( p\left( x \right) + q\left( x \right)  \right) = \alpha \left(  x^2 +7 \right) = 3 \left( x^2+7 \right) \left( 2x \right) \\
+	&= \alpha \left(  p \left( x \right)  \right) = 3 \left( x+5 \right) \\
+	&=  \alpha \left(  q \left(  x \right)  \right) = 3 \left( x^2 - x + 2 \right)                \left( 2x-1 \right) 
+    .\end{align*}
+    and, $ 3 \left( x^2+7 \right) \left( 2x \right)  \neq 3 \left( x+5 \right) + 3 \left( x^2-x +2 \right)  \left( 2x-1 \right) $
+   }
+   \ex{}{
+   Suppose $ A$ is the following $ 3 \times 2$ matrix 
+   \[
+   A = \begin{bmatrix}
+ 1& -3 \\\
+3 & 5 \\\
+-1& 7 \\\
+\end{bmatrix}        
+   .\]               We define a mapping $ T: \mathbb{R} ^2 \to \mathbb{R} ^2 $ by 
+   \[
+   T \left(  \vec{ x}  \right) = A \vec{ x} \forall  \vec{ x} \in \mathbb{R} ^2 
+   .\] 
+   $ T$ is a linear transformation - \textit{why?}\\
+   \\
+   Let $ \vec{ u} $, $ \vec{ v} \in \mathbb{R} ^2$, $ \lambda \in \mathbb{R}$ \\
+   \\
+   \begin{align*}
+   	T \left(  \vec{ u} + \vec{ v}  \right) = A \left( \vec{ u} + \vec{ v}  \right) = A \vec{ u} + A \vec{ v} \\
+	&= T \left( \vec{ u}  \right) + T \left( \vec{ v}  \right) 
+   .\end{align*}
+   $ \implies T $ preserves addition \\
+   \\
+   \[
+   T \left(  \lambda \vec{ u }  \right) = A \left(  \lambda \vec{ u }  \right) = \lambda \left( A \vec{ u}  \right) = \lambda T \left(  \vec{ u}  \right)  
+   .\] 
+   $ \implies T$ preserves scalar multiplication\\
+   Hence $ T$ is a linear transformation.
+   }
+ \nt{
+ There was nothing special about the matrix $ A$ in the previous example that influenced the fact that $ A$ determined a linear transformation from $ \mathbb{R} ^2 \to \mathbb{R} ^3$. All $ 3 \times 2$ matrices determine linear transformations from $ \mathbb{R} ^2 \to \mathbb{R} ^3$ defined by $ T: \mathbb{R} ^2 \to \mathbb{R} ^3$, $ T \left( \vec{ x}  \right) = A \vec{ x} $ wher $ A$ is any $ 3 \times 2$ matrix.\\
+ \\
+ In general, if $ A \in M _{m \times  n} \left(  \mathbb{R} \right) $  then the mapping $ T: \mathbb{R} ^{n} \to \mathbb{R} ^{ m}$ defined by $ T \left( \vec{ x}  \right) = A \vec{ x} $, $ \forall  \vec{ x} \in \mathbb{R} ^{ n}$ is a linear transformation.\\
+ }
+   
+     
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}        
