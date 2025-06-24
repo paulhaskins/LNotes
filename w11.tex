@@ -1,0 +1,883 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+  \section{Kernal and Image}
+  \ex{}{
+  \textit{ Find the kernel and image of $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$
+   \[
+   T \begin{bmatrix}
+   x\\
+   y\\
+   \end{bmatrix}
+   = \begin{bmatrix}
+   0 & 1\\
+   1 & 0\\
+   \end{bmatrix} \begin{bmatrix}
+   x\\
+   y\\
+   \end{bmatrix}
+   = \begin{bmatrix}
+   y\\
+   x\\
+   \end{bmatrix}
+   \]
+   \textbf{ Solution:}\\
+   \begin{align*}
+	   \text{ ker } T  = \left\{ \begin{bmatrix}
+	   x\\
+	   y \\
+	   \end{bmatrix}
+	   \in \mathbb{R} ^2 \mid T \begin{bmatrix}
+	   x\\
+	   y\\
+	   \end{bmatrix}         
+	   = \begin{bmatrix}
+	   0\\
+	   0\\
+	   \end{bmatrix}          \right\}
+	    \right\} \\
+	    & = \left\{ \begin{bmatrix}
+	    x\\
+	    y\\
+	    \end{bmatrix}
+	    \in \mathbb{R} ^2 \mid \begin{bmatrix}
+	    y\\
+	    x\\
+	    \end{bmatrix}
+	    = \begin{bmatrix}
+	    0\\
+	    0\\
+	    \end{bmatrix}
+	     \right\}\\
+	     &= \left\{ \begin{bmatrix}
+	     x\\
+	     y\\
+	     \end{bmatrix}
+	     \in \mathbb{R} ^2 \mid \begin{bmatrix}
+	     y\\
+	     x\\
+	     \end{bmatrix}
+	     = \begin{bmatrix}
+	     0\\
+	     0\\
+	     \end{bmatrix}  \right\}\\
+	     & = \left\{  \begin{bmatrix}
+	     x\\
+	     y\\
+	     \end{bmatrix}
+	     \in \mathbb{R} ^2 \mid x=0 , y=0 \right\} 
+	      \right\}                       \\
+	      & = \left\{ \begin{bmatrix}
+	      0\\
+	      0\\
+	      \end{bmatrix}
+	       \right\} 
+   .\end{align*}
+  }
+  \begin{align*}
+	  Im T =  \left\{ \begin{bmatrix}
+	  x\\
+	  y\\
+	  \end{bmatrix}
+	  \in \mathbb{R} ^2 \mid T \begin{bmatrix}
+	  u\\
+	  v\\
+	  \end{bmatrix}
+	  = \begin{bmatrix}
+	  x\\
+	  y\\
+	  \end{bmatrix}
+	   \text{ for some }  \begin{bmatrix}
+	   u\\
+	   v\\
+	   \end{bmatrix}
+	    \in \mathbb{R} ^2\right\} \\
+	    & = \left\{ \begin{bmatrix}
+	    x\\
+	    y\\
+	    \end{bmatrix}
+	    \in \mathbb{R} ^2 \mid \begin{bmatrix}
+	    v\\
+	    u\\
+	    \end{bmatrix}
+	    = \begin{bmatrix}
+	    x\\
+	    y\\
+	    \end{bmatrix}
+	    , \quad u,v \in \mathbb{R} \right\}  \\
+	    & =  \mathbb{R} ^2\\
+  .\end{align*}
+    
+}
+
+\nt{
+Suppose $ A \in M_{m \times  n}$  and let $ T: \mathbb{R} ^n \to \mathbb{R} ^m$ be defined as $ T \left( \vec{ x}  \right) = A \vec{ x}  \forall  \vec{ x} \in \mathbb{R} ^{n}$ .
+\textit{Recall: $ A$ is the } 
+}
+ XXX THIS ISNT COMPLETED CHECK IF ALREADY DONE IN THE LECTURE NOTES XXX\\
+ \\
+ \\
+ \thm{}
+ {
+ Suppose $ T: V \to W$ is a linear transformation between the vector spaces $ V$ and $ W$.\\
+ \begin{enumerate}[label=(\roman*)]
+ \item ker T is a subspace of $ V$.
+ \item Im T is a subspace of $ W$.
+ \item dim (ker T) + dim (Im T) = dim (V).
+ \end{enumerate}
+ }
+ 
+ \pf{Proof:}{
+ (i)\\
+ Since $ T \left(  \vec{ 0}_v \right) = \vec{ 0}_w \implies \vec{ 0}_v \in ker T  $ \\
+ \begin{align*}
+ 	T \left(  \vec{ v_1} + \vec{ v_2}  \right) = T \left(  \vec{ v_1}  \right) + T \left(  \vec{ v_2}  \right) \\
+	 	& = \vec{ 0} + \vec{ 0}\\
+		& = \vec{ 0} 
+ .\end{align*}
+ $ \implies \vec{ v_1} + \vec{ v_2} \in  ker T $  i.e. ker T is closed under addition.\\
+ \\
+ Let $ \vec{ v} \in ker T$, $ \lambda \in \mathbb{R}$ i.e.  $ T \left(  \vec{ v}  \right) = \vec{ 0}_w $\\
+ \[
+ T \left( \lambda \vec{ v}  \right) = \lambda T \left(  \vec{ v}  \right) = \lambda \vec{ 0}= \vec{ 0}
+ .\] 
+ $ \implies \lambda \vec{ v} \in  ker T$  i.e.  ker T is closed under scalar multiplication.\\
+ Hence ker T is a subspace of $ V$.\\
+ \\
+ (ii)\\
+ Since $ T \left(  \vec{ 0}_v \right) = \vec{ 0}_w \implies \vec{ 0}_w \in Im T  $ \\
+ Let $ \vec{ w_1}, \vec{ w_2} \in Im T$\\
+ Then there exists $ \vec{ v_1}, \vec{ v_2} \in V$ such that $ T \left(  \vec{ v_1}  \right) = \vec{ w_1}$ and $ T \left(  \vec{ v_2}  \right) = \vec{ w_2}$\\
+ \[
+ \vec{ w_1} + \vec{ w_2} = T \left(  \vec{ v_1}  \right) + T \left(  \vec{ v_2}  \right) = T \left(  \vec{ v_1} + \vec{ v_2}  \right)
+ .\] 
+ Hence $ \vec{ w_1} + \vec{ w_2} \in Im T$  i.e. Im T is closed under addition.\\
+ \\
+ Let $ \vec{ w} \in Im T$, i.e.  $ \exists  \vec{ v}  \in V$ such that $ T \left(  \vec{ v}  \right) = \vec{ w}$\\
+ \[
+ \lambda \vec{ w} = \lambda T \left(  \vec{ v}  \right) = T \left(  \lambda \vec{ v}  \right)
+ .\] 
+ $ \implies w \in Im T $ i.e. Im T is closed under scalar multiplication.\\
+ \\
+ Hence Im T is a subspace of $ W$.\\
+ \\
+ \\
+ (iii)\\
+ In the case wher $ V = \mathbb{R} ^{n}$ and $ W = \mathbb{R} ^{m}$ there exists $ A \in M_{m \times n}$  such that $ T \left(  \vec{ v}  \right) = A \vec{ v}  \forall  \vec{ x} \in \mathbb{R} ^{n}$ and hence, $ dim \left(  ker T \right) = dim \left( \mathcal{N} \left( A \right)  \right)  $ and $ dim \left(  Im T \right) = dim \left( \mathcal{C} \left( A \right) \right)  $ and so  $  dim \left(  ker T \right) + dim \left( Im T \right) = n = dim V$
+ }
+ 
+ We can consider now the more general case where $ V$ and $ W$ are arbitrary vector spaces $ T: V \to W$ linear transformation.\\
+ Let $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\}$ be a basis for $ ker T$. If span $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\} \neq V $ we can extend this to a basiss for $ V$ by adding vectors $ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_{\ell}}$ that lie outside span $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\}$ such  that the set $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k} , \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_{\ell}}  \right\}$ is a basis for $ V$.\\
+ Then we can write any vector $ \vec{ v}  \in V$ as a linear combination of the basis vectors, i.e. $ \exists  \alpha _1, \alpha_2 , \ldots \alpha_k$ $ \gamma_1, \gamma_2, \ldots ,\gamma_{\ell} \in \mathbb{R}$ such that
+ \[
+ \vec{ v} = \alpha_1 \vec{ u_1} + \alpha_2 \vec{ u_2} + \ldots + \alpha_k \vec{ u_k} + \gamma_1 \vec{ b_1} + \gamma_2 \vec{ b_2} + \ldots + \gamma_{\ell} \vec{ b_{\ell}}
+ .\] 
+ By the linearity 
+ \[
+ T \left(  \vec{ v}  \right) = \alpha_1 T \left( \vec{ u_1}  \right) + \alpha_2 T \left( \vec{ u_2}  \right) + \ldots + \alpha_k T \left( \vec{ u_k}  \right) + \gamma_1 T \left( \vec{ b_1}  \right) + \gamma_2 T \left( \vec{ b_2}  \right) + \ldots + \gamma_{\ell} T \left( \vec{ b_{\ell}}  \right)
+ .\] 
+  \[
+  T \left( \vec{ v}  \right) = \gamma_1 T \left( \vec{ b_1}  \right) + \gamma_2 T \left( \vec{ b_2}  \right) + \ldots + \gamma_{\ell} T \left( \vec{ b_{\ell}}  \right)
+  .\] 
+  Hence every vector $ T \left( \vec{ v}  \right) \in Im T$ can be written as a linear combination of the vectors $ T \left( \vec{ b_1}  \right) , T \left( \vec{ b_2}  \right) , \ldots , T \left( \vec{ b_{\ell}}  \right)$.\\
+  \[
+  \mathcal{F} = \left\{ T \left( \vec{ b_1}  \right) , T \left( \vec{ b_2}  \right) , \ldots , T \left( \vec{ b_{\ell}}  \right)  \right\} \text{ spans } Im T
+  .\] 
+\textit{Is \(\mathcal{F}\) linearly independent?}\\
+Suppose, for the sake of contradiction (FTSOC), that \(\mathcal{F}\) is linearly dependent.  
+Then there exist scalars \(c_1,c_2,\ldots,c_{\ell}\in\mathbb{R}\), not all zero, such that
+\[
+  c_1\,T(\vec b_1)+c_2\,T(\vec b_2)+\dots+c_{\ell}\,T(\vec b_{\ell})=\vec 0 .
+\]
+By the linearity of \(T\),
+\[
+  T\!\bigl(c_1\vec b_1+c_2\vec b_2+\dots+c_{\ell}\vec b_{\ell}\bigr)=\vec 0 .
+\]
+Hence \(c_1\vec b_1+c_2\vec b_2+\dots+c_{\ell}\vec b_{\ell}\in\ker T\).\\[6pt]
+\(\{\vec u_1,\dots,\vec u_k\}\) forms a basis for \(\ker T\)\(\;\Rightarrow\;\)there exist scalars $ \lambda_1, \lambda_2 ,\ldots , \lambda_k \in \mathbb{R} $ such that
+\[
+	\sum\limits_{i=1}^{\ell } c_i \vec b_i = = \sum\limits_{j=1}^{k } \lambda_j \vec{u_j}
+.\] 
+Hence $ \sum\limits_{i=1}^{\ell}  c_i \vec{ b_i} - \sum\limits_{j=1}^{k} \lambda_j \vec{ u_j} = \vec{ 0}$\\
+i.e. we have a linear combination of $ \left\{ \vec{ u_1} , \ldots , \vec{ u_k} , \vec{ b_1} , \ldots \vec{ b_{\ell}}  \right\}$ equal to the zero without all coefficients being zero which contradicts the fact that $ \left\{ \vec{ u_1} , \ldots , \vec{ u_k} , \vec{ b_1} , \ldots \vec{ b_{\ell}}  \right\}$ is a basis for $ V$.\\
+Hence $ \mathcal{F} = \left\{ T \left( \vec{ b_1}  \right) , \ldots , T \left( \vec{ b_{\ell}}  \right)  \right\} $ forms a basis for $ Im T$.\\
+$ \implies dim \left(  Im T \right) = \ell , \qquad dim \left(  ker T \right) =k$ and $ l+k =n$\\
+$ \implies dim \left( Im T \right) + dim \left( ker T \right) = dim V$   \\
+\\
+ \dfn{Rank and Nullity:}{
+                       Suppose $ T: V \to W$ is a linear transformation between the vector spaces $ V$ and $ W$.\\
+		       \begin{enumerate}[label=(\roman*)]
+		       \item $dim (Im T)$  is called the rank of $ T$ and is denoted by $ rk \left( T \right) $
+		       \item         $ dim \left(  ker T \right) $ is called the nullity of $ T$ and is denoted by null $ \left( T \right) $
+		       \end{enumerate}
+		                  The previous theorem says:
+				  \[
+				  rk \left( T \right) + null \left( T \right) = dim \left( V \right) 
+				  .\] 
+				  This is known as the rank-nullity theorem.
+ }
+ \ex{}{
+ Suppose $ I : V \to V$ is the identity mapping on $ V$.\\
+ $ I \left(  \vec{  x}  \right) = \vec{ x}  \forall  \vec{ x} \in V$ \\
+ \[
+	 ker I = { \vec{ 0} } \qquad null I =0
+ .\] 
+ \[
+ Im I = V \qquad rk I = dim V
+ .\] 
+ \[
+ null I + rk I = dim V
+ .\] 
+ }
+ \ex{}{
+ Suppose $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$ is defined as 
+ $ T \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ x\\
+ 0\\
+ \end{bmatrix}
+ $  i.e.  $ T$ projects $ \mathbb{R} ^2$ orthogonally onto the x-axis\\
+ \begin{align*}
+	 ker T = \left\{ \begin{bmatrix}
+	 x\\
+	 y\\
+	 \end{bmatrix}
+	 \in \mathbb{R} ^2 \mid \begin{bmatrix}
+	 x\\
+	 0\\
+	 \end{bmatrix}
+	 = \begin{bmatrix}
+	 0\\
+	 0\\
+	 \end{bmatrix}
+	  \right\} \\
+	  & = \left\{ \begin{bmatrix}
+	  0\\
+	  y\\
+	  \end{bmatrix}
+	  \in \mathbb{R} ^2 \right\} = \text{ span } \begin{bmatrix}
+	  0\\
+	  1\\
+	  \end{bmatrix}        \\
+	  &= dim  ker T = 1 = null T
+ .\end{align*}
+ \begin{align*}
+	 Im T = \left\{ \begin{bmatrix}
+	 x\\
+	 y\\
+	 \end{bmatrix}
+	 \in \mathbb{R} ^2 \mid \begin{bmatrix}
+	 x\\
+	 y\\
+	 \end{bmatrix}
+	 = T \begin{bmatrix}
+	 u\\
+	 v\\
+	 \end{bmatrix}
+	 \text{ for some } u ,v \in \mathbb{R} \right\}\\
+	 &= \left\{ \begin{bmatrix}
+	 x\\
+	 y\\
+	 \end{bmatrix}
+	 \in \mathbb{R} ^2 \mid \begin{bmatrix}
+	 x\\
+	 y\\
+	 \end{bmatrix}
+	 = \begin{bmatrix}
+	 u\\
+	 0\\
+	 \end{bmatrix}
+	  \text{ for some } u \in \mathbb{R} \right\} \\
+   &= \left\{ \begin{bmatrix}
+   x\\
+   0\\
+   \end{bmatrix}
+    \mid x \in \mathbb{R}\right\}= \text{ span } \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+ .\end{align*}
+ \[
+ dim \left(  Im T \right) = 1 = rk T
+ .\] 
+ \[
+ null T + rk T = dim \left(  \mathbb{R} ^2 \right) = 2
+ .\] 
+ }
+ \ex{}{
+  Consider the linear transformation $ D: \mathcal{P}_k \left[ x \right]  \to \mathcal{P}_{k} \left[ x \right]$ defined by $ D \left( p \left( x \right)  \right) = p ' \left( x \right) $ \\
+$ ker D = \left\{ a_0 \in \mathcal{P} _k \left[ x \right] \right\} $, $ null D =1$.\\
+$ Im D = \mathcal{P} _{k-1}\left[ x \right]$ , $ rk D = k$.\\
+$ null D + rk D = k+1 = dim \left(  \mathcal{P}_k \left[ x \right] \right) $
+ }
+  \section{Injective, Surjective and Bijective Linear Transformations}
+  Suppose $ V$ and $ W$ are vector spaces.\\
+  \dfn{Injective Transformation:}{
+  
+   A linear transformation $ T: V \to W$ is called injective (or one-to-one) if and only if $ T \left( \vec{ u}  \right) = T \left(  \vec{ w}  \right) $ implies $ \vec{ u} = \vec{ w} $ i.e. $ T$ maps distinct vectors to distinct vectors.\\
+   An injective linear transformation is also called a \underline{ monomorphism}.\\ 
+  }
+  \dfn{Surjective Transformation :}{
+                               A linear transformation $ T: V \to W$ is said to be \underline{surjective} if and only if $ Im T = W$. \\
+                               A surjective linear transformation is also called an \underline{epimorphism}.\\
+  }
+   \dfn{Bijective Transformation :}{
+   A linear transformation that is both injective and surjective is called \underline{bijective} or a \underline{isomorphism}.\\
+   }
+   \mlem{}{
+    Let $ T: V \to W $ be a linear transformation between the vector spaces $ V$ and $ W$.\\
+    \[
+    T \text{ is injective } \iff ker T = \left\{ \vec{ 0} \right\}
+    .\] 
+   }
+  \pf{Proof:}{
+  ( $ \Rightarrow$)\\
+  Suppose $ T$ is injective and $ \vec{ v}  \in ker T$.\\
+  Then $ T \left(  \vec{ v}  \right) = \vec{ 0} $ $ \implies \vec{ v} = \vec{ 0} $ since $ T$ is injective.\\
+  $ \implies ker T = \left\{ \vec{ 0}  \right\}$
+  }
+   
+  \pf{Proof:}{
+  ( $ \Leftarrow$)\\
+           Suppose $ ker T = \left\{ \vec{ 0}  \right\}$ and let $ \vec{ v} , \vec{ u}  \in V$ such that $ T \left( \vec{ u}  \right) = T \left( \vec{ v}  \right) $, then $ T \left( \vec{ u}  \right) - T \left( \vec{ v}  \right) = \vec{ 0} $.\\
+           $ T \left( \vec{ u} - \vec{ v}  \right) = \vec{ 0} $ $ \implies \vec{ u}  - \vec{ v}  \in ker T = { \vec{ 0} }$ \\
+           Hence $ \vec{ u}  - \vec{ v}  = \vec{ 0} $ $ \implies \vec{ u} = \vec{ v} $.\\
+           Hence $ T$ is injective.
+  }
+ \ex{}{
+ Suppose $ T: \mathbb{R} ^{5} \to \mathbb{R} ^{3}$ is defined as $ T \left( \vec{ x}  \right) = A \vec{ x} $ where
+ \[
+ A = \begin{bmatrix}
+ 1 & 2 & 1 & 4 & -1\\
+ -1 & -1 & -4 & -2 & 3\\
+ 2 & 4 & 3 & 17 & 5\\
+ \end{bmatrix}
+ .\] 
+ \textit{(i) Is $ T$ injective?}\\
+ \textit{(ii) Is T surjective?}\\
+              \\
+              \textbf{Solution:}\\
+              \begin{enumerate}[label=(\roman*)]
+                \item 
+                 $ T$ is injective $ \iff ker T = \vec{  {0}}$ i.e.  $ \mathcal{N } \left( A \right) = \left\{ \vec{ 0}  \right\}$.\\
+                 $ \iff $ columns of $ A$ are linearly independent.\\
+                 Since the columns of $ A$ lie in $ \mathbb{R} ^3$, and ther are five of them they cannot be linearly independent.\\
+                 Hence $ T$ is not injective.\\
+                \item 
+                 $ T $ is surjective $ \iff Im T = \mathbb{R} ^3$ i.e.  $ \mathcal{C} \left( A \right) = \mathbb{R} ^3$.\\
+                 i.e.  if there is a pivot in every row of $ A$.\\
+                 \[
+                      \begin{bmatrix}
+ 1 & 2 & 1 & 4 & -1\\
+ -1 & -1 & -4 & -2 & 3\\
+ 2 & 4 & 3 & 17 & 5\\
+ \end{bmatrix}          \xrightarrow[ r_2 + r_1]{ r_3 -2 r_1} \begin{bmatrix}
+ 1 & 2 & 1 & 4 & -1\\
+ 0 & 1 & -3 & 2 & 2\\
+ 0 & 0 & 1 & 9 & 7\\
+ \end{bmatrix}
+                 .\] 
+                 pivot entry in every row of $ A$ $ \implies T $ is surjective.\\
+                \end{enumerate}
+ }
+  
+ \ex{}{
+  Supoose $ T: \mathcal{P}_2 \left[ x \right]$  \to $ M_{ 2 \times 2}$ is defined as
+  \[
+  T \left( ax^2 +bx +c \right) = \begin{bmatrix}
+  a+b & a+c\\
+  b-c & b+c\\
+  \end{bmatrix} \qquad a,b,c \in \mathbb{R}
+  .\] 
+  We can check that $ T$ is linear transformation between the two vector spaces.\\
+  \textit{Is $ T$ \begin{enumerate}[label=(\roman*)]
+    \item injective?
+    \item  surjective?
+    \item bijective?
+     \item Find a basis for $ Im T$ 
+   \end{enumerate} }
+      \begin{enumerate}[label=(\roman*)]
+        \item 
+         \[
+        ker T = \left\{ a x^2 + bx + c \in \mathcal{P} _2 \left[ x \right] \mid a+b =0 , a+c =0 , b-c =0 , b+c =0\right\}
+         .\] 
+         which gives rise to a linear system in $ a,b,c$ with augmented matrix
+         \[
+\left[
+\begin{array}{ccc|c}
+ 1 & 1 &  0 & 0\\
+ 1 & 0 &  1 & 0\\
+ 0 & 1 & -1 & 0\\
+ 0 & 1 &  1 & 0
+\end{array}
+\right]
+\;\xrightarrow[\text{row reduce}]{\text{}}\;
+\left[
+\begin{array}{ccc|c}
+ 1 &  1 & 0 & 0\\
+ 0 & -1 & 1 & 0\\
+ 0 &  0 & 2 & 0\\
+ 0 &  0 & 0 & 0
+\end{array}
+\right].
+\]
+Pivot in every column $ \implies$ there is a unique solution to the system, namely $ a=b=c=0$.\\
+         Hence $ ker T = \left\{ 0 \right\}$ i.e. $ T$ is injective.\\
+        \item           Note: the rank-nullity theorem gives us that 
+         \begin{align*}
+          rk T + null T = dim \left( \mathcal{P} _2 \left[ x \right] \right)\\
+          rk T + 0 = 3\\
+          rk T = 3\\
+          \text{ ie. } dim \left( Im T \right) = 3\\
+          \text{ but } dim \left( M_{2 \times 2} \right) = 4\\
+          \implies Im T \neq M_{2 \times 2} 
+         .\end{align*}
+         Hence $ T$ is not surjective.\\
+        \item   Since $ T$ is not surjective, it thus is not bijective.\\
+        \item  
+         \begin{align*}
+          Im T = \left\{ \begin{bmatrix}
+          a+b & a+c\\
+           b-c& b+c \\
+          \end{bmatrix} \mid a, b,c \in \mathbb{R} \right\}                                    \\
+          & = \left\{ a \begin{bmatrix}
+          1 & 1\\
+          0 & 0\\
+          \end{bmatrix} + b \begin{bmatrix}
+          1 & 0\\
+          1 & 1\\
+          \end{bmatrix} + c \begin{bmatrix}
+          0 & 1\\
+          1 & 1\\
+          \end{bmatrix} \mid a,b,c \in \mathbb{R} \right\}  \\
+         .\end{align*}
+         Hence $ \mathcal{F} = \left\{ \begin{bmatrix}
+         1 & 1\\
+         0 & 0\\
+         \end{bmatrix}, \begin{bmatrix}
+         1 & 0\\
+         1 & 1\\
+         \end{bmatrix}, \begin{bmatrix}
+         0 & 1\\
+         -1 & 1\\
+         \end{bmatrix} \right\}$  spans $ Im T$.\\
+         $ dim \left(  Im T \right) = 3 \implies \mathcal{F} $ forms a basis for $ Im T$.\\
+        \end{enumerate}
+ }
+     \mlem{}{
+      For any linear transformation $ T: V \to W$ we have that $ rk \left( T \right) \leq min \left\{ dim V, dim W \right\}$\\
+      \pf{Proof:}{
+       $ Im T$ is a subspace of $ W$ and hence $ dim \left(  Im T \right)= rk T \leq dim W$.\\
+       On the other hand,  $ rk T + null T = dim V$ and $ null T \geq 0$ $ \implies rk T \leq dim V$.\\
+       Hence $ rk T \leq min \left\{ dim V, dim W \right\}$
+      }
+      
+     \mlem{}{
+     Let $ T: V \to W$ be an injective linear transformation, and suppose $ dim V = dim W$ then $ T$ is an isomorphism.\\
+    }
+    \pf{Proof:}{
+     Since $ T$ is injective, $ ker T = \left\{ \vec{ 0}  \right\}$ i.e.  $ null T = 0$. \\
+     Hence $ rk T = dim V = dim W$\\
+     i.e. $ dim \left( Im T \right) = dim W$ and, $ Im T$ is a subspace of $ W$, hence $ Im T = W$.\\
+     i.e. $ T$ is surjective and hence $ T$ is an isomorphism.\\
+    }
+    
+    \mlem{}{
+     Let $ T: V \to W$ be a surjective linear transformation, and suppose $ dim V = dim W$ then $ T$ is an isomorphism.\\
+    }
+    \pf{Proof:}{
+     $ T$ is surjective, hence $ Im T = W$.\\
+     i.e. $ rk T = dim \left( Im T \right) = dim W = dim V$\\
+     By the rank-nullity theorem, $ null T + rk T = dim V$\\
+     but $ rk T = dim V$  i.e.  $ ker T = { \vec{ 0} }$ \\
+     $ \implies T$ is injective and so $ T$ is an isomorphism.\\
+    }
+    \hline
+    Give an example of a linear transformation $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$ such that 
+    \begin{enumerate}[label=(\roman*)]
+      \item Null T =0
+      \item Null T =2
+      \item Rk T = 2
+      \item Rk T = 0
+      \end{enumerate}
+       \textbf{Note:} Since $ dim \mathbb{R}^2 =2$ and $ rk T + null T = 2$ if $ rk T =2 $ then $ null T = 0$ i.e. the same linear transformation will work for both (i) and (iii) and if $ rk T =0$ then $ null T = 2$ i.e. the same linear transformation will work for both (ii) and (iv).\\
+       \\
+       \textit{ (i) and (iii) }\\
+       $ T : \mathbb{R} ^2 \to \mathbb{R} ^2$ need $ ker T = { \vec{ 0} }$ and $ Im T = \mathbb{R} ^2$ if $ T \left(  \vec{ x}  \right) = A \vec{ x} $ for some $ 2 \times  2$  matrix $ A$ then we require tht $ W \left( A \right) = {\vec{ 0} } \qquad  \mathcal{C} \left( A \right) = \mathbb{R} ^2$ which will happend if there is a pivton in every column (or row) of $ A$  i.e.  if $ A$ is invertible.\\
+    
+       \[
+       \text{\textbf{Example:} } A = \begin{bmatrix}
+       1 & 0\\
+       0 & 1\\
+       \end{bmatrix} \quad \text{ or } A =  \begin{bmatrix}
+       1 & 3\\
+       2 & 4\\
+       \end{bmatrix}
+       .\] 
+       \\
+       \textit{ (ii) and (iv) }\\
+       \\
+       $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$, $ T \left(  \vec{ x}  \right) = A \vec{ x} $. We require that $ ker T =  \mathcal{N} \left( A \right) = \mathbb{R} ^2 $ and $ Im T = \mathcal{C} \left( A \right) = { \vec{ 0} }$\\
+       The only transformation that satisfies this is the zero transformation, $ A = \begin{bmatrix}
+       0 & 0\\
+       0& 0\\
+       \end{bmatrix}$
+       \section{Co-ordinate Vectors }
+       Suppose $ V$ is a vector space with of dimension $ n$ and $ \mathcal{B} = \left\{ \vec{ b_1} ,\ldots , \vec{ b_n}  \right\} $ is a basis for $ V$.\\
+       Let $ \vec{ v} \in V$. Thre exists a unique set of scalars $ \lambda_1, \lambda_2, \ldots , \lambda_n \in \mathbb{R}$ such that $ V = \lambda_1 \vec{ v_1} + \lambda_2 \vec{ v_2} + \ldots + \lambda _n \vec{ v_n} $.\\
+       We define \[
+        \left[ \vec{ v}  \right]_{ \mathcal{B}}  = \begin{bmatrix}
+        \lambda_1\\
+        \lambda_2\\
+        \vdots\\
+        \lambda_n\\
+        \end{bmatrix} _{ \mathcal{B}} 
+       .\] 
+       to be the co-ordinate vector of $ \vec{ v} $ with respect to the basis $ \mathcal{B}$.\\
+       Note: $ \left[ \vec{ v}  \right]_{ \mathcal{B}} \in \mathbb{R} ^{n}$ and, the co-ordinates are completely determined by the choice of basis $ \mathcal{B}$.\\
+   \mlem{}{
+   Suppose $ \mathcal{B} = \left\{ \vec{ b_1} , \ldots , \vec{ b_n}  \right\} $  is a basis for the vector space $ V$ of dimension $ n$. \\
+   Let $ T: V \to \mathbb{R} ^{n}$ be defined as
+   \[
+   T \left( \vec{ v}  \right) = \left[ \vec{ v}  \right]_{ \mathcal{B}} 
+   .\] 
+   $ T$ is an isomorphism.
+  }
+   
+  \pf{Proof:}{
+   Let $ \vec{ v} , \vec{ w}  \in V$ $ \exists  \lambda_i , \alpha_i \qquad 1 \leq i \leq n$  such that
+    \[
+    \vec{ v} =  \sum\limits_{i=1}^{n} \alpha_i \vec{ b_i} \qquad \vec{ w} =  \sum\limits_{i=1}^{n} \lambda_i \vec{ b_i}
+    .\] 
+    \[
+    \vec{ v} + \vec{ w} =  \sum\limits_{i=1}^{n} \left( \alpha_i + \lambda_i \right) \vec{ b_i}
+    .\] 
+    \[
+    T \left( \vec{ v} +\vec{ w}  \right) = \left[ \vec{ v} + \vec{ w}  \right]_{ \mathcal{B}} = \begin{bmatrix}
+    \lambda_1 + \alpha_1\\
+    \lambda_2 + \alpha_2\\
+    \vdots\\
+    \lambda_n + \alpha_n\\
+    \end{bmatrix}       _{ \mathcal{B}} =     \begin{bmatrix}
+    \lambda_1 \\
+    \lambda_2 \\
+    \vdots\\
+    \lambda_n \\
+    \end{bmatrix}       _{ \mathcal{B}}  +    \begin{bmatrix}
+     \alpha_1\\
+     \alpha_2\\
+    \vdots\\
+     \alpha_n\\
+    \end{bmatrix}       _{ \mathcal{B}}      = T \left( \vec{ v}  \right) + T \left( \vec{ w}  \right)
+    .\] 
+    Hence, $ T$ preserves vector addition.\\ 
+    \\
+    Suppose $ \beta \in \mathbb{R}$ 
+    \[
+    \beta \vec{ v} = \beta \sum\limits_{i=1}^{n} \lambda_i \vec{ b_i} = \sum\limits_{i=1}^{n} \beta \lambda_i \vec{ b_i}
+    .\] 
+    \[
+    T \left(  \beta \vec{ v}  \right) = \begin{bmatrix}
+    \beta\lambda_1\\
+    \beta\lambda_2\\
+    \vdots\\
+    \beta\lambda_n\\
+    \end{bmatrix} = \beta                \begin{bmatrix}
+    \lambda_1\\
+    \lambda_2\\
+    \vdots\\
+    \lambda_n\\
+    \end{bmatrix}             = \beta T \left(  \vec{ v}  \right)
+    .\] 
+    Hence, $ T$ preserves scalar multiplication.\\
+    \\
+    Hence $ T$ is a linear transformation.\\
+    \begin{align*}
+      ker T &= \left\{ \vec{ v}  \in V \mid T \left(  \vec{ v}  \right) = \vec{ 0} _{ \mathcal{B}} \right\}\\
+      &= \left\{ \sum\limits_{i=1}^{n} \lambda_i \vec{ b_i} \in V \mid  \begin{bmatrix}
+      \lambda_1\\
+      \lambda_2\\
+     \vdots\\
+      \lambda_n\\
+      \end{bmatrix} _{ \mathcal{B}} = \begin{bmatrix}
+      0\\
+      0\\
+      \vdots\\
+      0\\
+      \end{bmatrix} _{ \mathcal{B}} \right\}\\
+      &= \left\{ \sum\limits_{i=1}^{n} \lambda_i \vec{ b_i} \in V \mid \lambda_i = 0 \forall i \right\}\\
+      &= \left\{ \vec{ 0} _V \right\}\\
+    .\end{align*}
+    Hence $ T$ is an injective linear transformation. Since $ dim V = dim \mathbb{R} ^{n}$ by a previous lemma, $ T$ is an isomorphism.\\
+    \\
+    T is called the co-ordinate mapping from $ V$ to $ \mathbb{R} ^{n}$ determined by the basis $ \mathcal{B}$.\\
+    \[
+     \vec{ v}  \to \left[ \vec{ v}  \right] _{ \mathcal{B}}
+    .\] 
+  }
+   \nt{
+   \begin{enumerate}[label=(\roman*)]
+     \item The entries in the co-ordinate vector depend on the choice of basis.\\
+     \item                     The entries in the co-ordinate vector are the coefficients in the expansion of $ \vec{ v} $ relative to the basis.\\
+     \item                                     By fixing a basis one can associate a vector in an abstract vector space $ V$, of dimension $ n$ with a vector in $ \mathbb{R} ^{n}$.\\
+     \end{enumerate}
+   }
+   \ex{}{
+    Let $ V = \mathcal{P} _2 \left[ x \right] = \left\{ a_0 + a_1 x +a_2 x^2  \mid a_i \in \mathbb{R}\right\} $.\\
+    Let $ \mathcal{B} = \left\{ 1, x, x^2 \right\} $ and let $ \mathcal{C} =  \left\{ 1, 1+x , 1+x+x^2 \right\}$.\\
+    $ \mathcal{B} $ and  $ \mathcal{C}$ form a basis for $ \mathcal{P}_2 \left[ x \right]$.\\
+    Let $ \vec{ v} = 3 +2x +x^2 \in \mathcal{P} _2 \left[  x\right] $
+    \begin{enumerate}[label=(\roman*)]
+     \item Find $ \left[ \vec{ v}  \right]_{ \mathcal{B}} $
+      \item   Find $ \left[ \vec{ v}  \right]_{ \mathcal{C}} $
+      \end{enumerate}
+    \textbf{Solution:}\\
+    \textit{(i) }\\
+    \[
+    \vec{ v} = 3 + 2x + x^2 = 3 \cdot 1 + 2 \cdot x + 1 \cdot x^2
+    .\] 
+    \[
+    \implies \left[ \vec{ v}  \right]_{ \mathcal{B}} = \begin{bmatrix}
+    3\\
+    2\\
+    1\\
+    \end{bmatrix}
+    _{ \mathcal{B}}
+    .\] 
+    \\
+    \textit{(ii) }\\
+    \[
+    \vec{ v} = 3 + 2x + x^2 = 3 \cdot 1 + 2 \cdot (1+x) - 1 \cdot (1+x+x^2)
+    .\] 
+    \[
+    \implies \left[ \vec{ v}  \right]_{ \mathcal{C}} =  \begin{bmatrix}
+    1\\
+    1\\
+    1\\
+    \end{bmatrix}
+    _{ \mathcal{C}}
+    .\] 
+   }
+   \section{Expressing Vectors in $ \mathbb{R} ^2$ as co-ordinate vectors with respect to different bases}
+   Let $ \mathcal{E} = \left\{ \vec{ e_1} , \vec{ e_2}  \right\} = \left\{ \begin{bmatrix}
+   1\\
+   0\\
+   \end{bmatrix}
+   , \begin{bmatrix}
+   0\\
+   1\\
+   \end{bmatrix}
+    \right\}$ be the standard basis for $ \mathbb{R} ^2$.\\
+    Throughout what follows if there is no subscript on the co-ordinate vector, it is assumed that the co-ordinates are with respect to $ \mathcal{E}$ i.e.  $ \begin{bmatrix}
+    x\\
+    y\\
+    \end{bmatrix}
+    = \begin{bmatrix}
+    x\\
+    y\\
+    \end{bmatrix}
+    _{ \mathcal{E}}$ \\
+    Let $ \mathcal{B} = \left\{ \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+    , \begin{bmatrix}
+    1\\
+    2\\
+    \end{bmatrix}
+    \right\}$. $ \mathcal{B} $ forms a basis for $ \mathbb{R} ^2$.\\
+    \textit{Find the co-ordinate vector  of $ \vec{ x} = \begin{bmatrix}
+    1\\
+    6\\
+    \end{bmatrix}
+   $ relative to the basis $ \mathcal{B}$.} i.e.  find $  \left[ \vec{ x}  \right] _{ \mathcal{B}}$.\\
+  \[
+  
+    \begin{bmatrix}
+    1\\
+    6\\
+    \end{bmatrix}
+    = \lambda_1 \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+    + \lambda_2 \begin{bmatrix}
+    1\\
+    2\\
+    \end{bmatrix}
+     \text{ where } \left[ \vec{ x}  \right]_{ \mathcal{B}} = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+  .\] 
+   \begin{align*}
+    &  \begin{bmatrix}
+     1\\
+     6\\
+     \end{bmatrix}  =   \begin{bmatrix}
+     1 & 1\\
+     0 & 2\\
+     \end{bmatrix} \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{B}}\\
+     &  \begin{bmatrix}
+     1 & 1\\
+     0 & 2\\
+     \end{bmatrix} ^{-1} \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{B}} \\
+     &  \frac{1}{2} \begin{bmatrix}
+     2 & -1\\
+     0 & 1\\
+     \end{bmatrix} \begin{bmatrix}
+     1\\
+     6\\
+     \end{bmatrix}
+     = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{B}}\\
+     & \frac{1}{2} \begin{bmatrix}
+     -4\\
+     6\\
+     \end{bmatrix}
+     _{ \mathcal{B}}\\
+     & \begin{bmatrix}
+     -2\\
+     3\\
+     \end{bmatrix}
+     _{ \mathcal{B}} = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{B}}\\
+     & \implies \left[ \vec{ x}  \right]_{ \mathcal{B}} = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{B}} 
+   .\end{align*}
+    
+   \begin{tikzpicture}[scale=0.9,
+        axis/.style   = {thick, ->, >=Stealth},
+        grid/.style   = {green!60, dashed, very thin},
+        tick/.style   = {thick},
+        violetpath/.style = {line width=4pt, violet!50, opacity=.55, rounded corners=1.5pt},
+        violetline/.style = {thick, violet!70!black, >=Stealth},
+        pinkvec/.style   = {thick, pink, >=Stealth}
+      ]
+
+  % ------------------------------------------------------------------
+  % 1. Dotted grid
+  \draw[grid] (-3.5,-0.5) grid (4.5,6.5);
+
+  % ------------------------------------------------------------------
+  % 2. Axes
+  \draw[axis] (-3.5,0)  -- (4.5,0);     % x-axis
+  \draw[axis] (0,-0.5)  -- (0,6.5);     % y-axis
+
+  % ------------------------------------------------------------------
+  % 3. Tick marks and labels (x)
+  \foreach \x in {-3,-2,-1,1,2,3,4}{
+      \draw[tick] (\x,0.14) -- (\x,-0.14) node[below] {\small $\x$};
+  }
+
+  % 4. Tick marks and labels (y)
+  \foreach \y in {1,2,3,4,5,6}{
+      \draw[tick] (0.14,\y) -- (-0.14,\y) node[left]  {\small $\y$};
+  }
+
+  % ------------------------------------------------------------------
+  % 5. Small pink unit vector  (0,0) → (0,1)
+  \draw[pinkvec] (0,0) -- (0,1);
+
+  % ------------------------------------------------------------------
+  % 6. L-shaped purple vector (0,0) → (1,0) → (1,6)
+  %    Wide translucent “highlight” first …
+  \draw[violetpath] (0,0) -- (1,0) -- (1,6);
+  %    … then the narrow arrowed path on top for crisp outlines
+  \draw[violetline,->] (0,0) -- (1,0);
+  \draw[violetline,->] (1,0) -- (1,6);
+
+  % (Optional) marker midway on the vertical part, as in the sketch:
+  \fill[violet!50,opacity=.5] (1,2) circle (2.5pt);
+\end{tikzpicture}
+                   \\
+   XXX VERIFY THE BELOW PLOT MATCHES XXX
+   \\
+                         \begin{tikzpicture}[scale=0.9,
+        % ----- reusable styles ------------------------------------------
+        axis/.style      = {very thick, ->, >=Stealth},
+        tick/.style      = {very thick},
+        diag/.style      = {blue!70, dashed, line width=.8pt},
+        %  “high-lighter” underlay
+        hlC/.style       = {line width=6pt, cyan!50, opacity=.35,
+                            rounded corners=2pt},
+        cyanvec/.style   = {very thick, cyan!70!black, ->, >=Stealth},
+        pinkvec/.style   = {very thick, pink, ->, >=Stealth},
+        purplevec/.style = {very thick, violet, ->, >=Stealth}
+      ]
+
+  % ----------------------------------------------------------------------
+  % 0. Diagonal dashed family  y = x + k
+  \foreach \k in {-3,-2,-1,0,1,2,3,4}{
+      \draw[diag] (-3.5,{-3.5+\k}) -- (4.5,{4.5+\k});
+  }
+
+  % ----------------------------------------------------------------------
+  % 1. Coordinate axes
+  \draw[axis] (-3.5,0)  -- (4.5,0);   % x–axis
+  \draw[axis] (0,-1.5)  -- (0,6.5);   % y–axis
+
+  % 2. Tick marks and labels
+  \foreach \x in {-3,-2,-1,1,2,3,4}{
+      \draw[tick] (\x,0.14) -- (\x,-0.14) node[below] {\small $\x$};
+  }
+  \foreach \y in {-1,1,2,3,4,5,6}{
+      \draw[tick] (0.14,\y) -- (-0.14,\y) node[left] {\small $\y$};
+  }
+
+  % ----------------------------------------------------------------------
+  % 3. Turquoise vectors (from (-2,0))
+  %    — translucent “high-lighter” first
+  \draw[hlC] (-2,0) -- (0,0);
+  \draw[hlC] (-2,0) -- (1,6);
+  %    — crisp arrowed strokes on top
+  \draw[cyanvec] (-2,0) -- (0,0);
+  \draw[cyanvec] (-2,0) -- (1,6);
+
+  % ----------------------------------------------------------------------
+  % 4. Pink and purple basis vectors from the origin
+  \draw[pinkvec]   (0,0) -- (1,0);   %  (1,0)
+  \draw[purplevec] (0,0) -- (1,2);   %  (1,2)
+\end{tikzpicture}
+ 
+
+
+\end{document}                                          
