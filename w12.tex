@@ -1,0 +1,1024 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+
+
+\loadspellchecklist[en][wordlist.txt]
+\setupspellchecking[state=start]
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+  
+In general, suppose $ \mathcal{B} = \left\{ \vec{ b_1},\vec{ b_2}  \right\} $        forms a basis for $ \mathbb{R} ^2 $, for every vector $ \vec{ x} \in \mathbb{R} ^2  \exists  \lambda_1 , \lambda_2 \in \mathbb{R}$ such that
+\[
+\vec{ x} = \lambda_1 \vec{ b_1} + \lambda_2 \vec{ b_2}
+.\] 
+In this case, $ \left[ \vec{ x}  \right] _{  \mathcal{B}}= \begin{bmatrix}
+\lambda_1\\
+\lambda_2\\
+\end{bmatrix}
+_{  \mathcal{B}} $\\
+To find $ \lambda_1$, $ \lambda_{2}$ we use the fact that the co-ordinate mapping $ \vec{ x} \to \left[ \vec{ x}  \right] _{ \mathcal{B}}$ determined by any base $ \mathcal{B}$ is a bijective linear transformation. \\
+Hence,
+\begin{align*}
+ \left[ \vec{ x}  \right] _{  \mathcal{B}} = \left[ \lambda_1 \vec{ b_1} + \lambda_2 \vec{ b_2}  \right] _{  \mathcal{B}}\\
+ &= \lambda_1 \left[ \vec{ b_1}  \right] _{  \mathcal{B}} + \lambda_2 \left[ \vec{ b_2}  \right] _{  \mathcal{B}}\\
+ &= \left[ \left[ \vec{ b_1}  \right] _{ \mathcal{E}} \left[ \vec{ b_2}  \right] _{ \mathcal{E}} \right] \begin{bmatrix}
+ \lambda_1\\
+ \lambda_2\\
+ \end{bmatrix}
+ _{ \mathcal{B}}\\
+\text{ i.e. } \left[ \vec{ x}  \right] _{  \mathcal{B}} = \left[  \left[ \vec{ b_1}  \right] _{  \mathcal{E}} \left[ \vec{ b_2}  \right] _{  \mathcal{E}} \right] \left[ \vec{ x}  \right] _{ \mathcal{B}}\\
+\text{ and so, }  \left[ \left[ \vec{ b_1}  \right] _{ \mathcal{E}} \left[ \vec{ b_2}  \right] _{ \mathcal{E}}\right] ^{-1} \left[ \vec{ x}  \right] _{ \mathcal{E}} = \left[ \vec{ x}  \right] _{  \mathcal{B}}\\
+.\end{align*}
+  Note: the inverse exists because the co-ordinate mapping is a bijective linear transformation.\\
+  \nt{
+  We use $ P _{ \mathcal{B} \to \mathcal{E}}$ to denote the matrix $  \left[ \left[ \vec{ b_1}  \right] _{ \mathcal{E}} \left[ \vec{ b_2}  \right] _{ \mathcal{E}}\right] $  since it "takes in " co-ordinates in the basis $ \mathcal{B}$ and returns co-ordinates in the basis $ \mathcal{E}$.\\
+  Note that $ \left( P _{ \mathcal{B} \to \mathcal{E}} \right) ^{-1}$ does the opposite, it takes in co-ordinates in the basis $ \mathcal{E}$ and returns co-ordinates in the basis $ \mathcal{B}$.\\
+  Hence, conclude that
+  \[
+  \left( P _{ \mathcal{B} \to \mathcal{E}} ^{ -1}\right)             = P _{ \mathcal{E} \to \mathcal{B}}
+  .\] 
+  Note that the columns of $ P _{ \mathcal{B} \to \mathcal{E}}$ are the basis vectors of $ \mathcal{B}$ written with respect to the basis $ \mathcal{E}$.\\
+  }
+  \thm{}
+  {
+   Let $ \mathcal{B} = \left\{ \vec{ b_1} ,\vec{ b_2} ,\ldots , \vec{ b_n}  \right\}$ and $ \mathcal{C} = \left\{ \vec{ c_1} , \vec{ c_2} , \ldots , \vec{ c_n}  \right\} $ be bases of the vector space $ V$. Thene there exists a unqie $n \times n$  matrix $ P _{ \mathcal{B} \to \mathcal{C}}$ such that for every vector $ \vec{ x} \in V$,
+   \[
+    \left[ \vec{ x}  \right] _{ c\alpha} = P _{ \mathcal{B} \to \mathcal{C}} \left[ \vec{ x}  \right] _{ \mathcal{B}}
+   .\] 
+   where the columns of $ P_{ \mathcal{B} \to \mathcal{C}}$  are the basis vectors of $ \mathcal{B}$ written with respect to the basis $ \mathcal{C}$.\\
+   \[
+   \text{ i.e. } P _{ \mathcal{B} \to \mathcal{C}} = \left[ \left[ \vec{ b_1}  \right] _{ \mathcal{C}} \left[ \vec{ b_2}  \right] _{ \mathcal{C}} \ldots  \left[ \vec{ b_n}  \right] _{ \mathcal{C}}  \right]
+   .\] 
+  }
+  \dfn{Change of Co-ordinate Matrix :}{
+     The matrix $ P _{ \mathcal{B} \to \mathcal{C}}$ is called the change of co-ordinate matrix from the basis $ \mathcal{B}$ to the basis $ \mathcal{C}$.\\
+  }
+  \nt{
+  The columns of $ P _{ \mathcal{B} \to \mathcal{C}}$ form a basis  for $ V$, hence, $ P _{ \mathcal{B} \to \mathcal{C}}$ is invertible and $ \left( P _{ \mathcal{B} \to c\alpha} \right) ^{-1} = P _{ \mathcal{C} \to \mathcal{B}}$ is the change of co-ordinate matrix from the basis $ \mathcal{C}$ to the basis $ \mathcal{B}$.\\
+  }
+  \ex{}{
+   Let $ \mathcal{B} = \left\{ \begin{bmatrix}
+   1\\
+   0\\
+   \end{bmatrix}
+   , \begin{bmatrix}
+   1\\
+   2\\
+   \end{bmatrix}
+   \right\}$ and $ \mathcal{C} = \left\{ \begin{bmatrix}
+   1\\
+   4\\
+   \end{bmatrix}
+   , \begin{bmatrix}
+   -2\\
+   -10\\
+   \end{bmatrix}
+   \right\}$ 
+   \begin{enumerate}[label=(\roman*)]
+     \item Find  $ P _{ \mathcal{B} \to \mathcal{C}}$
+     \item   Find $ P _{ \mathcal{C} \to \mathcal{B}}$
+     \item   Suppose $ \left[ \vec{ v}  \right] _{ \mathcal{C}} = \begin{bmatrix}
+     -7\\
+     0\\
+     \end{bmatrix}
+     _{ \mathcal{C}}$, find $ \left[ \vec{ v}  \right] _{ \mathcal{B}}$.
+     \end{enumerate}
+     \textbf{Solution:}\\
+     The columns of $ P _{ \mathcal{B} \to \mathcal{C}}$  are $ \left[ \vec{ b_1} \right] _{ \mathcal{C}} $ and $ \left[ \vec{ b_2} \right] _{ \mathcal{C}}$.
+     \begin{align*}
+      \begin{bmatrix}
+      1\\
+      0\\
+      \end{bmatrix}
+      = \lambda_1 \begin{bmatrix}
+      1\\
+      4\\
+      \end{bmatrix}
+      + \lambda_2 \begin{bmatrix}
+      -2\\
+      -10\\
+     \end{bmatrix} \qquad  \text{where } \left[ \vec{ b_1}  \right]  _{ \mathcal{C}} = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{C}}\\
+     & \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}
+     = \begin{bmatrix}
+     1 & -2\\
+     4 & -10\\
+     \end{bmatrix} \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{C}} \\
+     &  \begin{bmatrix}
+     1 & -2\\
+     4 & -10\\
+     \end{bmatrix}^{-1} \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}
+     = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix} _{ \mathcal{C}}\\
+     &  - \frac{ 1  }{ 2 } \begin{bmatrix}
+     -10 & 2\\
+     -4 & 1\\
+     \end{bmatrix} \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}         = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{C}}\\
+     &  - \frac{ 1  }{ 2 }  \begin{bmatrix}
+     -10\\
+     -4\\
+     \end{bmatrix}
+     _{ \mathcal{C}} = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix}
+     _{ \mathcal{C}}\\
+     &  \begin{bmatrix}
+     5\\
+     2\\
+     \end{bmatrix}
+     _{ \mathcal{C}} = \begin{bmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \end{bmatrix} _{ \mathcal{C}}  = \left[ \vec{ b_1}  \right] _{ \mathcal{C}}\\
+     .\end{align*}
+    Similarly, 
+    \[
+     \left[ \vec{ b_2}  \right] _{ \mathcal{C}} = - \frac{ 1  }{ 2 } \begin{bmatrix}
+     -10 & 2\\
+     -4 & 1\\
+     \end{bmatrix} \begin{bmatrix}
+     1\\
+     2\\
+     \end{bmatrix}
+     = - \frac{ 1  }{ 2 }  \begin{bmatrix}
+     -6\\
+     -2\\
+     \end{bmatrix}
+      _{ \mathcal{C}}
+    .\] 
+    \[
+     \left[ \vec{ b_2}  \right] _{ \mathcal{C}} = \begin{bmatrix}
+     3\\
+     1\\
+     \end{bmatrix}        _{ \mathcal{C}}
+    .\] 
+    \[
+    \text{ Hence, } P _{ \mathcal{B} \to \mathcal{C}} =  \begin{bmatrix}
+    5 & 3\\
+    2 & 1\\
+    \end{bmatrix}
+    .\] 
+    \\
+    \\
+    \textit{(ii)}\\
+    \begin{align*}
+     \left[ \vec{ v}  \right] _{ \mathcal{C}} = \begin{bmatrix}
+     -7\\
+     9\\
+     \end{bmatrix}
+     _{ \mathcal{C}}\\
+     \left[ \vec{ v}  \right] _{ \mathcal{B}} \left[ \vec{ v}  \right] _{ \mathcal{C}} = \begin{bmatrix}
+     -1 & 3\\
+     2 & -5\\
+     \end{bmatrix}  \begin{bmatrix}
+     -7\\
+     9\\
+     \end{bmatrix}
+     _ { \mathcal{C}}\\
+     \implies \left[ \vec{ v}  \right] _{ \mathcal{B}} = \begin{bmatrix}
+     34\\
+     -59\\
+     \end{bmatrix}
+     _{ \mathcal{B}}\\
+    .\end{align*}
+  }
+  
+  \ex{}{
+
+
+   \begin{enumerate}[label=(\roman*)]
+     \item                    Let $ V = \mathcal{P}_2 \left[ x \right] $. Find the change of co-ordinate matrix from the basis $ \mathcal{B} = \left\{ 1 -2x +x^2, 3-5x+4x^2 , 2x+3x^2 \right\}$ to the standard basis $ \mathcal{C} = \left\{ 1, x, x^2 \right\}$.\\
+   i.e.  find $ P _{ \mathcal{B} \to \mathcal{C}}$ \\
+           
+     \item 
+      Find the $ \mathcal{B}$ co-ordinates of the vector $ -1 +2x$ i.e.  find $ \left[ -1 +2x  \right] _{ \mathcal{B}}$.
+     \end{enumerate}
+     
+    \\
+    \textbf{Solution:}\\
+    $ P _{ \mathcal{B} \to \mathcal{C}} = \left[
+  \begin{array}{c|c|c}
+    \bigl[\vec b_{1}\bigr]_{e} &
+    \bigl[\vec b_{2}\bigr]_{e} &
+    \bigl[\vec b_{3}\bigr]_{e}
+  \end{array}
+\right] $
+     
+    \[
+    P _{ \mathcal{B} \to \mathcal{C}} = \begin{bmatrix}
+    1 & 3 & 0\\
+    -2 & -5 & 2\\
+    1 & 4 & 3\\
+    \end{bmatrix}
+    .\] 
+\\
+\textit{(ii)}\\
+\[
+ \left[ -1 +2x \right] _{ \mathcal{B}} = \begin{bmatrix}
+ \alpha_1\\
+ \alpha_2\\
+ \alpha_3\\
+ \end{bmatrix}
+  _{ \mathcal{B}} 
+.\] 
+where $ -1+2x = \alpha_1 \vec{ b_1}+ \alpha_2 \vec{ b_2} + \alpha_3 \vec{ b_3}  $ and we can solve for $ \alpha_1, \alpha_2 , \alpha_3$ or, alternatively, 
+\[
+ \left[ -1 +2x \right] _{ \mathcal{B}} = P _{ \mathcal{B} \to \mathcal{C}} ^{-1} \left[ -1 +2x  \right] _{ \mathcal{C}}
+.\] 
+\[
+ \left[ -1 + 2x \right] _{ \mathcal{B}} = \left(  P _{ \mathcal{B} \to \mathcal{C}} \right) ^{-1}  \begin{bmatrix}
+ -1\\
+ 2\\
+ 0\\
+ \end{bmatrix}
+  _{ \mathcal{C}} = \begin{bmatrix}
+  -23 & -9 & 6\\
+  8 & 3 & -2\\
+  -3 & -1 & 1\\
+  \end{bmatrix} \begin{bmatrix}
+  -1\\
+  2\\
+  0\\
+  \end{bmatrix}        _{ \mathcal{C}}
+.\] 
+\[
+ \left[ -1 +2x \right] _{ \mathcal{B}} = \begin{bmatrix}
+ 5\\
+ -2\\
+ 1\\
+ \end{bmatrix}
+ _{ \mathcal{B}}
+.\] 
+Check!\\
+\[
+5 \left( 1 -2x +x^2 \right) -2 \left( 3-5x+4x^2 \right) +1 \left( 2x+3x^2 \right) = -1 +2x
+.\] 
+
+  }
+  
+  \section{Linear Transformations and Co-ordinate Vectors}
+ Suppose $ T: V \to W$ is a linear transformation between vector spaces $ V$ and $ W$.\\
+  Let $ \mathcal{B} = \left\{ \vec{ v_1} , \vec{ v_2} , \ldots , \vec{ v_n}  \right\}$ be a basis for $ V$ and $ \mathcal{C} = \left\{ \vec{ w_1} , \vec{ w_2} , \ldots , \vec{ w_m}  \right\}$ be a basis for $ W$.\\
+  We know there exists a bijective linear transformation from $ V \to \mathbb{R} ^{n}$ determined by the co-ordinate mapping $ \vec{ v} \to \left[ \vec{ v}  \right] _{ \mathcal{B}}$, equally the co-ordinate mapping  from $ W \to \mathbb{R} ^{m}$ given by $ \vec{ W} \to \left[ \vec{ W}  \right] _{ \mathcal{C}}$ is an isomorphism.\\
+   Suppose $ \vec{ v} = \sum\limits_{i=1}^{n} b_i \vec{ v_i}$ and     $ T \left( \vec{ v}  \right) = \sum\limits_{i=1}^{m} c_i \vec{ w_i}$,\\
+   \\
+
+
+
+
+     XXX INCLUDE MAPPING DIAGRAMS XXX\\
+
+
+     \\
+     \\
+ These mappings give rise to a linear transformation:
+ \[
+   \left[ T \right] _{ \mathcal{B}  \mathcal{C} } : \mathbb{R} ^{n} \to \mathbb{R} ^{m} \text{ defined by}
+ .\] 
+ \[
+   \left[ T \right] _{ \mathcal{B}  \mathcal{C} } = \left[  \right] _{ \mathcal{C}} {\circ}  T \circ \left[  \right] _{ \mathcal{B}} ^{-1} 
+ .\] 
+ \[
+ \text{ Note:} \left[ T \right] _{ \mathcal{B}  \mathcal{C} } \left(  \begin{bmatrix}
+ b_1\\
+ b_2\\
+ \vdots\\
+ b_n\\
+ \end{bmatrix}
+   \right)     = \begin{bmatrix}
+   c_1\\
+   c_2\\
+   \vdots \\
+   c_m\\
+   \end{bmatrix}  _{ \mathcal{C}}
+ .\] 
+ \nt{
+ The composition of linear trnansformations is a linear transformation (we will show this later).\\
+}
+Since $  \left[ T \right] _{ \mathcal{B} \mathcal{C}}$ is a composition of linear transformations it is a linear transformation.\\
+    \thm{}
+    {
+      $ \left[ T \right] _{ \mathcal{B} \mathcal{C}}$ is a linear transformation from $ \mathbb{R} ^{n}$ to $ \mathbb{R} ^{m}$, hence there exists an $n \times n$  matrix which we will denote by $ \left[ T \right]_{ \mathcal{B} \mathcal{C}}$ such that 
+      \[
+        \left[ T \left( \vec{ v}  \right)  \right] _{ \mathcal{C}}= \left[ T \right] _{ \mathcal{B} \mathcal{C}} \left[ \vec{ v}  \right] _{ \mathcal{B}} \forall  \vec{ v} \in V
+      .\] 
+    }
+      \pf{Proof:}{
+        Let $ \vec{ v} \in V$  $ \left[ \vec{ v}  \right] _{ \mathcal{B}} = \begin{bmatrix}
+        b_1\\
+        b_2\\
+        \vdots\\
+        b_n\\
+        \end{bmatrix}          
+         $
+         $ \vec{ v} = \sum\limits_{i=1}^{n} b_i \vec{ v_i} 
+         $   $ T \left(  \vec{ v}  \right) = \sum\limits_{i=1}^{n} b_i T \left( \vec{ v_i}  \right) 
+         $
+         \[
+          \left[ T \left( \vec{ v}  \right)  \right] _{ \mathcal{C}} = \sum\limits_{i=1}^{n} b_i \left[ T \left( \vec{ v_i}  \right)  \right] _{ \mathcal{C}} =  A  = \begin{bmatrix}
+        b_1\\
+        b_2\\
+        \vdots\\
+        b_n\\
+      \end{bmatrix}         = A \left[ \vec{ v}  \right] _{ \mathcal{B}}                          
+         .\] 
+         whrer $ A$ is the $m \times n$  matrix whose $i^{\text{th}}$ column is $ \left[ T \left( \vec{ v_i}  \right)  \right] _{ \mathcal{C}}$.\\
+         Hence $ \left[ T \right]_{ \mathcal{B} , \mathcal{C}} =  \left[
+\begin{array}{ccc}
+\big| &        & \big|\\
+\left[T(\vec v_1)\right]_{e} & \cdots & \left[T(\vec v_n)\right]_{e}\\
+\big| &        & \big|
+\end{array}
+\right]$
+      }
+      
+    \dfn{ Matrix of a Transformation :}{
+    The matrix $ \left[ T \right]_{ \mathcal{B} , \mathcal{C}}$ whose $i^{\text{th}}$  column is the image of the $i^{\text{th}}$  basis vector in $ \mathcal{B}$ written with respect to $ \mathcal{C}$, is called the matrix of linear transformation.
+    }
+
+    In conclusion: Every linear transformation from one finite dimensional vector space to another can be represented by a matrix.\\
+    \\
+    \nt{
+      We can use the matrix $ \left[ T \right] _{ \mathcal{B} \mathcal{C}}$ to determine the rank and nullity of $ T$, since
+      \[
+      null T = dim \left( \ker T \right) = dim \left( \ker \left[ T \right] _{ \mathcal{B} \mathcal{C}} \right) 
+      .\] 
+      \[
+        rk T = dim \left( \text{Im} T \right) = dim \left( \mathcal{C} \left( \left[ T \right] _{ \mathcal{B} \mathcal{C}} \right)  \right) 
+      .\] 
+    }
+  \ex{}{
+    Let $ D: \mathcal{P}_2 \left[ x \right] \to \mathcal{P}_1 \left[ x \right]$  be given as $ D \left( p \left( x \right)  \right) = p' \left( x \right) $  \\
+    Let $ \mathcal{B} = \left\{ 1 ,x, x^2 \right\}$ and $ \mathcal{C} = \left\{ 1, x \right\}$ be a basis for $ \mathcal{P}_2 \left[ x \right]$ and $ \mathcal{P}_1 \left[ x \right]$ respectively.\\
+    \textit{Find the matrix of the transformation  relative to these bases.}\\
+    \\
+    \textbf{Solution:}\\
+    \[
+    \left[ D \right] _{ \mathcal{B} , \mathcal{C}} = \left[ \left[ D \left( 1 \right)  \right] _{ \mathcal{C}} \left[ D \left( x \right)  \right] _{ \mathcal{C}} \left[ D \left( x^2 \right)  \right] _{ \mathcal{C}}  \right] 
+    .\] 
+    \[
+    D \left( 1 \right) =0 \qquad  D \left( x \right) = 1 \qquad D \left( x^2 \right) = 2x
+    .\] 
+    \[
+    \left[ D \left( 1  \right) \right] _{ \mathcal{C}} = \begin{bmatrix}
+    0\\
+    0\\
+    \end{bmatrix}
+    _{ \mathcal{C}} \qquad \left[ D \left( x  \right) \right] _{ \mathcal{C}} = \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+    _{ \mathcal{C}} \qquad \left[ D \left( x^2  \right) \right] _{ \mathcal{C}} = \begin{bmatrix}
+    0\\
+    2\\
+    \end{bmatrix}
+    _{ \mathcal{C}}
+    .\] 
+    \[
+    \implies \left[ D \right] _{ \mathcal{B} , \mathcal{C}}  = \begin{bmatrix}
+    0 & 1 & 0\\
+    0 & 0 & 2\\
+    \end{bmatrix}
+    .\] 
+  }
+    
+  XXX  FIXX TO INCLUDE BLUE INCLUDE MAPPING DIAGRAMS XXX\\
+
+   \[
+\begin{tikzcd}[row sep=large, column sep=large]
+\mathcal{P}_{2}[x]
+  \arrow[r,"D"]
+  \arrow[d, "{[\,\cdot\,]_{\mathcal{B}}}"']
+& \mathcal{P}_{1}[x]
+  \arrow[d, "{[\,\cdot\,]_{\mathcal{C}}}"] \\[2ex]
+\mathbb{R}^{3}
+  \arrow[r, "{[D]_{\mathcal{B},\mathcal{C}}}"']
+& \mathbb{R}^{2}
+\end{tikzcd}
+\]
+
+
+\\
+\\
+\
+\
+
+
+
+For a typical polynomial \(p(x)=a+bx+cx^{2}\) the diagram acts as  
+\[
+a+bx+cx^{2}\;\xmapsto{\,D\,}\;b+2cx,
+\qquad
+\begin{bmatrix}a\\ b\\ c\end{bmatrix}_{\mathcal{B}}
+\;\xmapsto{[D]_{\mathcal{B},\mathcal{C}}}\;
+\begin{bmatrix}b\\ 2c\end{bmatrix}_{\mathcal{C}}.
+\]
+
+Indeed,
+\[
+[D]_{\mathcal{B},\mathcal{C}}
+  \begin{bmatrix}a\\ b\\ c\end{bmatrix}_{\mathcal{B}}
+  \;=\;
+  \begin{bmatrix}
+    0 & 1 & 0\\
+    0 & 0 & 2
+  \end{bmatrix}
+  \begin{bmatrix}a\\ b\\ c\end{bmatrix}_{\mathcal{B}}
+  \;=\;
+  \begin{bmatrix}b\\ 2c\end{bmatrix}_{\mathcal{C}}.
+\]
+
+  \\
+  \nt{
+    The matrix of the transformation $ \left[ D \right] _{ \mathcal{B} \mathcal{C}}$ was relatively straightforward. It could have been more with a different choice of bases.\\
+    This is true in general, the matrix of a linear transformation can be quite simple if the bases are suitably chosen as we'll see in the next example.\\
+    }
+  
+    \ex{}{
+         Suppose $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$ is a linear transformation that reflects $ \mathbb{R} ^2$ in the line thorough the origin that passes through $ \begin{bmatrix}
+         2\\
+         1\\
+         \end{bmatrix}
+         $.\\
+         \textit{ Find the matrix of the transformation relative to the standard basis $ \mathcal{E} = \left\{  \begin{bmatrix}
+         1\\
+         0\\
+         \end{bmatrix}
+         , \begin{bmatrix}
+         0\\
+         1\\
+         \end{bmatrix}
+          \right\} $  }\\
+          i.e.  Find $ \left[ T \right] _{ \mathcal{E} \mathcal{E}}$\\
+          \\
+          \textbf{Solution:}\\
+          We know that $ T \begin{bmatrix}
+          2\\
+          1\\
+          \end{bmatrix}
+          = \begin{bmatrix}
+          2\\
+          1\\
+          \end{bmatrix}
+          $ and $  T \left(  \lambda \begin{bmatrix}
+          2\\
+          1\\
+          \end{bmatrix}
+           \right) = \lambda \begin{bmatrix}
+           2\\
+           1\\
+           \end{bmatrix}
+            \forall  \lambda \in \mathbb{R}$ and $ T \left(  \vec{ v}  \right) \in - \vec{ v} \forall  \vec{ v} \perp $ to $ \begin{bmatrix}
+            2\\
+            1\\
+            \end{bmatrix}
+            $ ie $ T \begin{bmatrix}
+            -1\\
+            2\\
+            \end{bmatrix}
+            = \begin{bmatrix}
+            1\\
+            -2\\
+            \end{bmatrix}
+            $          \\
+            \\
+          \begin{tikzpicture}[>=stealth,scale=0.9,
+        every node/.style={font=\small}]
+% ------------------------------------------------------------------
+% Colours
+\colorlet{axes}{blue!70!black}
+\colorlet{vec}{violet}
+\colorlet{exam}{magenta!70}
+
+% ------------------------------------------------------------------
+% Coordinate axes --------------------------------------------------
+\draw[very thick,->,axes] (-3.6,0) -- (3.6,0);   % x–axis
+\draw[very thick,->,axes] (0,-2.8) -- (0,3.4);    % y–axis
+
+% Tick marks & labels
+\foreach \x in {-3,-2,-1,1,2,3}{
+  \draw[axes] (\x,0.12)--(\x,-0.12) node[below] {\(\x\)};
+}
+\foreach \y in {-2,-1,1,2,3}{
+  \draw[axes] (0.12,\y)--(-0.12,\y) node[left] {\(\y\)};
+}
+
+% ------------------------------------------------------------------
+% Violet reference direction (dashed guideline + arrow) ------------
+\draw[dashed,thick,vec] (-3,-1.5) -- (3,1.5);
+\draw[thick,->,vec] (0,0) -- (2,1);
+
+% ------------------------------------------------------------------
+% Example vector and its image (magenta) ---------------------------
+\path (-1,2) node[exam,fill=exam,circle,inner sep=2.5pt]{} coordinate(A)
+      ( 0,0) coordinate(O)
+      ( 1,-2) node[exam,fill=exam,circle,inner sep=2.5pt]{} coordinate(B);
+
+\draw[exam,very thick] (A) -- (O);
+\draw[exam,very thick,->] (O) -- (B);
+
+% ------------------------------------------------------------------
+% Labelling the example --------------------------------------------
+\node[exam,left]  at (A) {$\bigl[\!\begin{smallmatrix}-1\\2\end{smallmatrix}\!\bigr]$};
+
+\node[exam,right] at ($(B)+(0.25,0.15)$)
+      {$T\!\Bigl(\!\begin{bmatrix}-1\\[2pt]2\end{bmatrix}\!\Bigr)
+        =\begin{bmatrix}1\\[-2pt]-2\end{bmatrix}$};
+\end{tikzpicture}
+
+ \\
+
+            But, in terms of describing $ T$ in general we need to know the image under $ T$ of the basis vectors of $ \mathbb{R} ^2$ \\
+            \\
+            Let $ \mathcal{B} = \left\{  \begin{bmatrix}
+            2\\
+            1\\
+            \end{bmatrix}
+            , \begin{bmatrix}
+            -1\\
+           2\\
+            \end{bmatrix}  \right\} $  $ \mathcal{B} $ is a basis for $ \mathbb{R} ^2$.\\
+            \[
+            T \left(  \vec{ b_1}  \right) = \vec{ b_1}  \qquad  T \left(  \vec{ b_2}  \right) = - \vec{ b_2}
+            .\] 
+            Relative to $ \mathcal{B}$ the matrix of the transformation is
+            \[
+            \left[ T \right] _{ \mathcal{B} , \mathcal{B}} = \left[ \left[ T \left(  \vec{ b_1}  \right)  \right] _{ \mathcal{B}} \left[ T \left(  \vec{ b_2}  \right)  \right] _{ \mathcal{B}}  \right] = \begin{bmatrix}
+            1 & 0\\
+            0 & -1\\
+            \end{bmatrix}
+            .\] 
+    
+            \\
+            \\
+            \begin{tikzpicture}[>=Latex, every node/.style={font=\small}]
+% ------------------------------------------------------------------
+% 1. outer corner nodes ------------------------------------------------
+\node (TL) at (0, 2) {$\mathbb{R}^{2}$};
+\node (TR) at (7, 2) {$\mathbb{R}^{2}$};
+\node (BL) at (0,-2) {$\mathbb{R}^{2}$};
+\node (BR) at (7,-2) {$\mathbb{R}^{2}$};
+
+% 2. outer arrows ------------------------------------------------------
+\draw[->,thick] (TL) -- node[above] {$\bigl[T\bigr]_{\mathcal{B},\mathcal{B}}$} (TR);
+\draw[->,thick] (BL) -- node[below] {$\bigl[T\bigr]_{\varepsilon,\varepsilon}$} (BR);
+\draw[->,thick] (TL) -- node[left=6pt] {$P_{\mathcal{B}\to\varepsilon}$} (BL);
+\draw[->,thick] (TR) -- node[right=6pt] {$P_{\mathcal{B}\to\varepsilon}$} (BR);
+
+% 3. explicit matrix next to the left arrow ---------------------------
+\node[anchor=east] at ($(TL)!0.5!(BL)+(-1.2,0)$)
+      {$P_{\mathcal{B}\to\varepsilon}
+        =\begin{bmatrix} 2 & -1 \\[2pt] 1 & 2 \end{bmatrix}$};
+
+% ------------------------------------------------------------------
+% 4. inner nodes (coordinate vectors) ---------------------------------
+\node (xB)  at (2.5, 0.9) {$[\tilde{x}]_{\mathcal{B}}$};
+\node (TxB) at (5.0, 0.9) {$[T(\tilde{x})]_{\mathcal{B}}$};
+\node (xE)  at (2.5,-0.9) {$[\tilde{x}]_{\varepsilon}$};
+\node (TxE) at (5.0,-0.9) {$[T(\tilde{x})]_{\varepsilon}$};
+
+% 5. inner arrows ------------------------------------------------------
+\draw[->,thick] (xB)  -- (TxB);      % horizontal inner arrow
+\draw[->,thick] (xB)  -- (xE);       % left inner vertical arrow
+\draw[->,thick] (TxB) -- (TxE);      % right inner vertical arrow
+\end{tikzpicture}
+\\
+\\
+            \[
+            P _{ \mathcal{B} \to \mathcal{E}} = \left[ \left[ \vec{ b_1}  \right] _{ \mathcal{E}} \left[ \vec{ b_2}  \right] _{ \mathcal{E}}  \right] = \begin{bmatrix}
+            2 & -1\\
+            1 & 2\\
+            \end{bmatrix}
+            .\] 
+            \[
+\bigl[\,T\,\bigr]_{\varepsilon,\varepsilon}\,[\vec{x}]_{\varepsilon}
+\;=\;
+\underbrace{%
+    P_{\mathcal B\to\varepsilon} \circ\;
+  \underbrace{%
+    \bigl[\,T\,\bigr]_{\mathcal B,\mathcal B} \circ\;
+    \underbrace{%
+      P_{\varepsilon\to\mathcal B}\, \left(   [\vec{x}]_{\varepsilon} \right)
+    }_{\displaystyle[\vec{x}]_{\mathcal B}}
+  }_{\displaystyle[T(\vec{x})]_{\mathcal B}}
+}_{\displaystyle T(\vec{x})}
+\]
+\begin{align*}
+  \implies \left[ T \right] _{ \mathcal{E} \mathcal{E}} = \begin{bmatrix}
+  2 & -1\\
+  1 & 2\\
+  \end{bmatrix} \begin{bmatrix}
+  1 & 0\\
+  0 & -1\\
+  \end{bmatrix} \begin{bmatrix}
+  2 & 1\\
+  -1 & 2\\
+  \end{bmatrix} \left(  \frac{1}{5} \right)          \\
+  & =  \frac{1}{5} \begin{bmatrix}
+  2 & 1\\
+  1 & -2\\
+  \end{bmatrix} \begin{bmatrix}
+  2 & 1\\
+  -1 & 2\\
+  \end{bmatrix}\\
+  \left[ T \right]_{ \mathcal{E} \mathcal{E}} = \left( \frac{1}{5} \right) \begin{bmatrix}
+  3 & 4\\
+  4 & -3\\
+  \end{bmatrix}
+.\end{align*}
+Check!  We know $ \left[ T \right] _{ \mathcal{E} \mathcal{E}} \begin{bmatrix}
+2\\
+1\\
+\end{bmatrix}
+= \begin{bmatrix}
+2\\
+1\\
+\end{bmatrix}
+$ and $ \left[ T \right] _{ \mathcal{E} \mathcal{E}} \begin{bmatrix}
+-1\\
+2\\
+\end{bmatrix}
+= \begin{bmatrix}
+1\\
+-2\\
+\end{bmatrix}
+$ 
+\[
+\left( \frac{1}{5} \right) \begin{bmatrix}
+3 & 4\\
+4 & -3\\
+\end{bmatrix}\begin{bmatrix}
+2\\
+1\\
+\end{bmatrix}
+= \frac{1}{5} \begin{bmatrix}
+10\\
+5\\
+\end{bmatrix}
+= \begin{bmatrix}
+2\\
+1\\
+\end{bmatrix}
+.\] 
+ \[
+ \frac{1}{5} \begin{bmatrix}
+ 3 & 4\\
+ 4 & -3\\
+ \end{bmatrix} \begin{bmatrix}
+ 1\\
+ -2\\
+ \end{bmatrix}
+  = \frac{1}{5} \begin{bmatrix}
+  -5\\
+  10\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  -1\\
+  2\\
+  \end{bmatrix}
+ .\] 
+  }
+ \nt{
+   For any linear transformation $ T: \mathbb{R} ^2 \to \mathbb{R} ^2 $ that reflects $ \mathbb{R} ^2$ in a line through the origin, there exists a basis $ \mathcal{B}$ of $ \mathbb{R} ^2$ such that $ \left[ T \right] _{ \mathcal{B} \mathcal{B}}$  is $ \begin{bmatrix}
+   1 & 0\\
+   0 & -1\\
+ \end{bmatrix}$ where $  \mathcal{B} = \left\{  \vec{ v_1} , \vec{ v_2}  \right\} $  and $ T \left( \vec{ v_1}  \right) = \vec{ v_1} $, $ T \left( \vec{ v_2}  \right) = - \vec{ v_2} $ and $ T $ is a reflection of $ \mathbb{R} ^2$ in the line through $ \vec{ v_1} $, i.e.  all reflections of $ \mathbb{R} ^2$ in a line through the origin have the same very simple matrix representation if the basis for $ \mathbb{R}$ is the once chose above.\\
+ }
+  \nt{
+  In general, one important goal of linear algebra is to find simple expressions for various expresions for various structures. weve already seen this:\\
+  For example, 
+  \begin{enumerate}[label=(\roman*)]
+    \item $ n$- dimensional vector spaces described as the span of $ n$  basis vectors.\\
+    \item  rank + nullity of a linear transformation put some structure on the domain space
+    \item  Subspaces within vector spaces.
+      \item Change of basis resulting in a reflection having a very simple matrix representation.
+    \end{enumerate}
+  }
+   \ex{}{
+   Let $ \phi : M_{2 \times  2} \to M_{2 \times  2}$   bed defined as 
+   \[
+   \phi \left( X \right) = \begin{bmatrix}
+   1 & 1\\
+   1 & 0\\
+   \end{bmatrix} \left( X \right) \qquad  \forall  X \in M_{2 \times 2}
+   .\] 
+   \textit{
+     \begin{enumerate}[label=(\roman*)]
+       \item Show that $ \phi$ is a linear transformation.\\
+       \item Find the matrix of the transformation with respect to the standard basis for $ M_{2 \times 2}$, 
+         \[
+           \mathcal{E} \;=\;
+\left\{
+\underbrace{\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}}_{\vec{e}_{1}},
+\;
+\underbrace{\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}}_{\vec{e}_{2}},
+\;
+\underbrace{\begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}}_{\vec{e}_{3}},
+\;
+\underbrace{\begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}}_{\vec{e}_{4}}
+\right\}
+         .\] 
+       \item 
+   \end{enumerate} }
+       \\
+       \\
+        \textbf{Solution:}\\
+        \textit{(i)}\\
+        Let $ X , Y \in M_{2 \times 2}$ , $ \lambda \in \mathbb{R}$
+        \begin{align*}
+          \phi  \left(  X + Y \right) = \begin{bmatrix}
+          1 & 1\\
+          1 & 0\\
+          \end{bmatrix} \left(  X + Y \right)\\
+          &= \begin{bmatrix}
+          1 & 1\\
+          1 & 0\\
+          \end{bmatrix} \left(  X \right) + \begin{bmatrix}
+          1 & 1\\
+          1 & 0\\
+          \end{bmatrix} \left(  Y \right)\\
+          &= \phi \left(  X \right) + \phi \left(  Y \right)\\
+          \phi \left(  \lambda X \right) &= \begin{bmatrix}
+          1 & 1\\
+          1 & 0\\
+          \end{bmatrix} \left( \lambda X \right) \\
+          &= \lambda \begin{bmatrix}
+          1 & 1\\
+          1 & 0\\
+          \end{bmatrix} \left(  X \right)\\
+          &= \lambda \phi \left(  X \right)
+        .\end{align*}
+        Hence $ \phi$ is a linear transformation.\\
+        \\
+        \textit{(ii)}\\
+        We want to find $ \left[ \phi  \right]_{ \mathcal{E} \mathcal{E}}$
+        \[
+          \left[ \phi  \right]_{ \mathcal{E} \mathcal{E}} = \left[ \left[ \phi \left( \vec{ e_1}  \right)  \right]_{ \mathcal{E}} \left[ \phi \left( \vec{ e_2}  \right)  \right] _{ \mathcal{E}} \left[ \phi \left( \vec{ e_3}  \right)  \right] _{ \mathcal{E}} \left[ \phi \left( \vec{ e_4}  \right)  \right] _{ \mathcal{E}}  \right]
+        .\] 
+        \[
+        \phi \left( \vec{ e_1}  \right) = \begin{bmatrix}
+        1 & 1\\
+        1 & 0\\
+        \end{bmatrix} \begin{bmatrix}
+        1 & 0\\
+        0 & 0\\
+        \end{bmatrix} = \begin{bmatrix}
+        1 & 0\\
+        1 & 0\\
+        \end{bmatrix} = \vec{ e_1} + \vec{ e_3} 
+        .\] 
+        \[
+        \implies \left[ \phi \left( \vec{ e_1}  \right)  \right] _{ \mathcal{E}} = \begin{bmatrix}
+        1\\
+        0\\
+        1\\
+        0\\
+        \end{bmatrix}
+        .\] 
+        \[
+        \phi \left( \vec{ e_2}  \right) = \begin{bmatrix}
+        1 & 1\\
+        1 & 0\\
+        \end{bmatrix} \begin{bmatrix}
+        0 & 1\\
+        0 & 0\\
+        \end{bmatrix} = \vec{ e_2} + \vec{ e_4}
+        .\] 
+        \[
+        \implies \left[ \phi \left( \vec{ e_2}  \right)  \right] _{ \mathcal{E}} = \begin{bmatrix}
+        0\\
+        1\\
+        0\\
+        1\\
+        \end{bmatrix}
+          _{ \mathcal{E}}
+        .\] 
+        \[
+        \phi \left( \vec{ e_3}  \right) = \begin{bmatrix}
+        1 & 1\\
+        1 & 0\\
+        \end{bmatrix} \begin{bmatrix}
+        0 & 0\\
+        1 & 0\\
+        \end{bmatrix} = \begin{bmatrix}
+        1 & 0\\
+        0 & 0\\
+        \end{bmatrix} = \vec{ e_1}
+        .\] 
+        \[
+        \implies \left[ \phi \left( \vec{ e_3}  \right)  \right] _{ \mathcal{E}} = \begin{bmatrix}
+        1\\
+        0\\
+        0\\
+        0\\
+        \end{bmatrix}
+        _{ \mathcal{E}} 
+        .\]
+           \[
+           \phi  \left(  \vec{ e_4}  \right) = \begin{bmatrix}
+           1 & 1\\
+           1 & 0\\
+           \end{bmatrix} \begin{bmatrix}
+           0 & 0\\
+           0 & 1\\
+           \end{bmatrix} = \begin{bmatrix}
+           0 & 1\\
+           0 & 0\\
+           \end{bmatrix} = \vec{ e_2} 
+           .\] 
+           \[
+           \implies \left[ \phi \left( \vec{ e_4}  \right)  \right] _{ \mathcal{E}} = \begin{bmatrix}
+           0\\
+           1\\
+           0\\
+           0\\
+           \end{bmatrix}
+            _{ \mathcal{E}}
+           .\] 
+           \[
+            \left[ \phi  \right]_{ \mathcal{E} \mathcal{E}} = \begin{bmatrix}
+            1 & 0 & 1 & 0\\
+            0 & 1 & 0 & 1\\
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            \end{bmatrix}
+           .\] 
+
+    XXX INCLUDE MAPPING DIAGRAMS XXX\\
+
+
+    \[
+      \text{ since } \left[ \phi  \right]  _{ \mathcal{E} \mathcal{E}} \begin{bmatrix}
+      a\\
+      b\\
+      c\\
+      d\\
+      \end{bmatrix}
+       _{ \mathcal{E}} = \begin{bmatrix}
+       1 & 0 & 1 & 0\\
+       0 & 1 & 0 & 1\\
+       1 & 0 & 0 & 0\\
+       0 & 1 & 0 & 0\\
+       \end{bmatrix} \begin{bmatrix}
+       a\\
+       b\\
+       c\\
+       d\\
+       \end{bmatrix}
+        _{ \mathcal{E}} = \begin{bmatrix}
+        a+c\\
+        b+d\\
+        a\\
+        b\\
+        \end{bmatrix}_{ \mathcal{E}}
+    .\] 
+   }
+   
+   \mlem{ }{
+   Let $ U$, $ V$, $ W$ be vector spaces and let $ \alpha : U \to V $ and $ \phi : V \to W $ be linear transformations.\\
+   Let $ \mathcal{E} $ be a basis of $ U$. $ \mathcal{F}$ be a basis of $ V$ and $ \mathcal{G}$ be a basis of $ W$.\\
+   \begin{enumerate}[label=(\roman*)]
+     \item $ \phi \cdot  \alpha$ is a linnear transformation and,
+     \item     $ \left[ \phi  \circ \alpha \right]_{ \mathcal{E} \mathcal{G}} = \left[ \phi  \right]_{ \mathcal{F} \mathcal{G}} \left[ \alpha \right] _{ \mathcal{E} \mathcal{F}}$
+     \end{enumerate}
+   }
+   \pf{Proof:}{
+             \begin{enumerate}[label=(\roman*)]
+               \item  Let $ \vec{ u_1} , \vec{ u_2}  \in U$ by linearity of $ \alpha$ we have
+                 \[
+                 \left( \phi \circ \alpha  \right) \left( \vec{ u_1} + \vec{ u_2}  \right) = \phi \left( \alpha \left( \vec{ u_1} +\vec{ u_2}  \right)  \right)  
+                 .\] 
+                 by linearty of $ \phi $
+                 \[
+                 = \phi  \left( \alpha \left( \vec{ u_1}  \right) + \alpha \left( \vec{ u_2}  \right)  \right) 
+                 .\] 
+                 Let $ \vec{ u} \in U$ , $ \lambda \in \mathbb{R}$
+                 \[
+                 \left( \phi \circ \alpha \right) \left( \lambda \vec{ u}  \right) = \phi \left( \alpha \left( \lambda \vec{ u}  \right)  \right)  = \phi \left( \lambda \alpha \left( \vec{ u}  \right)  \right) = \lambda \phi \left( \alpha \left( \vec{ u}  \right)  \right)
+                 .\] 
+                 \[
+                 \implies \phi  \circ \alpha  \text{ is a linear transformation.}
+                 .\] 
+               \item 
+                 Let $ \vec{ u} \in U$
+                 \[
+                   \left[ \left( \phi \circ \alpha \right)  \left( \vec{ u}  \right) \right] _{ \mathcal{G}} = \left[ \phi  \left( \alpha \left( \vec{ u}  \right)  \right)  \right] _{ \mathcal{G}} = \left[ \phi  \right] _{ \mathcal{F} \mathcal{G}} \left[ \alpha \left( \vec{ u}  \right)  \right] _{ \mathcal{F}}  = \left[ \phi  \right]_{ \mathcal{F} \mathcal{G}} \left[ \alpha \right]  _{ \mathcal{E} \mathcal{F}} \left[ \vec{ u}  \right] _{ \mathcal{E} }
+                 .\] 
+                 \[
+                 \text{ But, } \left[ \left( \phi \circ \alpha \right)  \left( \vec{ u}  \right)  \right] _{ \mathcal{G}} = \left[ \phi  \circ \alpha  \right] _{ \mathcal{E} \mathcal{G}} \left[ \vec{ u}  \right] _{ \mathcal{G}}
+                 .\] 
+                 \[
+                 \implies \left[ \phi  \circ \alpha  \right] _{ \mathcal{E} \mathcal{G}} = \left[ \phi  \right]_{ \mathcal{F} \mathcal{G}} \left[ \alpha  \right] _{ \mathcal{E} \mathcal{F}}
+                 .\] 
+               \end{enumerate}
+   }
+   \ex{}{
+     Let $ T: \mathcal{P} _2 \left[ x \right] \to \mathcal{P} _3 \left[ x \right]$, $ T \left( p \left( x \right)  \right) = x \cdot  p \left( x \right) $ \\
+     Let $ \mathcal{E} = \left\{  1, x , x^2\right\}$ is a basis for $ \mathcal{P} _2 \left[  x\right] $, $ \mathcal{F} = \left\{ 1, x ,x^2 , x^3 \right\}$ a basis for $ \mathcal{P} _3 \left[ x \right]$\\
+     \[
+       \left[ T \right]  _{ \mathcal{E} , \mathcal{F}} = \left[ \left[ T \left( 1 \right)  \right] _{ \mathcal{F}} \left[ T \left( x \right)  \right] _{ \mathcal{F}} \left[ T \left( x^2 \right)  \right] _{ \mathcal{F}}  \right]
+     .\] 
+     \[
+       \left[ T \right] _{ \mathcal{E} , \mathcal{F}} = \left[ \left[ x \right] _{ \mathcal{F}} \left[ x^2 \right] _{ \mathcal{F}} \left[ x^3 \right] _{ \mathcal{F}}  \right]
+     .\] 
+     \[
+       \left[ T \right] _{ \mathcal{E} \mathcal{F}}  = 4\begin{bmatrix}
+       0 & 0 & 0 \\
+       1 & 0 & 0 \\
+       0 & 1 & 0 \\
+       0 & 0 & 1 \\
+       \end{bmatrix}
+     .\] 
+   }
+  \ex{}{
+    Let $ D: \mathcal{P} _3 \left[ x \right] \to \mathcal{P} \left[ x \right]$, $ D \left( p \left( x \right)  \right) = p' \left( x \right) $.\\
+    We've seen a similar example before.\\
+    Taking $ \mathcal{E} = \left\{ 1, x , x^2 \right\} $ to be a basis for $ \mathcal{P} _2 \left[ x \right]$  and $ \mathcal{F} = \left\{ 1, x ,x^2 , x^3 \right\}$  as a basis for $ \mathcal{P} _3 \left[ x \right]$\\
+    \[
+      \left[ D \right]  _{ \mathcal{F} \mathcal{E}} = \left[ \left[ D \left( 1 \right)  \right] _{ \mathcal{E}} \left[ D \left( x \right)  \right] _{ \mathcal{E}} \left[ D \left( x^2 \right)  \right] _{ \mathcal{E}}  \right]  = \begin{bmatrix}
+      0 & 1 & 0 & 0\\
+      0 & 0 & 2 & 0\\
+      0 & 0 & 0 & 3\\
+      \end{bmatrix}
+    .\] 
+    \textbf{Note:} $ \mathcal{E} = \left\{ 1,x,x^2 \right\}$, $ D \circ T : \mathcal{P}_2 \left[ x \right] \to \mathcal{P}_2 \left[ x \right]$, $ \left( D \circ T \right) = x p' \left( x \right)  $
+    \[
+      \left[ D \circ T \right]  _{ \mathcal{E} , \mathcal{E}} =  \left[ \left[ \left( D \circ T \right) \left( 1 \right)   \right] _{ \mathcal{E}} \left[  \left( D \circ T \right) \left( x \right)   \right] _{ \mathcal{E}}  \left[ \left( D \circ T \right) \left( x^2 \right)   \right]_{ \mathcal{E}}\right] = \begin{bmatrix}
+      1 & 0 & 0\\
+      0 & 2 & 0\\
+      0 & 0 & 3\\
+    \end{bmatrix}                = \left[ D \right] _{ \mathcal{F} , \mathcal{E}} \cdot \left[ T \right] _{ \mathcal{E} \mathcal{F}} 
+    .\] 
+  }
+   
+     
+     % -------------------------------------------------------------
+\[
+\begin{tikzcd}[row sep=2.7em,column sep=3.4em]
+P_{2}[x]
+  \arrow[r,"T"]
+  \arrow[d,"{[\;]_{\varepsilon}}"']
+  \arrow[bend left=25,r,"{D\!\circ\! T}"]
+& P_{3}[x]
+  \arrow[r,"D"]
+  \arrow[d,"{[\;]_{f}}"]
+& P_{2}[x]
+  \arrow[d,"{[\;]_{\varepsilon}}"] \\[0.2em]
+\mathbb{R}^{3}
+  \arrow[r,"{[T]_{\varepsilon,f}}"']
+  \arrow[bend left=25,rr,"{[D\!\circ\! T]_{\varepsilon,\varepsilon}}"]
+& \mathbb{R}^{4}
+  \arrow[r,"{[D]_{f,\varepsilon}}"']
+& \mathbb{R}^{3}
+\end{tikzcd}
+\]
+
+\[
+[D]_{f,\varepsilon}\,[T]_{\varepsilon,f}
+  \;=\;
+[D\!\circ\! T]_{\varepsilon,\varepsilon}.
+\]
+% -------------------------------------------------------------
+ XXX FIX DIAGRAM
+  
+
+
+\end{document} 
