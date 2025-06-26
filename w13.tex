@@ -1,0 +1,575 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+
+\section{Linear Operators}
+         \dfn{Linear Operator :}{
+         A \underline{linear operator} $ \phi $, is a transformation mapping from a vector space $ V $ to itself, i.e.  $ \phi : V \to V$
+         }
+         \mlem{}{
+           Let $ \phi : V \to V$ be a linear operator and $ \mathcal{B}$ and $ \mathcal{F} $ be two bases for $ V $. Then 
+           \[
+             \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}} = P _{ \mathcal{B} \to \mathcal{F}} \left[ \phi \right] _{ \mathcal{B} \mathcal{B}} P _{ \mathcal{F} \to \mathcal{B}}
+           .\] 
+           \[
+              \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}} = \left( P _{ \mathcal{F} \to \mathcal{B}} \right) ^{ -1} \left[ \phi \right] _{ \mathcal{B} \mathcal{B}} P _{ \mathcal{F} \to \mathcal{B}}
+           .\] 
+         }
+
+         \dfn{ Similar/ Conjugate Matrices :}{
+                                               Two $n \times n$  matrices are said to be \underline{similar} or \underline{conjugate} if there exists an invertible matrix $ M $ such that
+                                               \[
+                                               B = M ^{-1} A M
+                                               .\] 
+                                               equivalently, 
+                                               \[
+                                               A = MB M^{-1}
+                                               .\] 
+         }
+
+\rmk{ :}{
+  The previous lemma implies that $ \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}}$  and $ \left[  \phi  \right] _{ \mathcal{B} \mathcal{B}}$ are similar. In fact, two $n \times n$  matrices are similar if and only if they represent the same linear operator on $ \mathbb{R} ^{ n}$ with respect to different bases.
+}
+
+\dfn{Diagonal Matrices :}{
+  An $n \times n$  matrix $ D = \left[ d_{ij} \right] $ with $ 1 \leq i \leq n$ and $ 1 \leq j \leq n$ is said to be a \underline{diagonal matrix} if $ d_{ij} = 0 $ for all $ i \neq j $. If 
+  \[
+  D = \begin{bmatrix}
+      \lambda_1 & 0 & 0 & \dots  & 0 \\
+      0 & \lambda_2 & 0 & \dots  & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & 0 & \dots  & \lambda_n\end{bmatrix}     \qquad  \text{ i.e. } d_{ii} = \lambda_i \quad d_{ij} = 0, \text{ for } i \neq j
+  .\]         
+  \[
+  \text{ then } D ^{k} = \begin{bmatrix}
+      \lambda_1 ^{k} & 0 & 0 & \dots  & 0 \\
+      0 & \lambda_2 ^{k} & 0 & \dots  & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \dots  & \lambda _n ^{k}\end{bmatrix} \qquad  \text{ (can prove by induction) }
+  .\] 
+}
+ \dfn{Diagonalizable Matrices :}{
+ An $n \times n$  matrix A is said to be \underline{diagonalizable} if $ A$ is simlar to a diagonal matrix $ D$, i.e. there exists an invertible matrix $ B$ such that $ D = B ^{-1} A B$
+ }
+ \nt{
+ If $ A$ is diagonalizable, then computing powers of $ A$ is straightforward, since $ A = B D B ^{-1}$
+ \[
+ A^{k} = \left( BD B^{-1} \right) ^{k} =\left( BD B^{-1} \right) \left( BD B^{-1} \right) \ldots \left( BD B ^{-1} \right)  = B D^{k} B^{-1} 
+ .\] 
+ }
+ Next we will investigate the circumstances under which a matrix is diagonalizable.\\
+ \dfn{Eigenvectors and Eigenvalues :}{
+  Suppose $ V$ is a vector space  and $ \phi : V \to V$ is a linear operator.
+  \begin{enumerate}[label=(\roman*)]
+    \item  A non-zero  vector  $ v \in V$ is said to be an \underline{eigenvector} of $ \phi $ if $ \phi  \left( \vec{ v}  \right) = \lambda \vec{ v} $ for some $ \lambda \in \mathbb{R}$
+    \item   The scalar $ \lambda $ is called an \underline{eigenvalue} of $ \phi $ 
+    \end{enumerate}
+ }
+ 
+ \ex{}{
+ $ \phi : \mathbb{R} ^2 \to \mathbb{R} ^2$
+ \[
+ \phi  \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 2 & 0\\
+ 0 & 3\\
+ \end{bmatrix} \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 2x\\
+ 3y\\
+ \end{bmatrix}
+ .\] 
+ Clearly, $ \phi  \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ = 2 \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ $ and $ \phi \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}        = 3 \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ $ i.e. $ \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ $ is an eigenvector with eigenvalue $ \lambda =2$ and $  \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ $ is an eigenvector with eigenvalue $ \lambda = 3$. \\
+ The effect that $ \phi $  has on $ \mathbb{R} ^2$ is easy to understand, it scales the $ x$-coordinate horizontally away from the $ y$-axis by a factor of $ 2$ and the $ y$-coordinate vertically away from the $ x$-axis by a factor of $ 3$.
+ }
+ 
+ \ex{}{
+ $ \phi : \mathbb{R} ^2 \to \mathbb{R} ^2$, $ \phi $ a reflection across the x-axis given by 
+ \[
+ \phi \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 1 & 0\\
+ 0 & -1\\
+ \end{bmatrix} \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ x\\
+ -y\\
+ \end{bmatrix}
+ .\] 
+ $ \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ $ is a eigenvector with eigenvalue $ \lambda = 1$.\\
+ $ \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+  $ is an eigenvector with eigenvalue $ \lambda = -1$.\\
+ }
+   The transformation that a linear operator $ \phi: V \to V$ imposes on a vector space $ V$  is easier to understand if $ \phi $ has eigenvectors.         \\
+
+  \\
+  \thm{Diagonalizable Matrices :}
+  {
+    Suppose $ A$ is an $n \times n$  matrix and $ B = \left[ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_n}  \right]$ where $ \vec{ v_i } \in \mathbb{R} ^{n} \forall  i $.\\
+    Then $ B^{-1}A B$ is a diagonal matrix $ \iff$  $ \left\{ \vec{ v_1} ,\ldots \vec{ v_n}  \right\} $ is a basis of $ \mathbb{R} ^{n}$ consisting of eigenvectors.
+  \\
+  Note that $ B \vec{ e_i } = \vec{ v_i} \forall  i$ ( $ \vec{ e_i} $ is the standard basis).\\
+  \\
+  \[
+  B^{-1} A B = \begin{bmatrix}
+      \lambda_1 & 0 & 0 & \dots  & 0 \\
+      0 & \lambda_2 & 0 & \dots  & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & 0 & \dots  & \lambda_n\end{bmatrix}
+  .\] 
+  \[
+   \iff \left( B^{-1} A B \right) \left( \vec{ e_i}  \right) = \lambda _i \vec{ e_i} 
+  .\] 
+  \[
+  \iff A B \vec{ e_i} = B \lambda_i \vec{ e_i}
+  .\] 
+  \[
+  \text{ i.e. } AB \left( \vec{ e_i}  \right) = \lambda_i \left( B \vec{ e_i}  \right) 
+  .\] 
+  \[
+  A \left( B \vec{ e_i}  \right) = \lambda_i \left( B \vec{ e_i}  \right)
+  .\] 
+  \[
+  \iff A \left( \vec{ v_i}  \right) = \lambda_i \left( \vec{ v_i}  \right)
+  .\] 
+  i.e. $ \vec{ v_i} $ is an eigenvector of $ A \forall  i$.\\
+  Moreover, $ B$ is invertible if and only if $ \left\{ \vec{ v_1} ,\ldots \vec{ v_n}  \right\} $ is a basis of $ \mathbb{R} ^{n}$.
+}
+\\
+  \\
+  \section{Finding Eigenvalues and Eigenvectors}
+    
+  In order to find the eigenvectors we start by finding the eigenvalues: For an $n \times n$ marix $ A$, this involves finding $ \lambda$ such that $ A \vec{ v} = \lambda \vec{ v} $ for non-zero vectors $ \vec{ v}$.\\
+ \[
+  A \vec{ v} - \lambda \vec{ v} = \vec{ 0} 
+ .\] 
+ \[
+ A \vec{ v} - \lambda I_n \vec{ v} = \vec{ 0}
+ .\] 
+  \[
+\boxed{(A - \lambda I)\,\vec v = \mathbf 0}
+\]
+We wish to find non-zero solutions to this equation. Which exist if and only if the matrix $ A - \lambda I$ is  not invertible, i.e. iff $ \text{ det } \left( A - \lambda I \right) =0$ \\
+$ \implies \lambda$ is an eigenvalue of $ A \iff$ $ \lambda$ is a root of $ \text{ det } \left( A - \lambda I \right)$
+$
+   \dfn{Characteristic Polynomial :}{
+   The Polynomial $ \text{ det } \left( A - \lambda I  \right) $         is called the \underline{ Characteristic Polynomial of $ A$}  and is denoted by $ \chi _{A} \left( \lambda \right) $          .\\
+   The roots of $ \chi _A \left( \lambda \right) $ are the eigenvalues of $ A$.\\
+   Finding eigenvectors that have $ \lambda$ as an eigenvalue mearly involves solving $ A \vec{ v} = \lambda \vec{ v} $
+   }
+
+
+   \ex{}{
+   \textit{Find the eigenvalues and corresponding eigenvectors of $ A = \begin{bmatrix}
+   1 & 3\\
+   4 & 2\\
+   \end{bmatrix}$. \\
+Is $ A$ diagonalizable?}\\
+\\
+\textbf{Solution:}\\
+To find eigenvalues we solve $ \text{ det } \left( A - \lambda I \right) $
+\[
+\text{ i.e. }  \text{ det }  \left( \begin{bmatrix}
+1 & 3\\
+4 & 2\\
+\end{bmatrix} - \begin{bmatrix}
+\lambda & 0\\
+0 & \lambda\\
+\end{bmatrix} \right) = 0
+.\] 
+\[
+\text{ det } \begin{bmatrix}
+1-\lambda  & 3 \\
+4 & 2- \lambda\\
+\end{bmatrix} =0
+.\] 
+\begin{align*}
+	\left( 1- \lambda \right) \left(  2- \lambda \right) \\
+	&= 2 - 3 \lambda -10 =0\\
+	&= \lambda^2 - 3\lambda -10 =0\\
+	&= \left( \lambda-5 \right) \left( \lambda+2 \right)            =0\\
+	& \lambda=5 \qquad \lambda=-2
+.\end{align*}\\
+\\
+\underline{Eigenvectors:}\\
+ \[
+ \lambda = 5 : \left( A - 4 I \right) \vec{ v} = \vec{ 0} 
+ .\] 
+ \[
+ \left[
+ \begin{array}{cc;{2pt/2pt}c}  
+ -4 & 3 & 0\\
+ 4 & -3 & 0\\
+ \end{array}
+ \right]    \to  \left[
+ \begin{array}{cc;{2pt/2pt}c}  
+ -4 & 3 & 0\\
+ 0 & 0 & 0\\
+ \end{array}
+ \right]
+ .\] 
+ \[
+ -4x +3y =0 \qquad  \implies y = \frac{4}{3} x
+ .\] 
+  \\
+  \\
+  Eigenvectors with eigenvalue $ \lambda =5 $ \\
+  \[
+	  \left\{ x \begin{bmatrix}
+	  3\\
+	  4\\
+	  \end{bmatrix}
+	  \mid x \in \mathbb{R}, x \neq 0 \right\}
+  .\] 
+  \[
+  \lambda=-2 \qquad  \left( A +2 I \right) \vec{ v}    = \vec{ 0} 
+  .\] 
+  \[
+	  \left[
+	  \begin{array}{cc;{2pt/2pt}c}  
+	  3 & 3 & 0\\
+	  4 & 4 & 0\\
+	  \end{array}
+	  \right] \to \left[
+	  \begin{array}{cc;{2pt/2pt}c}  
+	  1 & 1 & 0\\
+	  0 & 0 & 0\\
+	  \end{array}
+	  \right]
+  .\] 
+  \[
+  x+y =0 \qquad \implies y = -x 
+  .\] 
+     \\
+     Eigenvectors with eigenvalue $ \lambda = -2$ :\\
+     \[
+	     \left\{ x \begin{bmatrix}
+	     1\\
+	     -1\\
+	     \end{bmatrix}
+	     \mid x \in \mathbb{R} , x \neq 0 \right\}
+     .\] 
+     $ A$ is diagonalizable since there exists a basis of $  \mathbb{R} ^2$ consisting of eigenvectors of $ A$.  \\
+     \\
+     Note: $ \mathcal{B} = \left\{ \begin{bmatrix}
+     3\\
+     4\\
+     \end{bmatrix}
+     , \begin{bmatrix}
+     1\\
+     -1\\
+     \end{bmatrix}
+      \right\}$, forms a basis for $   \mathbb{R} ^2$.\\
+      The linear operatro $ \phi : \mathbb{R} ^2 \to \mathbb{R} ^2 $ defined by $ \phi  \left( \vec{ v}  \right) = A \vec{ v} $ where $ A = \begin{bmatrix}
+      1 & 3\\
+      4 & 2\\
+      \end{bmatrix}$.\\
+      \[
+	      \left[ \phi  \right] _{ \mathcal{E} , \mathcal{E}} = \begin{bmatrix}
+	      1 & 3\\
+	      4 & 2\\
+	      \end{bmatrix}
+      .\] 
+      \[
+	      \left[ \phi  \right] _{ \mathcal{B}, \mathcal{B}}  = \begin{bmatrix}
+	      5 & 0\\
+	      0 & -2\\
+	      \end{bmatrix} \text{ since }  \phi  \left( \vec{ b_1}  \right) = 5 \vec{ b_1} \quad \phi \left( \vec{ b_2}  \right) = -2 \vec{ b_2}  
+      .\] 
+      \[
+      \text{ and, } P_{ \mathcal{B}\to \mathcal{E} } = \begin{bmatrix}
+      3 & 1\\
+      4 & -1\\
+      \end{bmatrix}
+      .\] 
+      \[
+      P _{ \mathcal{B} \to \mathcal{E}} =  \frac{1}{-7}\begin{bmatrix}
+      -1 & -1\\
+      -4 & 3\\
+      \end{bmatrix}
+      .\] 
+ We can check that
+ \[
+ \begin{bmatrix}
+ 5 & 0\\
+ 0 & -2\\
+ \end{bmatrix} = \frac{ 1  }{ -7 }\begin{bmatrix}
+ -1 & -1\\
+ -4 & 3\\
+ \end{bmatrix} 
+ \begin{bmatrix}
+ 1 & 3\\
+ -4 & 2\\
+ \end{bmatrix}
+ \begin{bmatrix}
+ 3 & 1\\
+ 4 & -1\\
+ \end{bmatrix}
+ .\] 
+ \[
+	 \left[ \phi  \right]  _{ \mathcal{B} , \mathcal{B}} = P _{ \mathcal{E} \to\mathcal{B}}  \left[ \phi  \right] _{   \mathcal{E} , \mathcal{E}} P _{ \mathcal{B} \to \mathcal{E}}
+ .\] 
+
+   }
+   
+   \ex{}{
+   Let $ A = \begin{bmatrix}
+   1 & 1\\
+   0 & 1\\
+   \end{bmatrix}$. Find the eigenvalues and the corresponding eigenvectors for $ A$ and determine whether $ A$ is diagonalizable.\\
+   \\
+   \textbf{Solution:}\\
+       Eigenvalues:      $ \text{ det } \left( A -  \lambda I \right) =0$\\
+        \[
+        \left( 1- \lambda \right) \left( 1-\lambda \right) 
+        .\] 
+	\[
+	\lambda =1  \text{ is the only eigenvalue}
+	.\] 
+	Eigenvectors:\\
+	\[
+	\left[
+	\begin{array}{cc;{2pt/2pt}c}  
+	0 & 1 & 0\\
+	0 & 0 & 0\\
+	\end{array}
+	\right] \qquad  x \text{ free, }  y=0
+	.\] 
+	\[
+		U_1 = \left\{ \begin{bmatrix}
+		x\\
+		0\\
+		\end{bmatrix}
+		 \mid x \in \mathbb{R} \right\} 
+	.\] 
+	A is not diagonalizable since there does not exist a basis for $ \mathbb{R}^2 $ consisting of eigenvectors of $ A$.
+   }
+     \thm{}
+     {
+       Suppose $ \phi  : V \to V$ is a linear operator defined on the vector space $ V$. \\
+All vectors $ \vec{ v} \in V$ that satisfy $ \phi  \left( \vec{ v}  \right) = \lambda \vec{ v} $ for some fixed $  \lambda \in \mathbb{R}$  along with $ \vec{ 0}_v $, form a subspace of $ V$. We'll use $ U_{\lambda}$ to denote this subspace.\\
+     }
+     \pf{Proof:}{
+      \underline{addition:}\\
+      Suppose $ \vec{ u_1} , \vec{ u_2}  \in U_{\lambda}$  i.e.  $ \phi  \left(  \vec{ u_1}  \right) = \lambda \vec{ u_1} $ and $ \phi  \left(  \vec{ u_2}  \right)= \lambda \vec{ u_2}    $.\\
+      Then,
+      \[
+      \phi  \left(  \vec{ u_1} + \vec{ u_2}  \right) = \phi  \left(  \vec{ u_1}  \right) + \phi \left( \vec{ u_2}  \right) = \lamba \vec{ u_1} + \lambda \vec{  u_2} = \lambda \left(  \vec{ u_1} + \vec{ u_2}  \right)   \implies \vec{ u_1} + \vec{ u_2}  \in U_{ \lambda}
+      .\] 
+      \\
+      \underline{Scalar multiplication:}\\
+      Suppose $ \vec{ u} \in U _{ \lambda}, \alpha \in \mathbb{R}$ \\
+      \[
+      \phi \left( \alpha \vec{ u}  \right) = \alpha \phi  \left( \vec{ u}  \right) = \alpha \left(  \lambda \vec{ u}  \right) =\lambda \left( \alpha \vec{ u}  \right)         \qquad   \implies   \alpha \vec{ u} \in U _{ \lambda}
+      .\] 
+      by definition $ \vec{ 0}_V \in  U _{ \lambda} \qquad \implies U_{ \lambda} $  forms a subspace of $ V$.
+     }
+      We can prove this another way\\
+      \pf{Proof:}{
+       If $ I:V \to V$ is the identity mapping, $ I \left(  \vec{ v}  \right) = \vec{  v}  $, $ \forall  \vec{ v} \in V$ the $ U_{ \lambda} = ker \left( \phi  -I \right) $ which is a subspace of $ V$ as long as $ \phi - I $ is a linear transformation. $ \phi  -I : V \to V$
+ \[
+ \left( \phi - I \right) \left( \vec{ v}  \right)  = \phi  \left( \vec{ v}  \right) - I \left(  \vec{ v}  \right) 
+ .\]      
+ This method can be shown to preserve addition and scalar multiplication.
+      }
+      \thm{Upper/Lower Triangular Matrices}
+      {
+        Suppose $ A$ is an $n \times n$  upper (or lower) triangluar matrix, say 
+	\[
+	A = \begin{bmatrix}
+		a_{11} & a_{12} & a_{13} & \dots  & a_{1n} \\
+	0 & a_{22} & a_{23} & \dots  & a_{2n} \\
+	\vdots & \vdots & \vdots & \ddots & \vdots \\
+	0 & 0 & 0 & \dots  & a_{ nn}\end{bmatrix}
+	.\]  then the eigenvalues of $ A$ would lie along the diagonal of $ A$.
+      }
+      \pf{Proof:}{
+       \[
+       \chi _{A} \left( \lambda \right) = \text{ det } \begin{bmatrix}
+       		a_{11}-\lambda & a_{12} & a_{13} & \dots  & a_{1n} \
+       	0 & a_{22}-\lambda & a_{23} & \dots  & a_{2n} \
+       	\vdots & \vdots & \vdots & \ddots & \vdots \
+       	0 & 0 & 0 & \dots  & a_{ nn} - \lambda\end{bmatrix}      
+       .\] 
+       \[
+       \chi _{A} \left( \lambda \right) = \left( a_{11} - \lambda\right)  \left(  a_{22}-\lambda \right) \ldots \left( a_{ n n} -\lambda \right) 
+       .\] 
+       $ \implies $  solutions to $ \chi   _{A} \left( \lambda \right) =0 $ are $ \lambda = a_{11}, a_{22}, \ldots , a_{ n n}  $
+      }
+
+      \ex{}{
+      Let $ A = \begin{bmatrix}
+      \cos \theta &  -\sin \theta \\
+      \sin \theta  &  \cos \theta \\
+      \end{bmatrix}$
+      \\
+      We know that $ A$ rotatrs $ \mathbb{R} $ counterclockwise about the origin by an angle of $  \theta$.\\
+      \textit{ Is $ A$ diagonalizable?}\\
+      \\
+      \textbf{Solution:}\\
+      \\
+      \[
+      \text{ det } \begin{bmatrix}
+      \cos \theta - \lambda  & - \sin \theta \\
+      \sin\theta   & \cos \theta -\lambda\\
+      \end{bmatrix}                        =0
+      .\] 
+      \[
+      \left( \cos \theta- \lambda   \right) ^2 + \sin ^2 \theta  =0
+      .\] 
+ \[
+ \cos ^2 \theta - 2 \lambda \cos \theta + \lambda ^2+ \sin ^2 \theta =0 \qquad \implies \lambda ^2 - 2 \lambda \cos \theta +1 =0 
+ .\] 
+ \[
+ \lambda = \frac{  2 \cos \theta \pm \sqrt{ \left( 2 \cos \theta  \right) ^2 -4}   }{ 2 }
+ .\] 
+ \[
+ \lambda = \frac{ 2 \cos \theta \pm \sqrt{ 4 \left(  \cos ^2 \theta -1 \right) }   }{ 2 }
+ .\] 
+ \[
+ \lambda = \frac{  2 \cos \theta  \pm \sqrt{-4 \sin \theta }  }{  2}
+ .\] 
+ if $ \sin \theta \neq 0$ then $  \lambda \notin  \mathbb{R} $\\
+ $ \implies$ no eigenvalues if $  \theta \in \mathbb{R} \backslash \left\{ k \pi \backslash k \in \mathbb{Z} \right\} $ \\
+ If $ \theta = 2k \pi $, $  k \in \mathbb{Z}$ then $ A = \begin{bmatrix}
+ 1 & 0\\
+ 0 & 1\\
+ \end{bmatrix}$ which is $ I_2$ the $2 \times 2$  identity, which has $ \lambda =1 $ as an eigenvalue and corresponding eigenvectors: $ \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ , \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ $ \\
+ \\
+ If $ \theta = \left( 2k +1  \right)  \pi$, $ k \in \mathbb{Z}$ then $ A = \begin{bmatrix}
+ -1 & 0\\
+ 0 & -1\\
+ \end{bmatrix}$
+ Which has $ \lambda = -1 $ as an eigenvalue and corresponding eigenvectors $ \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}, \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ $ \\
+ \\
+ In fact the last two cases $ A$ is clearly diagonalizable since it is a diagonal matrix.
+      }
+      \mlem{}{
+      If $ A$ and $ B$ are similar matrices then $ \chi _{A } \left( \lambda \right) = \chi _{ B} \left( \lambda \right) $}
+
+
+      \pf{Proof:}{
+       $ A,B$ are similar, hence there exists an invertible matrix $ M$ such that $ B = M ^{ -1} A M$ \\
+       \begin{align*}
+       	\chi _{B} \left( \lambda \right) = \text{ det } \left( B - \lambda I \right) = \text{ det } \left( M^{-1} A M - \lambda I \right) \\
+	&= \text{ det } \left( M ^{-1}A M - M ^{-1} \left( \lambda I \right) M \right)\\
+	&= \text{ det } \left( M^{-1} \right)  \text{ det }  \left( A - \lambda I \right) \text{ det } M\\
+	&=  \left( \frac{1}{ \text{ det } M} \right) \left( \chi _A \left( \lambda \right)  \right) \text{ det } M\\
+	\implies \chi _{B} \left( \lambda \right) = \chi _{A} \left( \lambda \right)
+       .\end{align*}
+      }
+       \begin{corollary}[]
+	       Let $ \phi : V \to V$ be a linear operator and let $ \mathcal{B}$ be a basis of $ V$ and let $ \left[ \phi  \right] _{ \mathcal{B} , \mathcal{B} } $  be a matrix of $ \phi $ with respect to $ \mathcal{B}$. We define $  \chi _{ \phi } \left(  \lambda \right) = \chi _{ \left[ \phi  \right]_{ \mathcal{B} \mathcal{B}}} \left( \lambda \right) $   and $  \chi _{ \phi } \left( \lambda \right) $ is independent of the choice of basis $ \mathcal{B}$.
+       \end{corollary}
+                   \pf{Proof:}{
+			   Let $ \mathcal{F}$ be another basis for $ V$ and let $ \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}}$ be the matrix of $ \phi $ with respect to $ \mathcal{F}$.\\
+			   We know that $ \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}}$ is similar to $ \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}}$,
+			   \[
+				   \left[ \phi  \right]_{ \mathcal{B} \mathcal{B}} = P _{ \mathcal{F} \to \mathcal{B}} \left[ \phi  \right]_{ \mathcal{F} \mathcal{F}} P _{ \mathcal{B} \to \mathcal{F}}
+			   .\] 
+			   Hence, $ \chi _{ \left[ \phi  \right]_{ \mathcal{B} \mathcal{B}}} \left( \lambda \right) = \chi _{ \left[ \phi  \right] _{ \mathcal{F} \mathcal{F}}} \left( \lambda \right) $                  \\
+			   This implies that the characteristic polynomial of a linear operator $ \phi : V \to V$ is independent of the choice of basis for $ V$.
+                   }
+                   
+      
+      
+	   
+      
+
+     
+   
+         
+         
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}          
