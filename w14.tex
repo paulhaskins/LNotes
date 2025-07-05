@@ -1,0 +1,1139 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+
+\mlem{}{
+An $n \times n$  matrix $ A$ has at most $ n$ eigenvalues }
+\pf{Proof:}{
+ The eigenvalues of $ A$ are the roots of $ \chi _{A} \left( \lambda \right) $, i.e. the solutions of 
+ \[
+ \text{ det } \left( A - \lambda I \right) = 0
+ .\] 
+ Recall $ \text{ det } A = \sum\limits_{ \sigma}^{}  \text{ sgn } \left( \sigma \right) b_{1 \sigma \left( 1 \right) } b _{ 2 \sigma \left( 2 \right) }\ldots  b_{ n \sigma \left(  n \right) }
+ $
+ where $ \sigma$ is a permutation over $ n$ elements.\\
+ Each term in the sum is a product of $ n $ entries from $ B$ with exactly one entry from each row and one entry from each column.\\
+ When $  \sigma= I $ the term is the product of the entries along the diagonal $ b_{11} b_{22}\ldots b_{n n}$ $ \implies$ one term in $ \chi _A \left( \lambda \right) $ is in which degree of $ \lambda$ is $ n$.\\
+ $ \implies \chi _{A} \left( \lambda \right) $ has at most $ n$ real roots\\
+ $ \implies A$ has at most $ n$ real eigenvalues.
+}
+\\
+\thm{}
+{
+Suppose $ \phi : V \to V$ is a linear operatro on the vectors space $ V$ of dimension $ n$.\\
+If $ \phi $ has $ n$ distinct eigenvalues then the corresponding eigenvectors from a basis for $ V$ .\\
+}
+
+\pf{Proof:}{
+ It is enough to show that they are linearly indpendent since if $ dim V =n$ then $ n$ linearly indpendent vectors form a basis for $ V$.\\
+ \\
+ \textbf{(Proof by Induction)} \\
+      Suppose $ n=1$ there is one eigenvector $ \vec{ v} $ which is linearly indpendent since all eigenvectors are non-zero by definition.\\
+      Assume statement is true for $ n=k$.\\
+      Suppose $ \vec{ v_1} ,\ldots \vec{ v_{k+1} } $ are eigenvectors corresponding to $ k+1$  disctinct eigenvalues $ \lambda_1 , \lambda_2 , \ldots , \lambda_{k+1}$.\\
+      Suppose $ \left\{ \vec{ v_1}, \vec{ v_2} ,\ldots, \vec{ v_{k+1}}   \right\} $ is a linearly dependent set $ \implies \exists  c_1,c_2, \ldots , c_{k+1} \in \mathbb{R}$ not all zero such that
+      \[
+      c_1 \vec{ v_1} +  c_ 2 \vec{ v_2}+ \ldots + c_{k+1} \vec{ v_{k+1}} = \vec{ 0} \text{ XXX INCLUDE STAR} 
+      .\] 
+      \[
+      \phi  \left(  \sum\limits_{i=1}^{k+1} c_i \vec{ v_i} = \phi  \left(  \vec{ 0}  \right) = \vec{ 0}   
+       \right) 
+      .\] 
+      \[
+      \sum\limits_{i=1}^{k+1} c_i \left( \phi  \left(  \vec{ v_i}  \right)  \right)  = \vec{ 0} 
+      .\] 
+      \[
+      \sum\limits_{i=1}^{k+1} c_i \left( \lambda_i \vec{ v_i}  \right)   = \vec{ 0} 
+      
+      .\] 
+      Multiplying XXX STAR EQN ABOVE XXX by $ \lambda_{k+1}$ and subtracting from above we get:
+      \[
+      c_1 \left( \lambda_1 \vec{ v_1}  \right) +c_2 \left( \lambda_2 \vec{ v_2}  \right) + \ldots + c_k \left( \lambda_k \vec{ v_k}  \right)  + c_{k+1} \left( \lambda_{k+1} \vec{ v_{k+1}}  \right)  = \vec{ 0} 
+      .\] 
+      \[
+      - c_1 \lambda_{k+1} \vec{ v_1} - c_2 \lambda_{k+1} \vec{ v_2} \ldots -c_k \lambda_{k+1} \vec{ v} - c_{k+1} \vec{ v_{k+1}} = \vec{ 0}  
+      .\] 
+      \[
+      c_1 \left( \lambda_1 - \lambda_{k+1} \right) \vec{ v_1} + \ldots + c_k \left( \lambda_k - \lambda_{k+1} \right) \vec{ v_k} + \vec{ 0} = \vec{ 0}
+      .\] 
+      The set $ \left\{ \vec{ v_1} , \vec{ v_2} \ldots, \vec{ v_k}  \right\}$  is linearly independent by assumption,
+      \[
+      \implies c_i \left( \lambda_i - \lambda_{k+1} \right) = 0 \qquad  \forall i \le i \le k
+      .\] 
+      Since the eigenvalues are distinct  we have that $ c_i =0 $ for all $ 1 \le i \le k$ 
+      \[
+      \implies \text{ the linear dependence relation }  XXX STAR \text{becomes }
+      .\] 
+      $ c_{k+1} \vec{ v_{k+1}} =0$ and hence $ c _{k+1} =0 $ $ \implies \left\{ \vec{ v_1} , \vec{ v_2} , \ldots , \vec{ v _{k+1}}  \right\}$  is a linearly independent set.\\
+}
+\begin{corollary}[]
+	Suppose $ A$ is a $n \times n$  matrix. Eigenvectors corresponding to distinct eigenvalues of $ A$ are linearly independent.\\
+	In particular, if $ A$ has $ n$ distinct eigenvalues then A has $ n$ linearly independent eigenvectors.\\
+	$ \implies A$ is diagonalizable.\\
+\end{corollary}
+\nt{
+	The opposite is not necessarily true. $ A$ can be diagonalizable without having $ n$ distinct eigenvalues.\\
+}
+
+\ex{}{
+Let $ A = \begin{bmatrix}
+1 & 20 & 30\\
+0 & 2 & 4\\
+0 & 0 & 3\\
+\end{bmatrix}$
+\textit{  \begin{enumerate}[label=(\roman*)]
+\item Is $ A$ diagonalizable?
+\item      Find a diagonal matrix that $ A$ is similar to.
+\end{enumerate}}                                     
+   \textbf{Solution:}\\
+(i) Yes, $ A$ has 3 distinct eigenvalues $ \lambda =1,2,3$ and hence has 3 linearly independent eigenvectors.\\
+$ \implies A $ is diagonalizable.\\
+(ii)  $ A $ is similar to  $ D = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 3\\
+\end{bmatrix}$ 
+\textit{Why?}  $ \exists $ a basis of $ \mathbb{R} ^3$ consisting of eigenvectors of $ A$  $ \vec{ v_1} ,\vec{ v_2} ,\vec{ v_3} $ corresponding to $ \lambda = 1,2,3$ with respect to the basis $ \mathcal{B} = \left\{  \vec{ v_1} ,\vec{ v_2} ,\vec{ v_3}  \right\} $. The matrix $ A: \mathbb{R} ^3 \to \mathbb{R} ^3$  is $ D = \left[ A  \right] _{ \mathcal{B} , \mathcal{B}} $
+\[
+	A = \left[ A \right] _{\mathcal{E}, \mathcal{E} } = \left(  P _{ \mathcal{E} \to \mathcal{B}} \right) ^{-1} \left[  A \right] _{ \mathcal{B} , \mathcal{B}}  P _{ \mathcal{E} \to \mathcal{B}} 
+.\] 
+}
+ \section{Solving Polynomial Equations}
+ 	
+ \thm{Rational Roots Theorem}
+ {
+      Suppose $ f \left( x \right) = a_n x^{n}+ a_{ n-1 }x^{n-1}+ \ldots + a_1 x + a_0$ where $ a_i \in \mathbb{Z} \forall  i$, $ a_n \neq 0$.\\
+      If $ f \left( x \right) $ has rational root, $ x_0 = \frac{p}{q}$  with $ p, q$ relatively prime then\\
+      $ p $ is a divisor than $ a_0$ and \\
+      $ q $ is a divisor of $ a_n$.
+ }
+ 
+ \thm{Factor Theorem}
+ {
+               If $ f \left( x \right) $ is a polynomial with  $ x_0$ as a root then $ x-x_0 $ is a factor of $ f \left(  x \right) $, in particular,
+	       \[
+	       f\left( x \right) = \left( x-x_0 \right) g \left( x \right)  \text{ for some } g \left( x \right) 
+	       .\] 
+ }
+ 
+   \ex{}{
+   Let $ A = \begin{bmatrix}
+   3 & 1 & -3\\
+   1 & 3 & -3\\
+   1 & 1 & -1\\
+   \end{bmatrix}$\\
+   \textit{ Is $ A$ diagonalizable?}\\
+   \textbf{Solution:}\\
+   \[
+   \chi _{A} \left( \lambda \right) = \text{ det } \left( A - \lambda I \right) = \text{ det }  \begin{bmatrix}
+   3- \lambda & 1  & -3\\
+   1  & 3- \lambda & -3\\
+   1 & 1 & 1- \lambda\\
+   \end{bmatrix}
+   .\] 
+   \[
+	   \chi _{A} \left( \lambda \right) = \left( 3- \lambda \right) \left[ \left( 3-\lambda \right) \left( -1-\lambda \right) +3 \right]  -1 \left[ -1 -\lambda +3 \right]  -3 \left[ 1 -3 + \lambda \right]
+   .\] 
+   \begin{align*}
+   \chi _{A} \left( \lambda \right) & = \left( 3- \lambda \right) \left[ -\lambda ^2 +2\lambda +2 \right]  -1 \left[ 2-\lambda  \right]  -3 \left[ -2 +\lambda  \right]\\
+   & = \left( 3- \lambda \right) \left( -\lambda ^2 +2\lambda +2 \right)  +4 -2 \lambda\\
+   & = -\lambda ^3 +5 \lambda ^2 - 6 \lambda +4 -2 \lambda\\
+   & = -\lambda ^3 +5 \lambda ^2 -8 \lambda +4=0
+   .\end{align*}
+   Possible rational roots : $ \lambda = \frac{p}{q}$ where $ \frac{p}{4}$ and $ \frac{q}{1}$, $ p = \pm 1, \pm 2 \pm 4$  and $ q = \pm 1$ \\
+   $ \implies $ possible roots: $ \pm 1, \pm 2 , \pm 4 ]$ \\
+   Check $ \chi _A \left( 1 \right) =0$ $ \implies \lambda=1$  is a root. $ \implies \lambda -1$  is a factor 
+
+
+
+
+
+
+   \[
+\setlength{\arraycolsep}{4pt}      % a bit of horizontal breathing room
+\begin{array}{r|rrrr}
+      & -x^{2} & +4x & -4            \\ \cline{2-4}
+x-1\; & -x^{3} & +5x^{2} & -8x & +4 \\[-2pt]
+      & -x^{3} & +x^{2}              \\ \cline{2-4}
+      &        & 4x^{2} & -8x        \\
+      &        & -4x^{2} & +4x       \\ \cline{3-4}
+      &        &        & -4x & +4   \\
+      &        &        & +4x & -4   \\ \cline{4-4}
+      &        &        &        0
+\end{array}
+\]
+     CHECK IT XXXX
+   $ \implies - \lambda ^3 + 5 \lambda^2 - 8 \lambda +4 = \left( \lambda-1 \right) \left( \lambda^2 -4\lambda +4 \right) \left( -1 \right) $ \\
+   $ = \left( \lambda -1  \right) \left(  \lambda-2 \right) ^2 \left( -1 \right) =0$
+   $ \implies \lambda=1, \lambda=2 $ are the eigenvalues 
+     
+   \begin{itemize}
+   	\item $ \lambda =1$ 
+	  $ \mathbb{N} \left( A-I \right)  \left[
+	  \begin{array}{ccc;{2pt/2pt}c}  
+	  2 & 1 & -3 & 0\\
+	  1 & 2 & -3 & 0\\
+	  1 & 1 & -2 & 0\\
+	  \end{array}
+	  \right]$\ \
+	  \[
+	  \to \left[
+	  \begin{array}{ccc;{2pt/2pt}c}  
+	  1 & 2 & -3 & 0\\
+	  2 & 1 & -3 & 0\\
+	  1 & 1 & -2 & 0\\
+	  \end{array}
+	  \right] \\xrightarrow[ r_2 -r_1]{ r_3 -r_1} \left[
+	  \begin{array}{ccc;{2pt/2pt}c}  
+	  1 & 2 & -3 & 0\\
+	  0 & -3 & 3 & 0\\
+	  0 & -1 & 1 & 0\\
+	  \end{array}  
+	  \right]
+	  .\] 
+	  \[
+	  \to \left[
+	  \begin{array}{ccc;{2pt/2pt}c}  
+	  1 & 2 & -3 & 0\\
+	  0 & -1 & 1 & 0\\
+	  0 & 0 & 0 & 0\\
+	  \end{array}
+	  \right]           \to \left[
+	  \begin{array}{ccc;{2pt/2pt}c}  
+	  1 & 0 & -1 & 0\\
+	  0 & 1 & -1 & 0\\
+	  0 & 0 & 0 & 0\\
+	  \end{array}
+	  \right]
+	  .\] 
+	  \[
+	  x=z \quad y=z \quad z \text{ free } \begin{bmatrix}
+	  x\\
+	  y\\
+	  z\\
+	  \end{bmatrix}
+	  = \begin{bmatrix}
+	  z\\
+	  z\\
+	  z\\
+	  \end{bmatrix}
+	   = z \begin{bmatrix}
+	   1\\
+	   1\\
+	   1\\
+	   \end{bmatrix}
+	  .\] 
+	  Eigienspace corresponding to $ \lambda =1$  span $ \left\{ \begin{bmatrix}
+	  1\\
+	  1\\
+	  1\\
+	  \end{bmatrix}
+	   \right\} $ \\
+	   	\item $ \lambda =2$ $ \mathbb{N} \left( A -2 I \right) : \left[
+	   	\begin{array}{ccc;{2pt/2pt}c}  
+	   	1 & 1 & -3 & 0\\
+	   	1 & 1 & -3 & 0\\
+	   	1 & 1 & -3 & 0\\
+	   	\end{array}
+	   	\right]$ 
+		
+  \[
+  \to \left[
+  \begin{array}{ccc;{2pt/2pt}c}  
+  1 & 1 & -3 & 0\\
+  0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0\\
+  \end{array}
+  \right]
+  .\] \end{itemize}
+
+
+  \raggedcolumns
+  \begin{multicols}{2}
+  \begin{align*}
+  	x +y-3z & =0\\
+	yy,z \text{ free}
+  .\end{align*}
+  
+  \break
+  \[
+  \begin{bmatrix}
+  x\\
+  y\\
+  z\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  y-3z\\
+  y\\
+  z\\
+  \end{bmatrix}
+  = y \begin{bmatrix}
+  1\\
+  1\\
+  0\\
+  \end{bmatrix}
+  + z \begin{bmatrix}
+  -3\\
+  0\\
+  1\\
+  \end{bmatrix}
+  .\] 
+  
+  \end{multicols}
+  \[
+	  \implies \mathbb{N} \left( A-2I \right) = \text{ span } \left\{ \begin{bmatrix}
+	  1\\
+	  1\\
+	  0\\
+	  \end{bmatrix}
+	  , \begin{bmatrix}
+	  -3\\
+	  0\\
+	  1\\
+	  \end{bmatrix}
+	   \right\} 
+  .\] 
+  We have 3 linearly independent eigenvectors,\\
+  $ A$ is diagonalizable and, \\
+  \[
+  A = P _{ \mathcal{F} \to \mathcal{E}}       \begin{bmatrix}
+  1 & 0 & 0\\
+  0 & 2 & 0\\
+  0 & 0 & 2\\
+  \end{bmatrix} P _{ \mathcal{E} \to \mathcal{F}}
+  .\] 
+  \[
+	  \text{ where } \mathcal{F} = \left\{ \begin{bmatrix}
+	  1\\
+	  1\\
+	  1\\
+	  \end{bmatrix}
+	  , \begin{bmatrix}
+	  1\\
+	  1\\
+	  0\\
+	  \end{bmatrix}
+	  , \begin{bmatrix}
+	  -3\\
+	  0\\
+	  1\\
+	  \end{bmatrix}
+	   \right\} 
+  .\] 
+   }
+   
+   \section{Complex Vector Spaces:}
+   Thus far we have delt exclusively with vector spaces  that were closed under scalar multiplication by real numbers, such vector spaces are real vector spaces. Complex vector spaces exist also, and they are sets that are closed under addition and scalar multiplication by complex numbers ( where the 8 axioms also hold).\\
+
+   \dfn{Complex Vector Space :}{
+   A set $ V$ is said to be a complex vector space, or a vector space over the complex numbers, if 
+   \begin{enumerate}[label=(\roman*)]
+   \item $ V$ is closed under addition i.e. if $ \vec{ w} , \vec{ z}  \in V \implies \vec{ w} + \vec{ z} \in V$
+   \item $ V$ is closed under scalar multiplication by complex numbers i.e. if $ \vec{ w} \in V$ and $ \lambda \in \mathbb{C}$ then $ \lambda \vec{ w} \in V$
+   \end{enumerate}
+   Example: $ V = \mathbb{C} ^{n} = \left\{ \begin{bmatrix}
+   a_1\\
+   a_2\\
+   \vdots\\
+   a_n\\
+   \end{bmatrix}
+    \mid a_i \in \mathbb{C} \right\}$
+   
+   }
+
+   \ex{Complex eigenvectors/ eigenvalues}{
+            \textit{ Find the eigenvalues  of $ A = \begin{bmatrix}
+            2 & -3\\
+            3 & 2\\
+\end{bmatrix}$ where $ A: \mathbb{C} ^2 \to \mathbb{C} ^2$ }\\
+
+\[
+\text{ det } \left( A - \lambda I \right) = \text{ det }  \begin{bmatrix}
+2- \lambda & -3\\
+3 & 2-\lambda\\
+\end{bmatrix} = \left( 2 - \lambda \right) ^2 +9
+.\] 
+\begin{align*}
+\text{ det } \left( A - \lambda I \right) & = 0\\
+4 -4 \lambda + \lambda ^2 +9 & = 0\\
+\lambda ^2 -4 \lambda +13 & = 0\\
+\lambda & = \frac{4 \pm \sqrt{16 - 52}}{2} = \frac{4 \pm i \sqrt{36}}{2} = 2 \pm 3i
+.\end{align*}
+\\
+\underline{Eigenvectors:}\\
+$ \lambda = 2+3i$ \\
+\[
+\mathbb{N} \left( A - \left( 2+3i \right) I \right) = \text{ all solutions to } \begin{bmatrix}
+2-2-3i & -3\\
+ 3& 2-2-3i \\
+\end{bmatrix} m\begin{bmatrix}
+x\\
+y\\
+\end{bmatrix}
+ = \begin{bmatrix}
+ 0\\
+ 0\\
+ \end{bmatrix}
+.\] 
+\[
+	\left[
+	\begin{array}{cc;{2pt/2pt}c}  
+	3 & -3i & 0\\
+	-3i &- 3 & 0\\
+	\end{array}
+	\right]     \xrightarrow[ r_2 + i r_1]{} \left[
+	\begin{array}{cc;{2pt/2pt}c}  
+	3 & -3i & 0\\
+	0 & 0 & 0\\
+	\end{array}
+	\right]
+.\] 
+\[
+\implies 3x -3iy =0 \quad y \text{ free } \implies \begin{bmatrix}
+x\\
+y\\
+\end{bmatrix}
+= \begin{bmatrix}
+iy\\
+y\\
+\end{bmatrix}
+= y \begin{bmatrix}
+i\\
+1\\
+\end{bmatrix}
+.\] 
+\[
+\implies 3x = 3iy \qquad x = iy 
+.\] 
+\textit{Eigenvector corresponding to $ \lambda = 2+3i$ is  $ \left\{ \begin{bmatrix}
+i\\
+1\\
+\end{bmatrix}
+y \mid y \in \mathbb{R}  \right\} = span \left\{ \begin{bmatrix}
+i\\
+1\\
+\end{bmatrix}
+ \right\} $} 
+ Note this is a complex vector space,it is a subspace of $ \mathbb{C} ^2$. \\ Similarly, $ \lambda = 2 -3i $
+ \[
+ \mathbb{N} \left(  A - \left( 2-3i \right) I \right) = \text{ all solutions to }  \begin{bmatrix}
+ 2-2+3i & -3\\
+ 3 & 2-2+3i\\
+ \end{bmatrix} \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 0\\
+ 0\\
+ \end{bmatrix}
+ .\] 
+ \[
+ \left[
+ \begin{array}{cc;{2pt/2pt}c}  
+ 3i & -3 & 0\\
+ 3 & 3i & 0\\
+ \end{array}
+ \right] \xrightarrow[ r_1 \leftrightarrow r_2]{}  \left[
+ \begin{array}{cc;{2pt/2pt}c}  
+ 3 & 3i & 0\\
+ 3i & -3 & 0\\
+ \end{array}
+ \right]
+ .\] 
+ \[
+ \xrightarrow[ r_2 - i r_1]{}
+ \left[
+ \begin{array}{cc;{2pt/2pt}c}  
+ 3 & 3i & 0\\
+ 0 & 0 & 0\\
+ \end{array}
+ \right] \implies 3x + 3iy =0 \quad y \text{ free } 
+ .\] 
+ \[
+ x= -iy  \quad y \text{ free } \implies \begin{bmatrix}
+ x\\
+ y\\
+ \end{bmatrix}
+  = \begin{bmatrix}
+  -iy\\
+  y\\
+  \end{bmatrix}
+   = y \begin{bmatrix}
+   -i\\
+   i\\
+   \end{bmatrix}
+ .\]
+eigenvector associated with $ \lambda = 2-3i$ is  any non-zero scalar multiple of $ \begin{bmatrix}
+-i\\
+1\\
+\end{bmatrix}
+$ \\
+
+Eigenspace = $ \left\{  \begin{bmatrix}
+-i\\
+1\\
+\end{bmatrix}
+y \mid y \in \mathbb{R}  \right\} = span \left\{  \begin{bmatrix}
+i\\
+1\\
+\end{bmatrix}
+ \right\}  \subseteq  \mathbb{C} ^2$ 
+   }
+   
+   \mlem{}{
+   If  $ T:V \to V$ is a linear operator defined on a complex vector space $ V$  then $ T$ has at least one eigenvector.\\
+}
+\pf{Proof:}{
+ Every non-constant polynomial over $ \mathbb{C}$ has a root and is a product of linear factors (Fundamental theorem of Algebra).\\
+ In particular,  $ \chi _T \left( \lambda \right) $ has a root $ \lambda \in \mathbb{C} $, and hence, an eigenvector $ \vec{ v} $ associated with $ \lambda$.
+}
+
+   \section{Reccurence Relations}
+   A reccurence relation is an equation that expresses the $ n$-th term of a sequence as a function of the preceeding terms. (Recurrsive sequence).\\
+   	\textbf{Example:} 
+	\[
+	x_n = 4 x_{n-1} -2 y _{n-1}  \qquad  x_0 = 4
+	.\] 
+	\[
+	y_n = x_{n-1} + y_{n-1} \qquad y_0 = 1
+	.\] 
+	Goal is to find a closed form solution , i.e.  a non-reccursive definition of  $ x_n$ and $ y_n$.\\
+	\[
+	\text{ Let } \vec{ u_n} = \begin{bmatrix}
+	x_n\\
+	y_n\\
+	\end{bmatrix}
+	 \qquad  \vec{ u_n} = \begin{bmatrix}
+	 4 & -2\\
+	 1 & 1\\
+	 \end{bmatrix} \begin{bmatrix}
+	 x_{n-1}\\
+	 y_{n-1}\\
+	 \end{bmatrix}
+	       \qquad  \vec{ u_n} = A \vec{ u_{n-1}}
+	.\] 
+	\[
+	\implies \vec{ u_n} = A \vec{ u_{n-1}} = A ^2 \vec{ u_{n-2}} = \ldots = A ^n \vec{ u_0}
+	.\] 
+	\[
+	\implies \vec{ u_n} = A ^n \vec{ u_0} = A ^n \begin{bmatrix}
+	4\\
+	1\\
+	\end{bmatrix}
+	.\] 
+         We wish to compute $ A^{n}$. Lets check if $ A$ is diagonalizable.\\
+	 \[
+	 \text{ det }  \left( A - \lambda I \right) =0 \qquad  \text{ det } \begin{bmatrix}
+	 4-\lambda & -2\\
+	 1 & 1-\lambda\\
+	 \end{bmatrix}
+	 .\] 
+	 \begin{align*}
+	 	\left( 4-\lambda \right) \left( 1-\lambda  \right) +2 & = 0\\
+		4 -5\lambda + \lambda ^2 +2 & = 0\\
+		\lambda ^2 -5 \lambda +6 & = 0\\
+		\left( \lambda-3 \right) \left( \lambda -2 \right) &=0\\
+		\implies \lambda =3 , \quad \lambda =2
+	 .\end{align*}
+               \[
+               \mathbb{N} \left(  A - 3I  \right) : \left[
+               \begin{array}{cc;{2pt/2pt}c}  
+               1 & -2 & 0\\
+               1 & -2 & 0\\
+               \end{array}
+               \right] \qquad x-2y =0 \quad y \text{ free }   \begin{bmatrix}
+               x\\
+               y\\
+               \end{bmatrix}
+               = \begin{bmatrix}
+               2y\\
+               y\\
+               \end{bmatrix}
+               .\]
+	       One eigenvector associated with $ \lambda =3$ is $ \begin{bmatrix}
+	       2\\
+	       1\\
+	       \end{bmatrix}
+	       $ \\
+	       \[
+	       \mathbb{N} \left( A -2 I \right)  = \left[
+	       \begin{array}{cc;{2pt/2pt}c}  
+	       2 & -2 & 0\\
+	       1 & -1 & 0\\
+	       \end{array}
+	       \right] \qquad  x-y =0 \quad y \text{ free }   
+	       .\] 
+	       \[
+	       \begin{bmatrix}
+	       x\\
+	       y\\
+	       \end{bmatrix}
+	       = \begin{bmatrix}
+	       y\\
+	       y\\
+	       \end{bmatrix}
+	       = y \begin{bmatrix}
+	       1\\
+	       1\\
+	       \end{bmatrix}
+	       .\] 
+               One eienvector associated with $ \lambda =2$ is $ \begin{bmatrix}
+               1\\
+               1\\
+               \end{bmatrix}
+               $ 
+	       
+\[
+\implies \begin{bmatrix}
+4 & -2\\
+1 & 1\\
+\end{bmatrix} = P _{ \mathcal{F} \to \mathcal{E} } \begin{bmatrix}
+3 & 0\\
+0 & 2\\
+\end{bmatrix} P _{ \mathcal{E} \to \mathcal{F}}
+.\] 
+where $ \mathcal{F} = \left\{  \begin{bmatrix}
+2\\
+1\\
+\end{bmatrix}
+, \begin{bmatrix}
+1\\
+1\\
+\end{bmatrix}
+ \right\}$ is a basis for $ \mathbb{R} ^2$, $ P _{ \mathcal{F} \to \mathcal{E}}= \begin{bmatrix}
+ 2 & 1\\
+ 1 & 1\\
+ \end{bmatrix}$.\\
+ \[
+ \implies P _{ \mathcal{E} \to \mathcal{F}} = \left( P _{ \mathcal{F} \to \mathcal{E}} \right) ^{-1} = \begin{bmatrix}
+ 1 & -1\\
+ -1 & 2\\
+ \end{bmatrix}
+ .\]
+ \[
+ \vec{ u_n} = A ^n \vec{ u_0} =  \begin{bmatrix}
+ 2 & 1\\
+ 1 & 1\\
+ \end{bmatrix} \begin{bmatrix}
+ 3 ^{n} & 0\\
+ 0 & 2 ^{n}\\
+ \end{bmatrix} \begin{bmatrix}
+ 1 & -1\\
+ -1 & 2\\
+ \end{bmatrix} \begin{bmatrix}
+ 4\\
+ 1\\
+ \end{bmatrix}
+ .\] 
+ \[
+ \vec{ u_n}  = \begin{bmatrix}
+ 2 \left( 3 ^{n} \right)  & 2 ^{n}\\
+ 3^{n} & 2 ^{n}\\
+ \end{bmatrix} \begin{bmatrix}
+ 1 & -1\\
+ -1 & 2\\
+ \end{bmatrix} \begin{bmatrix}
+ 4\\
+ 1\\
+ \end{bmatrix}
+ .\] 
+ \[
+ \vec{ u_n} = \begin{bmatrix}
+ 2 \left( 3 ^{n} \right) - 2 ^{n} & -2 \left( 3 ^{n} \right) +2 \left( 2 ^{n} \right) \\
+ 3 ^{n}-2 ^{n} & -3 ^{n} + 2 \left(  2 ^{n} \right) \\
+ \end{bmatrix}  \begin{bmatrix}
+ 4\\
+ 1\\
+ \end{bmatrix}
+ .\] 
+ \[
+ \begin{bmatrix}
+ x_n\\
+ y_n\\
+ \end{bmatrix}
+ =  \begin{bmatrix}
+ 4 \left(  2 \left( 3^{n} \right) - 2 ^{n}  \right) - 2 \left(  3 ^{n} \right)  + 2 ^{n+1}\\
+ 4 \left( 3 ^{n}- 2 ^{n} \right) - 3 ^{n} + 2 ^{n+1} \\
+ \end{bmatrix}
+ .\] 
+ \[
+ \begin{bmatrix}
+ x_n\\
+ y_n\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 8 \left( 3 ^{n} \right) -2 \left( 2 ^{n+1} \right) -2 \left( 3^{n} \right) + 2 ^{n+1}\\
+ 4 \left( 3 ^{n} \right) -2 \left( 2 ^{n+1} \right) -3 ^{n} + 2 ^{n+1}\\
+ \end{bmatrix}
+ .\] 
+ \[
+ \begin{bmatrix}
+ x_n\\
+ y_n\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 6 \left(  3 ^{n} \right) -2 ^{n+1}\\
+  3^{n+1} - 2 ^{n+1}\\
+ \end{bmatrix}
+ .\] 
+ \section{Generalised Eigenvectors}
+ Not all matrices are diagonalizable, for example, $ A = \begin{bmatrix}
+ 1 & 1\\
+ 0 & 1\\
+\end{bmatrix}$ has one eigenvalue  $ \lambda =1$ and $ \mathbb{N} \left(  a - I \right) = \left\{ \begin{bmatrix}
+x\\
+0\\
+\end{bmatrix}
+\mid x \in \mathbb{R}  \right\} = span \left\{  \begin{bmatrix}
+0\\
+1\\
+\end{bmatrix}
+ \right\} $
+ \\
+ There aren't two linearly indpendent eigenvectors of $ A$ to form a basis for $ \mathbb{R} ^2 $ .\\
+ \[
+ \text{ Note that }      \left( A - I \right)  \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 0 & 1\\
+ 0 & 0\\
+ \end{bmatrix} \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+ .\] 
+  \[
+  \text{ and so } \left( A - I \right) ^2     \begin{bmatrix}
+  0\\
+  1\\
+  \end{bmatrix}
+  = \left(  A -I \right)  \begin{bmatrix}
+  1\\
+  0\\
+  \end{bmatrix}
+   = \begin{bmatrix}
+   0\\
+   0\\
+   \end{bmatrix}
+  .\] 
+\[
+	 \text{ i.e. } \begin{bmatrix}
+	 0\\
+	 1\\
+	 \end{bmatrix}
+	  \in \mathbb{N} \left( A - I   \right)        ^2
+.\] 
+any vector that lies in $  \mathbb{N} \left(  A - \lambda I   \right) ^{k} $  for some $ k$ is called a generalised eigenvector. By carefully choosing a basis for $ \mathbb{R} ^2$ consisting of eigenvectors and generalised eigenvectors $ A$ can be represented by a matrxi that is not far off being a diagonal matrix.\\
+\\
+\dfn{ Generalised eienvector of a Linear Operator :}{
+         Suppose $ T : V \to V$ is a linear operatro. A vector $ \vec{ v} \in V$ is called a generalised eigienvector of $ T$ corresponding to $ \lambda $ if $ \left( T - \lambda I  \right)  ^{k} \vec{ v} = \vec{ 0}  $ for some $ k \ge 1$.
+}
+   It can be shown that the set of generalised eienvectors associated with a fixed $ \lambda \in \mathbb{R} $ along with the zero vector forms a subspace of $ V$, it is called the generalised eigenspace of $ T $ associated with $ \lambda$ .
+   \\
+   \\
+   \nt{
+   An eigenvector is also a generalised eigenvector ( set $ k=1$). But not every generalised eigenvector is an eigenvector ( see example with $ A = \begin{bmatrix}
+   1 & 1\\
+   0 & 1\\
+   \end{bmatrix}$)
+   }
+   \thm{}
+   {
+   Suppose $ T: V \to V$ is a linear operator on the vector space. There exist a chain of increasing subspaces of $ V$,
+   \[
+	   ker \left( T- \lambda I  \right)  \subseteq ker \left( T- \lambda I  \right)^2  \subseteq \ldots \subseteq ker \left( T- \lambda I  \right)  \subseteq \ldots
+   .\] 
+   and there is a unique positive integer $ k$ such that $ ker \left( T -  \lambda I \right) ^{j} = ker \left( T - \lambda I  \right) ^{k} \forall  j \le k $
+
+   }
+   \pf{Proof:}{
+    Suppose $ \vec{ v}  \in ker \left(  T - \lambda I \right) ^{j} \vec{ v} $ \\
+    $ \implies \left( T - \lambda I  \right) ^{j} \vec{ v} = \vec{ 0} $ \\
+    Hence $ \left( T - \lambda I   \right)  \left(  \left( T -  \lambda I \right) ^{j}  \vec{ v} \right)= \vec{ 0}  $ \\
+    i.e.  $ \left( T - \lambda I  \right) ^{ j+1} \vec{ v} = \vec{ 0}  $ \\
+    $ \implies ker \left( T - \lambda I  \right) ^{j} \subseteq ker \left( T - \lambda I \right) ^{j +1} \forall  j$
+   However, the chain of subspaces does not increase indefinetly since 
+   \[
+   dim \left( ker \left( T - \lambda I \right)  \right) \leq dim \left( ker \left( T - \lambda I \right) ^2 \right)  \leq \ldots \leq dim V
+   .\] 
+   Since the dimensions all are integers we can have at most $ n$ different dimensions and since the dimensions are increasing at some point we get 
+   \[
+   ker  \left(T - \lambda I   \right) ^{k}   =  ker \left( T -  \lambda I \right) ^{k+1} 
+   .\] 
+  \\
+  \\
+  Claim: \\
+  \[
+  ker\left( T - \lambda I  \right)   ^{ j} = ker \left(  T - \lambda I \right) ^{k} \forall j \ge k+1 
+  .\] 
+  Assume $ ker \left(  T - \lambda I \right) ^{l} = ker \left( T- \lambda I \right) ^{k}$ for some $ l > k +1$\\
+  We want to show that $ ker \left(  T - \lambda I  \right)  ^{l + 1} = ker \left(  T - \lambda I  \right) ^{ k}$  or equivelantly $ ker \left(  T - \lambda I  \right)  ^{l + 1} = ker \left(  T - \lambda I  \right) ^{ l}$  \\
+  \\
+  \\
+  We know that XXX BOX $ ker \left( T - \lambda I  \right) ^{l} \subseteq ker \left( T -  \lambda I \right) ^{ l+1} 
+   $ to show the reverse inclusion, suppose $ \vec{ v} \in ker   \left( T - \lambda I \right) ^{ l +1} $  i.e.  \\
+ \[
+ \left( T - \lambda I \right) ^{ l+1} \vec{ v} = 0
+ .\] 
+ \[
+ \implies \left( T -  \lambda I \right) ^{l} \left( T - \lambda I \right)  \vec{ v} = \vec{ 0}  
+ .\] 
+ \[
+ \text{ i.e. }    \left( T - \lambda I  \right) ^{ }  \vec{ v} \in ker \left( T -  \lambda I  \right) ^{l} = ker \left( T - \lambda I  \right) ^{k}
+ .\] 
+ \[
+ \text{ Hence } \left( T - \lambda I \right) ^{k} \left( T - \lambda I \right) = \vec{ 0} 
+ .\] 
+ \[
+ \implies \left( T - \lambda I  \right) ^{k+1} \vec{ v} = \vec{ 0}  
+ .\] 
+ \[
+ \text{ i.e. } \vec{ v} \in ker \left( T - \lambda I \right) ^{k+1} = ker \left( T - \lambda I  \right) ^{k} = ker \left( T - \lambda I \right) ^{l}
+ .\] 
+  \[
+  \implies BOX XXX
+  .\]  
+  Hence, XXX BOX 1 and XXX BOX 2 imply that 
+  \[
+  ker \left(  T - \lambda I \right) ^{l+1} = ker \left(  T - \lambda I  \right) ^{l} = ker \left( T - \lambda I \right) ^{k}
+  .\] 
+  And so, by Induction
+  \[
+  ker \left( T - \lambda I  \right) ^{k} = ker \left(  T - \lambda I \right)  ^{k} \qquad  \forall  j \geq k  
+  .\] 
+}
+\ex{}{
+Let $ A = \begin{bmatrix}
+0 & 1 & 3\\
+-1 & 3 & 1\\
+-2 & 1 & 5\\
+\end{bmatrix}$ \\
+Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenvectors ?\\
+\\
+   \[
+   \text{ det } \left( A -  \lambda  I\right)  = \text{ det }  \begin{bmatrix}
+   - \lambda & 1 & 3\\
+   -1 & 3 - \lambda & 1 \\
+   -2 & 1 & 5- \lambda\\
+   \end{bmatrix}
+   .\] 
+   \begin{align*}
+	   &= -\lambda \left[ \left( 3 -\lambda \right)  \left( 3 - \lambda \right) -1 \right] -1 \left[ -5 + \lambda + 2 \right] + 3 \left[  -1 +6 -2 \lambda \right] \\
+	   &= - \lambda \left( 15 - 8 \lambda + \lambda^2 -1   \right) +3 -\lambda +15 - 6 \lambda\\
+	   &= -  \lambda ^3 + 8 \lambda ^2 - 14 \lambda + 18 - 7 \lambda\\
+	   &= - \lambda ^3 + 8 \lambda ^2 - 21 \lambda + 18
+   .\end{align*}
+   Solve $ \chi _A \left( \lambda \right) =0$ possible rational roots $ \pm 1 , \pm 2 , \pm 3, \pm 6, \pm 9 , \pm 18$ \\
+ After some work we arrive at\ldots\\
+ \[
+ \chi _A \left( \lambda \right) = \left(  -1 \right) \left(  \lambda -2 \right)  \left( \lambda -3 \right) ^2 
+ .\] 
+ \underline{Eigenvectors:} $  \qquad  \lambda =2 \qquad  \mathbb{N}   \left(  A -2I \right)  $ 
+
+ \[
+  \left[
+  \begin{array}{ccc;{2pt/2pt}c}  
+  -2 & 1 & 3 & 0\\
+  -1 & 1 & 1 & 0\\
+  -2 & 1 & 3 & 0\\
+  \end{array}
+  \right]         \to \left[
+  \begin{array}{ccc;{2pt/2pt}c}  
+  1 & -1 & -1 & 0\\
+  -2 & 1 & 3 & 0\\
+  0 & 0 & 0 & 0\\
+  \end{array}
+  \right]
+ .\] 
+ \[
+ \xrightarrow[ r_2 + 2 r_1]{}  \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & -1 & -1 & 0\\
+ 0 & -1 & 1 & 0\\
+ 0 & 0 & 0 & 0\\
+ \end{array}
+ \right] \xrightarrow[ r_2 \times  -1]{} \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & -1 & -1 & 0\\
+ 0 & 1 & -1 & 0\\
+ 0 & 0 & 0 & 0\\
+ \end{array}
+ \right]
+ .\] 
+    \[
+    \xrightarrow[ r_1 + r_2]{}
+    \left[
+    \begin{array}{ccc;{2pt/2pt}c}  
+    1 & 0 & -2 & 0\\
+    0 & 1 & -1 & 0\\
+    0 & 0 & 0 & 0\\
+    \end{array}
+    \right] \qquad x =2z \quad y =z \quad z \text{ free }
+    .\] 
+    \[
+	    \implies \mathbb{N} \left( A - 2I \right) = \left\{ z \begin{bmatrix}
+	    2\\
+	    1\\
+	    1\\
+	    \end{bmatrix}  \mid  z \in \mathbb{R}
+	     \right\}  
+    .\] 
+    \[
+    \left( A - 2 I  \right) ^2 = \begin{bmatrix}
+    -3 & 2 & 4\\
+    -1 & 1 & 1\\
+    -3 & 2 & 4\\
+    \end{bmatrix}
+    .\] 
+    \[
+    \mathbb{N} \left( A - 2 I \right) ^2: \left[
+    \begin{array}{ccc;{2pt/2pt}c}  
+    -3 & 2 & 4 & 0\\
+    -1 & 1 & 1 & 0\\
+    -3 &  2& 4 &0 \\
+    \end{array}
+    \right]         \to \ldots \to  \left[
+    \begin{array}{ccc;{2pt/2pt}c}  
+    1 & -1 & -1 & 0\\
+    0 & -1 & 1 & 0\\
+    0 & 0 & 0 & 0\\
+    \end{array}
+    \right]
+    .\] 
+    clearly $ \mathbb{N} \left(  A -2I \right) ^2 = \mathbb{N} \left( A - 2I \right) $.\\
+    $ \implies A $ only has eigenvectors associated with $ \lambda =2 $, $ \mathbb{N} \left(  A -2I \right) ^{j} = \mathbb{N} \left( A -2I \right) \qquad  \forall j \ge 1   $\\
+    \\
+    \\
+ $ \lambda = 3$, $  \mathbb{N} \left(  A - 3 I \right)  $   \\
+ \[
+   \left[
+   \begin{array}{ccc;{2pt/2pt}c}  
+   -3 & 1 & 3 & 0\\
+   -1 & 0 & 1 & 0\\
+   -2 & 1 & 2 & 0\\
+   \end{array}
+   \right] \to \ldots \to \left[
+   \begin{array}{ccc;{2pt/2pt}c}  
+   1 & 0 & -1 & 0\\
+   0 & 1 & 0 & 0\\
+   0 & 0 & 0 & 0\\
+   \end{array}
+   \right]
+ .\] 
+ \[
+	 x=z \quad y=0 \quad z \text{ free } \qquad  \implies \mathbb{N} \left( A -3I \right) = \left\{ z  \begin{bmatrix}
+	 1\\
+	 0\\
+	 1\\
+	 \end{bmatrix}
+	 \mid z \in \mathbb{R} \right\} 
+ .\] 
+ \[
+ \left( A - 3I \right) ^2 = \begin{bmatrix}
+ 2 & 0 & -2\\
+ 1 & 0 & -1\\
+ 1 & 0 & -1\\
+ \end{bmatrix}
+ .\] 
+ \[
+ \mathbb{N} \left(  A -3I \right) ^2: \quad \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 2 & 0 & -2 & 0\\
+ 1 & 0 & -1 & 0\\
+ 1 & 0 & -1 & 0\\
+ \end{array}
+ \right] \to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 0 & -1 & 0\\
+ 0 & 0 & 0 & 0\\
+ 0 & 0 & 0 & 0\\
+ \end{array}
+ \right]
+ .\] 
+ \[
+	 x=z \quad y \text{ free }  z \text{ free } \qquad  \mathbb{N} \left( A - 3 I \right) ^2 =  \left\{ \begin{bmatrix}
+	 z\\
+	 y\\
+	 z\\
+	 \end{bmatrix}
+	 \mid z , y \in \mathbb{R} \right\} 
+ .\] 
+ $ \implies A$ has 3 linearly independent generalised eigenvectors that form a basis for $ \mathbb{R} ^3$ :\\
+ \[
+	 \mathcal{B} = \left\{  \begin{bmatrix}
+	 2\\
+	 1\\
+	 1\\
+	 \end{bmatrix}
+	  , \begin{bmatrix}
+	  1\\
+	  0\\
+	  1\\
+	  \end{bmatrix}
+	  , \begin{bmatrix}
+	  0\\
+	  1\\
+	  0\\
+	  \end{bmatrix}
+	  \right\}  XXX 
+ .\] 
+ Note $ A \vec{ b_1} = 2 \vec{ b_1} $, $ A \vec{ b_2} = 3 \vec{ b_2} $, $ A \vec{ b_3} = \begin{bmatrix}
+ 1\\
+ 3\\
+ 1\\
+ \end{bmatrix}
+ = \vec{ b_2}  + 3 \vec{ b_3} $           \\
+ \[
+	 \implies \left[ A \right]  _{ \mathcal{B}\mathcal{B} }         \begin{bmatrix}
+	 2 & 0 & 0\\
+	 0 & 3 & 1\\
+	 0 & 0 & 3\\
+	 \end{bmatrix}
+ .\] 
+ Hence, $A$ is similar to a matrix thtat is not quite a diagonal matrix but note far off it.\\
+ \\
+ Our goal is to show that there are always $ n$ linearly independent generalised eigienvectors for an $n \times n$  matrix $ A$.\\
+ \\
+ Recall: If $ T: V \to V$ is a linear operatro on the vector space $ V$ and $ \lambda $ is an eigenvalue of $ T$. $ ker \left( T - \lambda I \right) \backslash {0} $  is a subspace of $ V$ called the eigenspace associated with the eignevalue $ \lambda$ . We use $ E_{ \lambda}$  to denote this eigenspace.
+
+}
+
+\\
+\section{Invariant Subspaces}
+	
+                   \dfn{Invariance under a Linear operator :}{
+                       Suppose $ T: V \to V$ is a linear operator on the vector space $ V$. A subspace $ U$ of $ V$ is said to be \underline{invariant } under $ T$ if 
+		       \[
+		       T \left( \vec{ u}  \right) \in U \qquad  \forall \vec{ u } \in U    
+		       .\] 
+                   }
+                   
+      \ex{}{
+	      Suppose $  T: \mathbb{R} ^2 \to \mathbb{R} ^2$ is a reflection of  $  \mathbb{R} ^2 $ in a line through the origin by $ \vec{ v_1} $. Suppose $ \vec{  v_2} $ is orthogonal to $ \vec{ v_1 } $ .\\
+	      XXX INCLUDE IMAGE\\
+
+	\\
+	\\
+	\[
+		U_1 = span { \vec{ v_1} }           \text{is a 1-dimensional invariant subsapce} 
+	.\] 
+	\[
+	
+		U_2 = span { \vec{ v_2} }           \text{is a 1-dimensional invariant subsapce} 
+	.\] 
+	If $ \mathcal{B} =   \left\{ \vec{ v_1} , \vec{ v_2}  \right\} $ \\
+	\[
+		\left[ T \right]  _{ \mathcal{B}} = \begin{bmatrix}
+		1 & 0\\
+		0 & -1\\
+		\end{bmatrix}
+	.\]    
+      }
+      \ex{}{
+      Suppose $ T: \mathbb{R} ^3 \to \mathbb{R}^3 $  is a rotation of $ \mathbb{R} ^3 $ around some line through ther origin, for example the z-axis
+      \\
+      XXX INCLUDE INMAGE XXX \\
+      \\
+      \\
+      \[
+	      T \left(  \vec{ e_3}  \right)  \implies z \text{ axis } = span { \vec{ e_3 } }  \text{ is a 1-dimensional subspace.}
+      .\] 
+      Clearly $ T \begin{bmatrix}
+      x\\
+      y\\
+      0\\
+      \end{bmatrix}
+      = \begin{bmatrix}
+      a\\
+      b\\
+      0\\
+      \end{bmatrix}
+      $ for some $ x , y , a , b \in \mathbb{R}$ i.e.  the $ x-y$ plane is invariant under $ T$.\\
+      It is a 2-dimensional invariant subspace\\
+      Note:\\
+        XXX \\
+	\\
+	\\
+	\\
+           Note the blocks and the zeros.\\
+	   $ \mathcal{E}= \left\{ \vec{ e_1}, \vec{ e_2} , \vec{ e_3}   \right\}  $  consists of two vectors that form a basis for the invariant subspace the $ xy$ plane $ \left(  \vec{ e_1} ,\vec{ e_2}  \right) $ and one vector that forms a basis for the other invariant subspace, the $ z$ axis $ \left( \vec{ e_3}  \right) $ 
+	   \[
+	            T \left( \alpha \vec{ e_1} + \beta \vec{ e_2}  \right)  = \gamma \vec{ e_1} + \delta \vec{ e_2} 
+	   .\] 
+	   \[
+	   T \left( c \vec{ e_3}  \right) = c \vec{ e_3} 
+	   .\] 
+      }
+      
+      \ex{}{
+      A $ T:V \to V$ 1 - dimensional  invariant subspace is an eigenspace corresponding to some eigenvalue $\lambda $    .\\
+      Let $ U = span \left{  \vec{ v}  \right} $ and suppose $ U$ is an invariant subspace.\\
+ $ T \left(  \vec{ v}  \right)  \in U $  by definition.\\
+ Hence $ T \left( \vec{ v}  \right)= \lambda \vec{ v}  \in U$  for some $ \lambda \in \mathbb{R}$ and $ T lr \alpha \vec{ v} = \alpha T \left( \vec{ v}  \right)  = \lambda \left( \alpha \vec{ v}  \right)  \qquad  \forall  \alpha \in \mathbb{R}$.\\
+ \\
+ i.e.  all vectors in $ U $ are eigenvectors with eigenvalue $ \lambda$ ie $ U = E_{ \lambda}$
+      }
+
+
+      \thm{}
+      {
+           Suppose $ A$ is an $n \times n$  matrix and $ \lambda$ is an eigenvalue of $ A$. Then $ \mathbb{N} \left(  A -  \lambda I \right)^{j} $ is an $ A$- invariant subspace of $  \mathbb{R} ^{ n}$.\\
+	   i.e.  $ \vec{ v} \in \mathbb{N} \left( A - \lambda I \right)^{j} \implies A \vec{ v} \in \mathbb{N} \left( A - \lambda I  \right) ^{ j}$
+      }
+      
+   \pf{Proof:}{
+    Let $ \vec{ v} \in \mathbb{N} \left( A -  \lambda I \right)^{ j} $\\
+    i.e. $ \left( A -  \lambda I \right)^{j} $ 
+ \[
+ \left( A - \lambda I \right)  \left(  A \vec{ v}  \right) = \left( A - \lambda I  \right) ^{j} \left( A \vec{ v} - \lambda \vec{ v} + \lambda \vec{ v}  \right) 
+ .\] 
+ \begin{align*}
+	 &= \left( A - \lambda I \right) ^{j} \left( \left( A - \lambda I \right) \vec{ v} + \lambda \vec{ v}  \right) \\
+	 &= \left( A - \lambda I \right) \left( A - \lambda I \right) \vec{ v } + \left( A - \lambda I  \right) ^{ j} \left( \lambda \vec{ v}  \right) \\
+	 = \vec{ 0} + \lambda \vec{ 0} = \vec{ 0}
+ .\end{align*}
+ \textbf{Note:} This implies that the generalised eigenspace of $ A$  corresponding to $ \lambda$ is an $ A$ invariant subspace of $ \mathbb{R} ^n$ since the generalised eigenspace $ = \mathbb{N} \left( A - \lambda I   \right) ^{k}$ for some $ k $.
+
+}
+  
+  
+      
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
