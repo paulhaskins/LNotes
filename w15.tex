@@ -1,0 +1,665 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+
+\nt{
+We will use $ V \left( \lambda \right) $ to denote the generalized eigenspace of a linear operator $ T: V \to V$ associated with $ \lambda$.
+}
+\nt{
+It is also true $ Im \left( T - \lambda I  \right) ^{j}$ is a $ T$- invariant subspace of $ V$ - can be shown in a similar manner.
+}
+\section{Invariant Subspaces and Blocks}
+ 	
+Suppose $ T: V \to V$ is a linear operator on the vector space $ V$, where dim $ V = 6$. Suppose $ T$ has three invariant subspaces $ U_1 = span \left\{ \vec{ v_1} , \vec{ v_2} , \vec{ v_3} \right\}$, $ U_2 = span \left\{ \vec{ v_4} , \vec{ v_5} \right\}$, and $ U_3 = span \left\{ \vec{ v_6} \right\}$, where $ \mathcal{F} = \left\{ \vec{ v_1} ,\vec{ v_2} ,\vec{ v_3} ,\vec{ v_4} ,\vec{ v_5} ,\vec{ v_6}  \right\} $ forms a basis for $ V$.
+\[
+	\left[ T \right]  _{ \mathcal{F} , \mathcal{F}}= \left[ \left[ T \left( \vec{ v_1}  \right)  \right]_{ \mathcal{F}} \left[ T \left( \vec{ v_2}  \right)  \right]  \ldots \left[ T \left( \vec{ v_6}  \right)  \right]\right] 
+.\] 
+Note: $ T \left( \vec{ v_1}  \right) , T \left( \vec{ v_2}  \right) , T \left( \vec{ v_3}  \right)  \in span \left\{ \vec{ v_1} ,\vec{ v_2 } , \vec{ v_3}  \right\} $ \\
+$ \implies \left[ T \left( \vec{ v_1}  \right)  \right] _{ \mathcal{F}}, \left[ T \left( \vec{ v_2}  \right)  \right] , \left[ T \left( \vec{ v_3}  \right)  \right] _{\mathcal{F}}$        have zeros in their last three entries, i.e.  they have the form
+\[
+	\left[ T \left( \vec{ v_i}  \right)  \right] _{ \mathcal{F}} = \begin{bmatrix}
+		\star\\
+		 \star\\
+		 \star\\
+	0\\
+	0\\
+	0\\
+	\end{bmatrix}
+	   \qquad  1 \leq i \leq 3
+.\] 
+Similarly, $ T \left( \vec{ v_4}  \right) , T \left( \vec{ v_5}  \right)  \in span \left\{ \vec{ v_4} ,\vec{ v_5 }  \right\} $ \\
+Thus their co-ordinate vectors have zeros the top three entries and the last entry, 
+\[
+	\left[ T \left( \vec{ v_i}  \right)  \right] _{ \mathcal{F}} = \begin{bmatrix}
+		0\\
+		 0\\
+		 0\\
+	\star\\
+	\star\\
+	0\\
+	\end{bmatrix}
+	   \qquad  4 \leq i \leq 5
+.\] 
+\[
+T \left(  \vec{ v_6}  \right) \in span \left\{ \vec{ v_6}  \right\} \implies \left[ T \left( \vec{ v_6}  \right)  \right] _{ \mathcal{F}} = \lambda \vec{ v_6} \text{ for some } \lambda \in \mathbb{R}
+.\] 
+$ \implies \left[ T \right] _{ \mathcal{F} \mathcal{F}}$ takes the form
+\[
+	\left[ T \right] _{ \mathcal{F} , \mathcal{F}} = \begin{bmatrix}
+		\star & \star & \star & 0 & 0 & 0\\
+		\star & \star & \star & 0 & 0 & 0\\
+		\star & \star & \star & 0 & 0 & 0\\
+		0 & 0 & 0 & \star & \star & 0\\
+		0 & 0 & 0 & \star & \star & 0\\
+		0 & 0 & 0 & 0 & 0 & \star\\
+	\end{bmatrix}
+.\]
+XXX  \\
+\\
+\\
+We are building up to the fact that if $ T$ has invariant subspaces whose bases toghether form a basis for $ V$, call it $  \mathcal{F}$, then $ \left[ T \right] _{ \mathcal{F} \mathcal{F}}$ consists of blocks along the diagonal and zeros elsewhere.\\
+We are breaking down $ V$ into subspaces of dimensions $ k$, where $ T$ acts line an operator on $ \mathbb{R} ^{ k}$.\\
+\section{Sums and Direct Products of Vectorspaces}
+ \dfn{ :}{
+ Let $ V_1, V_2, \ldots , V_k$ be subspaces of a vector space $ V$. The  sum 
+ \[
+ \sum\limits_{i=1}^{k} V_i = V_1 + V_2 + \ldots + V_k 
+ .\] 
+ is defined as the set of vectors of the form $ \vec{ v_1} + \vec{ v_2} + \ldots \vec{ v_k} $ where $ \vec{ v_i} \in V_i $ for $ 1 \leq i \leq k$.\\
+ \\
+ The sum $ \sum\limits_{i=1}^{k} V_i$  is said to be direct if $ \vec{ 0} + \vec{ 0} + \ldots+ \vec{ 0} $   is the only way to write $ \vec{ 0} \in V$ as a sum of the form $ \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k} $ where $ \vec{ v_i} \in V_i$.\\
+ If the sum is direct, it is denoted by
+ \[
+ \bigoplus\limits_{i=1}^{k} V_i = V_1 \oplus V_2 \oplus \ldots \oplus V_k
+ .\] 
+ }
+ \mlem{}{
+ $ \sum\limits_{i=1}^{k} V_i
+ $ is a subspace of $ V$.
+ }
+
+
+ \pf{Proof:}{
+  \underline{Zero Vector:} \\
+  \[
+  \vec{ 0} \in V_i \qquad  \forall  i
+  .\] \[
+  \implies   \underbrace{\vec{ 0} + \vec{ 0} + \ldots + \vec{ 0}}_{k \text{ times}} = \vec{ 0} \in \sum\limits_{i=1}^{k} V_i
+  .\] 
+  \underline{Closure under Addition:} \\
+  Let $ \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k} , \vec{ w_1} + \vec{ w_2} + \ldots + \vec{ w_k} \in \sum\limits_{i=1}^{k} V_i$ 
+  \[
+	  \left( \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k}  \right) + \left( \vec{ w_1} + \vec{ w_2} + \ldots + \vec{ w_k}  \right) = \left( \vec{ v_1} + \vec{ w_1}  \right) + \left( \vec{ v_2} + \vec{ w_2}  \right) + \ldots + \left( \vec{ v_k} + \vec{ w_k}  \right) \in \sum\limits_{i=1}^{k} V_i \text{ since each } V_i \text{ is a subspace}
+  .\] 
+  \underline{Closure under Scalar Multiplication:} \\
+  Let $ \lambda \in \mathbb{R}$, $ \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k} \in \sum\limits_{i=1}^{k} V_i$
+  \[
+	  \lambda \left( \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k}  \right) = \lambda \vec{ v_1} + \lambda \vec{ v_2} + \ldots + \lambda \vec{ v_k}  \in \sum\limits_{i=1}^{k} V_i \text{ since each } V_i \text{ is a subspace}
+  .\] 
+  \[
+  \implies \sum\limits_{i=1}^{k} V_i \text{ is a subspace of } V
+  .\] 
+ }
+ \ex{}{
+ Let $ V_1 = span \left\{ \begin{bmatrix}
+ 1\\
+ 0\\
+ \end{bmatrix}
+  \right\} = \left\{ a \begin{bmatrix}
+  1\\
+  0\\
+  \end{bmatrix}
+\mid a \in \mathbb{R} \right\} = \left\{ \begin{bmatrix}
+a\\
+0\\
+\end{bmatrix}
+\mid a \in \mathbb{R} \right\}$\\
+\[
+ V_2 = span \left\{ \begin{bmatrix}
+ 0\\
+ 1\\
+ \end{bmatrix}
+  \right\} = \left\{ \begin{bmatrix}
+  0\\
+  b\\
+  \end{bmatrix}
+\mid b \in \mathbb{R} \right\}
+.\] 
+\[
+V_1 + V_2 = \left\{ \begin{bmatrix}
+a\\
+0\\
+\end{bmatrix}
++ \begin{bmatrix}
+0\\
+b\\
+\end{bmatrix}
+\mid a,b \in \mathbb{R} \right\} = \left\{ \begin{bmatrix}
+a\\
+b\\
+\end{bmatrix}
+\mid a,b \in \mathbb{R} \right\} = \mathbb{R} ^2
+.\] 
+\[
+	\text{ Clearly  if } \begin{bmatrix}
+	0\\
+	0\\
+	\end{bmatrix}
+	= a \begin{bmatrix}
+	1\\
+	0\\
+	\end{bmatrix}
+	+ b \begin{bmatrix}
+	0\\
+	1\\
+	\end{bmatrix}
+	 \text{ then } a = 0 \text{ and } b = 0
+.\] 
+i.e.  the sum is direct: $ V_1 \oplus V_2 = \mathbb{R} ^2$\\
+ }
+ \ex{}{
+	 Similarly,  if $ U_n = span \left\{  \vec{ e_1} ,\ldots , \vec{ e_n}  \right\}$ , and $ U_m = span \left\{ \vec{ e_n+1}, \vec{ e_n+2}, \ldots , \vec{ e_{n+m}}    \right\} $, $ U_n, U_m \subseteq \mathbb{R} ^{n+m}$. Then 
+	 \[
+	 \mathbb{R} ^{n_m} = U_n \oplus U_m 
+	 .\] 
+ }
+ 
+ \ex{}{
+ SSuppose $ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \in V $ is a collection of non-zero vectors. Let 
+ \[
+	 V_i = \left\{ \lambda \vec{ v_i} \mid \lambda \in \mathbb{R} \right\}
+ .\] 
+Then $ V_1 + V_2 + \ldots + V_k = \left\{ \lambda_{1i} \vec{ v_1} + \lambda_{2i} \vec{ v_2} + \ldots + \lambda_{ki} \vec{ v_k} \mid \lambda _{1i}, \ldots , \lambda _{ki} \in \mathbb{R}\right\} $
+\[
+\text{ i.e. }   \sum\limits_{i=1}^{k} V_i = span \left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \right\}
+
+.\]  
+and this is direct if and only if $ \vec{ 0} = c_1 \vec{ v_1} + c_2 \vec{  v_2} + \ldots + c_k \vec{ v_k} $ implies $ c_i =0 \qquad  \forall  i$ i.e.  $ \iff \left\{ \vec{ v_1} ,\vec{ v_2} , \ldots , \vec{ v_k }  \right\} $  is a linearly independent set.\\
+ }
+ \mlem{}{
+	 Suppose $ V_1, V_2, $ are two subspaces of the vector space $ V$. $ V_1 + V_2 $ is a direct $  \iff V_1 \cap  V_2 = { \vec{ 0} } $
+ }
+ \pf{Proof:}{
+       $ \impliedby $ \\
+       Suppose $ V_1 + V_2 $ is not a direct sum, then $ \exists  \quad \vec{ v_1} \in V_1$, $ \vec{ v_2} \in V_2$, $ \vec{ v_i} \neq \vec{ 0} $ such that $ \vec{ v_1} + \vec{ v_2} = \vec{ 0} $.\\
+       Hence $ \vec{ v_1} = - \vec{  v_2} $ and so $ - \vec{ v_2} \in V_1$ ie $ \vec{ v_2} \in V_1$ and $ \vec{ v_1} \in V_2$ i.e.  $ \vec{ v_1} , \vec{ v_2} \in V_1 \cap V_2 $ 
+       \[
+       \text{ i.e. }   V_1 \cap V_2 \neq \left\{ \vec{ 0} \right\}
+       .\]  \\
+       \\
+       \\
+       $ \implies $ \\
+       Suppose $ \exists  \vec{ w}  \in V_1 \cap V_2 $, $ \vec{ w} \neq \vec{ 0} $.\\
+       Since $ V_1$, $ V_2$ are vector spaces, $ \lambda \vec{ w} \in V_1 \cap V_2$ $ \forall  \lambda \in \mathbb{R}$,\\
+       Hence $ - \vec{ w} \in V_1 \cap V_2$
+       \[
+       \implies \vec{ w} + \left( - \vec{ w} \right) \in V_1 + V_2
+       .\] 
+       \[
+       \text{ i.e. }   V_1 + V_2 \text{ is not a direct sum}
+       .\] 
+ }
+  \nt{
+  The above statement doesn't hold for more than two subspaces. There exists subspaces $ V_1, V_2, \ldots , V_k$ such that $ V_i \cap V_j = {\vec{ 0} }$ is not a direct sum.\\
+  \\
+  \raggedcolumns
+  \begin{multicols}{2}
+  For example,\\
+  \begin{align*}
+  	V_1 &= \left\{ \begin{bmatrix}
+  	x\\
+  	0\\
+  	\end{bmatrix}
+  	\mid x \in \mathbb{R} \right\} \\
+	  	V_2 &= \left\{ \begin{bmatrix}
+	  	0\\
+	  	y\\
+	  	\end{bmatrix}
+	  	\mid y \in \mathbb{R} \right\} \\
+			  	V_3 &= \left\{ \begin{bmatrix}
+			  	x\\
+			  	x\\
+			  	\end{bmatrix}
+			  	\mid x \in \mathbb{R} \right\}
+  .\end{align*}
+  
+  \break
+  
+  \begin{tikzpicture}[>=stealth,line width=1.1pt]
+
+  %--- 1. faint horizontal rulings -------------------------------------------
+  \foreach \y in {-2,...,2}{
+    \draw[gray!30] (-2,\y) -- (4.2,\y);
+  }
+
+  %--- 2. the three vectors ---------------------------------------------------
+  % v1 : horizontal, pink
+  \draw[->,magenta] (0,0) -- (4,0) node[right=4pt] {$\mathbf{v}_1$};
+
+  % v2 : vertical, cyan
+  \draw[->,cyan]    (0,0) -- (0,3) node[above=4pt] {$\mathbf{v}_2$};
+
+  % v3 : diagonal, purple  (slope chosen to look like the sketch)
+  \draw[->,violet]  (0,0) -- (3,2.25) node[above right=4pt] {$\mathbf{v}_3$};
+
+\end{tikzpicture}
+  \end{multicols}
+  $ V_i \cap V_j = {\vec{ 0} } \qquad  \forall  i \neq j$ but the sum $ \sum\limits_{i=1}^{3} V_i
+  $ is not a direct since:
+  \[
+  \begin{bmatrix}
+  1\\
+  0\\
+  \end{bmatrix}
+  + \begin{bmatrix}
+  0\\
+  1\\
+  \end{bmatrix}
+  + \begin{bmatrix}
+  -1\\
+  -1\\
+  \end{bmatrix}
+  = \begin{bmatrix}
+  0\\
+  0\\
+  \end{bmatrix}
+  .\] 
+  }
+  \mlem{}{
+  
+  	Let $ V_1, V_2, \ldots , V_k$ be subspaces of a vector space $ V$. The following are equivalent(TFAE):
+	\begin{enumerate}[label=(\arabic*).]  
+	\item $ \sum\limits_{i=1}^{k} V_i $ is a direct sum.
+	\item  Every vector in $ \sum\limits_{i=1}^{k} V_i 
+	$ can be expressed uniquely in the form $ \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k}  $ with $ \vec{ v_i} \in V_i$
+	\end{enumerate}
+}
+\pf{Proof:}{
+ $ (1) \implies (2)$ \\
+ Suppose $ \vec{ v} = \sum\limits_{i=1}^{k} V_i
+ $ and 
+ \[
+ \vec{ v} = \sum\limits_{i=1}^{k} \vec{ v_i} = \sum\limits_{i=1}^{k} \vec{ w_i} \qquad \vec{ v_i} , \vec{ w_i} \in V_i \qquad \text{ not all } \vec{ v_i} = \vec{ w_i}
+ .\]
+ Then $ \sum\limits_{i=1}^{k} \vec{ v_i} - \vec{ w_i} = \vec{ 0} $\\
+ Since $ \sum\limits_{i=1}^{k} V_i $ is a direct sum, thus $ \vec{ v_i} - \vec{ w_i} = \vec{ 0} $  $ \forall i $, i.e. $ \vec{ v_i} = \vec{ w_i}  \forall  i$
+ i.e.  $ \vec{ v} $ can be expressed uniquely as $ \sum\limits_{i=1}^{k} \vec{ v_i} $ \\
+ $ (2) \implies (1)$ \\
+ $ \vec{ 0} \in \sum\limits_{i=1}^{k} V_i ,$  $ \vec{ 0} = \vec{ 0} + \ldots + \vec{ 0} $ \\
+ i.e. $ \vec{ 0} $ can not be expressed in any other manner $ \implies \sum\limits_{i=1}^{k} V_i $  is a direct sum.\\
+}
+
+\thm{}
+{
+Let $ V_1$, $ V_2$ be subspaces of a vector space $ V$. \[
+dim \left( V_1 + V_2 \right) = dim \left( V_1 \right) + dim \left( V_2 \right) - dim \left( V_1 \cap V_2 \right)
+.\] 
+}  
+\pf{Proof:}{
+	Let $ \left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k}  \right\} $ be a basis for $ V_1 \cap  V_2 $. Extend this to a basis for $ V_1$ by adding vectors $ \left\{ \vec{ f_1} , \vec{ f_2} , \ldots , \vec{ f_{\ell}}$ and to a basis for $ V_2$ by adding $ \vec{ w_1} ,\ldots \vec{ w_m} $ so that 
+		\[
+	\left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k} , \vec{ f_1} , \ldots , \vec{ f_{\ell}} \text{ is a basis for } V_1 \right\}
+		.\] 
+		\[
+	\left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k} , \vec{ w_1} , \ldots , \vec{ w_m} \text{ is a basis for } V_2 \right\}
+		.\]
+\underline{Claim:}\\
+$ \left\{ \vec{ b_1} , \ldots, \vec{ b_k} , \vec{ f_1} ,\ldots , \vec{ f_{\ell }}, \vec{ w_1} ,\ldots, \vec{ w_m}  \right\} $ forms a basis for $ V_1 + V_2$\\
+It certainly spans $ V_1 + V_2$ since it contains a basis for $ V_1$ and a basis for $ V_2$.\\
+\textit{Assume we have a dependence relation:}\\
+Suppose $ \exists  \alpha_i , \gamma_i , \beta _i \in \mathbb{R}$ such that
+\[
+\sum\limits_{i=1}^{k} \alpha_i \vec{ b_i} + \sum\limits_{i=1}^{\ell} \gamma_i \vec{ f_i} + \sum\limits_{i=1}^{m} \beta_i \vec{ w_i} = \vec{ 0}
+.\] 
+\[
+\implies   \underbrace{ \sum\limits_{i=1}^{k} \alpha_i \vec{ b_i} + \sum\limits_{i=1}^{\ell } \gamma_i \vec{ f_i} 
+ }_{ \in V_1 } = \underbrace{ \sum\limits_{i=1}^{m} \beta_i \vec{ w_i} }_{ \in V_2} 
+.\] 
+\[
+\implies \vec{ v} = \sum\limits_{i=1}^{k} \alpha_i \vec{ b_i} + \sum\limits_{i=1}^{\ell } \gamma_i \vec{ f_i}  \in V_1 \cap V_2
+.\] 
+Hence $ \vec{ v} = \sum\limits_{i=1}^{k} \delta_i \vec{ b_i} $ for some $ \delta_i \in \mathbb{R}$, and so $ \vec{ v} = \sum\limits_{i=1}^{k} \delta_i \vec{ b_i} = - \sum\limits_{i=1}^{m} \beta_i \vec{ w_i} 
+$ 
+\\
+\[
+\text{ i.e. }  \sum\limits_{i=1}^{k} \delta_i \vec{ b_i} + \sum\limits_{i=1}^{m} \beta_i \vec{ w_i} = \vec{ 0}
+.\] 
+but $ \left\{ \vec{ b_1} , \ldots, \vec{ b_k} , \vec{ w_1} ,\ldots, \vec{ w_m}  \right\} $ forms a basis for $ V_2$ and so $ \delta_i =0 $, $ \beta_i =0 \forall i$
+ i.e.  $ \vec{ v} = \vec{ 0} $ \\
+ Hence $ \sum\limits_{i=1}^{k} \alpha_i \vec{ b_i} + \sum\limits_{i=1}^{\ell} \gamma_i \vec{ f_i} = \vec{ 0} $\\
+ and since $ \left\{ \vec{ b_1} , \ldots, \vec{ b_k} , \vec{ f_1} ,\ldots, \vec{ f_{\ell } }  \right\} $ forms a basis for $ V_1$, we have $ \alpha_i =0$ and $ \gamma_i =0$ for all $ i$.\\
+ \[
+\implies \left\{ \vec{ b_1} , \ldots, \vec{ b_k} , \vec{ f_1} ,\ldots, \vec{ f_{\ell }}, \vec{ w_1} ,\ldots, \vec{ w_m}  \right\} \text{ forms a basis for } V_1 + V_2
+ .\] 
+ \begin{align*}
+ 	dim \left( V_1 + V_2 \right) &= k + \ell + m\\
+	dim \left( V_1 \right) &= k + \ell \qquad  \implies dim \left( V_1 + V_2 \right) = dim \left( V_1 \right) + dim \left( V_2 \right) - dim \left( V_1 \cap V_2 \right)\\
+	dim \left( V_1 \cap V_2 \right) &= k
+ .\end{align*}
+
+}
+
+\section{External Direct  Sum}
+\dfn{ :}{
+Given Vector spaces $ V_1, V_2, \ldots , V_k$, we define their external direct sum:\\
+\[
+V = \bigoplus_{i=1}^{k} V_i = V_1 \oplus V_2 \oplus \ldots \oplus V_k
+.\]           to be the set $ \left\{ \vec{ v_1} ,\vec{ v_2} \ldots , \vec{ v_k}  \mid \vec{ v_i} \in V_i \right\} $ equipped with the vector space structure:\\
+\underline{Addition:} \\
+\[
+\left( \vec{ v_1} ,\vec{ v_2} \ldots, \vec{ v_k}  \right) + \left( \vec{ w_1} ,\vec{ w_2} \ldots, \vec{ w_k}  \right) = \left( \vec{ v_1} + \vec{ w_1} ,\vec{ v_2} + \vec{ w_2} ,\ldots, \vec{ v_k} + \vec{ w_k}  \right)
+.\] 
+\underline{Scalar Multiplication:} \\
+\[
+\lambda \left( \vec{ v_1} ,\vec{ v_2} \ldots, \vec{ v_k}  \right) = \left( \lambda \vec{ v_1} ,\lambda \vec{ v_2} ,\ldots, \lambda \vec{ v_k}  \right)
+.\] 
+Each vector space $ V_i$ can be considered as a subspace of $ V$ by identifying $ \vec{ v_i} \in V_i$ with $ \left( 0,0, \ldots , 0 , \vec{ v_i} ,\ldots,0 \right) $ \\
+And so the external direct sum can be view as an internal direct sum.
+}
+ \section{Direct Sum of Matrices}
+ Let $ T_i: V_i \to V_i$ be linear operators for $ 1 \leq i \leq k$.\\
+ Let $ V = \bigoplus_{i=1} ^{k}$. We can define a linear operator $ T: V \to V$ by
+ \[
+ T = \bigoplus_{i=1} ^{k} T_i: V \to V \text{ where }
+ .\] 
+ \[
+ T \left( \vec{ v_1} ,\vec{ v_2} ,\ldots , \vec{ v_k }  \right)  = \left(  T_1 \left( \vec{ v_1}  \right)  \right) , T_2 \left( \vec{ v_2}  \right) ,\ldots , T_k \left( \vec{ v_k}  \right)
+ .\] 
+ Let $ \mathcal{E} _i$ be a basis for $ V_i$ $ \forall  i \le i \le k$. The collection of vectors from all the $ \mathcal{E}_i$ 's form a basis for $ V$, which we denote by $ \mathcal{E}$.\\
+ The matrix of $ T$ with respect to $ \mathcal{E}$ is 
+ \[
+  \left[ T \right] _{ \mathcal{E}, \mathcal{E}}= \bigoplus_{i=1} ^{k} \left[ T_i \right] _{ \mathcal{E}_i, \mathcal{E}_i} = \begin{bmatrix}
+	  \left[ T_1 \right] _{ \mathcal{E}_1, \mathcal{E}_1} & 0 & 0 & \dots  & 0 \\
+	  0 & \left[ T_2 \right] _{ \mathcal{E}_2 , \mathcal{E}_2} & 0 & \dots  & 0 \\
+  \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \dots  & \left[ T_k \right] _{ \mathcal{E} _k , \mathcal{E} _k}\end{bmatrix}
+ .\] 
+ where each $ \left[ T_i \right] _{ \mathcal{E}_i, \mathcal{E}_i}$ is the matrix of $ T_i$ with respect to the basis $ \mathcal{E}_i$ and each $ \left[ T_i \right] _{ \mathcal{E} _i , \mathcal{E} _i} $ is a block of dimension $ dim \left( V_i \right) \times dim \left( V_i \right)$.\\
+ 	      \dfn{ Nilpotent Operators and the Index of an Operator :}{
+ 	           \begin{enumerate}[label=(\roman*)]
+ 	           \item A linear operator $ T: V \to V$ is said to be \underline{nilpotent} if  $ T ^{r}=0$ for some $ r \ge 1$. The minimal $ r$ with this property is called the \underline{index} of $ T$ 
+ 	           \item  Given a vector $ \vec{ 0} \neq \vec{ v} \in V$, we define its index (relative to $ T$) to be the minimal $ r \ge 1$ such that $ T ^{r} \vec{ v} = \vec{ 0}$. 
+ 	           \end{enumerate}
+ 	      }
+\ex{}{
+Suppose $ T: \mathbb{R} ^2 \to \mathbb{R} ^2 $ 
+\[
+T \begin{bmatrix}
+x\\
+y\\
+\end{bmatrix}
+= \begin{bmatrix}
+0 & 1\\
+0 & 0\\
+\end{bmatrix}
+.\] 
+\[
+\text{ Note: } T ^2 = \begin{bmatrix}
+0 & 0\\
+0 & 0\\
+\end{bmatrix} \qquad  \text{ since } \begin{bmatrix}
+0 & 1\\
+0 & 0\\
+\end{bmatrix} \begin{bmatrix}
+0 & 1\\
+0 & 0\\
+\end{bmatrix} = \begin{bmatrix}
+0 & 1\\
+0 & 0\\
+\end{bmatrix} \implies T \text{ is nilpotent with index } 2
+.\] 
+\\
+\underline{Note:}  $ T \begin{bmatrix}
+x\\
+y\\
+\end{bmatrix}
+= \begin{bmatrix}
+y\\
+0\\
+\end{bmatrix}
+$.\\
+Hence $ \begin{bmatrix}
+x\\
+0\\
+\end{bmatrix}
+$ has an index $ 1$ relative to $ T$ and $ \begin{bmatrix}
+x\\
+y\\
+\end{bmatrix}
+$ has an index $ 2$ $ \implies T ^2 \left(  \vec{ v}  \right) = \vec{ 0}  \qquad  \forall  \vec{ v} \in \mathbb{R} ^2$ \\
+\\
+More generally, it is true that if $ T: V \to V $ has index $ r$, there exists $ \vec{ v} \in V$   such that $ \vec{ v} $ has index $ r$ 
+}
+ \mlem{}{
+ Suppose $ \vec{ v} \in V$ has index $ r$ relative to $ T$. Then the vectors $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{ v}  \right) , \ldots , T ^{r-1}\left( \vec{ v}  \right)  \right\} $ are linearly independent.\\
+
+ }
+ 
+ \pf{Proof:}{
+	 Let $ U = span \left\{ \vec{ v_1} T \left( \vec{ v}  \right) , \ldots , T ^{r-1}\left( \vec{ v}  \right)  \right\}$ \\
+	 Note: $ U$ is an invariant subspace of $ T$.\\
+	 \\
+	 On $ U$, $ T ^{r}=0$ since $ T ^{r} \left(  T ^{j} \left( \vec{ v}  \right)  \right) = T ^{j} \left( T ^{r} \left( \vec{ v}  \right)  \right) = \vec{ 0}  \qquad  \forall  j \ge 0$.\\
+	 \\
+Suppose $ \left\{ \vec{ v_1} T \left( \vec{ v}  \right) , \ldots , T ^{r}\left( \vec{ v}  \right)  \right\} $  is linearly dependent, i.e.  there exists  $ a_0, a_1, \ldots , a_{r-1}$, not all zero, such that
+\[
+\sum\limits_{i=0}^{r-1} a_i T ^{i} \left( \vec{ v}  \right) = \vec{ 0} \qquad  \text{ where }  T^{0} \left( \vec{ v}  \right) = I \left( \vec{ v}  \right) = \vec{ v} 
+.\] 
+Let $ j$ be the minimal integer such that $ a_j \neq 0$.\\
+Dividing across by $ a_j$, we get:
+\[
+\sum\limits_{i=0}^{r-1} \frac{ -a_i  }{ a_j } T ^{i} \left( \vec{ v}  \right) = \vec{ 0}
+.\]
+\[
+\text{ i.e.  } \sum\limits_{i=j}^{r-1} \frac{ -a_i  }{ a_j } T ^{i} \left( \vec{ v}  \right) = \vec{ 0} 
+.\] 
+\[
+\text{ i.e.  } -T ^{j} \left( \vec{ v}  \right) + \sum\limits_{i=j+1}^{r-1} \frac{ -a_i  }{ a_j } T ^{i} \left( \vec{ v}  \right) = \vec{ 0} 
+.\] 
+\[
+\text{ i.e.  } T ^{j} \left( \vec{ v}  \right) = \sum\limits_{i=j+1}^{r-1} \frac{ -a_i  }{ a_j } T ^{i} \left( \vec{ v}  \right)
+.\] 
+\[
+	T ^{j} \left( \vec{ v}  \right) =  \sum\limits_{i=j+1}^{r-1} \frac{ -a_i  }{ a_j } T ^{j+1} \circ T ^{i-j-1} \left( \vec{ v}  \right) 
+.\] 
+By linearity  we have:
+\[
+T ^{j} \left( \vec{ v}  \right) =  T ^{j+1} \left( \sum\limits_{i=j+1}^{r-1} \frac{ -a_i  }{ a_j } T ^{i-j-1} \left( \vec{ v}  \right) \right)
+.\] 
+\[
+\text{ Let } \vec{ w} = \sum\limits_{i=j+1}^{r-1} \frac{ -a_i  }{ a_j } T ^{i-j-1} \left( \vec{ v}  \right)
+.\] 
+Hence $ T ^{j} \left(  \vec{ v}  \right) = T ^{j+1} \left( \vec{ w}  \right) $ and ,
+\[
+T ^{r-1} \left( \vec{ v}  \right) = T ^{r-1-j} \circ T ^{j} \left( \vec{ v}  \right) = T ^{r-1-j} \circ T ^{j+1} \left( \vec{ w}  \right)
+.\] 
+\[
+\text{ i.e. } T ^{r-1} \left( \vec{ v}  \right) = T ^{r-j} \left( \vec{ w}  \right)
+.\] 
+but, $ \vec{ w} \in span \left\{  \vec{ v} , T \left( \vec{ v} , \ldots , T ^{r-1}\left( \vec{ v}  \right)  \right) \right\} = U$ and $ T ^{r} =0$ on $ U \implies T ^{r} \left(  \vec{ w}  \right) =0$ i.e.  $ T ^{r-1} \left( \vec{ v}  \right) =0$, which contradicts the assumption that $ \vec{ v} $ has index $ r$.\\
+$ \implies $ $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{ v}  \right) , \ldots , T ^{r-1}\left( \vec{ v}  \right)  \right\} $ is linearly independent.\\
+ }
+ \dfn{ :}{
+	 Let $ T: V \to V$ be a linear operator. A vector $ \vec{ v} \in V$ is  called a \underline{ cyclic vector} relative to $ T$ (or T-cyclic) if the vectors $ \left\{ \vec{ v} , T \left( \vec{ v} ,\ldots \right)  \right\}$ span $ V$.\\
+	 The vector space $ V$ is called cyclic relative to $ T$ if there exists a cyclic vector $ v \in V$ relative to $ T$.\\
+	 \textbf{Example:}\\
+	 $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$, $ T \begin{bmatrix}
+	 x\\
+	 y\\
+	 \end{bmatrix}
+	  = \begin{bmatrix}
+	  0 & 1\\
+	  0 & 0\\
+	  \end{bmatrix} \begin{bmatrix}
+	  x\\
+	  y\\
+	  \end{bmatrix}
+	  = \begin{bmatrix}
+	  y\\
+	  0\\
+	  \end{bmatrix}
+	  $ \\
+	  $ \vec{ v} = \begin{bmatrix}
+	  0\\
+	  1\\
+	  \end{bmatrix}
+	  $ is a cyclic vector relative to $ T$ since $ \left\{  \vec{ v} , T \left( \vec{ v}  \right)  \right\} $ span $ \mathbb{R} ^2$ $ = \left\{  \begin{bmatrix}
+	  0\\
+	  1\\
+	  \end{bmatrix}
+	  , \begin{bmatrix}
+	  1\\
+	  0\\
+	  \end{bmatrix}
+	   \right\} $.\\
+ }
+ \nt{
+ Given a vector $ \vec{ v} \in V$, consider the subspace $ U = span \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{ v}  \right) , \ldots  \right\}  \subseteq V$.\\
+ $ U$ is a cyclic subspace of $ V$ , called the subspace generated by $ \vec{ v} $. \\
+ $ U$ is $ T$- invariant     ( $ T \left( T ^{j} \left( \vec{ v}  \right)  \right) = T ^{j+1} \left( \vec{ v}  \right) \in U$) \\
+ \\
+ Let $ r \ge 1$ the maximal number such that the vectors $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{ v}  \right) , \ldots , T ^{r-1} \left( \vec{ v}  \right)  \right\} $ are linearly independent. Then the set $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) ,\ldots , T ^{r-1} \left( \vec{ v}  \right)  \right\} $ forms a basis for $ U$.\\
+ }
+ \dfn{ :}{
+	 Given $ T: V \to V$ and suppose $ \vec{ v} \in V$ is a cyclic vector of index $ r$. By the last lemma, the vectors $ \mathcal{F} = \left\{  T ^{r-1}\left( \vec{ v}  \right) , T ^{r-2}\left( \vec{ v}  \right) ,\ldots , T \left( \vec{ v}   \right) ,\vec{ v}  \right\} $ form a basis for $ V$. The matrix of $ T$ relative to $ \mathcal{F} $ has the form:
+	 \[
+		 \left[ T \right] _{ \mathcal{F} , \mathcal{F}} = \left[ \left[ T \left( T ^{r-1} \left( \vec{ v}  \right)  \right)  \right]_{ \mathcal{F}}  \left[ T \left( T ^{r-2} \left( \vec{ v}  \right)  \right)  \right] _{ \mathcal{F}}\ldots \left[ T \left( T \left( \vec{ v}  \right)  \right)  \right]_{ \mathcal{F}} \left[ T \left( \vec{ v}  \right)  \right] _{\mathcal{F}}\right] 
+	 .\] 
+	 \[
+		 \left[ T \right] _{ \mathcal{F} , \mathcal{F}} = \begin{bmatrix}
+		 0 & 1 & 0 & \dots  & 0 \\
+		 0 & 0 & 1 & \dots  & 0 \\
+		 \vdots & \vdots & \vdots & \ddots & \vdots \\
+		 0 & 0 & 0 & \dots  & 1 \\
+		 0 & 0 & 0 & \dots  & 0\end{bmatrix}
+	 .\] 
+ 
+ }
+    \dfn{ :}{
+    Suppose $ A \in M_{ n \times  n} \left(  \mathbb{C} \right) $. A vector $ \vec{ v} \in \mathbb{C} ^n$ is called a generalized eigenvector of rank $ m$ of the matrix $ A$ corresponding to the eigenvalue $ \lambda \in \mathbb{C}$ if $ \vec{ v} $ has index $ m$ relative to $ \left( A - \lambda I \right) $ i.e.  $ \left( A - \lambda I \right) ^{m} \left(  \vec{ v}  \right) = \vec{ 0} $ but $ \left( A - \lambda I  \right) ^{j } \vec{ v} \neq \vec{ 0} $  for any $ j < m$ i.e.  $ m$ is the smallest integer such that $ \vec{ v}  \in \ker \left( A - \lambda I \right) ^{m}$.\\
+    }
+    \nt{
+    If $ \vec{ v_m} \in \mathbb{C} ^{n}$ is a generalized eigenvector of rank $ m$, then $ \left( A - \lambda I \right) ^{m } \vec{ v_m} = \vec{ 0} $.\\
+    Hence $ \left(  A - \lambda I  \right) ^{m - j} \left( A - \lambda I  \right) ^{j} \vec{ v_m} = \vec{ 0}  $.\\
+    i.e. $ \left( A - \lambda I \right) ^{j} \vec{ v_m} $ is also a generalized eigenvector of rank $ m - j$. This is true for all $ 0 \le j \le m-1$.\\
+    Let 
+    \begin{align*}
+    	\vec{ v_{m-1}} &= \left( A - \lambda I \right) ^{m - 1} \vec{ v_m}  \qquad  \implies \vec{ v_{m-1}} \in \mathcal{N}   \\
+	    	\vec{ v_{m-2}} &= \left( A - \lambda I \right) ^{m - 2} \vec{ v_m}  \qquad  \implies \vec{ v_{m-2}} \in \mathcal{N}   \\
+			    	&\vdots \\
+				    	\vec{ v_1} &= \left( A - \lambda I \right) \vec{ v_m}  \qquad  \implies \vec{ v_1} \in \mathcal{N}   \\
+    .\end{align*}
+    In general, $ \left( A - \lambda I  \right) ^{j} \left( A - \lambda I \right) ^{ m - j} \vec{ v_m} = \vec{ 0} $ \\
+    \[
+    \vec{ v_j} = \left( A - \lambda I \right) ^{m-j}, \qquad \vec{ v_j} \in \mathcal{N} \left( A - \lambda I \right) ^{j}
+    .\] 
+    \[
+    \text{ Also, note } \vec{ v_j} = \left( A - \lambda I  \right) \vec{ v_{j+1}} 
+    .\] 
+    The set $ \left\{ \vec{ v_1} ,\vec{ v_2} ,\ldots, \vec{ v_j} ,\ldots , \vec{ v_m}  \right\} $ is called a Jordan chain.
+    }
+    \nt{
+    \begin{enumerate}[label=(\arabic*).]  
+    \item $ \vec{ v_j} = \left( A - \lambda I \right) ^{ m -j } \vec{ v_m} \in \mathcal{N} \left( A - \lambda I \right) ^{j}  $ \\
+	    \[
+	    \vec{ v_j} \notin \mathcal{N} \left( A - \lambda I \right) ^{k} \qquad  \forall k < j
+	    .\] 
+	    \[
+	    \text{ i.e. } \vec{ v_j} \text{ has index } j \text{ relative to } \left( A - \lambda I \right) \qquad  \forall  1 \leq j \leq m-1
+	    .\] 
+    \item    $ \vec{ v_1} = \left( A - \lambda I  \right) ^{ m-1} \vec{ v_m} $ is an eigenvector
+	    	\item    $ \vec{ v_m} $ has index $ m$ relative to $ \left( A - \lambda I \right) $\\
+			$ \implies$ by the previous lemma, the set 
+			\[
+			\left\{ \left( A-\lambda I \right) ^{ m-1} \vec{ v_m} , \left( A - \lambda I \right) ^{ m-2} \vec{ v_m} ,\ldots, \left( A - \lambda I \right)  \vec{ v_m} ,\vec{ v_m}  \right\}
+			.\] 
+			is a linearly independent set.\\
+		\item span $ \left\{ \vec{ v_1} , \vec{ v_2} , \ldots , \vec{ v_m}  \right\} =  span \left\{ \left( A - \lambda I  \right) ^{ m-1} \vec{ v_m} , \left( A - \lambda I  \right) ^{m-2} \vec{ v_m}, \ldots ,  \left( A -  \lambda I  \right) \vec{ v_m} , \vec{ v_m}     \right\} $ is a cyclic subspace of $ V$. It is clearly $ \left( A - \lambda I \right)  $ invariant.\\ It is also $ A$ invariant since,
+			\[
+			\vec{ v_j} = \left( A - \lambda I  \right) \vec{ v_{j+1}} \qquad  \forall  1 \leq j \leq m-1
+			.\] 
+			\[
+			\text{ i.e. } \vec{ v_j} = A \vec{ v_{j+1}} - \lambda \vec{ v_{j+1}} 
+			.\] 
+			\[
+			\vec{ v_j} + \lambda \vec{ v_{j+1}} = A \vec{ v_{j+1}}
+			.\] 
+			$ \implies$ each $ A \vec{ v_{j+1}} $ is a linear combination of precisely 2 vectors from the Jordan chain $ \forall  1 \leq j \leq m-1$ and $ A \vec{ v_1} = \lambda \vec{ v_1} $ 
+			
+		\item Putting (3) and (4) together, we get that $ \left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_m}  \right\}$ forms a basis for  span $ \left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_m}  \right\}$. We can extend this set to form a basis for $ \mathbb{C} ^{n}$. 
+			\[
+			\mathcal{F} = \left\{ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_m} , \vec{ w_1} , \ldots , \vec{ w_{ \ell}} \right\} \qquad  \left( \ell + m = n \right) 
+			.\] 
+			and the matrix of $ A$ relative to $ \mathcal{F}$ takes the form:
+                     \[
+  \bigl[A\bigr]_{\mathcal F,\mathcal F}
+  \;=\;
+  \Bigl[
+      [A(\vec v_1)]_{\mathcal F}\;
+      [A(\vec v_2)]_{\mathcal F}\;\dots\;
+      [A(\vec v_m)]_{\mathcal F}\;
+      [A(\vec w_1)]_{\mathcal F}\;\dots\;
+      [A(\vec w_\ell)]_{\mathcal F}
+  \Bigr]
+\]
+
+\[
+  =
+  \left[
+  \begin{array}{*{4}{c}|c}
+    \lambda & 1        & 0        & \cdots &                \\[-2pt]
+    0       & \lambda  & 1        & \ddots &                \\[-2pt]
+    \vdots  & \ddots   & \ddots   & \ddots & \raisebox{-5.5ex}{\Huge$0$}\\[-2pt]
+    0       & \cdots   & 0        & \lambda&                \\ \cdashline{1-4}
+    0       & \cdots   & 0        & 0      &
+      \bigl[\;A(\vec w_1)\;\dots\;A(\vec w_\ell)\;\bigr]_{\mathcal F}
+  \end{array}
+  \right]
+  \qquad
+  \underbrace{\hspace{4.5cm}}_{\text{$m$ columns}}
+\]
+    \end{enumerate}
+    
+    }
+    
+   XXX THIS FILE CHECK ALOT XXX 
+ 
+
+ 
+
+ 
+ 	      
+	
+   
+ 
+ 
+         
+
+
+
+
+     
+\end{document}         
