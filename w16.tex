@@ -1,0 +1,1179 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+ 
+
+  \dfn{Jordan Block :}{
+      An $ m \times m$ matrix of the form
+      \[
+      \begin{bmatrix}
+      \lambda & 1 & 0 & \dots  & 0 \\
+      0 & \lambda & 1 & \dots  & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      \vdots & \vdots & \vdots & \ddots & 1\\
+      0 & 0 & 0 & \dots  & \lambda\end{bmatrix}
+      .\] 
+      is called a Jordan block with eigenvalue $\lambda$ . We will denote it by $J_m(\lambda)$. XXX
+  }
+   \dfn{Jordan Matrix :}{
+       The block diagonal matrix 
+       \[
+       J_{n_1} \left( \lambda_1 \right) \oplus J_{n_2} \left( \lambda_2 \right) \oplus \dots \oplus J_{n_r} \left( \lambda_r \right) 
+
+       .\] 
+       consisting of Jordan blocks along the diagonal is called a \underline{Jordan matrix} .
+   }
+   \dfn{Jordan Normal Form :}{
+   Let $ V$ be a vector space over $\mathbb{C}$ and  $ T: V \to V$ be a linear operator. There exists a Jordan basis for $ T$.\\
+   Equivalently, for any $ A \in M _{ n \times  n\left( \mathbb{C} \right) }$ $ \exists $ an invertible matrix $ M$ such that 
+   \[
+   J = M ^{-1} A M \qquad  \text{ is a Jordan matrix.}
+   .\] 
+ The matrix $ J$  is unique up to a permutation of the Jordan blocks.
+   }
+     \nt{
+     A Jordan basis for a linear operator is a basis consisting of Jordan chains. 
+     }
+     
+      XXX ADD ALL ABOVE INTO PREV WEEK XXX
+ XXX BEGIN W 16 CHECK IF THIS IS CORRECT XXX 
+ \ex{}{
+	 Suppose $ A$ is a $ 5 \times 5  $  matrix and $ \left\{ \vec{ v_1} , \vec{ v_2} , \vec{ v_3}  \right\} $ is a Jordan chain associated with the eigenvalue $  \lambda =3 $ and $ \left\{ \vec{ v_4} , \vec{ v_5}  \right\} $  is a Jordan chain associated with the eigenvalue $ \lambda = 2$. \\
+	 Let $ \mathcal{F} = \left\{  \vec{ v_1} , \vec{ v_2} , \vec{ v_3} , \vec{ v_4} , \vec{ v_5}  \right\} $ $ \mathcal{F} $ is a basis for $ \mathbb{C} ^5$ and $ A$ is represented by the matrix
+	 \[
+		 \left[ A \right] _{\mathcal{F}} = \left[ \left[ A \left( \vec{ v_1}  \right)  \right] _{ \mathcal{F}} \left[ A \left( \vec{ v_2}  \right)  \right] _{ \mathcal{F}}   \left[ A \left( \vec{ v_3}  \right)  \right] _{ \mathcal{F}} \left[ A \left( \vec{ v_4}  \right)  \right] _{ \mathcal{F}} \left[ A \left( \vec{ v_5}  \right)  \right] _{ \mathcal{F}} \right] \right]
+	 .\] 
+	 Index of $ \vec{ v_3} $ with respect to $ A - 3 I$ is $ 3$ $ \implies \left( A - 3 I \right) ^3 \vec{ v_3} = \vec{ 0} $\\
+	 \[
+	 \vec{ v_2} = \left( A - 3I \right) \vec{ v_3}  \text{ i.e. } \vec{ v_2} = A \vec{ v_3} - 3 \vec{ v_3} \qquad  \vec{ v_2} + 3 \vec{ v_3} = A \vec{ v_3}
+	 .\] 
+	 \[
+		 \implies \left[ A  \vec{ v_3} \right] _{ \mathcal{F}} = \begin{bmatrix}
+		 0\\
+		 1\\
+		 3\\
+		 0\\
+		 0\\
+		 \end{bmatrix}
+	 .\] 
+	 \[
+	 \vec{ v_1} = \left( A - 3I \right) \vec{ v_2}   \text{ i.e. } \vec{ v_1} + 3 \vec{ v_2} = A \vec{ v_2}
+	 .\] 
+	 \[
+	 \implies \left[ A  \vec{ v_2} \right] _{ \mathcal{F}} = \begin{bmatrix}
+	 1\\
+	 3\\
+	 0\\
+	 0\\
+	 0\\
+	 \end{bmatrix}
+	 .\] 
+	 $ \vec{ v_1} $ is an eigenvector $ \implies A \vec{ v_1} = 3 \vec{ v_1} $ 
+	 
+ \[
+    \implies \left[ A  \vec{ v_1} \right] _{ \mathcal{F}} = \begin{bmatrix}
+    3\\
+    0\\
+    0\\
+    0\\
+    0\\
+    \end{bmatrix}
+ .\] 
+ Similarly, $ \left\{ \vec{ v_4} ,\vec{ v_5}  \right\} $ forms a Jordan chain and so $ A \vec{ v_4} = 2 \vec{ v_4} $ $ \left( A -2I \right) \vec{ v_5} = \vec{ v_4} $ \\
+ \[
+    \implies A \vec{ v_5} = 2 \vec{ v_5} + \vec{ v_4}
+ .\] 
+  \[
+    \left[ A  \right] _{ \mathcal{F}} = \begin{bmatrix}
+    3 & 1 & 0 & 0 & 0\\
+    0 & 3 & 1 & 0 & 0\\
+    0 & 0 & 3 & 0 & 0\\
+    0 & 0 & 0 & 2 & 1\\
+    0 & 0 & 0 & 0 & 2\\
+    \end{bmatrix}
+  .\] 
+  
+}
+
+       
+  \nt{
+  In this case there was one Jordan chain for each eigenvalue that resulted in a basis for the generalised eigenspace associated with each eigenvalue. This is not always the case. 
+  }                  
+
+        \ex{}{
+        Suppose $ \lambda$ is the only eigenvalue of a $  7 \times  7 $ matrix $ A$. Suppose 
+	\begin{align*}
+		\dim \mathcal{N} \left( A-\lambda I \right) &= 3\\
+		\dim \mathcal{N} \left( \left( A-\lambda I \right) ^2 \right) &= 5\\
+		\dim \mathcal{N} \left( \left( A-\lambda I \right) ^3 \right) &= 7\\
+	.\end{align*}
+	\textit{ Find the Jordan normal form of $ A$ .}\\
+	Recall:
+	\[
+	\underbrace{ \mathcal{N} \left( A- \lambda I  \right)  }_{ \mathcal{N} _1} \subseteq \underbrace{ \mathcal{N} \left( \left( A- \lambda I  \right) ^2  \right)  }_{ \mathcal{N} _2} \subseteq \underbrace{ \mathcal{N} \left( \left( A- \lambda I  \right) ^3  \right)  }_{ \mathcal{N} _3}
+	.\] 
+	In what follows the dots represent linearly independent vectors.\\
+         \begin{tikzpicture}[dot/.style={circle,fill=black!70,inner sep=2pt},
+                    >=stealth,
+                    baseline=(current bounding box.center)]
+
+% ------------------------------------------------------------------
+% Row labels
+\node            (N1) at (0,  0) {$\mathcal N_{1}$};
+\node            (N2) at (0,-1.5) {$\mathcal N_{2}$};
+\node            (N3) at (0,-3)  {$\mathcal N_{3}$};
+
+% Colons
+\node at (.6,  0) {$:$};
+\node at (.6,-1.5) {$:$};
+\node at (.6,-3)  {$:$};
+
+% ------------------------------------------------------------------
+% 1st Jordan chain  (v–chain)
+\node            at (1.1,  0) {$\vec v_{1}$};
+\node[dot] (v1)  at (1.7,  0) {};
+\node            at (1.1,-1.5) {$\vec v_{2}$};
+\node[dot] (v2)  at (1.7,-1.5) {};
+\node            at (1.1,-3)  {$\vec v_{3}$};
+\node[dot] (v3)  at (1.7,-3) {};
+\draw[blue,thick] (v1) -- (v3);
+
+% ------------------------------------------------------------------
+% 2nd Jordan chain  (w–chain)
+\node            at (3.1,  0) {$\vec w_{1}$};
+\node[dot] (w1)  at (3.7,  0) {};
+\node            at (3.1,-1.5) {$\vec w_{2}$};
+\node[dot] (w2)  at (3.7,-1.5) {};
+\node            at (3.1,-3)  {$\vec w_{3}$};
+\node[dot] (w3)  at (3.7,-3) {};
+\draw[blue,thick] (w1) -- (w3);
+
+% (Optional) single eigenvector u_1 – comment out if not desired
+\node            at (5.1,  0) {$\vec u_{1}$};
+\node[dot] (u1)  at (5.7,  0) {};
+
+% ------------------------------------------------------------------
+% Explanatory text
+\node[anchor=west,align=left] at (7, -1.25)
+      {2 Jordan chains of\\[-2pt] length $3$ associated\\[-2pt] with $\lambda$.};
+\end{tikzpicture}
+
+
+
+
+
+	\[
+	\mathcal{F} = \left\{ \vec{ v_1} , \vec{ v_2} , \vec{ v_3} , \vec{ w_1} , \vec{ w_2} , \vec{ w_3} ,  \vec{ u_1} \right\} \text{ is a Jordan basis for } A,
+	.\] 
+	\[
+		\left[ A  \right]  _{ \mathcal{F} \mathcal{F}} = \text{ Jordan normal form of } A 
+	.\] 
+	\[
+	= \begin{bmatrix}
+	\lambda & 1 & 0 & 0 & 0 & 0 & 0 \\
+	0 & \lambda & 1 & 0 & 0 & 0 & 0 \\
+	0 & 0 & \lambda & 1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & \lambda & 1 & 0 & 0 \\
+	0 & 0 & 0 & 0 & \lambda & 1 & 0 \\
+	0 & 0 & 0 & 0 & 0 & \lambda & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & \lambda \\
+	\end{bmatrix}
+	.\] 
+        }
+        
+
+  \ex{}{
+  Suppose $ \lambda $ is the only eigenvalue of a $ 7 \times  7$ matrix $ A$ and suppose 
+  \begin{align*}
+  \dim \mathcal{N} \left( A-\lambda I \right) &= 3\\
+  \dim \mathcal{N} \left( \left( A-\lambda I \right) ^2 \right) &= 6\\
+  \dim \mathcal{N} \left( \left( A-\lambda I \right) ^3 \right) &= 7\\
+  .\end{align*}
+  \textit{Find the Jordan normal form (JNF) of $ A$ .}\\
+  XXX FIX BOXES
+   \begin{tikzpicture}[dot/.style={circle,fill=black!70,inner sep=2pt},
+                    >=stealth,
+                    baseline=(current bounding box.center)]
+
+% ------------------------------------------------------------------
+% Row labels
+\node            (N1) at (0,  0) {$\mathcal N_{1}$};
+\node            (N2) at (0,-1.5) {$\mathcal N_{2}$};
+\node            (N3) at (0,-3)  {$\mathcal N_{3}$};
+
+% Colons
+\node at (.6,  0) {$:$};
+\node at (.6,-1.5) {$:$};
+\node at (.6,-3)  {$:$};
+
+% ------------------------------------------------------------------
+% 1st chain  (v1–v2–v3)
+\node            at (1.1,  0) {$\vec v_{1}$};
+\node[dot] (v1)  at (1.7,  0) {};
+\node            at (1.1,-1.5) {$\vec v_{2}$};
+\node[dot] (v2)  at (1.7,-1.5) {};
+\node            at (1.1,-3)  {$\vec v_{3}$};
+\node[dot] (v3)  at (1.7,-3) {};
+\draw[blue,thick] (v1) -- (v3);
+
+% ------------------------------------------------------------------
+% 2nd chain  (v4–v5)
+\node            at (3.1,  0) {$\vec v_{4}$};
+\node[dot] (v4)  at (3.7,  0) {};
+\node            at (3.1,-1.5) {$\vec v_{5}$};
+\node[dot] (v5)  at (3.7,-1.5) {};
+\draw[blue,thick] (v4) -- (v5);
+
+% ------------------------------------------------------------------
+% 3rd chain  (v6–v7)
+\node            at (5.1,  0) {$\vec v_{6}$};
+\node[dot] (v6)  at (5.7,  0) {};
+\node            at (5.1,-1.5) {$\vec v_{7}$};
+\node[dot] (v7)  at (5.7,-1.5) {};
+\draw[blue,thick] (v6) -- (v7);
+
+\end{tikzpicture}
+
+
+
+
+  There is one Jordan chain of length $ 3$ and two Jordan chains of length $ 2$.\\
+  \[
+  \mathcal{F} = \left\{ \vec{ v_1} , \vec{ v_2} , \vec{ v_3} , \vec{ v_4} , \vec{ v_5} , \vec{ v_6} ,  \vec{ v_7} \right\} \text{ is a Jordan basis for } A,
+  .\]
+
+    \[
+\bigl[A\bigr]_{\mathcal{F},\mathcal{F}}
+=
+\left[
+\begin{array}{ccc|cc|cc}
+\lambda & 1 & 0 & 0 & 0 & 0 & 0\\
+0 & \lambda & 1 & 0 & 0 & 0 & 0\\
+0 & 0 & \lambda & 0 & 0 & 0 & 0\\ \hline
+0 & 0 & 0 & \lambda & 1 & 0 & 0\\
+0 & 0 & 0 & 0 & \lambda & 0 & 0\\ \hline
+0 & 0 & 0 & 0 & 0 & \lambda & 1\\
+0 & 0 & 0 & 0 & 0 & 0 & \lambda
+\end{array}
+\right]
+\;=\;
+J_{3}(\lambda)\;\oplus\;J_{2}(\lambda)\;\oplus\;J_{2}(\lambda).
+\]
+
+
+
+
+  To find a chain of length $ 3$  we must find a vector $ \vec{ v_3} \in \mathcal{N} _3$  that is not in $ \mathcal{N} _2$. $ \vec{ v_3} $ generates the chain $ \left\{ \vec{ v_1} , \vec{ v_2}, \vec{ v_3}   \right\} = \left\{ \left( A- \lambda I \right) ^2 \vec{ v_3} , \left( A - \lambda I  \right) \vec{ v_3} , \vec{ v_3}  \right\} $
+  }
+  
+ \ex{}{
+ Let $ A = \begin{bmatrix}
+ 3 & -1\\
+ 1 & 1\\
+ \end{bmatrix}$. Find $ J$, the Jordan normal form of $ A$ , and find an invertible matrix $ M$ such that $ J = M ^{-1} A M$ .\\
+ \textbf{Solution:} \\
+ Eigienvalues: \\
+ \begin{align*}
+	 \chi _{A} \left( \lambda \right) &= \left( 3- \lambda \right)  \left( 1- \lambda \right) +1 &=0\\
+	 \lambda ^2 - 4 \lambda + 4 &= 0\\
+	 \left( \lambda -2 \right) ^2 &= 0\\
+	 \lambda &= 2 \text{ is the only eigenvalue}
+ .\end{align*}
+    \[
+    \mathcal{N} \left( A - 2 I \right): \left[
+    \begin{array}{cc;{2pt/2pt}c}  
+    1 & -1 & 0\\
+    1 & -1 & 0\\
+    \end{array}
+    \right] \to \left[
+    \begin{array}{cc;{2pt/2pt}c}  
+    1 & -1 & 0\\
+    0 & 0 & 0\\
+    \end{array}
+    \right] \qquad  x = y
+    .\] 
+    \[
+    \mathcal{N} _1 = \mathcal{N} \left( A - 2 I \right) = \left\{ \begin{bmatrix}
+    x\\
+    x\\
+    \end{bmatrix}
+    \mid x \in \mathbb{R} \right\} = \text{span} \left\{  \begin{bmatrix}
+    1\\
+    1\\
+    \end{bmatrix}
+    \right\} 
+    .\] 
+    \[
+    dim \mathcal{N} _1 = 1
+    .\] 
+    \[
+    \mathcal{N}_2 = \mathcal{N} \left( \left( A - 2 I \right) ^2 \right): \left[
+    \begin{array}{cc;{2pt/2pt}c}  
+    0 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{array}
+    \right] \qquad  \mathcal{N}_2 = \mathbb{R} ^2 \qquad  dim \mathcal{N} _2 = 2
+    .\] 
+
+       \[
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+  % first row
+  \node (n1) at (0,0)  {$N_1:$};
+  \node (v1) at (1.6,0) {$\bullet\;\vec{v}_1$};
+  % second row
+  \node (n2) at (0,-1.2) {$N_2:$};
+  \node (v2) at (1.6,-1.2) {$\bullet\;\vec{v}_2$};
+  % vertical connection
+  \draw (v1) -- (v2);
+\end{tikzpicture}
+\quad
+\text{one Jordan chain of length }2.
+\]
+
+    \[
+    \implies \text{ JNF of } A = \begin{bmatrix}
+    2 & 1\\
+    0 & 2\\
+    \end{bmatrix}
+    .\] 
+    To find a Jordan basis we choose $ \vec{ v_2} \in \mathcal{N} _2$  $ \vec{ v_2} \notin \mathcal{N}_1$ \\
+    Let $ \vec{ v_2} = \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+    $
+    \[
+    \vec{ v_1} = \left( A -2 I \right) \vec{ v_2} = \begin{bmatrix}
+    1 & -1\\
+    1 & -1\\
+    \end{bmatrix}  \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+    = \begin{bmatrix}
+    1\\
+    1\\
+    \end{bmatrix}
+    .\]
+    \[
+    \mathcal{F} = \left\{ \begin{bmatrix}
+    1\\
+    1\\
+    \end{bmatrix}
+    , \begin{bmatrix}
+    1\\
+    0\\
+    \end{bmatrix}
+\right\} \text{ is a Jordan basis}
+    .\] 
+    \[
+	    J = \left[ A \right] _{ \mathcal{F}, \mathcal{F}} = P _{ \mathcal{E} \to \mathcal{F}} \left[ A \right] _{ \mathcal{E} \mathcal{E}} P _{ \mathcal{F} \to \mathcal{E}} 
+    .\] 
+    \[
+    \begin{bmatrix}
+    2 & 1\\
+    0 & 2\\
+    \end{bmatrix}= -1 \begin{bmatrix}
+    0 & -1\\
+    -1 & 1\\
+    \end{bmatrix} \begin{bmatrix}
+    3 & -1\\
+    1 & 1\\
+    \end{bmatrix} \begin{bmatrix}
+    1 & 1\\
+    1 & 0\\
+    \end{bmatrix}
+    .\] 
+
+ }
+ 
+    \ex{}{
+    Let $ A = \begin{bmatrix}
+    3 & 2 & -1\\
+    1 & 4 & -1\\
+    1 & 3 & 1\\
+    \end{bmatrix}$, Find $ J$, the Jordan normal form of $ A$ , and find an invertible matrix $ M$ such that $ J = M ^{-1} A M$ .\\
+    \textbf{Solution:} \\
+    \[
+	    \chi _{A} \left( \lambda \right) = \left( 3- \lambda \right) \left[ \left( 4-\lambda \right) \left( 1-\lambda \right) +3 \right] -1 \left(  2 \left( 1-\lambda \right) +3 \right) + \left( -2 - \left( 4-\lambda \right) \left( -1 \right)  \right) =0
+    .\] 
+    \begin{align*}
+	    \chi _{A} \left( \lambda \right) &= \left( 3-\lambda \right) \left[ 4 -5 \lambda + \lambda ^2 +3 \right]  -1 \left( 2 - 2\lambda +3 \right) -2 +4 - \lambda &=0\\
+	    \left( 3-\lambda \right) \left[ \lambda ^2 -5 \lambda +7 \right] - 5 + 2\lambda +2 -\lambda &=0\\
+	    \left( 3-\lambda \right) \left[ \lambda ^2 -5 \lambda +7 \right] + \lambda -3 &=0\\
+	    \left( 3 -\lambda \right) \left( \lambda^2 -5 \lambda +7 -1 \right) &=0\\
+	    \left( 3 -\lambda \right) \left( \lambda^2 -5 \lambda +6 \right) &=0\\
+	    \left( 3 -\lambda \right) \left( \lambda -2 \right) \left( \lambda -3 \right) &=0\\
+	    \lambda =3 \qquad  \lambda =2 
+    .\end{align*}
+ \[
+ \lambda =3: \qquad \mathcal{N} \left( A - 3 I \right) : \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 0 & 2 & -1 & 0\\
+ 1 & 1 & -1 & 0\\
+ 1 & 3 & -2 & 0\\
+ \end{array}
+ \right]         \to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 1 & -1 & 0\\
+ 0 & 2 & -1 & 0\\
+ 0 & 2 & -1 & 0\\
+ \end{array}
+ \right]
+ .\] 
+ \[
+ dim \mathcal{N} \left( A - 3 I \right) = 1 
+ .\] 
+ \[
+ \mathcal{N} \left( A - 3 I \right) ^2: \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ -1 & 1 & 0 & 0\\
+ 0 & 0 & 0 & 0\\
+ 1 & -1 & 0 & 0\\
+ \end{array}
+ \right] \to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & -1 & 0 & 0\\
+ 0 & 0 & 0 & 0\\
+ 0 & 0 & 0 & 0\\
+ \end{array}
+\right] \qquad  x=y \quad y \text{ free} \quad z \text{ free}
+ .\] 
+ \[
+ \mathcal{N} \left(  A - 3 I \right) ^2= \left\{ \begin{bmatrix}
+ y\\
+ y\\
+ z\\
+ \end{bmatrix}
+ 	\mid y , z \in \mathbb{R} \right\} 
+ \]\\
+ Let $ \vec{ v_2} \begin{bmatrix}
+ 1\\
+ 1\\
+ 1\\
+ \end{bmatrix}
+ $, check, $ \vec{ v_2} \notin \mathcal{N} \left( A - 3I \right) $
+ 
+ \[
+ \vec{ v_1} = \left( A - 3I \right) \vec{ v_2} = \begin{bmatrix}
+ 0 & 2 & -1\\
+ 1 & 1 & -1\\
+ 1 & 3 & -2\\
+ \end{bmatrix} \begin{bmatrix}
+ 1\\
+ 1\\
+ 1\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ 1\\
+ 1\\
+ 2\\
+ \end{bmatrix}
+ .\] 
+ 
+
+ \[
+ \lambda =2: \quad \mathcal{N} \left( A - 2I \right): \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 2 & -1 & 0\\
+ 1 & 2 & -1 & 0\\
+ 1 & 3 & -1 & 0\\
+ \end{array}
+ \right] \to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 2 & -1 & 0\\
+ 0 & 0 & 0 & 0\\
+ 0 & 1 & 0 & 0\\
+ \end{array}
+ \right] \to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 0 & -1 & 0\\
+ 0 & 1 & 0 & 0\\
+ 0 & 0 &  0& 0\\
+ \end{array}
+ \right] \quad x=z \quad y =0 \quad z \text{ free}
+ .\] 
+ \[
+	 \mathcal{N} \left( A - 2I \right)           = \left\{ \begin{bmatrix}
+	 z\\
+	 0\\
+	 z\\
+	 \end{bmatrix}
+	 \mid z \in \mathbb{R} \right\}
+ .\] 
+ \[
+ \left( A - 2I \right) ^2 = \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 2 & 3 & -2 & 0\\
+ 2 & 3 & -2 &0\\
+ 3 & 5 & -3 & 0\\
+ \end{array}
+ \right]\to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 2 & 3 & -2 & 0\\
+ 3 & 5 & -3 & 0\\
+ 0 & 0 & 0 & 0\\
+ \end{array}
+ \right]\to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & \frac{3}{2} & -1 & 0\\
+ 0 & \frac{1}{2} & 0 & 0\\
+ 0 & 0 &  0& 0\\
+ \end{array}
+ \right]\to \left[
+ \begin{array}{ccc;{2pt/2pt}c}  
+ 1 & 0 & -1 & 0\\
+ 0 & 1 & 0 & 0\\
+ 0 & 0 &  0& 0\\
+ \end{array}
+ \right]
+ .\] 
+ \[
+ \mathcal{N} \left( A - 2I \right) ^2 = \mathcal{N} \left( A -2I \right) \implies \text{ no generalised eigenvectors associated with } \lambda =2
+ .\] 
+ \[
+	 \text{ Let } \mathcal{F} = \left\{  \vec{ v_1} ,\vec{ v_2} , \vec{ w_1}  \right\}  \qquad  \text{ where } \qquad  \vec{ w_1} = \begin{bmatrix}
+	 1\\
+	 0\\
+	 1\\
+	 \end{bmatrix}
+ .\] 
+ \[
+	 J = \left[ A \right] _{ \mathcal{F} ,\mathcal{F}} = \begin{bmatrix}
+	 3 & 1 & 0\\
+	 0 & 3 & 0\\
+	 0 & 0 & 2\\
+	 \end{bmatrix}
+ .\] 
+ \[
+	 J = \left[ A \right]  _{ \mathcal{F}, \mathcal{F}} = P _{ \mathcal{E} \to \mathcal{F}} \left[ A  \right]  _{ \mathcal{E} , \mathcal{E}} P _{ \mathcal{F} \to \mathcal{E}}
+ .\] 
+ \[
+ \begin{bmatrix}
+ 3 & 1 & 0\\
+ 0 & 3 & 0\\
+ 0 & 0 & 2\\
+ \end{bmatrix} = \begin{bmatrix}
+ 1 & 1 & 1\\
+ 1 & 1 & 0\\
+ 2 & 1 &1 \\
+ \end{bmatrix} ^{-1} \begin{bmatrix}
+ 3 & 2 & -1\\
+ 1 & 4 & -1\\
+ 1 & 3 & 1\\
+ \end{bmatrix} \begin{bmatrix}
+ 1 & 1 & 1\\
+ 1 & 1 & 0\\
+ 2 & 1 & 1\\
+ \end{bmatrix}
+ .\] 
+
+    }
+  \section{Possible Jordan Normal Forms for a $ 2 \times  2$ matrix:}
+  \[
+  \begin{bmatrix}
+  \lambda & 1\\
+  0 & \lambda\\
+  \end{bmatrix} \text{ 1 eigenvalue, 1 linearly independent eigenvector}
+  .\] 
+  \[
+  \begin{bmatrix}
+  \lambda & 0\\
+  0 & \lambda\\
+  \end{bmatrix} \text{ 1 eigenvalue} \lambda \text{ 2 linearly independent eigenvectors}
+  .\] 
+  \[
+  \begin{bmatrix}
+  \lambda & 0\\
+  0 & \beta\\
+  \end{bmatrix}  \text{ 2 eigenvalues, } \lambda , \beta  \text{ 2 linearly independent eigenvectors}
+  .\] 
+
+  \section{Finding the JNF for an $ n\times n$ matrix $ A$ over $ \mathbb{C}$}
+    \begin{enumerate}[label=(\arabic*).]  
+    \item Determine the eigenvalues of $ A$
+    \item For each eigenvalue compute 
+	    \[
+	    d_j = dim \left( \mathcal{N} \left( A - \lambda I \right) ^{j} \right) 
+	    .\] 
+	    until they stabilise and draw a diagram for the Jordan chains
+    \item To find a Jordan basis - look at the Jordan chains for each eigenvalue $ \lambda$, and work on the largest chain first. To get a chain of length $ k > 1$, pick a vector $ \vec{ v} \in \mathcal{N} \left( A - \lambda I  \right) ^{k}$ with $ \vec{ v} \notin \mathcal{N} \left(  A - \lambda I  \right) ^{ k-1}$. Form a chain by repeatedly multiplying $ \vec{ v} $ by $ \left( A -\lambda I \right) $
+    \item Repeat steps (3) and (4) on the next largest chain (chains of lenght 1 are eigenvectors)       
+    \end{enumerate}
+    \nt{
+    The Jordan normal form is not unique, since the order in which the blocks are placed on the diagonal is not fixed. It is conventional to group blocks for the same eigenvalue together, ordered by weakly decreasing size. Thus up to a rearrangement of blocks along the diagonal, the Jordan normal form is unique.\\
+    }
+  \dfn{Algebraic/Geometric Multiplicty :}{
+  Let $ A$ be an $ n \times n$ matrix and let $ \lambda$ be an eigenvalue of $ A$. 
+  \begin{enumerate}[label=(\arabic*).]  
+  \item The \underline{algebraic multiplicity} of $ \lambda$ is its multiplicity as a root of the characteristic polynomial $ \chi _{A} \left( t \right)$, i.e. the largest integer $ k$ such that $ \left( t - \lambda \right) ^k$ divides evenly into $ \chi _{A} \left( t \right)$.
+  \item  The \underline{geometric multiplicity} of $ \lambda$ is the dimension of $ \mathcal{N} \left( A - \lambda I \right) $, or, equivalently, the maximum number of linearly independent eigenvectors associated with $ \lambda$.
+  \end{enumerate}
+  
+  }
+        
+   \thm{Number of dots and number of Jordan chains :}
+   {
+	   Suppose $ A \in M _{ n \times n}\left(  \mathbb{C} \right) $, and let $ T: \mathbb{C} ^{n} \to \mathbb{C} ^{n}$ be defined as $ T \left( \vec{ v}  \right) = A  \vec{ v} \forall  \vec{ v} \in \mathbb{C} ^{n}$. Suppose $ \lambda$ is and eigenvalue of $ A$ with algebraic multiplicity $ m$.
+	   Then
+	   \begin{enumerate}[label=(\arabic*).]  
+	   \item The total number of Jordan chains associated with $ \lambda$ is the geometric multiplicity of $ \lambda$, $ \left( dim \left( \mathcal{N} \left( A - \lambda I \right)  \right)  \right) $
+	   \item  The total numver of dots in the diagram $ \left( dim V \left( \lambda \right)  \right) $ is the algebraic multiplicity of $ \lambda$.
+	   \end{enumerate}
+   }
+   
+   \pf{Proof:}{
+    \begin{enumerate}[label=(\arabic*).]  
+    \item The first vector in a chain is always an eigenvector $ \implies$ each of the linearly independent eigenvectors give rise to a Jordan chain.
+    \item  Let $ \left\{ \vec{ b_1} , \ldots \vec{ b_r}  \right\} $ be a basis for $ V \left( \lambda \right) $
+     \nt{
+     Recall $ V \left( \lambda \right) $ is the generalised eigenspace associated with $ \lambda$. $ V \left( \lambda \right) $ consists of all the generalised eigenvectors associated with $ \lambda$.
+     }
+     Complete  $ \left\{ \vec{ b_1} , \ldots \vec{ b_r}  \right\} $ to form a basis, $ \mathcal{B} = \left\{ \vec{ b_1} , \ldots , \vec{ b_r} , \ldots , \vec{ b_n}  \right\} $ for $ \mathbb{C} ^{n}$. Since $ V \left( \lambda \right) $ is $ A$ invariant, it follows that the matrix $ A$ relative to $ \mathcal{B}$ takes the form
+     \[
+     \left[ A \right] _{ \mathcal{B} ,\mathcal{B}} = \begin{bmatrix}
+     C & D\\
+     0 & E\\
+     \end{bmatrix}
+     .\] 
+     where $ C$ is and $ r \times  r$ , $ C = \left[ A \bigg|_{V \left( \lambda \right) }^{} \right]_{ \mathcal{B}, \mathcal{B}} $.\\
+     Hence 
+     \begin{align*}                        
+     	\chi _{a} \left( t \right) &= \det \left( \begin{bmatrix}
+     	C & D\\
+     	0 & E\\
+     	\end{bmatrix} - t I_n \right)\\
+	     	&= \det \begin{bmatrix}
+	     	C - t I_r & D\\
+	     	0 & E - t I_{n-r}\\
+	     	\end{bmatrix}\\
+			     	&= \det \left( C - t I_r \right) \det \left( E - t I_{n-r} \right)\\
+     .\end{align*}
+     Note: the only eigenvalue of $ C$ is $ \lambda$.\\
+     \[
+     \text{ det } \left( C - t I_r \right) \text{ is a polynomial of degree } r 
+     .\] 
+     \[
+     \text{ det }  \left(  C - t I_r \right) = \left( t - \lambda \right) ^r
+     .\] 
+     In order to show that $ \lambda$ is not a root of $ \det \left( E - t I_{n-r} \right)$.\\
+     Let $ W = span \left\{ \vec{ b_{r+1}}, \vec{ b_{r+2}}, \ldots , \vec{ b_n}    \right\} $ and let $ S: W \to W $ be defined as $ S \left( \vec{ w} = E \vec{ w}  \right) $.\\
+     \[
+     \chi _{S} \left( t \right) = \det \left( E - t I_{n-r} \right)
+     .\]  
+     We assime FTSOC (for the sake of contradiction) that $ \lambda$ is a root of $ \det \left( E - t I_{n-r} \right)$. Then there exists a non-zero vector $ \vec{ w} \in \mathcal{W}$ such that $ S \vec{ w} = \lambda \vec{ w}$.\\
+     Suppose $ \vec{ w} = \sum\limits_{i=r+1}^{n} \alpha _i \vec{ b_i}$. We can consider $ \vec{ w} $ as a vector in $ \mathbb{C} ^{n}$, by letting 
+     \[
+     \vec{ w} = 0 \vec{ b_1} + 0 \vec{ b_2} + \ldots + 0 \vec{ b_r} + \alpha _{r+1} \vec{ b_{r+1}} + \ldots + \alpha _n \vec{ b_n}
+     .\] 
+     And so,
+      \[
+T(\vec{w})
+\;=\;
+\begin{pmatrix}
+C & D\\
+O & E
+\end{pmatrix}
+\left(
+\begin{array}{c}
+0\\
+\vdots\\
+0\\[4pt]        % ← end of the block of r zeros
+\alpha_{r+1}\\
+\vdots\\
+\alpha_{n}
+\end{array}
+\right)
+\quad
+\left.\vphantom{\begin{array}{c}0\\\vdots\\0\end{array}}\right\}
+\; r\ \text{zeroes}
+\]
+ XXX
+     
+     \[
+     = \begin{bmatrix}
+     \gamma_1\\
+     \vdots\\
+     \gamma_r\\
+     \gamma_{r+1}\\
+     \vdots\\
+     \gamma_n\\
+     \end{bmatrix}
+     = \begin{bmatrix}
+     \gamma_1\\
+     \vdots\\
+     \gamma_r\\
+     0\\
+     \vdots\\
+     0\\
+     \end{bmatrix}
+     + \begin{bmatrix}
+     0\\
+     \vdots\\
+     0\\
+     \gamma_{r+1}\\
+     \vdots \\
+     \gamma_n\\
+     \end{bmatrix}
+     .\] 
+     \[
+     \implies T \left( \vec{ w}  \right) = \vec{ u} + \lambda \vec{ w} \qquad  \text{ where } \vec{ u} = V \left( \lambda \right) 
+     .\] 
+     \[
+     \implies \left( T - \lambda I \right) \left( \vec{ w}  \right) = \vec{ u} \qquad  \text{ i.e. }  \left( T - \lambda I \right) \left( \vec{ w}  \right) \in V \left( \lambda \right)
+     .\] 
+     \[
+     \implies \left( T - \lambda I \right) ^{k} \left( T - \lambda I \right) \left( \vec{ w}  \right) = \vec{ 0} \qquad  \text{ for some }   k \geq 0
+     .\] 
+     \[
+     \implies \left( T - \lambda I \right) ^{k+1} \left( \vec{ w}  \right) = \vec{ 0} 
+     .\] 
+     \[
+	     \implies \vec{ w} \in ker \left( T -\lambda I \right) ^{k+1} \qquad  \text{ i.e. } \vec{ w}  \text{ is a generalised eigenvector of  } T
+     .\] 
+     \[
+	     \text{ i.e. } \vec{ w} \in V \left( \lambda \right) \cap \mathcal{W}  = { \vec{ 0} } 
+     .\] 
+     This contradicts the assumption that $ \vec{ w} \neq \vec{ 0}$ and proves that $ \text{ det } \left( E - t I_{n-r} \right) $ does not have $ \lambda$ as a root
+     \[
+     \implies dim \left( V \left( \lambda \right)  \right) = \text{ algebraic multiplicity of } \lambda
+     .\] 
+    \end{enumerate}
+    
+   }
+   \nt{
+   \[
+	   dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) = \text{ geometric multiplicity }
+   .\] 
+   \[
+   dim \left( V \left( \lambda \right)  \right) = \text{ algebraic multiplicity }
+   .\] 
+   \[
+   \text{ Since } V \left( \lambda \right) = \mathcal{N} \left( A - \lambda I \right) ^{k } \text{ for some } k 
+   .\] 
+   \[
+   \text{ and , } \mathcal{N} \left( A - \lambda I \right) \subseteq \mathcal{N} \left( A - \lambda I \right) ^{k} \text{ for all } k 
+   .\]
+   $ \implies$ geometric multiplicity of $ \lambda$ is less than or equal to the algebraic multiplicity of $ \lambda$.
+   }
+   \thm{Linear Independence of Jordan chains :}
+   {
+     Suppose $ \gamma_1 , \gamma_2 , \ldots , \gamma_m$ are Jordan chains corresponding (eigenvectors) to some $ \lambda$. If the first vector in these chains are linearly independent, then all the vectors in these chains are linearly independent.\\
+   }
+   
+   \pf{Proof:}{
+    We'll use induction on $ k =$ the size of the longest chain $ k=1$. The chain contains one vector each and the result is clear.\\
+    Assume it holds for $ k$, and consider the chains $ \gamma_1 , \gamma_2 , \ldots , \gamma_m$ one of which has length $ k+1$. \\
+Let $ \gamma_1 =\left\{ \vec{ v_{11}, \vec{ v_{12}} ,\ldots, \vec{ v_{1k_1}} }  \right\}\\
+\gamma_2 = \left\{ \vec{ v_{21}} , \ldots \vec{ v_{2k_2}}  \right\} $ \\
+and so on, \\
+$ \gamma_i = \left\{ \vec{ v_i 1} , \vec{ v _{ i 2}}, \ldots , \vec{ v_{i k_i}}   \right\} $ \\
+\\
+Suppose  
+  \[
+\sum_{\substack{1 \le i \le m \\[2pt] 1 \le j \le k_i}}
+  a_{ij}\,\vec{v}_{ij}
+  \;=\;
+  \vec{0}.
+\]
+Applying $ \left( A - \lambda I  \right) $  to both sides we get
+   \[
+\sum_{\substack{1 \le i \le m \\[2pt] 1 \le j \le k_i}}
+  a_{ij} \left( A - \lambda I \right) \,\vec{v}_{ij}
+  \;=\;
+  \vec{0}.
+\] 
+\[
+\text{ i.e. } \sum_{\substack{1 \le i \le m \\[2pt] 2 \le j \le k_i}}
+  a_{ij} \,\vec{v}_{i,j-1}
+  \;=\;
+  \vec{0}. \qquad  \text{ because } \left( A - \lambda I \right) \vec{ v}_{i 1 } = \vec{ 0} 
+.\] 
+     Hence, 
+     \[
+	     \sum_{\substack{1 \le i \le m \\[2pt] 2 \le j \le k_i}} a_{ij} \,\vec{v}_{i,j-1} = \vec{ 0} \qquad  \text{ is a linear combination of all the vectors from}
+     .\] 
+     the chains $ \gamma_1 , \ldots , \gamma_m$ except for the last vector. These are chains of length at most $ k$ $ \implies$ by induction the vectors $ \vec{ v_{i,j-1}}$ are linearly independent $ \left( 1 \leq i \leq m \qquad  2 \leq j \leq k \right) $.\\
+     The first vectors are linearly independent by assumption $ \implies a_{ i j }=0 \forall  i,j$
+
+   }
+   
+   For what follows, assume $ A \in M _{ n \times  n} \left(  \mathbb{C} \right) $ .\\
+   \underline{Simple Eigenvalue:} \\
+   $ \lambda$ is an eigenvalue of $ A$ with algebraic multiplicity one.
+   \[
+   \implies dim \left(  V \left( \lambda \right)  \right) = 1 \qquad  \text{ and since }
+   .\] 
+   \[
+   1 \leq \text{ geometric multiplicity of } \lambda \leq \text{ algebraic multiplicity of } \lambda = 1
+   .\] 
+   \[
+   \implies dim \left( \mathcal{N} \left(  A - \lambda I \right)  \right) =1
+   .\] 
+   $ \implies$ we have on linearly independent eigenvector 
+
+         \[
+\mathcal{N}_1 :\; \bullet
+\]
+
+
+
+
+   There is on Jordan chain of length one
+   \[
+	   J_1 \left( \lambda \right) = \left[ \lambda \right] 
+   .\] 
+   \underline{Double Eigenvalue:} \\
+   $ \lambda$ is an eigenvalue of $ A$ with algebraic multiplicity two.\\
+   There are two possibilities, either 
+   \begin{enumerate} [label=(\alph*)]
+   \item $ dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) =2 \qquad $   $
+\mathcal{N}_1 :\; \bullet   :\; \bullet  \qquad  $ 2 linearly independent eigenvectors, either (a) or (b) 
+\[
+J = J_1 \left( \lambda \right) \oplus J_1 \left( \lambda \right) = \begin{bmatrix}
+\lambda & 0\\
+0 & \lambda\\
+\end{bmatrix}
+.\] 
+
+   \item $ dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) =1 $   and $ dim \left( \mathcal{N} \left(  A - \lambda I \right) ^2 \right) =2$ 
+	         \[
+\begin{array}{@{\;}l@{\;}c@{\;}l}
+\mathcal{N}_1: &
+% -- stacked bullets with a vertical segment -----------------------------
+\begin{tikzpicture}[baseline=(top)]
+  \node (top) at (0,0)    {$\bullet$};
+  \node (bot) at (0,-1.2) {$\bullet$};
+  \draw (top) -- (bot);
+\end{tikzpicture}
+&\; 1 \text{ lin.\ ind.\ eigenvector}\\[1.8em]   % <-- extra space so the
+                                                 %      lower bullet lands
+                                                 %      on the next row
+ \mathcal{N}_2: & &\; 1 \text{ Jordan chain of length } 2
+\end{array}
+\]
+
+    \[
+	    J = J_2 \left[ \lambda \right]  = \begin{bmatrix}
+	    \lambda & 1\\
+	    0 & \lambda\\
+	    \end{bmatrix}
+    .\] 
+   \end{enumerate}
+ \underline{Triple Eigenvalue:} \\
+ $ \lambda$ is an eigenvalue of $ A$ with algebraic multiplicity three.\\
+ There are three possibilities:
+ 
+   
+
+ \begin{enumerate} [label=(\alph*)]
+ \item $ dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) =3 \qquad $  $   \mathcal{N}_1 :\; \bullet   \; \bullet  \; \bullet  \qquad  $\\
+	 \[
+	 J = J_1 \left( \lambda \right) \oplus J_1 \left( \lambda \right) \oplus J_1 \left( \lambda \right) = \begin{bmatrix}
+	 \lambda & 0 & 0\\
+	 0 & \lambda & 0\\
+	 0 & 0 & \lambda\\
+	 \end{bmatrix}
+	 .\] 
+ \item $ dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) =2 $ 
+    \[
+\begin{array}{@{}l@{\;}c@{\;}c@{\quad}l@{}}
+W_1: &
+% --- stacked bullets (Jordan chain) -----------------------------------
+\begin{tikzpicture}[baseline=(top)]
+  \node (top) at (0,0)    {$\bullet$};
+  \node (bot) at (0,-1.2) {$\bullet$};
+  \draw (top) -- (bot);
+\end{tikzpicture}
+& \bullet & 2\ \text{lin.\ ind.\ eigenvectors} \\[1.8em]
+W_2: & & & \Rightarrow\; 2\ \text{Jordan chains}
+\end{array}
+\]
+
+
+
+
+
+
+                         
+	 \[
+		 \left[
+	 J = J_2 \left( \lambda \right) \oplus J_1 \left( \lambda \right) = 
+\begin{array}{cc:c}   % “:” = dashed vertical line
+\lambda & 1       & 0\\
+0       & \lambda & 0\\ \hdashline   % dashed horizontal line
+0       & 0       & \lambda
+\end{array}
+\right]
+\]             
+
+ \item $ dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) =1 $
+	 \\          
+              \[
+\begin{array}{@{}l@{\;}c@{\qquad}l@{}}
+W_1: &
+% first bullet + down–segment
+\begin{tikzpicture}[baseline=(b1)]
+  \node (b1) at (0,0) {$\bullet$};
+  \draw (b1) -- ++(0,-1.2);   % down to the next bullet
+\end{tikzpicture}
+& 1\ \text{lin.\ ind.\ eigenvectors}\\[1.2em]
+%
+W_2: &
+% second bullet + down–segment
+\begin{tikzpicture}[baseline=(b2)]
+  \node (b2) at (0,0) {$\bullet$};
+  \draw (b2) -- ++(0,-1.2);   % down to the next bullet
+\end{tikzpicture}
+& 1\ \text{Jordan chain}\\[1.2em]
+%
+W_3: & $\bullet$ &
+\end{array}
+\]
+   \\
+ 
+
+                     
+	 \[
+	 J = J_3 \left( \lambda \right) = \begin{bmatrix}
+	 \lambda & 1 & 0\\
+	 0 & \lambda & 1\\
+	 0 & 0 & \lambda\\
+	 \end{bmatrix}
+.\]  
+ \end{enumerate}     
+      
+  \ex{}{
+	  \textit{Find the JNF of $ A = \begin{bmatrix}
+	  4 & 1\\
+	  -4 & 0\\
+	  \end{bmatrix}$} 
+	  \[
+	  \text{ det } \left( A - \lambda I \right) = \left( 4- \lambda \right) \left( - \lambda \right) +4 = \lambda ^2 -4 \lambda +4 = \left( \lambda -2 \right) ^2
+	  .\] 
+	  $ \lambda =2$ is the only eigenvalue, algebraic multiplicity 2.
+	  \[
+	  \mathcal{N} \left( A - 2I \right) = \left[
+	  \begin{array}{cc;{2pt/2pt}c}  
+	  2 & 1 & 0\\
+	  -4 & -2 & 0\\
+	  \end{array}
+	  \right]
+	  .\]    
+	  \[
+	  dim \left( \mathcal{N} \left( A - 2 I \right)  \right) =1 = \text{ geometric multiplicity of } \lambda =2
+  \]
+	  \[
+	    \implies J = \begin{bmatrix}
+	    2 & 1\\
+	    0 & 2\\
+	    \end{bmatrix}
+	  .\] 
+  }                  
+                 
+  \ex{}{
+	  \textit{Find the JNF of} $ A = \begin{bmatrix}
+  1 & 0 & 1\\
+  0 & 2 & 0\\
+  0 & 0 & 2\\
+  \end{bmatrix}$ 
+  \[
+  \chi _A \left( \lambda \right) =  \left( \lambda -1  \right) \left(  \lambda -2  \right) ^2 
+  .\]                           
+                 
+     \[
+\begin{array}{l@{\qquad}cc}
+      & \text{alg.\ mult} & \text{geom.\ mult}\\[4pt]
+\lambda = 1 & 1 & 1\\
+\lambda = 2 & 2 & 2
+\end{array}
+\]
+
+
+                 
+                 
+
+  \[
+  \mathcal{N} \left( A - 1 I \right = \left[
+  \begin{array}{ccc;{2pt/2pt}c}  
+  -1 & 0 & 1 & 0\\
+  0 & 0 & 0 & 0\\
+  0 &  0& 0 & 0\\
+  \end{array}
+  \right]         \implies dim \left( \mathcal{N} \left( A - 2I \right)  \right) =2 \qquad  \mathcal{N}_1 :\; \bullet   \; \bullet  
+  .\] 
+
+                                 
+                 
+  \[
+  \implies J = \begin{bmatrix}
+  1 & 0 & 0\\
+  0 & 2 & 1\\
+  0 & 0 & 2\\
+  \end{bmatrix}
+  .\] 
+  }
+                 
+  \ex{}{
+	    \textit{Find the JNF of} $ A =  \begin{bmatrix}
+	    -2 & -7 & 6\\
+	    1 & 4 & -2\\
+	    0 & 1 & 1\\
+	    \end{bmatrix}$
+	    \begin{align*}
+		    \chi _A \left( \lambda \right) = \left( -2-\lambda \right) \left[ \left( 4 - \lambda \right) \left( 1-\lambda \right) +2  \right] -1 \left[ -7 \left( 1-\lambda \right) -6 \right] &=0\\
+		    \left( -2- \lambda \right) \left( 4 -5\lambda + \lambda ^2 +2 \right) -1 \left( -7 + 7\lambda -6 \right) &=0\\
+		    -1 \left( 2+ \lambda \right) \left( \lambda ^2 -5 \lambda +6  \right) +13 - 7 \lambda &=0\\
+		    -1 \left( \lambda ^3 - 3 \lambda^2 - 4 \lambda + 12 \right) +13 -7 \lambda &=0\\
+		    - \lambda ^3 + 3 \lambda ^2 - 3 \lambda + 1 &=0\\
+		    - \left( \lambda -1 \right) ^3 &=0\\
+		    \lambda =1 \text{ only eigenvalue, algebraic multiplicity 3}
+	    .\end{align*}
+	    \[
+	    \mathcal{N} \left( A - I \right) = \left[
+	    \begin{array}{ccc;{2pt/2pt}c}  
+	    -3 & -7 & 6 & 0\\
+	    1 & 3 & -2 & 0\\
+	    0 & 1 & 0 & 0\\
+	    \end{array}
+	    \right]        \to \left[
+	    \begin{array}{ccc;{2pt/2pt}c}  
+	    1 & 3 & -2 & 0\\
+	    0 & -1 & 0 & 0\\
+	    0 & 0 & 0 & 0\\
+	    \end{array}
+	    \right]
+	    .\] 
+	    \[
+		    dim \left( \mathcal{N} \left( A - I \right)  \right) =1 = \text{ geometric multiplicity} \implies 1 \text{ linearly independent eigenvector} 
+	    .\] 
+               \[
+\begin{array}{@{}l@{\;}c@{\qquad}l@{}}
+\mathcal N_{1}: &
+% ── top bullet + long vertical bar ──────────────────────────────
+\begin{tikzpicture}[baseline=(top)]
+  \node (top) at (0,0)    {$\bullet$};
+  \node (mid) at (0,-1.2) {$\bullet$};
+  \node (bot) at (0,-2.4) {$\bullet$};
+  \draw[thick] (top)--(bot);
+\end{tikzpicture}
+&\; 1\ \text{Jordan chain}\\[2.4em]  % row-spacing so the mid/bot bullets
+                                     % land on the next two lines
+\mathcal N_{2}: & &\\[1.2em]
+\mathcal N_{3}: & &
+\end{array}
+\]
+
+
+	    \[
+	    \implies J = \begin{bmatrix}
+	    1 & 1 & 0\\
+	    0 & 1 & 1\\
+	    0 & 0 & 1\\
+	    \end{bmatrix}
+	    .\] 
+  }
+  
+    \ex{}{
+    \textit{ Find the JNF of} $ A = \begin{bmatrix}
+    2 & 1 & 1\\
+    0 & 3 & 1\\
+    0 & 0 & 3\\
+    \end{bmatrix} $
+
+
+
+
+
+    \[
+    \mathcal{N} \left( A - 3 I \right) : \begin{bmatrix}
+    -1 & 1 & 1\\
+    0 & 0 & 1\\
+    0 & 0 & 0\\
+    \end{bmatrix} \qquad  dim \left( \mathcal{N} \left( A - 3 I \right)  \right) =1
+    .\] 
+    \[
+    J = \begin{bmatrix}
+    2 & 0 & 0\\
+    0 & 3 & 1\\
+    0 & 0 & 3\\
+    \end{bmatrix}
+    .\] 
+    }
+    \thm{Similar of matrices} 
+    {
+       Suppose $ A$ and $ C$ are similar $ n \times  n$ matrices ( i.e. $ \exists  B $ such taht $ C = B^{-1} A B$). \\
+       $ A$ and $ C$ have the same:
+       \begin{enumerate}[label=(\arabic*).]  
+       \item Nullity
+       \item Rank
+       \item Determinant
+	       \item  Trace
+	       \item Characteristic polynomial
+	       \item Eigenvalues 
+		Also if $ A$ and $ C$ are similar, then $ \left( A - \lambda I  \right)^{k} $ and $ \left( C - \lambda I \right) ^{k} $ are similar $ \forall  k$
+       \end{enumerate}
+       
+    }
+    \pf{Proof:}{
+      \begin{enumerate}[label=(\arabic*).]  
+	      \item Suppose $ \left\{ \vec{ v_1} ,\vec{ v_2} ,\ldots \vec{ v} \right\} $ forms a basis for $ \mathcal{N} \left( A \right)$. \\
+		      A vector $ \vec{ v} $ lies in $ \mathcal{N} \left( C \right) \iff C \vec{ v} = B ^{-1} A B \vec{ v} = \vec{ 0}$
+		      \begin{align*}
+		      	\iff A B \vec{ v} &= \vec{ 0}\\
+			\iff A \left( B \vec{ v}  \right) = \vec{ 0} \\
+			\text{ i.e. } B \vec{ v} \in \mathcal{N} \left( A \right) 
+		      .\end{align*}
+		      $ \implies \exists  $ scalars $ c_1, c_2, \ldots , c_k$ such that $ B \vec{ v} = \sum\limits_{i=1}^{k} c_i \vec{ v_i}$.\\
+		      \[
+		      \implies \vec{ v} = \sum\limits_{i=1}^{k} c_i B^{-1} \left( \vec{ v} _i \right) 
+		      .\] 
+		      \[
+			      \implies \left\{ B ^{-1} \left( \vec{ v} _1 \right), B ^{-1\left( \vec{ v} _2 \right), \ldots , B ^{-1\left( \vec{ v_2}  \right) } \right\}  \text{ spans } \mathcal{N} \left( C \right)
+		      .\] 
+		      Next we wish to show that this set is linearly independent. Suppose $ \exists  \alpha _1 \alpha_2 , \ldots , \alpha_k$ such that
+		      
+      \end{enumerate}
+      
+    }
+ XXX FIX AND FINISH W_{16}   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}            
