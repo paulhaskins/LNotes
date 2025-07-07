@@ -1,0 +1,833 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+\section{Jordan Blocks}
+\thm{}
+{
+Suppose $ J = J _k \left( \lambda \right) = \begin{bmatrix}
+  \lambda & 1       & 0       & \cdots & 0 \\[2pt]
+  0       & \lambda & 1       & \ddots & \vdots \\[2pt]
+  \vdots  & 0       & \lambda & \ddots & 0 \\[2pt]
+  \vdots  &         & \ddots  & \ddots & 1 \\[2pt]
+  0       & \cdots  & 0       & 0      & \lambda
+\end{bmatrix}$ \\
+Then 
+\begin{enumerate}[label=(\arabic*).]  
+\item $ J$ has one eigenvalue and one linearly independent eigenvector
+\item  $ \left( J - \lambda I \right) ^{ i}$ has ones $ i$ steps above the main diagonal in the $ i+1 ,i+2,\ldots, k$  columns and zeros elsewhere, $ \forall 1 \leq 1 \leq k-1$ $ \left( J - \lambda I \right) ^{l} $ is the zero matrix $ \forall  l \ge k$ 
+\item $ \mathcal{N} \left( J - \lambda I \right) ^{i} = span \left\{ \vec{ e}_1, \vec{ e_2} , \ldots , \vec{ e_i}  \right\} $ 
+	for each $ i $, $ 1 \leq i \leq k$ (where $ \vec{ e_i} =$ $i^{\text{th}}$ standard basis vectorin $ \mathbb{C} ^{k}$ )
+\end{enumerate}
+\pf{Proof:}{
+(3)\\
+In $ \left( J - \lambda I \right) ^{i}$ the first $ i$ columns consists of zeros, all other columns contain one $ 1$ ( pivot entry)\\
+$ \implies x_1, \ldots x_i$ are free variables and $ \left\{ \vec{ e_1} , \ldots , \vec{ e_i}  \right\} $  span $ \mathcal{N} \left(  J - \lambda I  \right) ^{i}$.\\
+Clearly this set is linearly independent, $ \implies \left\{ \vec{ e_1} , \ldots , \vec{ e_i }  \right\} $ forms a basis for $ \mathcal{N} \left(  J - \lambda I  \right) ^{i}$.\\
+
+}
+
+
+}
+ \underline{Total Number of Jordan Blocks:} \\
+ Let $ J$ be the Jordan form of an  $n \times n$  matrix $ A$.\\
+ \[
+ dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) = dim \left( \mathcal{N} \left( J - \lambda I \right)  \right) \text{ (by similarity)}
+ \] 
+ which is equal to the number of linearly independent eigenvectors corresponding to $ \lambda$, the number of Jordan chains corresponding to $ \lambda$ and the number of Jordan blocks corresponding to $ \lambda$.\\
+ \\
+ \underline{Number of blocks of size $ \ge i$ :} \\
+ Consider the difference $ dim \left( \mathcal{N} \left( A - \lambda I \right) ^{i} \right) - dim \left( \mathcal{N} \left( A - \lambda I \right) ^{i-1} \right) $. By similarity this equals $ dim \left( \mathcal{N} \left( J -  \lambda I \right)^{i}  \right) - dim \left( \mathcal{N} \left( J - \lambda I  \right)^{i-1}  \right)  $.\\
+ A block of size $ j \times  j$ where $ j \le i-1$ contributes one to this difference. Thus the number of blocks of size $ j \times  j$ where $ j \ge i$ is equal to  $ dim \left( \mathcal{N} \left( A - \lambda I \right) ^{i} \right) - dim \left( \mathcal{N} \left( A - \lambda I \right) ^{ i -1} \right) $
+
+\\
+\thm{}
+{
+Two matrices $ A_1$ and $ A_2$ are similar if and only if they have the same Jordan form up to a permutation of the Jordan blocks.\\
+}
+\pf{Proof:}{
+ $ \impliedby$ \\
+ Suppose $ A_1$ and $ A_2$ have the same Jordan Normal Form. Then $ \exists  B_1, B_2$ such that 
+ \[
+ B_1 ^{-1} A_1 B_1 = J \qquad  \text{ and }  \qquad B_2 ^{-1} A_2 B_2 = J
+ .\] 
+ \[
+  \text{ i.e. } B_1^{-1} A_1 B_1 = B_2 ^{-1} A_2 B_2 \qquad  \implies B_2 B_1 ^{-1} A_1 B_1  B_2 ^{-1} = A_2
+ .\] 
+ \[
+ \left( B_1 B_2 ^{-1} \right) ^{-1} A_1 B_1 B_2 ^{-1} = A_2 \qquad \implies A_1 \text{ and } A_2 \text{ are similar.}
+ .\] \\
+ \\
+ \\
+ $ \implies$ \\
+ \textit{Want to show that if $ A_1$ and $ A_2$ have the same eigenvalues and for each eigenvalue $ \lambda$, that the number of Jordan blocks associated with $ \lambda$ are equal and that the number of blocks of a particular size is equal.}\\
+ Conversly, if $ A_1$ and $ A_2$ are similar, matrices then $ \left( A_1 - \lambda I  \right) ^{i} $ and $ \left( A_2 - \lambda I \right) ^{i}$ are similar $ \forall  \lambda , i$.
+ \[
+ \implies dim \left( \mathcal{N} \left( A_1 - \lambda I \right) ^{i} \right) = dim \left( \mathcal{N} \left( A_2 - \lambda I \right) ^{i} \right)
+ .\]
+  \[
+  \implies dim \left( \mathcal{N} \left( A_1 - \lambda I \right)  \right)   = dim \left( \mathcal{N} \left( A_2- \lambda I \right)  \right) = \text{ the number of Jordan blocks corresponding to } \lambda
+  .\] 
+   and $ dim \left( \mathcal{N} \left( A_1 - \lambda I \right) ^{i} \right) - dim \left(  \mathcal{N} \left( A_1 - \lambda I \right) ^{i-1} \right) = dim \left( \mathcal{N} \left( A_2 - \lambda I \right) ^{i} \right) - dim \left( \mathcal{N} \left( A_2 - \lambda I \right) ^{i-1} \right) $ \\
+   $ \implies A_1$ and $ A_2$ have the same number of Jordan blocks of size $ j \times j$ for each $ j \ge i$.\\
+   $ \implies$ the Jordan Normal Forms of $ A_1$ and $ A_2$ are the same up to a permutation of the Jordan blocks.\\
+}
+\underline{Multiplying Matrices with square blcoks along the diagonal:}\\
+\[
+\text{ Suppose } A = \begin{bmatrix}
+B & 0\\
+0 & C\\
+\end{bmatrix} \qquad  \text{ and} \qquad  D = \begin{bmatrix}
+E & 0\\
+0 & F\\
+\end{bmatrix}
+.\]  where $ B$ and $ E$ are $ k \times  k$ matrices and $ C$ and $ F$ are $ m \times  m$ matrices and the zeros are appropriately sized.\\
+\[
+AD = \begin{bmatrix}
+BE & 0\\
+0 & CF\\
+\end{bmatrix}
+.\] 
+             \section{Powers of a Matrix}
+ Suppose $ A$ is an $ n \times n$ matrix and $ J$ is its Jordan normal form, $ A = B ^{-1}J B$.\\
+ We know $ A ^{n}= B ^{-1}J ^{n}B$.\\
+ Hence to find $ A ^{n}$ we need to find $ J ^{n}$.\\
+ Suppose $ J = \begin{bmatrix}
+ J_1 & 0\\
+ 0 & J_2\\
+ \end{bmatrix}$ where $ J_1$ and $ J_2$ are Jordan blocks.\\
+ Using the result above it can be shown by induction that 
+ \[
+ J ^{n}= \begin{bmatrix}
+ J_1 ^{n} & 0\\
+ 0 & J_2 ^{n}\\
+ \end{bmatrix}
+ .\] 
+ Similarly, by induction it can be shown that
+ \[
+  \left[
+\begin{array}{cccc}
+J_{1} &        &        & 0 \\[2pt]
+      & J_{2}  & \ddots &   \\[-2pt]
+      &        & \ddots &   \\[2pt]
+ 0    &        &        & J_{k}
+\end{array}
+\right]^{\!n}
+\;=\;
+\left[
+\begin{array}{cccc}
+J_{1}^{\,n} &          &         & 0 \\[2pt]
+            & J_{2}^{\,n} & \ddots  &   \\[-2pt]
+            &            & \ddots  &   \\[2pt]
+ 0          &            &         & J_{k}^{\,n}
+\end{array}
+\right].
+ .\] 
+ It remains to compute $ \left( J_i \right) ^{n}$  for a Jordan block $ J_i$.\\
+ Suppose $ J_i $ is and $ l \times  l$ Jordan block,
+   \[
+J_i(\lambda)=
+\begin{bmatrix}
+ \lambda & 1       & 0       & \cdots & 0 \\[2pt]
+ 0       & \lambda & 1       & \ddots & \vdots \\[2pt]
+ \vdots  & 0       & \lambda & \ddots & 0 \\[2pt]
+ \vdots  &         & \ddots  & \ddots & 1 \\[2pt]
+ 0       & \cdots  & 0       & 0      & \lambda
+\end{bmatrix}
+\]
+
+
+
+ if $ \lambda -0$ then $ \left( J_i \right) ^{n}$ is and $ l \times  l$ matrix with ones $ n$ steps above the diagonal and zeros elsewhere, for $ n \leq l -1$. If $ n \ge l$ then $ \left( J_i \right) ^{n}$ is the zero matrix.\\
+ If $ \lambda \neq 0 $ we use the fact that for matrices that commute $ \left( AB = BA \right) $
+ \[
+ \left( A+B \right) ^{n} = \sum_{k=0}^{n} \binom{n}{k} A^{n-k} B^{k}
+ .\] 
+ \[
+ \implies J^{n} = \left( J - \lambda I + \lambda I \right) ^{n} = \sum_{k=0}^{n} \binom{n}{k} \left( J - \lambda I \right) ^{n-k} \left( \lambda I \right) ^{k}
+ .\] 
+ \textbf{Note:} $ \left( J - \lambda I \right) $ and $ \left( \lambda I \right) $ commute since $ \left( J - \lambda I \right) \left( \lambda I \right) = \lambda \left( J - \lambda I  \right) \left( I \right) = \lambda \left( I \right) \left( J - \lambda I  \right) = \left( \lambda I \right) \left( J- \lambda I \right) $ \\
+ \\
+ Now, $ \left( J -  \lambda I \right)^{k} $ is the $ l \times  l$ matrix with ones $ k$ steps above the diagonal and zeros elsewhere,
+ \[
+ \left( \lambda I \right) ^{ n-k} = \begin{bmatrix}
+ \lambda ^{n-k} & 0 & 0 & \dots  & 0 \\
+ 0 & \lambda ^{n-k} & 0 & \dots  & 0 \\
+ \vdots & \vdots & \vdots & \ddots & \vdots \\
+ 0 & 0 & 0 & \dots  &  \lambda ^{n-k}\end{bmatrix}    = \lambda ^{n-k} I
+ .\] 
+ \[
+ \implies J ^{n} = \sum_{k=0}^{n} \binom{n}{k} \left( J - \lambda I \right) ^{k} \lambda ^{n-k} I
+ .\] 
+ \[
+ J ^{n} =  \sum_{k=0}^{n} \binom{n}{k} \lambda ^{n-k} \left( J - \lambda I \right) ^{k} 
+ .\] 
+ Hence, $ J ^{n}= \lambda ^{n} I + \binom{n}{1} \lambda ^{ n-1} \left( J - \lambda I \right) + \binom{n}{2} \lambda ^{ n-2} \left( J - \lambda I \right) ^2 + \ldots + \binom{n}{k} \lambda ^{n-k} \left( J - \lambda I \right) ^{k}+ \ldots + \binom{n}{n} \left( J - \lambda I \right) ^{n} \qquad $.   $ \left( J - \lambda I \right) ^{k }=0$ if $ k \ge l$ \\
+  \[
+J^{n}=%
+\begin{pmatrix}
+\lambda^{n} & \binom{n}{1}\lambda^{\,n-1} & \binom{n}{2}\lambda^{\,n-2} & \cdots & \binom{n}{\ell-1}\lambda^{\,n-(\ell-1)}\\[4pt]
+0          & \lambda^{n}                  & \binom{n}{1}\lambda^{\,n-1} & \ddots & \vdots\\[4pt]
+0          & 0                           & \lambda^{n}                  & \ddots & \binom{n}{2}\lambda^{\,n-2}\\[4pt]
+\vdots     & \vdots                      & \ddots                       & \ddots & \binom{n}{1}\lambda^{\,n-1}\\[4pt]
+0          & 0                           & \cdots                       & 0      & \lambda^{n}
+\end{pmatrix}
+\]
+\[
+\implies J ^{n} \text{ has } \lambda ^{n } \text{ on the main diagonal, } 
+.\] 
+\[
+\text{ } \binom{n}{1} \lambda ^{ n-1} \text{ one step above the main diagonal, } 
+.\] 
+\[
+\binom{n}{2} \lambda ^{ n-2} \text{ two steps above the main diagonal, }
+.\] 
+and so on,
+ \[
+\binom{n}{k} \lambda ^{ n-k} \text{ $ k$ steps above the main diagonal, } \forall 1 \leq k \leq l-1
+ .\] 
+ \ex{}{
+ \[
+ \begin{bmatrix}
+ \lambda & 1 & 0\\
+ 0 & \lambda & 1\\
+ 0 & 0 & \lambda\\
+ \end{bmatrix} ^{4}  = \begin{bmatrix}
+ \lambda ^{4} & 4 \lambda ^3 & 6 \lambda^2\\
+ 0 & \lambda^{4} & 4 \lambda ^3\\
+ 0 & 0 & \lambda ^{4}\\
+ \end{bmatrix}
+ .\] 
+ }
+ \ex{}{
+  \[
+\left(
+\begin{array}{cc|cc|c}
+2 & 1 & 0 & 0 & 0 \\[4pt]
+0 & 2 & 0 & 0 & 0 \\ \hline
+0 & 0 & 3 & 1 & 0 \\[4pt]
+0 & 0 & 0 & 3 & 0 \\ \hline
+0 & 0 & 0 & 0 & 4
+\end{array}
+\right)^{n}
+\;=\;
+\left(
+\begin{array}{cc|cc|c}
+2^{n} & n\,2^{\,n-1} & 0 & 0 & 0 \\[4pt]
+0 & 2^{n} & 0 & 0 & 0 \\ \hline
+0 & 0 & 3^{n} & n\,3^{\,n-1} & 0 \\[4pt]
+0 & 0 & 0 & 3^{n} & 0 \\ \hline
+0 & 0 & 0 & 0 & 4^{n}
+\end{array}
+\right).
+\]
+
+ }
+ 
+   \ex{}{
+   Let $ A = \begin{bmatrix}
+   8 & -9\\
+   4 & -4\\
+   \end{bmatrix}$, \textit{Find } $ A ^{n}$ \\
+   \begin{align*}
+    \chi_A \left( \lambda \right) = \left( 8 - \lambda \right) \left(  -4 -\lambda \right) +36 &=0\\
+    \lambda ^2 - 4 \lambda - 4 &= 0\\
+    \left( \lambda - 2 \right) ^2 &= 0\\
+    \lambda &= 2 \text{ is the only eigenvalue.}\\
+   .\end{align*}
+   \[
+   \mathcal{N} \left( A - 2 I \right) : \left[
+   \begin{array}{cc;{2pt/2pt}c}  
+     6 & -9 & 0\\
+     4 & -6 & 0\\
+   \end{array}
+   \right] \to \left[
+   \begin{array}{cc;{2pt/2pt}c}  
+     2 & -3 & 0\\
+     0 & 0 & 0\\
+   \end{array}
+   \right]
+   .\] 
+   \[
+    dim \left( \mathcal{N} \left( A - 2I \right)  \right) =1    \qquad  \begin{aligned}
+\mathcal{N}_{1}:&
+\;
+\begin{array}{c}
+\bullet\\[-0.25em]
+|\\[-0.25em]
+\bullet
+\end{array}
+\quad
+\text{1 Jordan chain}\\[1em]
+\mathcal{N}_{2}:&\;
+\end{aligned}
+XXX FIX
+   .\] 
+   $ \implies$ Jordan Normal Form of $ A = \begin{bmatrix}
+   2 & 1\\
+   0 & 2\\
+   \end{bmatrix}$\\
+   Jordan basis : $ \mathcal{N} \left(  A - 2I \right) ^2 = \mathbb{R} ^2$.\\
+   Let $ \vec{ v_2} = \begin{bmatrix}
+   1\\
+   0\\
+   \end{bmatrix}
+    $, $ \vec{ v_1} = \left( A - \lambda I \right) \vec{ v_2} = \begin{bmatrix}
+    6\\
+    4\\
+    \end{bmatrix}
+     $             \\
+     Let $ \mathcal{B} = \left\{ \begin{bmatrix}
+     6\\
+     4\\
+     \end{bmatrix}
+     , \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}
+      \right\} $ \\
+      \[
+      XXX
+      .\] 
+      \[
+         \begin{bmatrix}
+         8 & -9\\
+         4 & -4\\
+         \end{bmatrix}= \begin{bmatrix}
+         6 & 1\\
+         4 & 0\\
+         \end{bmatrix} \begin{bmatrix}
+         2 & 1\\
+         0 & 2\\
+         \end{bmatrix} \begin{bmatrix}
+         0 & -1\\
+         -4 & 6\\
+         \end{bmatrix} \left( - \frac{1}{4} \right) 
+      .\] 
+      \[
+      \implies A ^{n} = \begin{bmatrix}
+      6 & 1\\
+      4 & 0\\
+      \end{bmatrix} \begin{bmatrix}
+      2^{n} & n 2 ^{n-1}\\
+      0 & 2 ^{n}\\
+      \end{bmatrix} \begin{bmatrix}
+      0 & -1\\
+      -4 & 6\\
+      \end{bmatrix} \left( - \frac{1}{4} \right) 
+      .\] 
+      \[
+      A ^{n} =  \begin{bmatrix}
+      6 \left( 2 ^{n} \right)  & 6 \left(  n 2 ^{n-1} \right) + 2 ^{n}\\
+       4 \left( 2 ^{n} \right) & 4 \left( n 2 ^{n-1} \right) \\
+      \end{bmatrix}       \begin{bmatrix}
+      0 & -1\\
+      -4 & 6\\
+      \end{bmatrix}
+      .\] 
+      \[
+      A ^{n} = \begin{bmatrix}
+      -24 \left( n 2 ^{n-1} \right) -4 \left( 2^{n} \right)  & 36 \left( n 2 ^{n-1} \right) \\
+       -16 \left( n 2 ^{n-1} \right) & -4 \left( 2^{n} \right) + 24 \left( n 2 ^{n-1} \right) \\
+      \end{bmatrix}
+      .\] 
+   }
+   \section{Matrices and Polynomials}
+ Suppose $ A$, $ C$ are similar $n \times n$  matrices. Hence $ \exists $ an invertible $n \times n$  matric $ B$ such that $ C = B ^{-1} A B$.\\
+ \\
+ \[
+  \text{ Suppose }       f\left( x \right) = \sum\limits_{k=0}^{n} c_k x ^{k} \qquad  c_k \in \mathbb{C}
+  
+ .\] 
+ \underline{Fact 1:} \\
+ \[
+ f \left( A \right) =0 \iff f \left(  C \right) =0
+ .\] 
+     \pf{Proof:}{
+      \begin{align*}
+       f \left( C \right) &= \sum\limits_{k=0}^{n} c_k C^{k}\\
+       &= \sum\limits_{k=0}^{n} c_k \left( B ^{-1}A B  \right) ^{k}\\
+       &= \sum\limits_{k=0}^{n} c_k \left( B ^{-1}A^{k}B \right) \\
+       &= B^{-1} \left( \sum\limits_{k=0}^{n} c_k A ^{k}
+        \right) B\\
+        &= B ^{-1} f \left( A \right) B\\
+        &=0
+      .\end{align*}
+     }
+ \underline{Fact 2:} \\
+ If $ f \left( A \right) =0$ then $ f \left( \lambda \right) =0$ $ \forall $ eigenvalues $ \lambda$ of $ A$.\\
+ \pf{Proof:}{
+ Suppose $ \vec{ v} $ is an eigenvector corresponding to the eigenvalue $ \lambda$.\\
+ \begin{align*}
+  0 \vec{ v} &= f \left( A \right)  \vec{ v} = \left(  \sum\limits_{k=0}^{n} c_k A ^{k}
+   \right) \vec{ v}\\
+   \vec{ 0} &= c_0 \vec{ v} +c_1 A \vec{ v} + c_2 A^2 \vec{ v} + \ldots + c_n A ^{n}\vec{ v}\\
+   \vec{ 0} &= \left( c_0 +c_1 \lambda + c_2 \lambda^2 + \ldots + c_n \lambda^{n} \right) \vec{ v} \\
+   \vec{ 0 } &= f \left( \lambda \right) \vec{ v} 
+ .\end{align*}
+ Since $ \vec{ v}  \neq \vec{ 0}  \implies f \left( \lambda \right) =0$.
+ }
+ \thm{Cayley Hamilton Theorem}
+ {
+ Suppose $ A$ is an $n \times n$  matrix, and $ \chi _a \left( x \right) = \text{ det } \left( A - x I \right) $ is the charactersistic polynomial of $ A$. $ \chi _a \left( A \right) =0$.\\
+
+ }
+ 
+  \pf{Proof:}{
+   We will first show this to be true where $ A$ is a direct sum of Jordan blocks,\\
+   \underline{Case 1:} \\
+   \[
+   A = \begin{bmatrix}
+       J_1 & 0 & 0 & \dots  & 0 \\
+       0 & J_2 & 0 & \dots  & 0 \\
+       \vdots & \vdots & \vdots & \ddots & \vdots \\
+       0 & 0 & 0 & \dots  & J_m\end{bmatrix}
+   .\] 
+   Proof using induction on $ m$ :\\
+     $ m =1$ \\
+     If    \[
+A \;=\; J_{k}(\lambda)\;=\;
+\begin{pmatrix}
+\lambda & 1       &        &        & 0\\
+        & \lambda & \ddots &        &  \\
+        &         & \ddots & 1      &  \\
+        &         &        & \lambda & 1\\
+0       &         &        &        & \lambda
+\end{pmatrix}
+\]
+
+
+
+
+     then $ \chi _A \left( x\right)= \left(  \lambda - x  \right) ^{k}= \left( -1 \right) ^{k} \left( x - \lambda \right) ^{k}$.\\
+     We know that $ \left( A - \lambda I \right) ^{k}=0$
+     $ \implies \chi _A \left( A \right) = \left( -1 \right) ^{k} \left( A - \lambda I \right) ^{k}=  0 $.\\
+     $ \implies A$ satisfies its characteristic polynomial.\\
+     Assume statmenet true for $ m-1$ and
+     \[
+     \text{ let } A = \begin{bmatrix}
+       J_1 & 0 & 0 & \dots  & 0 \\
+       0 & J_2 & 0 & \dots  & 0 \\
+       \vdots & \vdots & \vdots & \ddots & \vdots \\
+       0 & 0 & 0 & \dots  & J_m\end{bmatrix}     
+     .\] 
+     \[
+     \chi _A \left( x \right) = \text{ det } \begin{bmatrix}
+       J_1- xI & 0 & 0 & \dots  & 0 \\
+       0 & J_2-xI & 0 & \dots  & 0 \\
+       \vdots & \vdots & \vdots & \ddots & \vdots \\
+       0 & 0 & 0 & \dots  & J_m- xI\end{bmatrix}     
+     .\] 
+
+        \[
+\det\!\Bigl(
+\underbrace{%
+\begin{pmatrix}
+\begin{array}{c|c|c}
+J_{1}-xI & 0 & 0 \\ \hline
+0        & J_{m-1}-xI & 0 \\ \hline
+0        & I          & 0
+\end{array}
+\end{pmatrix}}_{\displaystyle M}\;
+\underbrace{%
+\begin{pmatrix}
+\begin{array}{c|c|c}
+0 & I & 0 \\ \hline
+0 & 0 & 0 \\ \hline
+0 & 0 & J_{n}-xI
+\end{array}
+\end{pmatrix}}_{\displaystyle N}
+\Bigr)
+\]
+ XXX\\
+
+
+
+
+     where $ B$ is the square matrix with $ m-1$ Jordan blocks along the diagonal.\\
+     By induction $ \chi _B \left( B \right) =0$
+     \[
+     \chi _A \left( A \right) = \sum c_k A^{k}= \sum  c_k  \left(
+\begin{array}{c|c}
+\begin{array}{cccc}
+J_{1} &        &        &        \\[4pt]
+J_{2} & \ddots &        &        \\[4pt]
+      & \ddots & \ddots &        \\[4pt]
+      &        & J_{m-1}&
+\end{array}
+& 0 \\ \hline
+0 & J_{m}
+\end{array}
+\right)^{\,k}
+     .\] 
+     XXX\\
+        XXXXXX\\
+
+        $ \chi _B \left( B \right) =0$ by assumption and $ \chi _{J_m} \left( J_m \right) =0$ from $ m =1$.\\
+        $ \implies \chi _A \left( A \right) =0$     \
+        \\
+        \\
+        \\
+     \underline{Case 2:} \\
+     Suppose $ A \in M_{n \times  n} \left( \mathbb{C} \right) $ and $ J$ is the Jordan Normal Form of $ A$.\\
+     The by above, $ \chi _J \left( J \right) =0$. But, since $ A$ is simliar to $ J$
+     \[
+     \chi _A \left( \lambda \right) = \chi _J \left( \lambda \right) 
+     .\] 
+     $ \implies \chi _A \left( J \right) =0$ and by fact 1 above,\\
+     \[
+     \chi _A \left( A \right) =0
+     .\] 
+     i.e. $ A$ satisfies its own characteristic Polynomial.
+  }
+  \dfn{ :}{
+  Suppose $ A \in M _{ n \times  n} \left( \mathbb{C} \right) $ . We define the minimal polynomial of $ A$, $ m \left( x \right) $ to be the monic polynomial of least degree satisfied by $ A$.\\
+  (a monic polynomial is a polynomial in which the coefficient of the highest power of $ x$ is $ 1$).\\
+  \textit{We already know that $ A$ satisifies some polynomial, $ \chi _A \left( x \right) $. The minimal polynomial could be equal to the characteristic polynomial or it could have lower degree}\\
+  
+  }
+  \underline{Fact 1:}\\
+  The minimal polynomial, $m \left( x \right) $ of an $n \times n$  matrix $ A$ divides $ \chi _A \left( x \right) $, and $ m \left( \lambda_i \right) =0 $ $ \forall $ eigenvalues $ \lambda_i$ of $ A$.\\
+  \\
+  \pf{Proof:}{
+    We know $ \chi _A \left( A \right) =0$ and $ m \left( A \right) =0$.\\
+    Dividing $ \chi _A \left( x \right) $ by $ m\left( x \right) $ we get: 
+    \[
+    \chi _A \left( x \right) = m \left( x \right) q \left( x \right) + r \left( x \right) \qquad \qquad \star
+    .\]         where $ r \left( x \right) $ is the remainder.\\
+    Either $ r \left( x \right) =0$ or $ deg \left( r \left( x \right)  \right) < deg \left( m \left( x \right)  \right) $.\\
+    Evaluating $ \star$ at $ x = A$ we get:
+    \[
+    \chi _A = m \left( A \right) q \left( A \right) + r \left( A \right) 
+    .\] 
+    i.e.  $ 0 = r \left( A \right) $ \\
+    $ \implies m \left( x \right) $ divides $ \chi _a \left( x \right) $ .\\
+    \\
+    \\
+    For the second part, suppose $ \lambda$ is an eigenvalue of $ A$ with eigenvector $ \vec{ v} $.
+    \begin{align*}
+     A \vec{ v} &= \lambda \vec{ v}\\
+     \implies A ^{ k} \vec{ v} &= \lambda ^{k} \vec{ v} \\
+     \implies m \left( A \right) \vec{ v} &= m \left( \lambda \right) \vec{ v}\\
+     \vec{ 0} &= m \left( \lambda \right) \vec{ v}\\
+     \implies m \left( \lambda \right) &= 0 \text{ since } \vec{ v} \neq \vec{ 0} 
+    .\end{align*}
+  }
+  \ex{}{
+  Let 
+  \[
+  A \;=\;
+\left(
+\begin{array}{c:cc}
+2 & 0 & 0 \\ \hdashline               % horizontal dashed line
+0 & 2 & 1 \\
+0 & 0 & 2
+\end{array}
+\right)
+  .\] 
+
+
+  \textit{What is the minimal polynomial of $ A$?} \\
+  \[
+  \chi _A \left( x \right) = \left( 2-x \right) ^3 = \left( -1 \right) ^{3} \left( x-2 \right) ^3 = -1 \left( x-2 \right) ^3
+  .\] 
+  $  m \left( x \right)  $ divides $ \chi _A \left( x \right) \implies m \left( x \right) = \left( x-2 \right) ^i$ for $ i= 1,2,$ or $ 3$.
+  \[
+  A -2I \;=\;
+\left(
+\begin{array}{c:cc}
+0 & 0 & 0 \\ \hdashline               % horizontal dashed line
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}
+\right)    \neq 0 \qquad  \implies m \left( x \right) \neq \left( x-2 \right)
+  .\] 
+  \[
+  \left( A - 2I \right) ^2 = \text{ zero matrix } \implies m \left( x \right) = \left( x-2 \right) ^2
+  .\] 
+  \textit{Clearly the degree of the minimal polynomial is related to the size of the largest Jordan blocks - We need to take a high enough power to make the ones above the diagonal zero.}\\
+  }
+  \ex{}{
+  Let \[
+  A \;=\;
+\left(
+\begin{array}{c:cc}
+2 & 0 & 0 \\ \hdashline               % horizontal dashed line
+0 & 2 & 1 \\
+0 & 0 & 2
+\end{array}
+\right)
+  .\] 
+  Use the minimal polynomial of $ A$ to find $ A ^{-1}$.\\
+  \begin{align*}
+   m \left( x \right) &= \left( x-2 \right) ^2\\
+   m \left( A \right) = \left( A - 2I \right) ^2 &= 0\\
+   A^2 - 4A + 4I &= 0\\
+   A^2 - 4A &= -4I\\
+   \frac{1}{4} \left( 4A- A^2 \right) &= I\\
+   A - \frac{1}{4} A^2 &= I\\
+   A \left( I - \frac{1}{4}A \right) =I\\
+   \implies A^{-1} &= I - \frac{1}{4}A\\
+   A^{-1} = \begin{bmatrix}
+   1 & 0 & 0\\
+   0 & 1 & 0\\
+   0 & 0 & 1\\
+   \end{bmatrix} - \frac{1}{4} \begin{bmatrix}
+   2 & 0 & 0\\
+   0 & 2 & 1\\
+   0 & 0 & 2\\
+   \end{bmatrix}\\
+   A^{-1} = \begin{bmatrix}
+   \frac{1}{2} & 0 & 0\\
+    0& \frac{1}{2} & - \frac{1}{4}\\
+   0 & 0 & \frac{1}{2}\\
+   \end{bmatrix}
+  .\end{align*}
+  }
+  \ex{Computing Powers}{
+      Suppose $ A \in M _{ n\times  n} \left( \mathbb{C} \right) $ and $ m \left( x \right) - x \left( x-2 \right) $ is the minimal polynomial of $ A$.\\
+      \\
+      Then 
+      \begin{align*}
+       A \left( A -2I \right) &= 0 \\
+       \implies A ^2 - 2 A =0\\
+       A^2 = 2A \\
+       A ^3 = 2 A^2 = 2 \left( 2A \right) = 2^2 A \\
+       A^{4} = 2^2 A ^2 = 2^2 \left( 2A \right) = 2^3 A\\
+       \text{ By induction it can be shown that}\\
+       A^{k}= 2 ^{k-1}A \qquad  \forall k \in \mathbb{N}
+      .\end{align*}
+
+  }
+  \thm{}
+  {
+  Suppose $ A$ is an $n \times n$  matrix with one eigenvalue $ \lambda$, $  m \left( x \right) = \left( x-\lambda  \right) ^{k} $ where $ k$ is the size of the largest Jordan block associated with $ \lambda$.
+  }
+  \pf{Proof:}{
+   Suppose 
+   \[
+   J = \begin{bmatrix}
+     J_1 & 0 & \dots & 0 \\
+     0 & J_2 & \dots & 0 \\
+     \vdots & \vdots & \ddots & \vdots \\
+     0 & 0 & \dots & J_p
+   \end{bmatrix}
+   
+   .\] is the Jordan Normal Form of $ A$ with $ J_i$ a Jordan block of size $ k_i \times  k_i$
+   \[
+   m \left( J \right) = \sum\limits_{k}^{} c_k J ^{k} = \sum\limits_{k}^{} c_k \begin{bmatrix}
+     J_1 ^{k} & 0 & \dots & 0 \\
+     0 & J_2 ^{k} & \dots & 0 \\
+     \vdots & \vdots & \ddots & \vdots \\
+     0 & 0 & \dots & J_p ^{k}
+   \end{bmatrix}          = \begin{bmatrix}
+     m \left( J_1 \right)  & 0 & \dots & 0 \\
+     0 & m \left( J_2 \right)  & \dots & 0 \\
+     \vdots & \vdots & \ddots & \vdots \\
+     0 & 0 & \dots & m \left( J_p \right) 
+   \end{bmatrix}
+   
+   .\] 
+   \[
+   m \left( A \right) =0 \qquad  \implies m \left( J \right) =0
+   .\] 
+   \[
+   \text{ Now, } m \left( J \right) =0 \iff m \left( J_i \right) =0 \qquad \forall  i 
+   .\] 
+
+      \[
+J_{i}\;=\;
+\left(
+\begin{array}{cccccc}
+\lambda & 1      &        &        &        & 0\\
+        & \lambda& 1      &        &        &  \\
+        &        & \ddots & \ddots &        &  \\
+        &        &        & \ddots & 1      &  \\
+        &        &        &        & \lambda & 1\\
+0       &        &        &        &        & \lambda
+\end{array}
+\right)
+\;\left.\vphantom{\begin{array}{c} \\ \\ \\ \\ \\ \\ \end{array}}\right\}\!k_{i}
+\]
+
+% (Optional) If you prefer a vertical arrow instead of a brace, replace the last line with:
+% \quad\raisebox{5.5ex}{\(\big\uparrow\)}\;k_{i}
+
+
+
+   For each block $ J_i$, $ \left( J_i - \lambda I \right) ^{k_i} =0$ and $ \left( J_i - \lambda I \right) ^{l} \neq 0 $ if $ l < k_i$.\\
+   Hence in order for $ m \left( J_i \right) =0 \qquad  \forall  i$, $ m \left( x \right) - \left( x - \lambda \right) ^{k}$ where $ k$ is the size of the largest Jordan block.
+  }
+
+  \textbf{Corraly}\\
+  \\XXX\\
+  \\
+  \\
+  Suppose $ A \in M _{ n \times  n}\left( \mathbb{C} \right) $ with eigenvalues $ \lambda_1 , \ldots , \lambda_p$
+  \[
+  m \left( x \right) = \left( x - \lambda_1 \right) ^{k_1} \left( x - \lambda_2 \right) ^{ k_2} \ldots  \left( x - \lambda_p \right) ^{k_p}
+  .\] 
+  with $ k_i$ being the size of the largest Jordan block associated with $ \lambda_i$
+   XXX END CORALLy
+   \\
+   \\
+   \\
+   \pf{Proof:}{
+   Suppose $ J$ is the Jordan Normal Form of $ A$ 
+   \[
+   J = \begin{bmatrix}
+     B_1 & 0 & \dots & 0 \\
+     0 & B_2 & \dots & 0 \\
+     \vdots & \vdots & \ddots & \vdots \\
+     0 & 0 & \dots & B_p
+   \end{bmatrix}
+   
+   .\] 
+   where $ B_i = l_i\times l_i $  matrix consisting of all Jordan blocks associated with $ \lambda_i$.\\
+   \[
+   m \left( J \right) = \begin{bmatrix}
+     m \left( B_1 \right)  & 0 & \dots & 0 \\
+     0 & m \left( B_2 \right)  & \dots & 0 \\
+     \vdots & \vdots & \ddots & \vdots \\
+     0 & 0 & \dots & m \left( B_p \right) 
+   \end{bmatrix}
+   
+   .\] 
+   \[
+   m \left( J \right) =0 \iff m \left( B_i \right) =0 \qquad \forall  i
+   .\] 
+   From the previous theorem we know that $ m \left( B_i \right) =0 \iff \left( x - \lambda _i \right) ^{k_i}$ is a factor of $ m \left( x \right) $ where $ k_i$ is the size of the largest Jordan block associated with $ \lambda_i$.\\
+   $ \implies $ each $ B_i$ contributes a factor $ \left( x- \lambda_i \right) ^{k_i}$ to $ m \left( x \right) $.\\
+  $ \implies m\left( x \right) = \left( x- \lambda_1 \right) ^{k_1} \left( x- \lambda_2 \right) ^{k_2}\ldots \left( x- \lambda_p \right) ^{k_p}$
+   }
+    \ex{}{
+        Suppose $ A$ is a $ 4 \times  4$ matrix with a Jordan normal form,
+                    \[
+J \;=\;
+\left(
+\begin{array}{cc:cc}
+2 & 1 & 0 & 0 \\ \hdashline           % ─── upper-left 2×2 Jordan block
+0 & 2 & 0 & 0 \\ \hdashline
+0 & 0 & 2 & 0 \\ \hdashline           % ─── individual 1×1 blocks
+0 & 0 & 0 & 1
+\end{array}
+\right)
+\]
+
+        \[
+        \chi _A \left( x \right) = \left( 2-x  \right) ^3 \left( 1-x \right) 
+        .\] 
+        \[
+        m \left( x \right) = \left( 2-x \right) ^2 \left( x-1 \right) 
+        .\] 
+    }
+     \ex{}{
+     Suppose $ \chi _A \left( x \right) = - \left( x-1 \right) ^2 \left( x-3 \right) ^3$ and $ m \left( x \right) = \left( x-1 \right) \left( x-3 \right) ^2$ \\
+     What is the Jordan Normal Form of $ A$?\\
+     $  \lambda =1 $ is a double eigenvalue,\\
+     size of the largest Jordan Blocks associated with $ \lambda =1$ is $ 1 \times  1$ \\
+     \\
+     $ \lambda =3 $  is a triple eigenvalue,\\
+     size of largest Jordan Block associated with $ \lambda =3$ is $ 2 \times  2$
+        \[
+J \;=\;
+\left(
+\begin{array}{c:c:cc:c}   % ← dashed vertical lines after cols 1, 2, 4
+1 & 0 & 0 & 0 & 0 \\ \hdashline            % ─── first 1×1 block
+0 & 1 & 0 & 0 & 0 \\ \hdashline            % ─── second 1×1 block
+0 & 0 & 3 & 1 & 0 \\                       % ┐
+0 & 0 & 0 & 3 & 0 \\ \hdashline            % │  2×2 Jordan block (λ=3)
+0 & 0 & 0 & 0 & 3                          % ┘  final 1×1 block (λ=3)
+\end{array}
+\right)
+\]
+
+     }
+     
+  
+      \ex{}{
+      Suppose $ A$ is a square matrix with $ \chi_A = x ^{4} \left( x-1 \right) ^2$ and $ m \left( x \right) = x^2 \left( x-1 \right) ^2$.\\
+      Suppose also that $ dim \left(  \mathcal{C} \left( A \right)  \right) =4$ \\
+      \textit{Find the Jordan Normal Form of $ A$.} \\
+      \\
+      \\
+      \raggedcolumns
+      \begin{multicols}{2}
+      Eigenvalues: $ \lambda =0$ \\
+      Largest Jordan block associated with $ \lambda =0$ is $ 2 \times 2$
+      
+      \break
+        $ \lambda =1$ \\ largest Jordan block associated with $ \lambda =1$ is $  2 \times  2$
+      \end{multicols}
+       Thus the degree of $ \chi _A \left( x \right) $ is $ 6$.\\
+       $ \implies A $ is $ 6 \times  6$ matrix.\\
+       \[
+       dim \left(  \mathcal{C} \left( A \right)  \right) =4 \qquad  \implies dim \left( \mathcal{N} \left( A \right)  \right) =2
+       .\] 
+       $ \implies 2 $ linearly independent eigenvectors associated with $ \lambda =0$.\\
+       $ \implies 2 $ Jordan chains of length $ 2$.\\
+       $ \implies 2 $  Jordan blocks of dimension $ 2 \times 2$
+       \\
+       \[
+       \text{ JNF of } A = \left(
+\begin{array}{cc:ccc:cc}
+0 & 1 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0\\ \hdashline
+0 & 0 & 0 & 1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 1 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0\\ \hdashline
+0 & 0 & 0 & 0 & 0 & 1 & 1\\
+0 & 0 & 0 & 0 & 0 & 0 & 1
+\end{array}
+\right)
+       .\] 
+
+       XXX remove row
+      }
+      
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}       
