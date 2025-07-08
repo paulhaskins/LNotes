@@ -1,0 +1,1009 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+ Suppose $ T: V \to V$ is a linear operator defined on the complex vector space $ V$, and let $ p \left( x \right) \in \mathcal{P} \left[ x \right] $, where $ \mathcal{P} \left[ x \right] = \left\{ \sum\limits_{i=1}^{k} a_i x^i \mid a_i \in \mathbb{C}, k \in \mathbb{N} \right\} $ .\\
+ For all polynomials $ p \left( x \right) \in \mathcal{P} \left[ x \right] $, $ p \left( T \right)  $ is a linear operator defined on $ V $ (follows from the fact taht $ T $ is linear).\\
+ \[
+ p \left( T \right) :V \to V
+ .\] 
+ \[
+ p \left( T \right) = \left( \sum\limits_{i=1}^{n} a_i T^i \right) \left( \vec{ v}  \right) = \sum\limits_{i=1}^{n} a_i T^i \left( \vec{ v}  \right) 
+  \right) 
+ .\] 
+ \thm{}
+ {
+ $ ker \left( p \left( T \right)  \right)  $ and $ Im \left( p \left( T \right)  \right) $ are invariant under $ T $.\\
+ }
+ \pf{Proof:}{
+  Suppose $ \vec{ v} \in ker \left( p \left( T \right)  \right) $    then $ p \left( T \right) \left( \vec{ v}  \right) = \vec{ 0}  $ .\\
+  Thus 
+  \[
+  p \left( T \right) \left( T \left( \vec{ v}  \right)  \right) = T \left( p \left( T \right) \left( \vec{ v}  \right)  \right) = T \left( \vec{ 0}  \right) = \vec{ 0}
+  .\] 
+  \[
+  \text{ i.e. }     T \left( \vec{ v}  \right) \in ker \left( p \left( T \right)  \right) \implies ker \left( p \left( T \right)  \right) \text{ is invariant under } T
+  .\] 
+  Suppose $ \vec{ w} \in Im \left( p \left( T \right)  \right) $. Then $ \exists  \vec{ u} \in V$ such that $ p \left( T \right) \left( \vec{ u}  \right) = \vec{ w} $.\\
+  \[
+  T \left( \vec{ w}  \right) = T \left( p \left( T \right) \left( \vec{ u}  \right)  \right) = p \left( T \right) \left( T \left( \vec{ u}  \right)  \right)
+  .\] 
+  \[
+  \implies T \left( \vec{ w}  \right) \in Im \left( p \left( T \right)  \right) \qquad  \implies Im \left( p \left( T \right)  \right) \text{ is invariant under } T
+  .\]
+  
+ }
+  \thm{}
+  {
+  Let $ n = dim V$, $ T: V \to V$ be a linear operator, 
+  \[
+   V = ker \left( T ^{n} \right) \oplus Im \left( T ^{n} \right)
+  .\] 
+  }
+  \dfn{ :}{
+  Suppose $ T: V \to V$ is a linear operator on the vector space $ V$ . Suppose $ U$ is an invariant subspace under $ T$, i.e. $ T \left( \vec{ u}  \right) \in U \qquad  \forall \vec{ u} \in U$. We define $ T \bigg|_{u}^{} $ to be the restriction of $ T$ to $ U$. $ T \bigg|_{u}^{} $ is a linear operator defined on $ U$.
+  \[
+  T \bigg|_{U}^{} \left( \vec{ u}  \right) = T \left( \vec{ u}  \right) \qquad  \forall \vec{ u} \in U
+  .\] 
+  Since $ T$ preserves addition and scalar multiplication, $ T \left( \vec{ u}  \right) \in U \qquad  \forall  \vec{ u} \in U$
+  }
+
+  \thm{Jordan Decomposition Theorem}
+  {
+      Suppose $ V$ is a complex vector space and $ T: V \to V$ is a linear operator.  Let $ \lambda_1, \ldots , \lambda_m$ be the distinct eigenvalues of $ T$. Then $ V \bigoplus_{i=1} ^{m} V \left( \lambda_i \right) $, where $ V \left( \lambda_i \right) $ is the generalized eigenspace associated with $ \lambda_i$.
+  }
+  \pf{Proof:}{
+  We'll prove the result using induction on $ n = dim V$. When $ n=1$, $ T$ has one eigenvalue $ \lambda_1$ (fundamental theorem of algebra) and one linearly independent eigenvector and $ V = V \left( \lambda_1 \right) $ is the eigenspace associated with $ \lambda_i$.\\  
+  We assume $ n>1$ , and that the result holds for all vector spaces of smaller dimension.\\
+  Because $ V$ is a complex vector space, $ T$ has at least one eigenvalue, thus $ m \ge 1$. Applying the previous theorem to $ \left( T - \lambda_1 I \right) $ we get that 
+  \[
+  V = ker \left( T - \lambda_1 I \right) ^{n} \bigoplus Im \left( T - \lambda_1 I \right) ^{n} \qquad  \star
+  .\] 
+  \[
+  \text{ i.e. } V = V \left( \lambda_1 \right) \bigoplus Im \left( T - \lambda_1 I \right) ^{n}
+  .\] 
+  Let $  p \left( z \right) = \left( z - \lambda_1 \right) ^{n} $ is invariant under $ T$ $ \implies$ we can consider $ T \bigg|_{u}^{} $ and since $ ker \left( T - \lambda_1 I \right) ^{n} \neq  { \vec{ 0} } \implies dim U < n$.\\
+  Hence we can apply our inductive hypothesis to $ T \bigg|_{u}^{} $.\\
+  None of the generalized eigenvectors of $ T \bigg|_{u}^{} $ correspond to $ \lambda_1$ since all generalized eigenvectors corresponding to $ \lambda_1$ are in $ ker \left( T - \lambda_1 I \right) ^{n} = V \left( \lambda_1 \right) $.\\
+  Thus each eigenvalue of $ T \bigg|_{u}^{} $ is in $ \left\{ \lambda_2 , \ldots , \lambda_m \right\} $.\\
+  By induction $ U = \bigoplus_{i=2} ^{m} ker \left( T \bigg|_{u}^{} - \lambda_i I \right) ^{n}$.\\
+  Need to show that $ ker \left( T - \lambda_i \right) = ker \left( T \bigg|_{u}^{} - \lambda_i I \right)  ^{n} \qquad  \forall  i$ .\\
+  Clearly $ ker \left( T - \lambda_i I \right)  ^{n} \subseteq ker \left( T \bigg|_{u}^{} - \lambda_i I \right)  ^{n} \qquad \forall  i $.\\
+  For the opposite direction, fix $ k$ and suppose.
+  $ \vec{ v} \in ker \left( T - \lambda_k I  \right) ^{n}$, i.e.  $ \vec{ v} $ is a generalized eigenvector associated with $ \lambda_k$. $ \vec{ v} \in V \implies$ by  $  \star$ $ \vec{ v} = \vec{ v_1} + \vec{ u} $ where $ \vec{ v_1} \in V \left( \lambda_1 \right) $  and $ \vec{ u} \in Im \left( T - \lambda_1 I \right) ^{n} = \bigoplus_{i=2} ^{m} ker \left( T \bigg|_{u}^{} - \lambda_i I \right)^{n} $ since the sum is direct, and $ \vec{ v}  \notin V \left( \lambda_i \right) $.\\
+  Hence $ V = \bigoplus_{i=1} ^{m} ker \left( T - \lambda_i I \right) ^{n} = \bigoplus_{i=1} ^{m} V \left( \lambda_i \right) $
+  }
+  \nt{
+  In general to show that a transformation  $ T: V \to W$ between complex vector spaces $ V, W$ is linear, it suffices to show that 
+  \[
+  T \left( \alpha \vec{ v_1} + \vec{ v_2}  \right) = \alpha T \left( \vec{ v_1}  \right) + T \left( \vec{ v_2}  \right) \qquad  \forall  \alpha \in \mathbb{C}, \vec{ v_1} , \vec{ v_2} \in V
+  .\] 
+  }
+
+
+
+  \section{Bilinear Forms}
+  \dfn{Bilinear Form :}{
+  A bilinear form on a real vector space $ V$ is a function $ f : V \times  V \to \mathbb{R} $ that in linear in each variable i.e. 
+  \[
+  f \left( \vec{ v_1} + \vec{ v_2} , \vec{ w}\right)  = f \left( \vec{ v_1} , \vec{ w}  \right) + f \left( \vec{ v_2} , \vec{ w}  \right) 
+  .\] 
+  \[
+  \text{ and }  f \left( \lambda \vec{ v_1} , \vec{ w} \right)  = \lambda f \left( \vec{ v} ,\vec{ w}  \right) 
+  .\] 
+  (linear in first variable)\\
+  also,
+  \[
+  f \left( \vec{ v} , \vec{ w_1} +\vec{ w_2}  \right) = f \left( \vec{ v_1} , \vec{ w_1}  \right) + f \left( \vec{ v} , \vec{ w_2}  \right) 
+  .\] 
+  \[
+   \text{ and }  f \left( \vec{ v} , \lambda \vec{w}\right) = \lambda f \left( \vec{ v} , \vec{ w}  \right)
+  .\] 
+  (linear in second variable)\\
+  }
+ \ex{Dot Product on $  \mathbb{R} ^{n}$}{
+ \[
+ f : \mathbb{R} ^{n} \times  \mathbb{R} ^{n} \to \mathbb{R}
+ .\] 
+ \[
+ f \left( \vec{ x} , \vec{ y}  \right) = \vec{ x} \cdot \vec{ y} = \sum\limits_{i=1}^{n} x_i y_i
+ .\] 
+ We could represent the dot product as follows 
+ \[
+ f \left( \vec{ x} , \vec{ y}  \right) = \left( \vec{ x}  \right) ^{ T} \left( \vec{ y}  \right) = \begin{bmatrix}
+ x_1 & x_2 & \ldots  & xn \\
+ \end{bmatrix}
+ \begin{bmatrix}
+ y_1\\
+ y_2\\
+ \vdots\\
+ y_n\\
+ \end{bmatrix}
+    = \sum\limits_{i=1}^{n} x_i y_i
+ .\] 
+ Bilinear? \\
+ Let $ \vec{ x} , \vec{ w} , \vec{ y} \in \mathbb{R} ^n$
+
+ \begin{align*}
+  f \left( \vec{ x} + \vec{ w} , \vec{ y}  \right) &= \left( \vec{ x} + \vec{ w}  \right) ^{T} \left( \vec{ y}  \right) = \left( \vec{ x} ^{T}+ \vec{ w} ^{ T} \right) \left(  \vec{ y}  \right) \\
+ &= \vec{ x} ^{T} \vec{ y} + \vec{ w} ^{T} \vec{ y} \\
+ &= f \left( \vec{ x} , \vec{ y}  \right) + f \left( \vec{ w} , \vec{ y}  \right)
+ .\end{align*}
+
+ Let $ \lambda \in \mathbb{R}$, $  \vec{ x} , \vec{ y} \in \mathbb{R} ^{n} $
+ \begin{align*}
+  f \left( \lambda \vec{ x} , \vec{ y}  \right) &= \left( \lambda \vec{ x}  \right) ^{T} \left( \vec{ y}  \right) = \lambda \left( \vec{ x} ^{T}  \right) \left( \vec{ y}  \right) \\
+  &= \lambda f \left( \vec{ x} , \vec{ y}  \right) = \lambda f \left( \vec{ x} , \vec{ y}  \right)
+ .\end{align*}
+ $ \implies$ linear in the first component. \\
+ Similarly it can be shown that 
+ \[
+ f \left( \vec{ x} , \lambda \vec{ w} + \vec{ y}  \right) = \lambda f \left( \vec{ x} ,\vec{ w}  \right) + f \left( \vec{ x} , \vec{ y}  \right)
+ .\] 
+ }
+ \ex{}{
+ Suppose $ A \in M _{ n\times  n} \left( \mathbb{R} \right) . f : \mathbb{R} ^{n} \times  \mathbb{R} ^{n} \to \mathbb{R}$ defined by $ f \left( \vec{ x} , \vec{ y}  \right) = \left( \vec{ x}  \right) ^{T} A \vec{ y} $ is a bilinear form.\\
+ \\
+  $ 1 ^{ \text{ st}} $ variable: Let $  \alpha , \vec{ c_1} , \vec{ x_2}, \vec{ y} \in \mathbb{R} ^{n}$
+  \begin{align*}
+   f \left( \alpha \vec{ x_1}+ \vec{ x_2}, \vec{ y}    \right) &= \left( \alpha \vec{ x_1} + \vec{ x_2}  \right) ^{T} A \vec{ y}\\
+   &= \left( \alpha \vec{ x_1}  \right) ^{T} A \vec{ y} + \left( \vec{ x_2}  \right) ^{T} A \vec{ y}  \\
+   &= \alpha f \left( \vec{ x_1} , \vec{ y}  \right) + f \left( \vec{ x_2} , \vec{ y}  \right) 
+  .\end{align*}
+  Similarly it can be shown that $ f$ is linear in the second variable.\\
+  Suppose the $ (i,j) $ entry of $ A$ is $ a_{ij}$.\\
+  Fix $ \mathcal{E} = \left\{ \vec{ e_1}, \ldots , \vec{ e_n}  \right\} $ as the standard basis of $ \mathbb{R} ^{n}$.\\
+  \[
+  \left( \vec{ x} = \sum\limits_{i=1}^{n} x_i \vec{ e_i} , \qquad  \vec{ y} = \sum\limits_{j=1}^{n} y_j \vec{ e_j}  \right)
+  .\] 
+  \[
+  \text{ then } \left( \vec{ x}  \right) ^{T} A \vec{ y} = \left( \sum\limits_{i=1}^{n} x_i \vec{ e_i}  \right) ^{T} A \left( \sum\limits_{j=1}^{n} y_j \vec{ e_j}  \right) = \sum\limits_{1 \leq i,j \leq n} x_i y_j \left( \vec{ e_i}  \right) ^{T} A \vec{ e_j}
+   \right) 
+  .\] 
+  Note:
+  \[
+  \vec{ e_i} ^{T}A =  \bigl[\,0\;\cdots\;0\;
+  \underset{\text{$i$-th pos.}}{1}\;
+  0\;\cdots\;0\,\bigr]
+\begin{bmatrix}
+  a_{11} & \cdots & a_{1n} \\[2pt]
+  \vdots & \ddots & \vdots \\[2pt]
+  a_{n1} & \cdots & a_{nn}
+\end{bmatrix}         = \begin{bmatrix}
+a_{ i 1} & a_{ i 2} & \ldots & a_{ i n} \\
+\end{bmatrix} = \text{ $i$-th row of } A
+  .\] 
+
+   \[
+\bigl(\mathbf e_i^{\mathsf T}A\bigr)\,\mathbf e_j
+  \;=\;
+\begin{bmatrix}
+  a_{i1} & a_{i2} & \cdots & a_{in}
+\end{bmatrix}
+\!
+\underbrace{%
+\begin{bmatrix}
+  0 \\[-2pt]
+  \vdots \\[-2pt]
+  1 \\[-2pt]
+  \vdots \\[-2pt]
+  0
+\end{bmatrix}}_{\text{$j$-th position}}       = a_{ i j}
+\]
+
+
+  \[
+  \implies \vec{ x}  ^{T} A \vec{ y} = \sum\limits_{1 \leq i,j \leq n} x_i y_j a_{ij} 
+  .\] 
+  where $ a_{ i j} = \left( \vec{ e_i}  \right) ^{T} A \left( \vec{ e_j}  \right) = f \left( \vec{ e_i} , \vec{ e_j}  \right) $
+ }
+ 
+ \thm{}
+ {
+ Let $ \vec{ x} , \vec{ y} \in \mathbb{R} ^{n}, \vec{ x}  = \sum\limits_{i=1}^{n} x_i \vec{ e_i} , \qquad \vec{ y }  = \sum\limits_{j=1}^{n} y_j \vec{ e_j} $. Every bilinear form of $ \mathbb{R} ^{n}$ has the form $ f \left( \vec{ x} ,\vec{ y}  \right) = \sum\limits_{1 \eq i,j \leq n}^{}  a_{ i j } x_i y_j $, where $ a_{ i j} = f \left( \vec{ e_i} , \vec{ e_j}  \right) $.
+
+ }
+  
+\pf{Proof:}{
+ \begin{align*}
+  f \left( \vec{ x} ,\vec{ y}  \right) &= f \left( \sum\limits_{i=1}^{n} x_i \vec{ e_i} , \sum\limits_{j=1}^{n} y_j \vec{ e_j}  \right) \\
+  &= \sum\limits_{i=1}^{n} x_i f \left( \vec{ e_i} , \sum\limits_{j=1}^{n} y_j \vec{ e_j} 
+   \right) \\
+   &= \sum\limits_{i=1}^{n} \sum\limits_{j=1}^{n} x_i y_j f \left( \vec{ e_i} , \vec{ e_j}  \right) \\
+ .\end{align*}
+ Note:    the $ (i,j) $ entry of the matrix of the dot product is $ \vec{ e_i} \cdot  \vec{ e_j} $ and
+ \[
+ \vec{ e_i} \cdot  \vec{ e_j} = \begin{cases}
+   1& \text{if } i=j \\
+  0 & i \neq j
+ \end{cases}
+ .\]
+
+}
+ Hence the matrix of the dot product is the identity matrix.\\
+ \ex{}{
+  Let $ V = \mathcal{P} _2 \left[ x \right] $. Define $ \langle   \rangle : V \times  V \to \mathbb{R}$ by 
+  \[
+  \langle p,q  \rangle = \int_{0}^{1} p \left( x  \right) q \left( x  \right) dx \qquad  \forall  p,q \in \mathcal{P}_2 \left[ x \right]
+  .\] 
+ \underline{Claim} \\
+ $ \langle p,q  \rangle $ is a bilinear form.\\
+ \pf{Proof:}{
+  Let $ \alpha \in \mathbb{R}$, $ p_1,p_2,q \in \mathcal{P} _2 \left[ x \right] $
+  \begin{align*}
+   \langle \alpha p_1 + p_2 , q  \rangle &- \int_{0}^{1} \left( \alpha p_1 + p_2  \right) q \left( x  \right) dx \\
+   &= \int_{0}^{1} \alpha p_1 \left( x  \right) q \left( x  \right) + p_2 \left( x  \right) q \left( x  \right) dx \\
+   &= \alpha \int_{0}^{1} p_1 \left( x  \right) q \left( x  \right) dx + \int_{0}^{1} p_2 \left( x  \right) q \left( x  \right) dx \\
+   &= \alpha \langle p_1,q  \rangle + \langle p_2,q  \rangle
+  .\end{align*}
+  Similarly it can be shown that 
+  \[
+  \langle q , \alpha p_1 + p_2  \rangle = \alpha \langle q,p_1  \rangle + \langle q,p_2  \rangle
+  .\] 
+  The matrix of the bilinear form with respect to the basis $ \mathcal{B} = \left\{ 1,x,x^2  \right\} $ of $ \mathcal{P} _2 \left[ x \right] $ is given by
+  \[
+   A = \left[ a_{ i j } \right] _{ 1 \leq i,j \leq 3}  \qquad  \text{ where } a_{ i j} = \langle b_i,b_j  \rangle
+  .\] 
+  Note that $ \vec{ b_1} = x^{0}$ , $ \vec{ b_2} = x^{1}$ , $ \vec{ b_3} = x^{2}$  and $ \vec{ b_i} = x ^{i-1}$ \\
+  \begin{align*}
+   \langle \vec{ b_i} , \vec{ b_j}   \rangle = \langle x ^{i-1}, x ^{ j-1}  \rangle &= \int_{0}^{1} x ^{ i-1} x ^{ j-1} dx \\
+   &= \int_{0}^{1} x ^{ i + j -2} dx = \left[ \frac{x ^{ i + j -1}}{i + j -1} \right] _{0}^{1} = \frac{1}{i + j -1}
+  .\end{align*}
+  \[
+  \implies A = \begin{bmatrix}
+  1 & \frac{1}{2} & \frac{1}{3} \\
+   \frac{1}{2}& \frac{1}{3} & \frac{1}{4} \\
+   \frac{1}{3}& \frac{1}{4} & \frac{1}{5}\\
+  \end{bmatrix}
+  .\] 
+ }
+ 
+  
+  
+  
+}
+  \ex{}{
+  Let $ V = \mathbb{R} ^2$ \\
+  \begin{align*}
+   \langle  \vec{ x} , \vec{ y}   \rangle = 2 x_1 y_1 + x_1 y_2 + 3 x_2 y_1 + 4 x_2 y_2  \\
+   = \left[ \vec{ x}  \right] ^{ T}  \begin{bmatrix}
+   2 & 1\\
+   3 & 4\\
+  \end{bmatrix} \left[ \vec{ y}  \right] 
+  .\end{align*}
+  \[
+  \implies \langle ,  \rangle \text{ is a bilinear form on } \mathbb{R} ^2 \times  \mathbb{R} ^2
+  .\] 
+  }
+  \section{Change of Basis and how its affects on the matric of a bilinear form}
+  Suppose $ \langle ,  \rangle $ is a bilinear form on  $ \mathbb{R} ^{n}$ and $ A$ is the matrix of $ \langle ,  \rangle $ with respect to the standard basis $ \mathcal{E} = \left\{ \vec{ e_1}, \ldots , \vec{ e_n}  \right\} $\\
+  i.e.  $ \left[ A \right] _{ i j } = \langle \vec{ e_i} , \vec{ e_j}   \rangle $ \\
+  Suppose $ \mathcal{B} = \left\{ \vec{ b_1}, \ldots , \vec{ b_n}  \right\} $ is another basis of $ \mathbb{R} ^{n}$, and 
+  
+    \[
+B \;=\;
+\bigl[\,\vec b_{1}\;\vec b_{2}\;\dots\;\vec b_{n}\,\bigr]
+\;=\;
+P_{\mathcal B \to \varepsilon}.
+\]
+
+  Then 
+  \[
+   B \left[ \vec{ x}  \right]  _{ \mathcal{B}} = \left[ \vec{ x}  \right] _{ \mathcal{E}} \qquad  \star
+  .\] 
+ Hence 
+ \begin{align*}
+  \langle \vec{ x} , \vec{ y}\rangle  = \left[ \vec{ x}  \right] _{ \mathcal{E}} ^{t} A  \left[ \vec{ y}  \right] _{ \mathcal{E}} \\
+  &= \left( \mathcal{B} \left[ \vec{ x}  \right] _{ \mathcal{B}} \right) ^{T} A \left( \mathcal{B} \left[ \vec{ y}  \right] _{ \mathcal{B}} \right) \qquad  \text{ from } \star\\
+  &= \left[ \vec{ x}  \right] _{ \mathcal{B}} ^{T} \left( B ^{T} A B \right) \left[ \vec{ y}  \right] _{ \mathcal{B}}\\
+ .\end{align*}
+ Thus the matrix of $ \langle  , \rangle $ with respect to the basis $ \mathcal{B}$ is $ B ^{T}A B$.\\
+ \section{Positive Definite}
+  
+ \dfn{Positive Definite :}{
+   \begin{enumerate}[label=(\arabic*).]  
+     \item A bilinear form $ \langle ,  \rangle : V \times  V \to \mathbb{R}$ is said to be \underline{positive definite} if
+      \[
+      \langle \vec{ v} , \vec{ v}   \rangle \qquad  \forall  \vec{ v} \in V \text{ and } \vec{ v} \neq \vec{ 0}
+      .\] 
+      Note: this is equivalent to saying that 
+      \[
+       \langle \vec{ v} , \vec{ v}   \rangle \ge 0 \forall  \vec{ v} \in V \text{ with equality } \iff vec{ v} = \vec{ 0}
+      .\] 
+     \item               $ A \in M _{ n \times  n} \left( \mathbb{R} \right) $ is said to be \underline{positive definite} if 
+      \[
+       \vec{ x} ^{T} A \vec{ x} > 0 \qquad  \forall  \vec{ x} \in \mathbb{R} ^{n} \text{ and } \vec{ x} \neq \vec{ 0}
+      .\] 
+   \end{enumerate}
+   A bilinear form $ \langle ,  \rangle$ is positive definite if and only if the matrix form with respect to the standard basis of $ V$ is positive definite.\\
+   
+ }
+ \ex{}{
+ Dot product on $ \mathbb{R} ^{n}$ is positive definite since $ \langle \vec{ x} ,\vec{ x}   \rangle = \sum\limits_{i=1}^{n} x_i ^2
+ =0\qquad  \forall  \vec{ x} \neq \vec{ 0} $
+ }
+ \ex{}{
+  Let $ V = \mathcal{P} _{n} \left[ x \right]$. Suppose $ a < b$, 
+  \[
+  \langle f,g  \rangle = \int_{a}^{b} f \left( x  \right) g \left( x  \right) dx
+  .\] 
+  defined on $ V $ is a positive definite bilinear form
+  \[
+   \langle f,f  \rangle = \int_{a}^{b} f \left( x  \right) ^2 dx \ge 0 \text{ with equality } \iff f \left( x \right) =0 \text{ on } \left[ a,b \right]
+  .\] 
+  In general it can be hard to check if a bilinear form is positive definite.\\
+ }
+ \ex{}{
+ $ \langle ,  \rangle : \mathbb{R} ^2 \to \mathbb{R} ^2 \to \mathbb{R}$.\\
+ Is $ \langle \vec{ x} , \vec{ y}   \rangle = x_1 y_1 + x_1 y_2 + 3 x_2 y_1 + 6 x_2 y_2$ positive definite?\\
+ \begin{align*}
+  \langle \vec{ x} , \vec{ x}   \rangle &= x_1 ^2 + 4 x_1 x_2 + 6 x_2 ^2 \\
+  &= \left( x_1 + 2 x_2 \right) ^{2} + 2 x_2 ^{2} =0 \\
+  &\iff x_1 + 2 x_2 =0 \text{ and } x_2 =0 \\
+  & \text{ i.e. } x_1 = 0 \text{ and } x_2 = 0 \\
+  & \text{ i.e.  } \vec{ x} = \vec{ 0}
+  \implies \langle ,  \rangle  \text{ is positive definite.}
+ .\end{align*}
+ }
+ \ex{}{
+    Is $ \langle \vec{ x} , \vec{ y}   \rangle = x_1 y_1 + x_1 y_2 + 3 x_2 y_1 + 3 x_2 y_2$   positive definite?\\
+    \begin{align*}
+     \langle \vec{ x} ,\vec{ x}   \rangle &= x_1 ^2 + 4 x_1 x_2 + 3 x_2 ^2 \\
+     &= \left( x_1 + 2 x_2 \right) ^{2} + x_2 ^{2} \\
+    .\end{align*}
+    Not positive definite since 
+    \[
+    \langle  \begin{bmatrix}
+    -2\\
+    1\\
+    \end{bmatrix}
+    , \begin{bmatrix}
+    -2\\
+    1\\
+    \end{bmatrix}
+      \rangle  = -1 
+    .\] 
+ }
+  \section{ Symmetric Bilinear Forms}
+ \dfn{ Symmetric Bilinear Forms :}{
+       A bilinear form $ \langle ,  \rangle $ on a real vector space $ V$ is said to be \underline{symmetric} if
+       \[
+       \langle \vec{ x} ,\vec{ y}   \rangle = \langle  \vec{ y} , \vec{ x}   \rangle \qquad  \forall  \vec{ x} , \vec{ y} \in V
+       .\] 
+ }
+ \ex{}{
+ Dot product on $ \mathbb{R} ^{n}$ is symmetric:
+ \[
+ \langle \vec{ x} ,\vec{ y}   \rangle = \sum\limits_{i=1}^{n} x_i y_i = \sum\limits_{i=1}^{n} y_i x_i = \langle \vec{ y} ,\vec{ x}   \rangle
+ .\] 
+ }
+ 
+ \ex{}{
+ \[
+ \langle f,g  \rangle = \int_{a}^{b} f \left( x  \right) g \left( x  \right) dx \text{ defined on } \mathcal{P} _{n} \left[ x \right] \text{ is symmetric.}
+ .\] 
+ }
+ 
+ \underline{Fact:} \\
+ A bilinear form $ \langle ,  \rangle$ defined on a real vector space $ V$ is symmetric if and only if the matrix of the bilinear form with respect to some basis of $ V$ is symmetric.\\
+ ( An $n \times n$  matrix $ A$ is symmetric if $ A = A ^{T}$, i.e. $ a_{ij} = a_{ji} \qquad  \forall  i,j$.)\\
+   
+ \pf{Proof:}{
+  suppose $ A$ is the matrix of $ \langle ,  \rangle $ with respect to the basis $ \mathcal{B} $ of $ V$.\\
+  \[
+   \langle \vec{ x} ,\vec{ y}   \rangle = \left( \left[ \vec{ x}  \right] _{ \mathcal{B}}\right)  ^{T} A \left( \left[ \vec{ y}  \right] _{ \mathcal{B}} \right) = \sum\limits_{1 \leq i , j \leq n}^{}  x_i y_j a_{ij}
+  .\] 
+  \[
+  \langle \vec{ y} ,\vec{ x}   \rangle = \left( \left[ \vec{ y}  \right] _{ \mathcal{B}}\right)  ^{T} A \left( \left[ \vec{ x}  \right] _{ \mathcal{B}} \right) = \sum\limits_{1 \leq i , j \leq n}^{}  y_i x_j a_{ij}
+  .\] 
+  \[
+  \langle \vec{ x} , \vec{ y}   \rangle = \langle  \vec{ y} , \vec{ x}   \rangle \iff a_{ i j } = a_{ j i} \qquad  \forall  i,j
+  .\] 
+  \[
+  \text{ i.e.  when } A = A ^{T} \text{ i.e.  $ A$ is symmetric.}
+  .\] 
+ }
+ \section{Inner Product }
+ \dfn{Inner Product :}{
+ An inner product on a real vector space is a bilinear form which is positive definite and symmetric.\\
+ }
+ \textbf{Example:} \\
+ \begin{enumerate}[label=(\arabic*).]  
+   \item Dot product on $ \mathbb{R} ^{n}$ 
+   \item \[
+   \langle f,g  \rangle = \int_{a}^{b} f \left( x  \right) g \left( x  \right) dx \text{ defined on } \mathcal{P} _{n} \left[ x \right] 
+   .\] 
+ \end{enumerate}
+  \\
+  \textit{Which of the following define an inner product on $ \mathbb{R} ^{2}$?}\\
+  \[
+  \vec{ x} = \begin{bmatrix}
+  x_1\\
+  x_2\\
+  \end{bmatrix}
+   \qquad  \vec{ y} = \begin{bmatrix}
+   y_1\\
+   y_2\\
+   \end{bmatrix}
+   
+  .\] 
+  \begin{enumerate} [label=(\alph*)]
+    \item 
+     \[
+     \langle \vec{ x} ,\vec{ y}   \rangle = x_1 y_2 + x_2 y_1
+     .\] 
+     Bilinear?\\
+     Yes, matrix $ = \begin{bmatrix}
+     0 & 1\\
+     1 & 0\\
+     \end{bmatrix} = A$ \\
+     Symmetric?\\
+     Yes, $ A = A ^{T}$\\
+     also, $ \langle \vec{ y} ,\vec{ x}   \rangle = y_1 x_2 + y_2 x_1 = \langle \vec{ x} ,\vec{ y}   \rangle $ \\
+     positive definite?\\
+     $ \langle \vec{ x} , \vec{ x}   \rangle = 2 x_1 x_2$ NO\\
+     \[
+     \langle  \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}
+     , \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}
+       \rangle =0  \quad \text{ but } \begin{bmatrix}
+       1\\
+       0\\
+       \end{bmatrix}
+        \neq \begin{bmatrix}
+        0\\
+        0\\
+        \end{bmatrix}
+     .\] 
+     \[
+     \text{ or}               \langle \begin{bmatrix}
+     1\\
+     -1\\
+     \end{bmatrix}
+     , \begin{bmatrix}
+     1\\
+     -1\\
+     \end{bmatrix}
+       \rangle = -2 < 0
+     .\] 
+    \item 
+     \[
+     \langle \vec{ x} ,\vec{ y}   \rangle =x_1 y_1 \qquad  A = \begin{bmatrix}
+     1 & 0\\
+     0 & 0\\
+     \end{bmatrix} 
+     .\] 
+     Bilinear? Yes\\
+     Symmetric? Yes $ A^{T}=A$ \\
+     positive definite?\\
+     \[
+     \text{ No } \qquad  \langle  \begin{bmatrix}
+     0\\
+     1\\
+     \end{bmatrix}
+     , \begin{bmatrix}
+     0\\
+     1\\
+     \end{bmatrix}
+       \rangle =0  \quad \text{ but } \begin{bmatrix}
+       0\\
+       1\\
+       \end{bmatrix}
+        \neq \begin{bmatrix}
+        0\\
+        0\\
+        \end{bmatrix}
+        
+     .\] 
+    \item 
+     \[
+     \langle \vec{ x} ,\vec{ y}   \rangle = x_1 y_1 + 7 x_2 y_2 \qquad  A = \begin{bmatrix}
+     1 & 0\\
+     0 & 7\\
+     \end{bmatrix}
+     .\] 
+     bilinear? Yes\\
+     symmetric? Yes $ A^{T}=A$ \\
+     positive definite? $ \langle \vec{ x} ,\vec{ x}   \rangle = x_1^2 + 7 x_2 ^2 > 0$ with equality  $ \iff$ $ x_1 = x_2 =0$.\\
+     $ \implies \langle \vec{ x} ,\vec{ y}   \rangle $ is an inner product 
+    \item $ \langle \vec{ x} , \vec{ y}   \rangle = x_1 y_1 + x_1 y_2 + x_2 y_1 + x_2 y_2$
+     \[
+     A = \begin{bmatrix}
+     1 & 1\\
+     1 & 1\\
+     \end{bmatrix}
+     .\] 
+     bilinear? Yes\\
+     symmetric? Yes $ A^{T}=A$ \\
+     positive definite?\\
+     \begin{align*}
+      \langle \vec{ x} ,\vec{ x}   \rangle &= x_1^2 + 2 x_1 x_2 + x_2 ^2 \\
+      &= \left( x_1 + x_2 \right) ^2 
+     .\end{align*}
+     \[
+     \text{No } \langle \begin{bmatrix}
+     1\\
+     -1\\
+     \end{bmatrix}  , \begin{bmatrix}
+     1\\
+     -1\\
+     \end{bmatrix}\rangle =0 \qquad  \text{ but } \begin{bmatrix}
+     1\\
+     -1\\
+     \end{bmatrix}
+     \neq \begin{bmatrix}
+     0\\
+     0\\
+     \end{bmatrix}
+        
+     .\]
+     $ \implies$ not an inner product.\\
+    \end{enumerate}
+
+
+    \dfn{Euclidean Length/ Vector Space :}{
+    \begin{enumerate}[label=(\arabic*).]  
+      \item A real vector space equipped with an inner product is called a \underline{Euclidean vector space}.\\
+      \item   On a Euclidean vector space $ V$ we define the \underline{length} of a vector $ \vec{ v} \in V$ as
+       \[
+       \left\| \vec{ v}  \right\| = \sqrt{\langle \vec{ v} ,\vec{ v}   \rangle}
+       .\] 
+       A vector of length $ 1$ is called a \underline{unit vector}.\\
+    \end{enumerate}
+
+   }
+      \thm{Cauchy -Schwarz Inequality :}
+      {
+         In a Euclidean vector space $ V$ we have that 
+         \[
+         |\langle \vec{ x} ,\vec{ y}   \rangle | \leq \left\| \vec{ x}  \right\| \left\| \vec{ y}  \right\| \qquad  \forall  \vec{ x} ,\vec{ y} \in V
+         .\] 
+      }
+    \pf{Proof:}{
+      Let $ \lambda \in \mathbb{R} $ 
+      \[
+      \left| \vec{ x} + \lambda \vec{ y} \right| ^2 \ge 0 \qquad  \forall  \lambda \in \mathbb{R}, \quad \vec{ x} , vec{ y} \in V
+      .\] 
+      \[
+       \text{ i.e. } \langle \vec{ x} + \lambda \vec{ y} , \vec{ x} + \lambda \vec{ y}   \rangle \ge 0
+      .\] 
+      \[
+      \langle \vec{ x} , \vec{ x}   \rangle + 2 \lambda \langle \vec{ x} , \vec{ y}   \rangle + \lambda ^2 \langle \vec{ y} ,\vec{ y}   \rangle \ge 0
+      .\] 
+      \[
+      \left| \vec{ x} \right| ^2 + 2 \lambda \langle \vec{ x} , \vec{ y}   \rangle + \lambda ^2 \left| \vec{ y}  \right| ^2 \ge 0
+      .\] 
+      where the first term is a quadratic in $ \lambda$, which is non-negative.\\
+      \[
+      \iff \left( 2 \langle  \vec{ x} ,\vec{ y}   \rangle  \right) ^2 - 4 \left| \vec{ x}  \right| ^2 \left| \vec{ y}  \right| ^2 \le 0
+      .\] 
+      \begin{align*}
+       \text{ i.e. } 4 \left( \langle \vec{ x} , \vec{ y}   \rangle  \right) ^2 &\leq 4 \left| \vec{ x}  \right| ^2 \left| \vec{ y}  \right| ^2 \\
+       \left( \langle \vec{ x} ,\vec{ y}   \rangle  \right) ^2 &\leq \left| \vec{ x}  \right| ^2 \left| \vec{ y}  \right| ^2 \\
+       \implies |\langle \vec{ x} ,\vec{ y}   \rangle | &\leq \left| \vec{ x}  \right| \left| \vec{ y}  \right|
+      .\end{align*}
+    }
+   
+    \dfn{ :}{
+    We define the angle $ \theta $ between two vectors $ \vec{ v} ,\vec{ w} \in V$ in a Euclidean vector space $ V$ as
+     \[
+     \cos \theta = \frac{\langle \vec{ v} ,\vec{ w}   \rangle}{\left\| \vec{ v}  \right\| \left\| \vec{ w}  \right\|} 
+     .\] 
+    }
+     \underline{Orthongonality:}\\
+     Suppose $ V$ is a Euclidean vector space.\\
+     \dfn{Orthonormal and Orthogonal Vectors :}{
+          \begin{enumerate}[label=(\arabic*).]  
+            \item $ \vec{ x} ,\vec{ y} \in V$ are said to be \underline{orthogonal} if $ \langle \vec{ x} ,\vec{ y}   \rangle =0$
+            \item   A basis $ \left\{ \vec{ v_1} , \ldots , \vec{ v_n}  \right\} $  of $ V$ is said to be orthogonal if
+              $ \langle \vec{ v_i} , \vec{ v_j}   \rangle =0\qquad  \forall  i \neq j$
+             \item A basis $ \left\{ \vec{ v_1} , \ldots , \vec{ v_n}  \right\} $ of $ V$ is said to be orthonormal if
+            the basis is orthogonal and $ \left\| \vec{ v_i}  \right\| =1$  i.e.  $ \left| \vec{ v_i} \right| \qquad  \forall  i$ 
+          \end{enumerate}
+     }
+
+     \ex{}{
+     \[
+      \mathcal{B} = \left\{ \begin{bmatrix}
+      2\\
+      0\\
+      \end{bmatrix}
+      , \begin{bmatrix}
+      0\\
+      2\\
+      \end{bmatrix}
+       \right\}  \text{ is an orthogonal basis of } \mathbb{R} ^2
+     .\] 
+     \[
+     \mathcal{C} = \left\{ \begin{bmatrix}
+     1\\
+     0\\
+     \end{bmatrix}
+     , \begin{bmatrix}
+     0\\
+     1\\
+     \end{bmatrix}
+      \right\}  \text{ is an orthonormal basis of } \mathbb{R} ^2
+     .\] 
+     }
+     \thm{Orthogonal co-ordinates :}
+     {
+      If $ \left\{ \vec{ v_1} , \ldots \vec{ v_n}  \right\} $ forms an orthogonal basis of $ V$ and $ \vec{ v} \in V$, then \[
+      \vec{ v} = \sum\limits_{i=1}^{n} \frac{\langle \vec{ v} , \vec{ v_i}   \rangle}{\left\| \vec{ v_i}  \right\| ^2} \vec{ v_i}
+      .\] 
+     }
+     \pf{Proof:}{
+      Since $ \left\{ \vec{ v_1} , \ldots \vec{ v_n}  \right\} $ forms a basis of $ V$,  there exists  scalars $ c_1, \ldots , c_n$ such that
+      \[
+      \vec{ v} = \sum\limits_{i=1}^{n} c_i \vec{ v_i}
+      .\] 
+      Taking the inner product with each $ \vec{ v_j} $ we get 
+      \[
+      \langle \vec{ v} , \vec{ v_j}   \rangle = \sum\limits_{i=1}^{n} c_i \langle \vec{ v_i} , \vec{ v_j}   \rangle= c_j \langle \vec{ v_j} , \vec{ v_i}   \rangle 
+      .\] 
+      since $ \langle \vec{ v_i} ,\vec{ v_j}\rangle =0 \qquad  \forall  i \neq j   $
+      \[
+      \implies \langle  \vec{ v} , \vec{ v_j}   \rangle = c_j \langle \vec{ v_j} ,\vec{ v_j}   \rangle 
+      .\] 
+      \[
+      \implies \frac{  \langle \vec{ v} , \vec{ v_j}   \rangle   }{ \langle \vec{ v_j} ,\vec{ v_j}   \rangle } = c_j
+      .\] 
+      Hence, 
+      \[
+      \vec{ v} = \sum\limits_{i=1}^{n} \frac{\langle \vec{ v} , \vec{ v_i}   \rangle}{\langle \vec{ v_i} ,\vec{ v_i}   \rangle } \vec{ v_i}
+      .\] 
+     }
+     \underline{Remark:}\\
+     If the basis is orthonormal, then
+     \[
+     \langle \vec{ v_i} , \vec{ v_i}   \rangle =1 \qquad   \text{ and } \qquad  \vec{ v} = \sum\limits_{i=1}^{n} \langle \vec{ v} , \vec{ v_i}   \rangle \vec{ v_i} 
+     .\] 
+     \nt{
+      $ \left\{ \vec{ e_1} , \vec{ e_2}  \right\}$  is an orthonormal basis of $ \mathbb{R} ^2 \qquad  \forall  \begin{bmatrix}
+      x\\
+      y\\
+      \end{bmatrix}
+      \in \mathbb{R} ^2$ 
+      \[
+      \begin{bmatrix}
+      x\\
+      y\\
+      \end{bmatrix}
+      = \langle \begin{bmatrix}
+      x\\
+      y\\
+      \end{bmatrix}
+      , \begin{bmatrix}
+      1\\
+      0\\
+      \end{bmatrix}
+        \rangle  \begin{bmatrix}
+        1\\
+        0\\
+        \end{bmatrix}
+        + \langle \begin{bmatrix}
+        x\\
+        y\\
+        \end{bmatrix}
+        , \begin{bmatrix}
+        0\\
+        1\\
+        \end{bmatrix}
+          \rangle \begin{bmatrix}
+          0\\
+          1\\
+          \end{bmatrix}
+          
+      .\] 
+     }
+     \ex{}{
+     Let 
+     \[
+     \vec{ v_1} = \frac{1} {   \sqrt{58} }     \begin{bmatrix}
+     3\\
+     7\\
+     \end{bmatrix}
+     \qquad \vec{ v_2} = \frac{1} {   \sqrt{58} }     \begin{bmatrix}
+     -7\\
+     3\\
+     \end{bmatrix}
+     
+     .\] 
+     $ \left\{ \vec{ v_1} , \vec{ v_2}  \right\}$ forms an orthonormal basis for $ \mathbb{R} ^2$.\\
+     check! $ \langle \vec{ v_1} , \vec{ v_2}   \rangle = 0$ \\
+     \[
+     \left| \vec{ v_1} \right| = 1  \qquad \left| \vec{ v_2} \right| = 1 
+     .\] 
+     Given any other vector, $ \vec{ v} = \begin{bmatrix}
+     2\\
+     5\\
+     \end{bmatrix}
+     $
+     \[
+     \vec{ v} = \langle \begin{bmatrix}
+     2\\
+     5\\
+     \end{bmatrix}
+     , \frac{1}{  \sqrt{58} }     \begin{bmatrix}
+     3\\
+     7\\
+     \end{bmatrix}
+      \rangle  \frac{1}{  \sqrt{58} }     \begin{bmatrix}
+      3\\
+      7\\
+      \end{bmatrix}
+      + \langle \begin{bmatrix}
+      2\\
+      5\\
+      \end{bmatrix}
+      , \frac{1}{  \sqrt{58} }     \begin{bmatrix}
+      -7\\
+      3\\
+      \end{bmatrix}
+        \rangle  \frac{1}{  \sqrt{58} }     \begin{bmatrix}
+        -7\\
+        3\\
+        \end{bmatrix}
+        
+     .\]
+     \[
+     \vec{ v} = \frac{ 6 + 35  }{ \sqrt{58}  } \vec{ v_1} + \frac{ -14 + 15  }{ \sqrt{58}  } \vec{ v_2}
+     .\] 
+     \[
+     \begin{bmatrix}
+     2\\
+     5\\
+     \end{bmatrix}
+     = \vec{ v} = \frac{ 41 }{ \sqrt{58}  } \vec{ v_1} + \frac{ 1 }{ \sqrt{58}  } \vec{ v_2}
+     .\] 
+     }
+     
+     \section{Gram-Schmidt Orthogonalization}
+     Suppose $ \left\{  \vec{ v_1} , \ldots , \vec{ v_n}  \right\}$ is an arbitrary basis of a vector space $ V$. We wish to use this basis to construct an orthogonal basis $ \left\{ \vec{ w_1} , \ldots , \vec{ w_n}  \right\} $ of $ V$.\\
+     \\
+     \\
+     \underline{Case 1:} Two vectors \\
+     \[
+      \underbrace{ \left\{ \vec{ v_1} ,\vec{ v_2}  \right\} } _{ \text{ basis } }  \to  \underbrace{\left\{ \vec{ w_1} , \vec{ w_2}  \right\}  }_{ \text{ orthogonal basis } }
+     .\] 
+     Let $ \vec{ w_1} = \vec{ v_1} $ i.e.  keep the first basis vector.
+              \begin{tikzpicture}[>=stealth,thick,line cap=round,line join=round]
+  %--- coordinates -----------------------------------------------------------
+  \coordinate (O)  at (0,0);          % origin
+  \coordinate (V1) at (4,0);          % end-point of v1
+  \coordinate (V2) at (3,2);          % end-point of v2
+  \coordinate (P)  at (3,0);          % foot of the perpendicular
+
+  %--- vectors ---------------------------------------------------------------
+  \draw[->,blue]          (O) -- (V1) node[below right] {$\vec v_1 = \vec\omega_1$};
+  \draw[->,blue]          (O) -- (V2) node[above]       {$\vec v_2$};
+  \draw[dashed,magenta]   (V2) -- (P)  node[midway,right] {$\vec w_2$};
+  \draw[->,ForestGreen]   (O) -- (P)  node[below]       {$\operatorname{proj}_{\vec v_1}\vec v_2$};
+
+  %--- right-angle marker ----------------------------------------------------
+  \draw ($(P)+(0,0.25)$) -- ($(P)+(0.25,0.25)$) -- ($(P)+(0.25,0)$);
+
+  %--- angle θ at the origin -------------------------------------------------
+  \pic [draw,->,blue,"\small$\theta$",angle radius=10,angle eccentricity=1.5]
+       {angle = V1--O--V2};
+\end{tikzpicture}
+
+
+
+     Aim: to decompose $ \vec{ v_2} $ into a sum of some scalar multiple of $ \vec{ v_1} = \vec{ w_1} $ and some scalar multiple of a vector that is orthogonal to $ \vec{ w_1} $.\\
+     \[
+      \cos \theta = \frac{ \left| \text{ proj}_{ \vec{ w_1} \vec{ v_2} } \right| }{  \left| \vec{ v_2}  \right| }
+     .\] 
+     \[
+      \implies \left| \text{ proj}_{ \vec{ w_1} \vec{ v_2} } \right| =  \left| \vec{ v_2}  \right| \cos \theta 
+     .\] 
+     \[
+      \text{ proj}_{ \vec{ w_1} \vec{ v_2} } = \left| \vec{ v_2}  \right| \cos \theta \frac{ \vec{ w_1} }{ \left| \vec{ w_1}  \right| } = \left| \vec{ v_2}  \right| \frac{ \langle \vec{ v_2} , \vec{ w_1}   \rangle   }{ \left| \vec{ w_1}  \right| \left| \vec{ v_2} \right| }  \left(  \frac{ \vec{ w_1}   }{ \left| \vec{ w_1} \right| } \right) 
+     .\] 
+     \[
+     \text{ Note: } \vec{ v_2} = \frac{ \langle  \vec{ v_2} , \vec{ w_1}   \rangle   }{ \langle  \vec{ w_1} , \vec{ w_1}   \rangle  } \vec{ w_1} + \vec{ w_2} 
+     .\] 
+     $ \implies$ Let $ \vec{ w_2} = \vec{ v_2} - \frac{  \langle \vec{ v_2} , \vec{ w_1}   \rangle   }{ \langle  \vec{ w_1} , \vec{ w_1}   \rangle  } \vec{ w_1} $ \\
+     Claim: $ \vec{ w_2} $ is orthogonal to $ \vec{ w_1} $.\\
+     \pf{Proof:}{
+      \begin{align*}
+       \langle \vec{ w_2} , \vec{ w_1}   \rangle &= \langle \vec{ v_2} - \frac{ \langle \vec{ v_2} , \vec{ w_1}    \rangle   }{ \langle \vec{ w_1} , \vec{ w_1}   \rangle  } \vec{ w_1} , \vec{ w_1}   \rangle \\
+       &= \langle \vec{ v_2} , \vec{ w_1}   \rangle - \frac{ \langle \vec{ v_2} , \vec{ w_1}   \rangle   }{ \langle  \vec{ w_1} ,\vec{ w_1}   \rangle  } \langle  \vec{ w_1} ,\vec{ w_1}   \rangle  \\
+       &= \langle \vec{ v_2} , \vec{ w_1}   \rangle - \langle \vec{ v_2} , \vec{ w_1}   \rangle =0
+      .\end{align*}
+      $ \vec{ w_2} $ lies in the same plane as $ \vec{ v_1} = \vec{ w_1} $ and $ \vec{ v_2} $ \\
+     \[
+     \implies span \left\{ \vec{ w_1} , \vec{ w_2}  \right\} = span \left\{ \vec{ v_1} , \vec{ v_2}  \right\}
+     .\] 
+     Since $  dim V = 2 \implies \left\{ \vec{ w_1} ,\vec{ w_2}  \right\} $ form an orthogonal basis for $ V$ \\
+     \\
+     Assume that given a basis of $ n$ vectors $ \left\{ \vec{ v_1} , \ldots , \vec{ v_n}  \right\} $ of $ V$, the first $ k$ vectors can be replaced by an orthogonal basis $ \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  \right\} $ such that 
+     \[
+     span \left\{ \vec{ v_1} , \ldots , \vec{ v_k}  \right\} = span \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  \right\}
+     .\] 
+     We decompose $ \vec{ v_{k+1}} $ as follows 
+     \[
+      \vec{ v_{k+1}} = \sum\limits_{i=1}^{k} \frac{ \langle  \vec{ V _{ k+1}} , \vec{ w_i}   \rangle   }{ \langle \vec{ w_i} , \vec{ w_i}   \rangle  }\vec{ w_i} + \left(  \vec{ v _{ k+1}} - \sum\limits_{i=1}^{k} \frac{ \langle \vec{ v_{k+1}}, \vec{ w_i}    \rangle   }{ \langle \vec{ w_i} , \vec{ w_i}   \rangle  } \vec{ w_i} \right)
+       \right) 
+     .\]
+     where the firs term is the part of $ \vec{ v_{k+1}} $ that lies in the k-dimensional subspace spanned by $ \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  \right\} $ and the second term is the perpendicular part.\\
+     \\
+     Define 
+     \[
+     \vec{ w_{k+1}} = \vec{ v_{k+1}} - \sum\limits_{i=1}^{k} \frac{ \langle \vec{ v_{k+1}}, \vec{ w_i}    \rangle   }{ \langle \vec{ w_i} , \vec{ w_i}   \rangle  } \vec{ w_i}
+     .\] 
+     Claim: $ \vec{ w_{k+1}} $ is orthogonal to $ \vec{ w_i} \qquad  \forall  i = 1, \ldots , k$\\
+     \[
+     \langle \vec{ w_{k+1}} , \vec{ w_i}   \rangle = \langle \vec{ v_{k+1}}, \vec{ w_j} \rangle - \sum\limits_{j=1}^{k} \frac{ \langle \vec{ v_{k+1}}, \vec{ w_j}    \rangle   }{ \langle \vec{ w_j} , \vec{ w_j}   \rangle  } \langle \vec{ w_j} ,\vec{ w_i}   \rangle
+     .\] 
+     \[
+     \langle \vec{ w_{k+1}} , \vec{ w_j}   \rangle = \langle  \vec{ v_{k+1}} , \vec{ w_j}    \rangle - \frac{ \langle \vec{ v_{k+1}}, \vec{ w_j}    \rangle   }{ \langle \vec{ w_j} , \vec{ w_j}   \rangle  } \langle \vec{ w_j} ,\vec{ w_j}   \rangle =0
+     .\] 
+     Hence $ \left\{ \vec{ w_1} , \ldots , \vec{ w _{ k+1}}  \right\} $ is an orthogonal set and 
+     \begin{align*}
+      & span \left\{ \vec{ v_1} , \ldots , \vec{ v_{k+1}}  \right\} = span \left\{ \vec{ w_1} , \ldots , \vec{ w_{k+1}}  \right\} \\
+      &= span \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  , \vec{ w_{k+1}}  + \sum\limits_{j=1}^{k} c_j \vec{ w_j}  \right\} \\
+      &= span \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  , \vec{ w_{k+1}}  \right\}
+     .\end{align*}
+     }
+     \ex{}{
+     Let 
+     \[
+     \vec{ u_1} = \begin{bmatrix}
+     1\\
+     1\\
+     1\\
+     \end{bmatrix}
+      , \qquad  \vec{ u_2} = \begin{bmatrix}
+      0\\
+      1\\
+      1\\
+      \end{bmatrix}
+       , \qquad  \vec{ u_3} =  \begin{bmatrix}
+       0\\
+       0\\
+       1\\
+       \end{bmatrix}
+     .\]
+     $ \left\{ \vec{ u_1} , \vec{ u_2} , \vec{ u_3}  \right\} $ forms a basis of $ \mathbb{R} ^3$. Use the Gram Schmidt orthogonalization process to find an orthogonal basis of $ \mathbb{R} ^3$.\\
+     Let $ \vec{ w_1} = \vec{ u_1} = \begin{bmatrix}
+     1\\
+     1\\
+     1\\
+     \end{bmatrix}
+       $
+       \[
+       \vec{ w_2} = \vec{ u_2} - \frac{ \langle \vec{ u_2} , \vec{ w_1}   \rangle   }{ \langle \vec{ w_1} ,\vec{ w_1}   \rangle  } \vec{ w_1} = \begin{bmatrix}
+       0\\
+       1\\
+       1\\
+       \end{bmatrix}
+         - \frac{2}{3} \begin{bmatrix}
+         1\\
+         1\\
+         1\\
+         \end{bmatrix}
+          
+       .\] 
+       \[
+       \vec{ w_2} = \begin{bmatrix}
+       - \frac{2}{3}\\
+       \frac{1}{3}\\
+       \frac{1}{3}\\
+       \end{bmatrix}
+        
+       .\] 
+       \begin{align*}
+        \vec{ w_3} &= \vec{ u_3} - \frac{ \langle \vec{ u_3} , \vec{ w_1}   \rangle   }{ \langle \vec{ w_1} ,\vec{ w_1}   \rangle  } \vec{ w_1} - \frac{ \langle \vec{ u_3} , \vec{ w_2}   \rangle   }{ \langle \vec{ w_2} ,\vec{ w_2}   \rangle  } \vec{ w_2} \\ 
+        &=  \begin{bmatrix}
+        0\\
+        0\\
+        1\\
+        \end{bmatrix}
+         - \frac{1}{3} \begin{bmatrix}
+         1\\
+         1\\
+         1\\
+         \end{bmatrix}
+           - \frac{  \frac{ 1  }{ 3 }  }{  \frac{2}{3} } \begin{bmatrix}
+           - \frac{2}{3}\\
+           \frac{1}{3}\\
+           \frac{1}{3}\\
+           \end{bmatrix}
+            \\    
+            &=  \begin{bmatrix}
+        0\\
+        0\\
+        1\\
+        \end{bmatrix}
+         - \frac{1}{3} \begin{bmatrix}
+         1\\
+         1\\
+         1\\
+         \end{bmatrix}
+           - \frac{  1  }{  2 } \begin{bmatrix}
+           - \frac{2}{3}\\
+           \frac{1}{3}\\
+           \frac{1}{3}\\
+           \end{bmatrix}
+            \\    
+        \vec{ w_3} &= \begin{bmatrix}
+        0 \\
+        - \frac{1}{2}\\
+        \frac{1}{2}\\
+        \end{bmatrix}
+       .\end{align*}
+     }
+     
+     
+      
+     
+     
+     
+     
+     
+      
+    
+    
+    
+ 
+
+  
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}   
