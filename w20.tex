@@ -1,0 +1,740 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+%\usepackage[tagged, highstructure]{accessibility}
+\usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+
+
+
+\begin{document}
+\title{Linear Algebra I}
+\author{Lecture Notes Provided by Dr.~Miriam Logan.}
+\date{}
+\maketitle
+\tableofcontents
+\newpage  
+   
+A $  2 \times  2$ orthogonal matrix is either a rotation or of $ \mathbb{R} ^2$ about the origin or a reflection of $ \mathbb{R} ^2$ about a line through the origin.  \\
+Let $ A = \begin{bmatrix}
+a & b\\
+c & d\\
+\end{bmatrix}$ be an orthogonal matrix. \\
+We know that $ a ^2 + c^2 =1$, $ b^2 + d^2 = 1$, and $ ab + cd = 0$. \\
+$ \implies a^2 = 1- c^2$, $ \qquad  d^2 = 1 - b^2$\\
+and $ ab = -cd $ \\
+ \begin{align*}
+   \implies a^2 b^2 &= c^2 d^2 \\
+   \implies \left(1 - c^2\right)b^2 &= c^2 \left(1 - b^2\right)\\
+   \implies b^2 - c^2 b^2 &= c^2 - c^2 b^2\\
+   \implies b^2 &= c^2\\
+   \implies b &= \pm c
+ .\end{align*}
+ Similarly, we can show that $ a = \pm d$. \\
+ Case $ 1$ : $ a = d$ , $ b = c$
+ \begin{align*}
+  ab+cd =0\\
+  \implies ac+ ca = 0\\
+  2ac = 0\\
+  \implies a = 0 \text{ or } c = 0\\
+  \text{ and hence } d = 0 \text{ or } b = 0\\
+ .\end{align*}
+ \[
+ a=d=0  \qquad  \begin{bmatrix}
+ 0 & b\\
+ c & 0\\
+ \end{bmatrix} \qquad  b^2=1 \qquad c^2=1
+ .\] 
+ \[
+ \underbrace{ \begin{bmatrix}
+ 0 & 1\\
+ 1 & 0\\
+\end{bmatrix} }_{ \text{reflection in } y = x} \qquad \underbrace{ \begin{bmatrix}
+0 & -1\\
+ 1&0 \\
+\end{bmatrix} }_{ \text{rotation by } \frac{\pi}{2} \text{ anticlockwise} } \qquad  \underbrace{ \begin{bmatrix}
+0 & 1\\
+-1 & 0\\
+\end{bmatrix} }_{ \text{rotation by } \frac{3\pi}{2} \text{ anticlockwise}} \qquad \underbrace{ \begin{bmatrix}
+0 & -1\\
+-1 & 0\\
+\end{bmatrix} }_{ \text{reflection in } y = -x} 
+ .\] 
+ Case $ 2$ : $ a = -d$, $ b = -c$
+ same as case $ 1$ \\
+ \\
+ Case $ 3$ : $ b=c$ and $ a = -d$\\
+ \[
+ \begin{bmatrix}
+ a & c\\
+ c & -a\\
+ \end{bmatrix} \qquad  a^2 + c^2 = 1 \qquad  \implies \begin{bmatrix}
+ a\\
+ c\\
+ \end{bmatrix}
+  \text{ is a vector on the unit circle for some } \theta \in [0, 2\pi)
+ .\] 
+ \[
+ \implies \begin{bmatrix}
+ a\\
+ c\\
+ \end{bmatrix}
+ = \begin{bmatrix}
+ \cos \theta \\
+ \sin \theta \\
+ \end{bmatrix}
+ .\]
+ \[
+ \implies A = \begin{bmatrix}
+ \cos \theta  & \sin \theta \\
+ \sin \theta  & - \cos \theta \\
+ \end{bmatrix}
+ .\] 
+ to show that this matrix represents a reflection in $ \mathbb{R} ^2$ we just need to show that it is similar to $ \begin{bmatrix}
+ 1 & 0\\
+ 0 & -1\\
+ \end{bmatrix}$ i.e. that it has $ 1$ and minus $ 1$ as eigenvalues. \\
+ \begin{align*}
+  \chi _A \left( \lambda \right) = \left( \cos \theta  -\lambda \right) \left( - \cos \theta - \lambda  \right) - \sin ^2 \theta &= 0\\
+  - \cos ^2 \theta + \lambda ^2 - \sin ^2 \theta &= 0\\
+  \lambda ^2 &= 1\\
+  \lambda &= \pm 1
+  \implies A \text{ is similar to } \begin{bmatrix}
+  1 & 0\\
+  0 & -1\\
+  \end{bmatrix}
+ .\end{align*}
+ In fact, $ A$ is a reflection of $ \mathbb{R} ^2$ in the line through the origin that makes an angle of $  \frac{\theta}{2}$ with the $ x$-axis. \\
+ \\
+ Case $ 4$ : $ b = -c$ and $ a = d$\\
+ \[
+ A = \begin{bmatrix}
+ a & -c\\
+ c & a\\
+ \end{bmatrix} 
+ .\] 
+ \[
+ \text{ As before, } \qquad  A = \begin{bmatrix}
+  \cos \theta  & - \sin \theta \\
+ \sin \theta  & \cos \theta \\
+ \end{bmatrix} \text{ for some } \theta \in [0, 2\pi)
+ .\] 
+ this is a rotation of $ \mathbb{R} ^2$ about the origin by an angle of $ \theta$ anticlockwise. \\
+ \\
+ \thm{Spectral Theorem}
+ {
+   Suppose $ A$ is a real symmetric $n \times n$  matrix. There is an orthogonal matrix $ B$ such that $ B ^{ T}A B = B ^{-1}A B$ is diagonal. The entries along the diagonal are the eigenvalues and the columns of $ B$ are the eigenvectors of $ A$. \\
+ }
+ \ex{}{
+  Let $ \mathcal{P} _1 \left[ x \right]$ be the space of all polynomials of degree at most $ 1$. \\
+  Let 
+  \[
+  \langle f,g  \rangle = \int_{-1}^{1} 3x f \left( x \right) g \left( x \right) dx \qquad  \forall  f, g \in \mathcal{P} _1 \left[ x \right]
+  .\] 
+  Find the matrix $ A$ of this bilinear form with respect to the standard basis $ \mathcal{F} =\left\{ 1, x \right\}$ and find an orthogonal matrix $ B$ such that $ B ^{ T} A B$ is diagonal. \\
+  \textbf{Solution:} \\
+  \[
+  \left( A \right) _{ ij} = \langle \vec{ b_i} , \vec{ b_j}   \rangle \text{ where } \vec{ b_1} = 1, \vec{ b_2} = x
+  .\] 
+  \begin{align*}
+   \langle \vec{ b_i} , \vec{ b_j}   \rangle &= \langle x ^{i-1}, x ^{j-1}  \rangle \\
+   &= \int_{-1}^{1} 3x \left( x ^{i-1} \right) \left( x ^{j-1} \right) dx\\
+   &= 3 \int_{-1}^{1} x ^{i+j-1} dx\\
+   &= 3 \left[ \frac{x ^{i+j}}{i+j} \right]_{-1}^{1}\\
+   &= 3 \left( \frac{1}{i+j} - \frac{(-1)^{i+j}}{i+j} \right)\\
+   a_{ 1 1} = 3 \left( \frac{1}{2} - \frac{1}{2} \right)  = 0\qquad  a _{ 12 } = 3 \left( \frac{1}{3} - \frac{(-1)^{3}}{3} \right) = 2\\
+   a _{ 21 } = 3 \left( \frac{1}{3} - \frac{(-1)^{3}}{3} \right) = 2 \qquad  a _{ 22 } = 3 \left( \frac{1}{4} - \frac{1}{4} \right) = 0\\
+  .\end{align*}
+  \[
+  \implies A = \begin{bmatrix}
+  0 & 2\\
+  2 & 0\\
+ \end{bmatrix} \qquad  A \text{ is symmetric}
+  .\] 
+  To find $ B$ we look for the eigenvalues.
+  \begin{align*}
+   \chi _A \left( \lambda \right) &= \lambda^2 -4 =0\\
+   \lambda &= \pm 2
+  .\end{align*}
+  \[
+  \lambda=2 \to \vec{ v_1} = \begin{bmatrix}
+  1\\
+  1\\
+  \end{bmatrix}
+   \qquad  \lambda = -2 \to \vec{ v_2} =  \begin{bmatrix}
+   1\\
+   -1\\
+   \end{bmatrix}
+  .\] 
+  Eigenvalues are distinct thus eigenvectors are orthogonal. \\
+  \[
+  \text{ Let } B = \begin{bmatrix}
+  \frac{ 1  }{ \sqrt{2}  } & \frac{1}{ \sqrt{2} } \\
+    \frac{1}{ \sqrt{2} }& - \frac{1}{ \sqrt{2} }\\
+  \end{bmatrix} \qquad B ^{ T} = B ^{-1}
+  .\] 
+  \[
+  B ^{ T} A B = B^{-1} A B = \begin{bmatrix}
+  2 & 0\\
+  0 & -2\\
+  \end{bmatrix}
+  .\] 
+ }
+  \ex{}{
+   Suppose $ \left\{ \vec{ v_1} ,\ldots , \vec{ v_n}  \right\}  $ forms an orthonormal basis of $ \mathbb{R} ^n$ and consider the $n \times n$  matrix $ A= I_n - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} $ . Show that $ A$ is 
+   \begin{enumerate}[label=(\roman*)]
+     \item symmetric
+     \item orthogonal 
+     \item    diagonalizable
+     \end{enumerate}
+   \textbf{Solution:} \\
+   \begin{enumerate}[label=(\roman*).]  
+     \item 
+      \begin{align*}
+       A^{T} &= \left( I_n - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right) ^{T}\\
+       &= I_n ^{T} - 2 \left( \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right) ^{T}\\
+       &= I_n - 2 \left( \vec{ v_1}  \right)  \vec{ v_1} ^{T} \qquad  \left( BC \right) ^{T} = C ^{T} B ^{T}\\
+       &= A\\
+       \implies A \text{ is symmetric.}
+      .\end{align*}
+     \item 
+      \underline{Orthogonal:} \\
+      by (i)\\
+      \begin{align*}
+       A^{T}A = A A &= \left( I_n - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right) \left( I_n - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right)\\
+       &= I_n - 4 \left( \vec{ v_1}  \right) \left( \vec{ v_1}  \right) ^{T} + 4 \left( \vec{ v_1}  \right) \left( \vec{ v_1}  \right) ^{T} \left( \vec{ v_1}  \right) \left( \vec{ v_1}  \right) ^{T}\\
+       &= I_n - 4 \left( \vec{ v_1}  \right) \left( \vec{ v_1}  \right) ^{T} + 4 \left( \vec{ v_1}  \right) \left( \vec{ v_1}  \right) ^{T}\\
+       &= I_n\\ 
+       &\implies A^{T}A = I_n \text{ i.e. } A \text{ is orthogonal.}
+      .\end{align*}
+     \item
+      $ A$ being diagonalizable follows from the spectral theorem since $ A$ is orthogonal and symmetric. \\
+   \end{enumerate}
+   
+   It can also be shown that each $ \vec{ v_i} $ is an eigenvector of $ A$  and hence, there exists a basis of $ \mathbb{R} ^{n}$ consisting of eigenvectors of $ A$. \\
+   \begin{align*}
+    A \vec{ v_1} &= \left( I_n - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right) \vec{ v_1}\\
+    &= \vec{ v_1} - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \vec{ v_1}\\
+    &= \vec{ v_1} - 2 \vec{ v_1} = - \vec{ v_1}\\
+    \implies \vec{ v_1} \text{ is an eigenvector of } A \text{ with eigenvalue } -1.\\
+    A \vec{ v_k} &= \left( I_n - 2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right) \vec{ v_k} \qquad  k \neq 1\\
+    &= \left( I_n -2 \vec{ v_1} \left( \vec{ v_1}  \right) ^{T} \right) \left( \vec{ v_k} \right)\\
+    &= \vec{ v_k} - 2 \vec{ v_1} \left( \underbrace{ \left( \vec{ v_1}  \right) ^{T} \left( \vec{ v_k}  \right)  }_{ =0 } \right)\\
+    \implies A \vec{ v_k} = \vec{ v_k} 
+    \text{ i.e. } \vec{ v_k} \text{ is an eigenvector of } A \text{ with eigenvalue } 1 \text{ for } k \neq 1.\\
+   .\end{align*}
+   $ \implies \left\{ \vec{ v_1} , \ldots , \vec{ v_k}  \right\} $  is an orthonormal basis consisting of eigenvectors of $ A$ and if $ B = \begin{bmatrix}
+   \vline & \vline & \vline\\
+   \vec{ v_1}  & \ldots & \vec{ v_k} \\
+   \vline & \vline & \vline\\
+   \end{bmatrix}$ then 
+   \[
+   B ^{ T} A B = = \begin{bmatrix}
+       -1 & 0 & 0 & \dots  & 0 \\
+       0 & 1 & 0 & \dots  & 0 \\
+       \vdots & \vdots & \vdots & \ddots & \vdots \\
+       0 & 0 & 0 & \dots  & 1\end{bmatrix}
+   .\] 
+     
+     
+  }
+  \section{Quadratic Forms}
+ Consider a quadratic form $ q$ in the variables $ x_1, \ldots , x_n$,
+ \[
+ q \left( x_1,  \ldots , x_n \right) = \sum\limits_{i \le j}^{}  \alpha_{ij} x_i x_j 
+ 
+ .\] 
+ We can view this quadratic form as a particular instance of a symmetric bilinear form evaluated at  $ \langle  \vec{ x} , \vec{ x}   \rangle $ as follows:\\
+
+ Let $ A$ be a symmetric $n \times n$  matrix, $ \left( A \right) _{ (i,j) } =a_{ij}$ and Let 
+ \[
+ \langle ,  \rangle : \mathbb{R} ^{n} \times  \mathbb{R} ^{n} \to \mathbb{R} 
+ .\] 
+ be defined as
+ \begin{align*}
+  \langle \vec{ x} , \vec{ y}   \rangle &= \left( \vec{ x}  \right) ^{T} A \vec{ y} \\
+  \langle \vec{ x} ,\vec{ x}   \rangle =& \left( \vec{ x}  \right) ^{T} A \vec{ x} \\
+  &= \sum\limits_{1 \leq i,j \leq n}^{} a_{ij} x_i x_j\\
+ .\end{align*}
+ Note: in this expansion both $ a_{ij} x_i x_j$ and $ a_{ji} x_j x_i$ appear, and since $ a_{ij} = a_{ji}$, and $ x_i x_j= x_j x_i \implies a_{ij} x_i x_j + a_{ji}x_j x_i = 2a_{ij}x_i x_j $ if $ i \neq j$
+ \[
+ \implies \langle \vec{ x} ,\vec{ x}   \rangle = q \left( x_1, \ldots , x_n \right) = \sum\limits_{i \le j}^{}  \alpha_{ij} x_i x_j 
+ .\] 
+ $ \iff \alpha_{ij}= 2 a_{ij}$ and $ \alpha _{ ij} = \alpha _{ i i}$ for $ i \neq j$.\\
+   
+  
+ \dfn{Quadratic Form :}{
+   A quadratic form in $ n$ variables is a function that has the following form:
+   \[
+   q \left( x_1, \ldots , x_n \right) = \sum\limits_{i \le j}^{}  \alpha_{ij} x_i x_j
+   .\] 
+   It can be written as 
+   \[
+   q \left( \vec{ x}  \right) = \left( \vec{ x}  \right) ^{T} A \vec{ x}
+   .\] 
+   where $ A$ is a symmetric $n \times n$  matrix with $ \alpha_{ ii} = A_{ii}$ and $ \alpha_{ij}= \frac{1}{2} A_{ij}$
+ }
+ \ex{}{
+ $ q \left( \vec{ x}  \right) = x_1 x_2 \qquad  \vec{ x} \in \mathbb{R} ^2$
+ \begin{enumerate}[label=(\roman*)]
+   \item Find $ A$, the matrix of the quadratic form
+   \item 
+     Find a matrix $ B$ such that $ B ^{ T} A B$ is diagonal.
+   \end{enumerate}
+          \[
+          q \left( x \right) = 0 x_1 x_1 + 1 x_1 x_2 + 0 x_2 x_2
+          .\] 
+          \[
+          \implies q \left(  \vec{ x}  \right) = \left( \vec{ x}  \right) ^{T} A \vec{ x}  \qquad  \text{ where } A = \begin{bmatrix}
+          0 & \frac{1}{2}\\
+          \frac{1}{2} & 0\\
+          \end{bmatrix}
+          .\] 
+          $ A$ is a symmetric matrix $ \implies \exists $ an orthogonal matrix $ B$ such that $ B ^{ T} A B$ is diagonal. \\
+          Eigenvalues:
+          \[
+          \text{ det }  \left( A - \lambda I \right) = \lambda ^2 - \frac{1}{4}= 0 \qquad  \lambda = \pm \frac{1}{2}
+          .\] 
+          Eigenvectors:
+          \[
+          \lambda = \frac{1}{2} \to \vec{ v_1} = \begin{bmatrix}
+          1\\
+          1\\
+          \end{bmatrix}
+           \qquad  \lambda = -\frac{1}{2} \to \vec{ v_2} =  \begin{bmatrix}
+           -1\\
+           1\\
+           \end{bmatrix}
+           
+          .\] 
+          unit vectors:
+          \[
+          \vec{ w_1} = \frac{1}{\sqrt{2}} \begin{bmatrix}
+          1\\
+          1\\
+          \end{bmatrix}
+          \qquad  \vec{ w_2} = \frac{1}{\sqrt{2}} \begin{bmatrix}
+          -1\\
+          1\\
+          \end{bmatrix}
+          
+          .\] 
+   
+          Let $ \mathcal{F} = \left\{ \vec{ w_1} ,\vec{ w_2}  \right\} $ \\
+          \[
+          B = \begin{bmatrix}
+          \frac{1}{ \sqrt{2} } & - \frac{1}{ \sqrt{2} }\\
+          \frac{1}{ \sqrt{2} } & \frac{1}{ \sqrt{2} }\\
+          \end{bmatrix}             \qquad  B \text{ is an orthogonal matrix.}
+          .\]
+          \[
+          B ^{ T} A B = B ^{-1} A B = \begin{bmatrix}
+          \frac{1}{2} & 0\\
+          0 & - \frac{1}{2}\\
+          \end{bmatrix}
+          .\] 
+          Note $ B = P _{ \mathcal{F} \to \mathcal{E}}$ is a change of basis matrix from $ \mathcal{F} $ to $ \mathcal{E}$.\\
+          Hence
+          \[
+           \left[ \vec{ x}  \right] _{ \mathcal{E}} = B \left[ \vec{ x}  \right] _{ \mathcal{F}} 
+          .\] 
+          and so 
+          \begin{align*}
+           \left( \left( \left[ \vec{ x}  \right] _{ \mathcal{E}}\right) ^{T} A \left( \left[ \vec{ x}  \right] _{ \mathcal{E}}\right)  \right) = \left( B \left[ \vec{ x}  \right] _{ \mathcal{F}}\right) ^{T} A \left( B \left[ \vec{ x}  \right] _{ \mathcal{F}}\right)\\
+           &= \left( \left[ \vec{ x}  \right] _{ \mathcal{F}} ^{T} B ^{T} A B \left[ \vec{ x}  \right] _{ \mathcal{F}} \right)\\
+          .\end{align*}
+          $ \implies$ with respect to the basis $ \mathcal{F}$, the marix of $ q$ is diagonal,
+          \[
+          B ^{T} A B = \begin{bmatrix}
+          \frac{1}{2} & 0\\
+          0 & - \frac{1}{2}\\
+          \end{bmatrix}
+          .\]
+          \[
+           \text{ If } \left[ \vec{ x}  \right] _{ \mathcal{E}} = \begin{bmatrix}
+           x_1\\
+           x_2\\
+           \end{bmatrix}
+           _{ \mathcal{E}} \qquad  \text{ and } \left[ \vec{ x}  \right] _{ \mathcal{F}} = \begin{bmatrix}
+           f_1\\
+           f_2\\
+           \end{bmatrix}
+           _{ \mathcal{F}}
+          .\] 
+          \[
+           \implies q \left(  \left[ \vec{ x}  \right] _{ \mathcal{F}} \right) = \frac{1}{2} f_1 ^2 - \frac{1}{2} f_2 ^2 
+          .\] 
+          while as,
+          \[
+           q \left( \left[ \vec{ x}  \right] _{ \mathcal{E}}\right) = x_1 x_2 
+          .\] 
+          \\
+          Recall: If $ \mathcal{F} = \left\{  \vec{ v_1} , \ldots , \vec{ v_n}  \right\}$ and $  \mathcal{E} = \left\{  \vec{ w_1} , \ldots , \vec{ w_n} \right\} $ are different bases for $ \mathbb{R} ^{n}$ and suppose $ A \in M _{ n \times n}\left( \mathbb{R} \right) $  is the matrix of a bilinear form $ \langle ,  \rangle : \mathbb{R} ^{n} \times \mathbb{R} ^{n} \to \mathbb{R} $ with repect to $ \mathcal{E}$. And suppose $ B = P _{ \mathcal{F}\to \mathcal{E} }$ ie $ B = \begin{bmatrix}
+          \vline & \vline & \vline\\
+          \vec{ v_1}  & \ldots & \vec{ v_n} \\
+          \vline & \vline & \vline\\
+          \end{bmatrix}$
+          then the matric of $ \langle ,  \rangle $ with respect to $ \mathcal{F}$ is $ B ^{T}A B $.\\
+          \textit{ i.e. $ A$ and $ B^{T}A B$ represent the same bilinear form with respect to different bases.}\\
+ }             
+ \dfn{ :}{
+ Two $n \times n$  matrices $ A, B \in M _{ n \times  n\left(  \mathbb{R} \right) }$    are said to be congruent if there exists an invertible matrix $ C$ such that \[
+ B = C ^{T} A C
+ .\] 
+ Note:
+ \[
+ \left( C ^{T} \right) ^{-1} B C ^{-1} =A \\
+ .\] 
+ \[
+ \left( C ^{-1} \right) ^{ T} B C ^{-1} =A 
+ .\] 
+ Congruent matrices represent the same bilinear form with respect to different bases just as similar matrices represent the same linear operator with respect to different bases. \\
+ }
+ \nt{
+ Given a quadratic form 
+ \[
+ q \left( \vec{ x}  \right) = \left( \vec{ x}  \right) ^{T} A \vec{ x}
+ .\] 
+ Since $ A$ is symmetric, by the spectral theorem, there exists an orthogonal matrix $ B$ such that $ B ^{T} A B$ is diagonal (where the diagonal entries are eigenvalues). \\
+ \begin{align*}
+  q \left( \left[  \vec{ x}  \right]_{ \mathcal{E}} \right) ^{T} A \left( \left[ \vec{ x}  \right] \right) \\
+  &= \left( \left[  \vec{ x}  \right]_{ \mathcal{F}} \right) ^{T} B ^{T} A B \left( \left[  \vec{ x}  \right]_{ \mathcal{F}} \right)\\
+  &= \sum\limits_{i=1}^{n} \lambda_i \left( y_i \right) ^2
+ .\end{align*}
+ where $ \left[ \vec{ x}  \right]_{ \mathcal{F}}= \begin{bmatrix}
+ y_1\\
+ y_2\\
+ \vdots \\
+ y_n\\
+ \end{bmatrix}_{ \mathcal{F}}
+  $                         and $ \lambda_i$ are the eigenvalues of $ A$. \\
+ }
+  \ex{}{
+  \[
+  q \left( x_1 ,x_2 ,x_3 \right) = \left( x_1 \right) ^2 - \left( x_2 \right) ^2  + \left( x_3 \right) ^2 - 2 x_1 x_2 - 2 x_1 x_3 - 2 x_2 x_3
+  .\] 
+  \begin{enumerate}[label=(\roman*)]
+    \item Find $ A$ the matrix of the quadratic form.
+    \item Find a basis $ \mathcal{F} $ of $ \mathbb{R} ^3$ with respect to which the matrix of $ q$ is a diagonal matrix and find the diagonal matrix.
+    \end{enumerate}
+  \textbf{Solution:} \\
+  \begin{enumerate}[label=(\roman*)]
+    \item 
+     \[
+     A = \begin{bmatrix}
+     1 & -1 & -1\\
+     -1 & -1 & -1\\
+     -1 & -1 & 1\\
+     \end{bmatrix}
+     .\] 
+     \[
+     \text{ Eigenvalues} \qquad  \lambda =1 \qquad  \lambda = 2 \qquad  \lambda= -2
+     .\] 
+     \[
+     \text{ Eigenvectors: } \qquad   \begin{bmatrix}
+     1\\
+     -1\\
+     1\\
+     \end{bmatrix}
+      \qquad  \begin{bmatrix}
+      -1\\
+      0\\
+      1\\
+      \end{bmatrix}
+       \qquad  \begin{bmatrix}
+       1\\
+       2\\
+       1\\
+       \end{bmatrix}
+     .\] 
+     \[
+     \text{Let } \mathcal{F} = \left\{  \frac{1}{ \sqrt{3} } \begin{bmatrix}
+     1\\
+     -1\\
+     1\\
+     \end{bmatrix}
+      , \frac{1}{ \sqrt{2} } \begin{bmatrix}
+      -1\\
+      0\\
+      1\\
+      \end{bmatrix}
+       , \frac{1}{ \sqrt{6} } \begin{bmatrix}
+       1\\
+       2\\
+       1\\
+       \end{bmatrix}
+     \right\}
+     .\] 
+     $ \mathcal{F}$ is an orthonormal basis of $ \mathbb{R} ^3$. \\
+     \[
+     \text{ Let } B = \begin{bmatrix}
+     \frac{1}{ \sqrt{3} } & - \frac{1}{ \sqrt{2} } & \frac{1}{ \sqrt{6} } \\
+      - \frac{1}{ \sqrt{3} }& 0 & \frac{2}{ \sqrt{6} }\\
+      \frac{1}{ \sqrt{3} }& \frac{1}{ \sqrt{2} }  & \frac{1}{ \sqrt{6} }\\
+     \end{bmatrix}  \qquad  \text{ is an orthogonal matrix.}
+     .\] 
+     \[
+     \text{ and } B ^{ T} A B = \begin{bmatrix}
+     1 & 0 & 0\\
+     0 & 2 & 0\\
+     0 & 0 & -2\\
+     \end{bmatrix}
+     .\] 
+     with the change of variables $ \left[ \vec{ x}  \right] _{ \mathcal{E}} B \left[ \vec{ x}  \right] _{ \mathcal{F}}, q$ can be expressed as 
+     \begin{align*}
+      q \left( \left[ \vec{ x}  \right] _{ \mathcal{E}}\right) = \left[ \vec{ x}  \right] _{ \mathcal{E}} ^{T} A \left[ \vec{ x}  \right] _{ \mathcal{E}}\\
+      &= \left[ \vec{ x}  \right]  _{ \mathcal{F}} ^{T} B ^{T} A B \left[ \vec{ x}  \right] _{ \mathcal{F}}\\
+      &= y_1^2+2 y_2^2 - 2 y_3^2\\
+      \text{ if } \left[ \vec{ x}  \right] _{ \mathcal{F}} &= \begin{bmatrix}
+      y_1\\
+      y_2\\
+      y_3\\
+      \end{bmatrix}
+     .\end{align*}
+    \end{enumerate}
+
+   }
+   \dfn{Postive Definite Matrices :}{
+             A $n \times n$  matrix $ A$ is said to be positive definite if 
+             \[
+              \langle \vec{ x} ,\vec{ x}   \rangle = \left( \vec{ x}  \right) ^{T} A \vec{ x} \ge 0 \qquad  \forall  \vec{ x}  \in \mathbb{R} ^{n} \text{ with equality} \iff \vec{ x} = \vec{ 0} 
+             .\] 
+   }
+
+   \thm{(Test for Postive Definiteness)}
+   {
+      Suppose $ A$ is a real symmetric matrix, then $ A$ is positive definite ifand only if:
+      \begin{enumerate}[label=(\arabic*).]  
+        \item Definition: $ \left( \vec{ x}  \right) ^{T}A \vec{ x} > 0 \qquad  \forall  \vec{ x }  \neq \vec{ 0} $
+        \item    Eigenvalues: $ \lambda >0 \qquad  \forall $ eigenvalues $ \lambda $ of $ A$
+        \item Sylvester's Criterion: the determinants of all the $ k \times  k$ upper left submatrices are all positive 
+
+
+         \begin{tikzpicture}[every node/.style={anchor=base}]
+  % ---------- MATRIX ----------
+  \matrix (A) [matrix of math nodes,
+               left delimiter=(, right delimiter=)] {
+    a_{11} & a_{12} & a_{13} & \cdots & \cdots & a_{1n} \\
+    a_{21} & a_{22} & a_{23} & \cdots & \cdots & a_{2n} \\
+    a_{31} & a_{32} & a_{33} & \cdots & \cdots & a_{3n} \\
+    \vdots & \vdots & \vdots & \ddots &        & \vdots \\
+    a_{n1} & a_{n2} & a_{n3} & \cdots & \cdots & a_{nn} \\
+  };
+
+  % ---------- DASHED BLUE RECTANGLES ----------
+  \draw[dashed,blue] (A-1-1.north west) rectangle (A-1-1.south east);  % 1×1 block
+  \draw[dashed,blue] (A-1-1.north west) rectangle (A-2-2.south east);  % 2×2 block
+  \draw[dashed,blue] (A-1-1.north west) rectangle (A-3-3.south east);  % 3×3 block
+\end{tikzpicture}
+      \end{enumerate}
+               
+   }
+   
+    \ex{}{
+    Let $  A = \begin{bmatrix}
+    3 & 1\\
+    1 & 4\\
+    \end{bmatrix}$. Is $ A$ positive definite? \\
+    Sylvester: $ 3 >0$
+    \[
+    \text{ det }  A    = 12-1 = 11 >0 \qquad  \text{ Yes!}
+    .\]
+    or equivalently,\\
+    \begin{align*}
+     \text{ det } \left( A - \lambda I \right) &= \left( 3 - \lambda \right) \left( 4 -\lambda \right) -1\\
+     &= \lambda ^2 - 7 \lambda + 11\\
+     \lambda &= \frac{7 \pm \sqrt{49 - 44}}{2} = \frac{7 \pm \sqrt{5}}{2}\\
+     \lambda _1 &= \frac{7 + \sqrt{5}}{2} >0\\
+     \lambda _2 &= \frac{7 - \sqrt{5}}{2} >0\\
+     \implies A \text{ is positive definite.}
+    .\end{align*}
+    }
+    \ex{}{
+    Let $ A = \begin{bmatrix}
+    3 & 1 & 0\\
+    1 & 2 & 5\\
+    0 & 5 & x\\
+    \end{bmatrix}$ \\
+    \textit{Find the valies of $ x$ for which $ A$ is positive definite.} \\
+    \textbf{Solution:} \\
+    \[
+     \text{ det } \left[ 3 \right]  =3 >0 
+    .\] 
+    \[
+    \text{ det }  \begin{bmatrix}
+    3 & 1\\
+    1 & 2\\
+    \end{bmatrix} = 5 >0
+    .\] 
+    \[
+    \text{ det } A = 3 \left( 2x -25 \right) -1 \left( x \right) >0\\
+    .\] 
+    \begin{align*}
+     6x -75 -x &>0\\
+     5x -75 &>0\\
+     x &>15\\
+    .\end{align*}
+    $ \implies A$ is positive definite $ \iff x >15$
+    }
+    \ex{}{
+    Find the values of $ x$ for which 
+    \[
+    A = \begin{bmatrix}
+    2 & x & 0\\
+    x & x+4 & x-4\\
+    0 & x-4 & x+1\\
+    \end{bmatrix} \text{ is positive definite.}
+    .\] 
+     \[
+     \text{ det } \left[ 2 \right] = 2 >0
+     .\] 
+     \begin{align*}
+      \text{ det } \begin{bmatrix}
+      2 & x\\
+      x & x+4\\
+     \end{bmatrix} = 2x + 8 - x^2 &>0\\
+     - \left( x^2 -2x -8 \right) &>0\\
+     - \left( x -4 \right) \left( x +2 \right) &>0\\
+     -2 < x &<4
+     .\end{align*}
+
+ XXX PLOT
+
+     \begin{align*}
+      \text{ det } A &= 2 \left[ \left( x+4 \right) \left( x+1 \right) - \left( x-4 \right) ^2  \right] - x \left( x \right) \left( x+1 \right) \\
+      &= 2 \left[ x^2 +5x +4 - \left( x^2 -8x +16 \right) \right] - x^3 -x^2\\
+      &= 2 \left[ 13x -12 \right] - x^3 -x^2\\
+      &= - x^3 -x^2 + 26x -24\\
+      &= - \left( x^3 + x^2 - 26x + 24 \right)\\
+      & -1 \left( x-1 \right) \left( x^2 + 2x -24 \right)\\
+      &= -1 \left( x-1 \right) \left( x+6 \right) \left( x-4 \right)>0\\
+       x < -6 \qquad \text{ or } \qquad  1 < x < 4
+     .\end{align*}
+
+    }
+
+    \dfn{Positive Definite Quadratic Form :}{
+       A quadratic form $ q$ is said to be positive definite if $ q \left( \vec{ x}  \right) \ge 0 \qquad  \forall  \vec{ x} $ \\ with equality if and only if $ \vec{ x} = \vec{ 0}$.\\
+    }
+
+    \ex{}{
+    Find the values of a for which the quadratic form
+    \[
+    q \left( \vec{ x}  \right) = a x_1 ^2 + x_2^2 + 5 x_3 ^2 + 2 x_1 x_2 + 2 x_1 x_3 + 2 x_2 x_3 \text{ is positive definite.}
+    .\] 
+    \[
+    q \left( \vec{ x}  \right) = \left( \vec{ x}  \right) ^{T} A \vec{ x} = \left( \vec{ x}  \right) ^{T} \begin{bmatrix}
+    a & 1 & 1\\
+    1 & 1 & a\\
+    1 & a & 5\\
+    \end{bmatrix}             \vec{ x} 
+    .\]  
+    $ q$ is positive definite if and only if the matrix $ A$ is positive definite.\\
+    \begin{enumerate}[label=(\arabic*).]  
+     \item $ \text{ det } \left[ a \right]  =a >0 $
+
+      \item 
+       \[
+       \text{ det }  \begin{bmatrix}
+       a & 1\\
+       1 & 1\\
+       \end{bmatrix} = a -1 >0  \text{ i.e. } a >1
+       .\] 
+      \item 
+       \begin{align*}
+        \text{ det } \begin{bmatrix}
+        a & 1 & 1\\
+        1 & 1 & a\\
+        1 & a & 5\\
+       \end{bmatrix} &= a \left( 5 - a^2 \right) - 1 \left( 1 - a \right) + 1 \left( a - 1 \right)\\
+        &= 5a - a^3 -5 + a + a -1\\
+        &= -a^3 + 7a -6 >0\\
+        &= - \left( a-1 \right) \left( a^2 + 2a -6 \right) >0\\
+        &= - \left( a-1 \right) \left( a+3 \right) \left( a-2 \right) >0\\
+        a<-3 \qquad  \text{ or } \qquad  1 < a < 2
+       .\end{align*}
+       XXX PLOT\\
+       Putting everything together, we have $ A$ is positive definite if and only if $ 1 < a < 2$.
+    \end{enumerate}
+    
+    }
+    
+    
+ 
+   \thm{(Test for Postive Definiteness)}
+   {
+      Suppose $ A$ is a real symmetric matrix, then $ A$ is positive definite ifand only if:
+      \begin{enumerate}[label=(\arabic*).]  
+        \item Definition: $ \left( \vec{ x}  \right) ^{T}A \vec{ x} > 0 \qquad  \forall  \vec{ x }  \neq \vec{ 0} $
+        \item    Eigenvalues: $ \lambda >0 \qquad  \forall $ eigenvalues $ \lambda $ of $ A$
+        \item Sylvester's Criterion: the determinants of all the $ k \times  k$ upper left submatrices are all positive 
+        \end{enumerate}
+      }
+      \pf{Proof:}{
+       (1) $ \iff$ (2)\\
+       $ A$ is symmetric $ \iff $   $ \exists $ an orthogonal matrix $ B$ such that $ B ^{T} A B = \begin{bmatrix}
+           \lambda_1 & 0 & 0 & \dots  & 0 \\
+           0 & \lambda_2 & 0 & \dots  & 0 \\
+           \vdots & \vdots & \vdots & \ddots & \vdots \\
+           0 & 0 & 0 & \dots  & \lambda_n\end{bmatrix} $
+
+           with $ \lambda_i$  being the eigenvalues of $ A$.\\
+           Let $ \mathcal{F}$ be the basis of $ \mathbb{R} ^{n}$ given by the vectors from the columns of $ B$, and suppose 
+           \[
+            \left[ \vec{ x}  \right] _{ \mathcal{F}} = \begin{bmatrix}
+            y_1\\
+            \vdots\\
+            y_n\\
+            \end{bmatrix}
+           .\] 
+           Then 
+           \[
+            \left( \left[ \vec{ x}  \right] _{ \mathcal{E}}\right)   ^{T} A \left( \left[ \vec{ x}  \right] _{ \mathcal{E}}\right) = \left(  \left[ \vec{ x}  \right] _{ \mathcal{F}} \right) ^{T} B ^{T} A B \left( B \left[ \vec{ x}  \right] _{ \mathcal{F}} \right)   = \sum\limits_{i=1}^{n} \lambda_i \left( y_i \right) ^2>0
+           .\] 
+
+          \[
+           \iff \lambda_i \forall  i
+          .\] 
+          (1) $ \iff $  (3)
+          \[
+          \left( \vec{ x}  \right) ^{T}A \vec{ x} >0 \alpha \vec{ x}  \neq \vec{ 0} 
+          .\] 
+          \[
+           \iff \sum\limits_{1 \leq i,j \leq n}^{}  a_{ij} x_i x_j >0 \qquad  \forall  \vec{ x}  \neq \vec{ 0}
+          .\] 
+          If we choose $ \vec{ x} $ such that 
+          \[
+           x_{k+1} = x_{k+2} = \ldots = x_n = 0 
+          .\] 
+          then
+          \[
+          \sum\limits_{1 \leq i , j \leq k}^{} a_{ (i,j) } x_i x_j >0 \qquad  \forall  \vec{ x}  \neq \vec{ 0}
+          .\] 
+          $ \iff$  the $ k \times k $ upper left submatrix is positive definite.\\
+          $  \iff $ Its eigenvalues are positive.\\
+          $ \iff  \text{ det } A_k >0$ 
+      }
+      
+    
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+\end{document}
