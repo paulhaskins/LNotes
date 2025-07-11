@@ -3,8 +3,19 @@
 \input{preamble}
 \input{macros}
 \input{letterfonts}
+
 %\usepackage[tagged, highstructure]{accessibility}
 \usepackage{tocloft}
+\usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+
+
 
 \begin{document}
 \title{Linear Algebra I}
@@ -12,14 +23,36 @@
 \date{}
 \maketitle
 \tableofcontents
-\newpage
-\\
-\section{Vectors in $\mathbb{R}^{N}$}
+\newpage  
+  \section{Vectors in $\mathbb{R}^{N}$}\\
+  When you see hear the word "vector" - what comes to minde?\\ An arrow/ a directed line segment which has a direction and a magnitude.\\
+  \dfn{Vectors :}{
+  A vector is a geometric object which has a direction and a magnitude.\\
+  }
+  
 \subsection{Properties of Vectors}
 \subsubsection{Vectors, Points and Magnitudes}
 $\mathbb{R}^2 = \{ \left( x,y \right) ~|~x,y \in \mathbb{R}  \} = \{ \langle x , y\rangle~| ~x,y \in \mathbb{R}  \}  $ which is equal to the set of all ordered types of real numbers.\\
 \underline{Notation}: We will use $\left( x,y \right) $ to denote a point in $\mathbb{R}^2$ and $\langle x ,y \rangle $ to denote a vector in $\mathbb{R}^2$.\\
 These two notations are interchangeable since a point determines a vector (a directed line segment joining the origin to that point).\\
+           \\
+	   $ \mathbb{R} ^2:$ \\
+\begin{tikzpicture}[>=stealth,thick]         % ‘>=stealth’ gives arrow-heads
+
+  % --- axes ------------------------------------------------------
+  \draw[->,blue]  (-0.5,0) -- (4,0);         % x-axis
+  \draw[->,blue]  (0,-0.5) -- (0,4);         % y-axis
+
+  % --- the vector & point ---------------------------------------
+  \coordinate (P) at (3,2.4);                % change (3,2.4) to any (x,y)
+
+  \draw[->,teal] (0,0) -- (P)                % the vector
+        node[midway,below right] {$\langle x,y\rangle$};
+
+  \fill[teal] (P) circle (2pt);              % the point itself
+  \node[above right] at (P) {$(x,y)$};       % label of the point
+
+\end{tikzpicture}
 \\
 \[
 \mathbb{R}^{3} = \{ \vec{v} = \langle  v_1,v_2,v_3 \rangle |_{}^{} ~v_1, v_2, v_3 \in \mathbb{R} \} = \text{ the set of all ordered triples of real numbers}
@@ -27,6 +60,8 @@ These two notations are interchangeable since a point determines a vector (a dir
 \[
 \mathbb{R}^{n}= \{ \vec{v} = \langle v_1,v_2,\ldots,v_n  \rangle ~|~ v_1,v_2,\ldots,v_n \in \mathbb{R}, n \in \mathbb{N} \} = \text{ the set of all ordered n-tuples of real numbers}
 .\] Geometrically: A vector is a directed line segment. Algebraically: a vector is defined by its co-ordinates.\\
+$ \mathbb{R} ^3:$ \ \
+XXX TEXKIT
 \\
 \textit{In what follows the results (unless stated otherwise) hold for all vectors $\vec{v} $ in $\mathbb{R}^{n}$}\\
 On this 'new' set of objects (vectors) we define the operations of addition, scalar multiplication, dot product (also known as scalar product) and cross product for vectors in $\mathbb{R}^{3}$ only.\\
@@ -39,23 +74,136 @@ On this 'new' set of objects (vectors) we define the operations of addition, sca
 .\] 
 Geometrically: $\vec{v} +\vec{w}$ is the directed line segment which forms the long diagonal of the parallelogram formed by $\vec{v} $ and $\vec{w} $.
 \\
-XXX TEXIT
+\begin{tikzpicture}[>=latex, line cap=round, line join=round]
+  %--- coordinates ------------------------------------------------------------
+  \coordinate (O)  at (0,0);          % origin
+  \coordinate (V)  at (4,0);          % vector v  (4,0)
+  \coordinate (W)  at (1.6,3.4);      % vector w  (≈(1.6,3.4))
+  \coordinate (VW) at ($(V)+(W)$);    % v + w
+
+  %--- vectors ---------------------------------------------------------------
+  \draw[->,thick,blue!70!black] (O) -- (W)
+        node[midway,left] {$\vec w$};
+
+  \draw[->,thick,blue!70!black] (O) -- (V)
+        node[midway,below] {$\vec v$};
+
+  \draw[->,thick,blue!50] (V) -- (VW)
+        node[midway,right] {$\vec w$};
+
+  \draw[->,thick,red] (O) -- (VW)
+        node[pos=.55,above] {$\vec v + \vec w$};
+\end{tikzpicture}
 \\
 \\
 \textbf{Scalar Multiplication: } (multiplying a vector by a scalar)\\
 Let $c \in \mathbb{R}$, $\vec{v} \in \mathbb{R}^{n}$.\\
-XXX TEXIT\\
+\\
+\\
+\begin{tikzpicture}[>=Stealth,line width=1pt]
+
+%--- helper macros for the vector components ---------------------------------
+\def\vx{2}    % x–component of v
+\def\vy{1}    % y–component of v
+
+% ── Line 1 ───────────────────────────────────────────────────────────────────
+\draw[->,blue!80!black] (0,0) -- ++(\vx,\vy)
+      node[midway,above left] {$\vec v$};
+
+% ── Line 2 ───────────────────────────────────────────────────────────────────
+\draw[->,blue!80!black] (3,0) -- ++(\vx,\vy)
+      node[midway,above left] {$\vec v$};
+ \draw[->,magenta!80] (3,0) -- ++({2*\vx},{2*\vy})
+      node[midway,above right,yshift=2pt] {$2\vec v$};  
+% ── Line 3 (only the doubled vector) ────────────────────────────────────────
+\draw[->,blue!80] (6,0) -- ++({\vx},{\vy})
+      node[midway,above right,yshift=2pt] {$\vec v$};  
+ \draw[->,green!80] (6,0) -- ++({0.5*\vx},{0.5*\vy})
+      node[midway,above right,yshift=2pt] {$ \frac{1}{2}\vec v$};   
+% ── Line 4 (all the scaled & opposite copies) ───────────────────────────────
+\coordinate (O) at (11,0);              % common origin for this family
+
+
+\draw[->,blue!80!black]  (O) -- ++(\vx,\vy)
+      node[midway,above left] {$\vec v$};
+
+\draw[->,red!75!black]   (O) -- ++(-\vx,-\vy)
+      node[midway,below] {$-\vec v$};
+
+\end{tikzpicture}
 \\
 Algebraically: $c \vec{v} $ is defined to be 
 \[
 c \vec{v} = \langle cv_1, cv_2, \ldots, cv_n \rangle 
 .\] 
-Geometrically: $c\vec{v} $ is a vector who length is $|c|$times the length of  $\vec{v} $ and whos direction is the same as $\vec{v} $ if $c >0$ and the opposite to $\vec{v} $ if $ c<0$.\\
+Geometrically: $c\vec{v} $ is a vector who length is $|c|$ times the length of  $\vec{v} $ and whos direction is the same as $\vec{v} $ if $c >0$ and the opposite to $\vec{v} $ if $ c<0$.\\
 \\
 If  $c=0$ then $c \vec{v} =\vec{0} = \langle 0,0,\ldots,0  \rangle $ which is known as the \underline{null}  \underline{vector} .\\
+
+
+\begin{tikzpicture}[>=Stealth,line width=1pt]
+
+% ---------------------------------------------------------------------------
+% 1.  pick concrete components for  v  and  w
+%     (feel free to tweak these two lines to change the geometry)
+\def\vx{1.5}   % x-component of v
+\def\vy{3}     % y-component of v
+\def\wx{3}     % x-component of w
+\def\wy{1.5}   % y-component of w
+% ---------------------------------------------------------------------------
+
+\coordinate (O)      at (0,0);
+\coordinate (v)      at (\vx,\vy);
+\coordinate (w)      at (\wx,\wy);
+\coordinate (mV)     at (-\vx,-\vy);                 % −v
+\coordinate (mW)     at (-\wx,-\wy);                 % −w
+\coordinate (vPw)    at ($(v)+(w)$);                 %  v + w
+\coordinate (vMw)    at ($(v)-(w)$);                 %  v − w
+\coordinate (wMv)    at ($(w)-(v)$);                 %  w − v
+\coordinate (mVmW)   at ($(mV)+(mW)$);               % −v − w
+
+% --- base vectors -----------------------------------------------------------
+\draw[->,magenta!80]      (O) -- (v)  node[midway,above]            {$\vec v$};
+\draw[->,blue!70!black]   (O) -- (w)  node[midway,above right=-2pt] {$\vec w$};
+
+% --- their negatives --------------------------------------------------------
+\draw[->,black!75]        (O) -- (mV) node[midway,below]            {$-\vec v$};
+\draw[->,blue!40!black]   (O) -- (mW) node[midway,above left=-1pt]  {$-\vec w$};
+
+% --- the four combination vectors ------------------------------------------
+\foreach \pt/\lbl in {vPw/ {\vec v+\vec w},
+                      vMw/ {\vec v-\vec w},
+                      wMv/ {\vec w-\vec v},
+                      mVmW/{-\vec v-\vec w}}
+  \draw[->,teal!70!black] (O) -- (\pt) node[midway,sloped,above] {\lbl};
+
+% --- dashed parallelogram through their tips -------------------------------
+\draw[dashed,teal!70!black]
+      (vPw) -- (vMw) -- (mVmW) -- (wMv) -- cycle;
+
+\end{tikzpicture}
+
+          \\
+	  \\
+
+
+
+
+
+
+
+
+
+
 \\
-\textbf{Unit Vectors:}  A \underline{unit } \underline{vector}  is a vector of length 1. For a general vector $\vec{v} \in \mathbb{R}^{n} $ $\frac{1}{\|\vec{v} \|}\vec{v} $ is a unit vector pointing in the direction of $\vec{v} $.\\
-\\
+\section{Unit Vectors}
+	
+ \dfn{Unit Vectors :}{
+ 
+A \underline{unit } \underline{vector}  is a vector of length 1. For a general vector $\vec{v} \in \mathbb{R}^{n} $ $\frac{1}{\|\vec{v} \|}\vec{v} $ is a unit vector pointing in the direction of $\vec{v} $.\\
+\\                
+ }
+ \dfn{Standard Basis Vectors :}{
 The \underline{Standard} \underline{basis} \underline{vectors}  are the unit vectors along with the co-ordinate axis e.g. In $\mathbb{R}^2$ $\langle 1,0  \rangle $ and $\langle 0,1  \rangle $.\\
 \\
 You may have encountered them in $\mathbb{R}^3$ under a different disguise in physics,
@@ -67,7 +215,19 @@ You may have encountered them in $\mathbb{R}^3$ under a different disguise in ph
 .\] 
 \[
 \langle 0,0,1  \rangle = \hat{k}
-.\] 
+.\]                         
+ }
+ 
+ \ex{}{
+ \begin{align*}
+	 \langle 3, -7, 0  \rangle &= 3 \langle 1, 0 ,0  \rangle                   - 7 \langle 0, 1,0  \rangle + 0 \langle 0,0,1  \rangle \\
+	 &= 3 \hat{i} - 7 \hat{j} + 0 \hat{k} \\
+	 \text{ i.e. } \langle x,y,z  \rangle &= x \hat{i} + y \hat{j} + z \hat{k} \qquad  \forall  x , y ,z \in \mathbb{R} \\
+ .\end{align*}
+ }
+ 
+ 
+
 \\
 \textbf{Scalar Product/ Dot Product} \\
 \underline{Algebraic:}  Let $\vec{v} = \langle v_1,v_2,\ldots,v_n  \rangle $, $\vec{w} = \langle w_1,w_2,\ldots, w_n  \rangle $. Then $\vec{v} \cdot \vec{w} $ is defined to be 
@@ -91,6 +251,424 @@ Let $\vec{v} $, $\vec{w}  $, $\vec{q} $ $\in \mathbb{R}^{n}$ and let $c \in \mat
 \end{enumerate}
 
 }
+
+\pf{Proof:}{
+	\textit{The results follow from the definition }\\
+	In what follows $ \vec{ v} = \langle v_1, v_2, \ldots v_n   \rangle $, $ \vec{ w} = \langle w_1,w_2,\ldots,w_n  \rangle $,\\
+	$ \vec{ q} = \langle q_1,q_2,\ldots , q_n  \rangle $ \qquad $ v_i , w_i, q_i \in \mathbb{R} \qquad  \forall 1 \leq i \leq n$ 
+	\begin{enumerate}[label=(\roman*)]
+	\item 
+		\begin{align*}
+			\vec{ v} \cdot  \vec{ w} &= v_1w_1 + v_2w_2 + \ldots + v_nw_n \\
+			&= w_1v_1 + w_2v_2 + \ldots + w_n v_n \\
+			&= \vec{ w} \cdot \vec{ v}
+		.\end{align*}
+
+	\item 
+		\begin{align*}
+			\vec{ v} \cdot \left( \vec{ w} +\vec{ q}  \right) &= \langle v_1, v_2, \ldots v_n  \rangle \cdot \langle w_1+q_1, w_2+q_2, \ldots, w_n+q_n  \rangle \\
+			&= v_1\left( w_1+q_1 \right) + v_2\left( w_2+q_2 \right) + \ldots + v_n\left( w_n+q_n \right) \\
+			&= v_1w_1 + v_2w_2 + \ldots + v_nw_n + v_1q_1 + v_2q_2 + \ldots + v_nq_n \\
+			&= \vec{v} \cdot  \vec{w} +\vec{v} \cdot  \vec{q}
+		.\end{align*}
+	\item 
+		\begin{align*}
+			\vec{ v} \cdot \left( c \vec{ w}  \right) &= \langle v_1, v_2, \ldots v_n  \rangle \cdot \langle cw_1,cw_2,\ldots,cw_n  \rangle \\
+			&= v_1\left( cw_1 \right) + v_2\left( cw_2 \right) + \ldots + v_n\left( cw_n \right) \\
+			&= c\left( v_1w_1 + v_2w_2 + \ldots + v_nw_n \right) \\
+			&= c\left( \vec{v} \cdot  \vec{w}  \right)
+		.\end{align*}
+	\item 
+		\begin{align*}
+			\vec{ v} \cdot \vec{ v}  &= \langle v_1, v_2, \ldots v_n  \rangle \cdot \langle v_1,v_2,\ldots,v_n  \rangle \\
+			&= v_1^2 + v_2^2 + \ldots + v_n^2 \\
+			&= \|\vec{v} \|^2
+		.\end{align*}
+			\item 
+				\begin{tikzpicture}[>=Stealth,line width=1pt]
+
+% ---------------------------------------------------------------------------
+%  geometry (feel free to tweak)
+\coordinate (O) at (0,0);
+\coordinate (v) at (2,3);          %  \vec v
+\coordinate (w) at (3.5,-2.5);     %  \vec w
+% ---------------------------------------------------------------------------
+
+% coordinate axes  -----------------------------------------------------------
+\draw[blue!70!black,->] (-3,0) -- (5,0);              %  x-axis
+\draw[blue!70!black,->] (0,-3) -- (0,4);              %  y-axis
+
+% vectors  -------------------------------------------------------------------
+\draw[->,red!75!black] (O) -- (v) node[midway,above left=-1pt] {$\vec v$};
+\draw[->,red!75!black] (O) -- (w) node[midway,below right]     {$\vec w$};
+\draw[->,teal!70!black] (v) -- (w) node[midway,right=2pt]      {$\vec w-\vec v$};
+
+
+% angle marker between +x axis and \vec v  ----------------------------------
+\coordinate (i) at (1,0);                  % a point on the +x axis
+\pic[draw=blue,angle radius=6mm] {angle = i--O--v};
+
+% origin dot (purely cosmetic) ----------------------------------------------
+\fill[blue] (O) circle (1.3pt);
+
+\end{tikzpicture} \\
+Graph drawn in $ \mathbb{R} ^2$ with $ \phi $ between $ \vec{ v} $ and $ \vec{ w} $ just to give the same geometric interpretation but the result holds for $ \mathbb{R} ^{n}$.\\
+By the cosine rule
+\begin{align*}
+	\|\vec{ w} - \vec{ v} \|^2 &= \|\vec{ w} \|^2 + \|\vec{ v} \|^2 - 2\|\vec{ w} \|\|\vec{ v} \|\cos\phi \\
+	2 \|\vec{ w} \|\|\vec{ v} \|\cos\phi &= \|\vec{ w} \|^2 + \|\vec{ v} \|^2 - \|\vec{ w} - \vec{ v} \|^2\\
+	\|\vec{ v} \|\|\|\vec{ w} \|\cos\phi &= \frac{1}{2} \left[ v_1^2+v_2^2+ \ldots + v_n^2 + w_1^2+ w_2^2+ \ldots + w_n^2 - \left( w_1-v_1 \right) ^2 - \left( w_2 - v_2 \right) ^2- \ldots - \left( w_n -v_n \right) ^2 \right]  \\
+	\|\vec{ v} \|\|\|\vec{ w} \|\cos\phi &= \frac{1}{2} \left[ 2 v_1w_1 + 2v_2w_2 + \ldots + 2v_nw_n \right] \\
+	&\implies \|\vec{ v} \|\|\|\vec{ w} \|\cos\phi = v_1w_1 + v_2w_2 + \ldots + v_nw_n \\
+.\end{align*}
+	\end{enumerate}
+	
+	
+	
+}
+
+  \begin{corollary}[]
+  	For any vectors $ \vec{ v} ,\vec{ w} \in \mathbb{R} ^{n}$ we have that 
+	\[
+	- \|\vec{ v} \| \|\vec{ w} \| \leq \vec{ v} \cdot \vec{ w} \leq \|\vec{ v} \| \|\vec{ w} \|
+	.\] 
+  \end{corollary}
+  This is trivial from the geometric viewpoint (follows from the fact that $ -1 \leq \cos \phi  \leq 1 \qquad  \forall  \phi $)\\
+  But, note that this would be a lot harder to prove using the algebraic definition.\\
+
+  \dfn{Orthogonal Vectors :}{
+  Two vectors $\vec{v} $ and $\vec{w} $ are said to be orthogonal if $\vec{v} \cdot \vec{w} =0$.\\
+  }
+  From a geometric viewpoint this means that the angle between them is $\frac{\pi}{2} $ or $90^{\circ} $.\\
+  The dot product not only allows us to identify vectors at right angles it also allows us to determine the angle between two vectors, and also to determine the extent to which two vectors are point in in the same direction ( taking length out of the equation and only looking at the unit vectors).\\
+  Suppose $ \vec{ n} , \vec{ v} , \vec{ u } ,\vec{ w} , \vec{ a}  \in \mathbb{R} ^{n}$ are all unit vectors and hence $ \vec{ u} \cdot  \vec{ v} = \cos \phi $ where $\phi $ is the angle $ \vec{ u} $ and $ \vec{ v} $, $ 0 \leq \phi \leq \pi$ \\
+  \\
+
+   \
+
+
+
+
+
+
+  \begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[>=stealth,line cap=round,scale=1.15]
+    % ------------------------------
+    % basic constants
+    % ------------------------------
+    \def\R{3}            % circle radius
+    \def\vAngle{0}       % 0°  (→)   :  \vec v
+    \def\uAngle{25}      % 25°        :  \vec u   (so ϕ ≈ 25°)
+    \def\wAngle{-60}     % −60°       :  \vec w   (so θ ≈ 60°)
+    \def\nAngle{90}      % 90°  (↑)   :  \vec n
+    \def\aAngle{170}     % 170°       :  \vec a   (gives α>π/2)
+    % ------------------------------
+    % unit circle
+    % ------------------------------
+    \draw[blue!70!black,thick] (0,0) circle (\R);
+    % ------------------------------
+    % vectors
+    % ------------------------------
+    \draw[->,very thick,green!70!black]   (0,0)--(\nAngle:\R)        node[above]{$\vec n$};
+    \draw[->,very thick,green!70!black]   (0,0)--(\nAngle-180:\R)    node[below]{$-\vec n$};
+    
+    \draw[->,very thick,blue!70!black]    (0,0)--(\vAngle:\R)        node[right]{$\vec v$};
+    \draw[->,very thick,magenta!70]       (0,0)--(\vAngle-180:\R)    node[left]{$-\vec v$};
+    
+    \draw[->,very thick,cyan!70!black]    (0,0)--(\wAngle:\R)        node[below right]{$\vec w$};
+    \draw[->,very thick,blue!50!black]    (0,0)--(\aAngle:\R)        node[left]{$\vec a$};
+    
+    \draw[->,very thick,red!75!black]     (0,0)--(\uAngle:\R)        node[above right]{$\vec u$};
+    % ------------------------------
+    %   angle ϕ  (between v and u)
+    % ------------------------------
+    \draw[red!75!black,thick] (0.8,0)  arc (0:\uAngle:0.8);
+    \node at ( {0.9*cos(\uAngle/2)}, {0.9*sin(\uAngle/2)} ) {$\phi$};
+    % ------------------------------
+    %   angle θ  (between v and w)
+    % ------------------------------
+    \draw[cyan!70!black,thick] (1.3,0) arc (0:\wAngle:1.3);
+    \node at ( {1.4*cos(\wAngle/2)}, {1.4*sin(\wAngle/2)} ) {$\theta$};
+    % ------------------------------
+    %   angle α  (between n and a) – optional
+    % ------------------------------
+ \draw[blue!70!black,thick]
+      ({0.9*cos(\vAngle)},{0.9*sin(\vAngle)}) % start at +v
+      arc (\vAngle:\aAngle:0.9);               % sweep to a
+\node at ( {1.1*cos((\vAngle+\aAngle)/2)},     % label midway
+           {1.1*sin((\vAngle+\aAngle)/2)} ) {$\alpha$};
+  \end{tikzpicture}
+  \caption{Unit circle with the vectors \(\vec n,\vec v,\vec u,\vec w,\vec a\) and the angles
+           \(\phi\) and \(\theta\) (plus the auxiliary \(\alpha\)). \\$ \vec{ u} \cdot \vec{ v} = \cos \phi  >0$ and close to $ 1$ since $ \phi $ is close to $ 0$.\\
+         $ \vec{ a} \cdot \vec{ v} <0$ since $ \alpha > \frac{ \pi  }{ 2 } \qquad $,  $ \vec{ w} \cdot  \vec{ v} = \cos \theta >0 $ and close to $ 0$ since $ \theta$ is close to $ \frac{ \pi  }{ 2 }$.\\}
+\end{figure}
+  
+    \\
+    \\
+ \clearpage
+ In conlusion, for any two unit vectors $ \vec{ u} , \vec{ v} \in \mathbb{R} ^{n}$, vectors that poin in the same direction have have a positive dot product, the larger the value the more likely theu point in the same direction, 
+ \[
+ -1 \leq \vec{ u} \cdot \vec{ v} \leq 1
+ .\] 
+ \section{Cross Product }
+ \textit{(only defined in $\mathbb{R}^{3}$)}\\
+ Let $\vec{v} = \langle v_1,v_2,v_3  \rangle $, $\vec{w} = \langle w_1,w_2,w_3  \rangle  \in \mathbb{R} ^3$  \\
+ \dfn{Cross Product :}{
+   The cross poduct of $\vec{v} $ with $ \vec{ w} $ is defined to be
+   \[
+   \vec{ v} \times \vec{ w} = \langle v_2w_3-v_3w_2, v_3w_1-v_1w_3, v_1w_2-v_2w_1  \rangle
+   .\] 
+ }
+   \textit{ This may seem like a convoluted algebraic definition, the geometric description is much more enlightening and it is the motivation for the algebraic definition.}\\
+   We can check $ \vec{ v} \cdot  \left( \vec{ v} \times  \vec{ w}  \right) = 0$ and $ \vec{ w} \cdot  \left( \vec{ v} \times  \vec{ w}  \right) =0$ \\
+   i.e. $ \vec{ v} \times  \vec{ w} $ is orthogonal to both $ \vec{ v} $ and $ \vec{ w} $.\\
+   \raggedcolumns
+   \begin{multicols}{2}
+     \begin{tikzpicture}[tdplot_main_coords, line cap=round, >=Stealth]
+
+%------------------------------------------------- plane (just an outlined quadrilateral)
+\coordinate (A) at (0,0,0);
+\coordinate (B) at (4,0,0);
+\coordinate (C) at (5,1.6,0);
+\coordinate (D) at (1,1.6,0);
+\draw[blue!60, thick] (A)--(B)--(C)--(D)--cycle;
+
+%------------------------------------------------- vectors in the plane
+\draw[->, very thick, cyan] (A) -- ++(2.5,0.8,0)
+      node[below right] {$\vec v$};
+
+\draw[->, very thick, cyan!70!black] (A) -- ++(3.2,0,0)
+      node[below right] {$\vec w$};
+
+%------------------------------------------------- normal vector
+\draw[->, very thick, blue!70!black] (A) -- ++(0,3,0)
+      node[left] {$\vec v \times \vec w$};
+
+\end{tikzpicture}
+   
+   \break
+    But note that there are an infinite number of vectors that are orthogonal to both $ \vec{ v} $ and $ \vec{ w} $, which one is $ \vec{ v} \times  \vec{ w} $?\\
+   \end{multicols}
+   Direction of $ \vec{ v}  \times  \vec{ w} $ is determined by the right hand rule:
+   \begin{enumerate}[label=(\arabic*).]  
+     \item Point the fingers of your right hand in the direction of $ \vec{ v} $.
+     \item Curl now your fingers in the direction of $ \vec{ w} $ (remember you can't curl your fingers more than $ \pi \implies$ make sure to begin with that the angle going from $ \vec{ v} $ to $ \vec{ w} $ is less than $ \pi$- otherwise start with $ \vec{ w} $ and curl fingers towards $ \vec{ v} $).
+     \item Result: your thumb now points in the direction of $ \vec{ v} \times  \vec{ w} $.
+   \end{enumerate}
+   \underline{Length of $ \vec{ v} \times  \vec{ w} $:}\\
+   \thm{}
+   {
+   $ \|\vec{ v} \times  \vec{ w} \|= $ the area of the parallelogram formed by $ \vec{ v} $ and $ \vec{ w} $.\\
+   }
+     \pf{Proof:}{
+     
+
+
+
+       \[
+       \text{ Area of Parallelogram} = \|\vec{ v} \| h
+       .\] 
+       \[
+       \text{ Note: } \sin \phi  = \frac{ h  }{ \| \vec{ w} \| }
+       .\] 
+       \begin{align*}
+         \implies \text{ Area } &= \|\vec{ v} \| \| \vec{ w} \| \sin \phi  \\
+          &= \sqrt{ \|\vec{ v} \|^2 \|\vec{ w} \|^2 \sin^2 \phi  } \qquad  \sin \phi  =  \sqrt{ \left( \sin \phi  \right) ^2} \text{ since } 0 \leq \phi \leq \pi \\
+          &= \sqrt{ \|\vec{ v} \|^2 \|\vec{ w} \|^2 \left( 1 - \cos ^2 \phi  \right) } \\
+          &= \sqrt{ \|\vec{ v} \|^2 \|\vec{ w} \|^2 - \|\vec{ v} \|^2 \|\vec{ w} \|^2 \cos ^2 \phi  } \\
+          &= \sqrt{ \|\vec{ v} \|^2 \|\vec{ w} \|^2 - \left( \vec{ v} \cdot  \vec{ w}  \right) ^2 }\\
+          &= \sqrt{ \left( v_1^2+v_2^2+v_3^2 \right) \left( w_1^2+w_2^2+w_3^2 \right) - \left( v_1 w_1 + v_2 w_2 + v_3 w_3 \right) ^2} \\
+          &= \sqrt{ v_2^2 w_3^2 + v_3^2 w_2^2 + v_1^2 w_2^2 + v_2^2 w_1^2 + v_3^2 w_1^2 + v_1^2 w_3^2 -  \left( v_1 w_1 + v_2 w_2 + v_3 w_3 \right) ^2 }\\
+          &= \sqrt{ \left( v_2 w_3 - v_3 w_2 \right) ^2 + \left( v_3 w_1 - v_1 w_3 \right) ^2 + \left( v_1 w_2 - v_2 w_1 \right) ^2 }\\
+          &= \|\vec{ v} \times  \vec{ w} \|
+       .\end{align*}
+
+     }
+In summary, $ \vec{ v} \times  \vec{ w} $ :
+     \begin{itemize}
+       \item is a \underline{vector} that is orthogonal to both $ \vec{ v} $ and $ \vec{ w} $.
+       \item dirction of $ \vec{ v} \times  \vec{ w} $ is determined by the right hand rule.
+       \item $ \| \vec{ v} \times  \vec{ w} \| $ is the area of the parallelogram formed by $ \vec{ v} $ and $ \vec{ w} $.
+     \end{itemize}
+     
+     \section{Cross Product for Standard Basis Vectors}
+       
+            
+     \begin{tikzpicture}[tdplot_main_coords,
+                    line cap=round,
+                    >=Stealth,
+                    thick,               % default line width
+                    every node/.style={font=\small}]
+% ----------------------------------------------------
+% axes (solid = visible, dashed = hidden)
+% ----------------------------------------------------
+\def\ax{3}  % axis length
+
+% x-axis
+\draw[blue]            (0,0,0) -- (\ax,0,0)  node[anchor=west]{};      % +x
+\draw[blue,dashed]     (0,0,0) -- (-\ax,0,0);                          % –x
+
+% y-axis  (goes “into the page”, so show it dashed)
+\draw[blue,dashed]     (0,0,0) -- (0,\ax,0);                           % +y
+\draw[blue,dashed]     (0,0,0) -- (0,-\ax,0);                          % –y
+
+% z-axis
+\draw[blue]            (0,0,0) -- (0,0,\ax)  node[anchor=south]{};     % +z
+\draw[blue,dashed]     (0,0,0) -- (0,0,-\ax);                          % –z
+
+% ----------------------------------------------------
+% coloured vectors
+% ----------------------------------------------------
+% i-vector  (choose any direction you like)
+\draw[->,very thick,green!70!black]
+      (0,0,0) -- (0, 0 , 3.4)
+      node[above left=-2pt] {$\vec i$};
+
+% j-vector  (along +x in this sketch)
+\draw[->,very thick,magenta!80]
+      (0,0,0) -- (2.4,0,0)
+      node[below=2pt] {$\vec j$};
+
+% k-vector  (along +z)
+\draw[->,very thick,yellow!80!black]
+      (0,0,0) -- (0,2.4,0)
+      node[left=-1pt] {$\vec k$};
+    
+
+
+
+
+
+
+
+
+    
+\end{tikzpicture}
+                   
+
+
+     \raggedcolumns
+     \begin{multicols}{2}
+ 
+
+     \begin{align*}
+       \vec{ i} \times \vec{j} &= \vec{ k} \\
+       - \vec{ j} \times  \vec{ i} &= \vec{ k} \\
+       \vec{ j} \times  \vec{ k} &= \vec{ i} \\
+       - \vec{ k} \times  \vec{ j} &= \vec{ i} \\
+        \vec{ k} \times  \vec{ i} &= \vec{ j} = - \vec{ i} \times  \vec{ k} \\
+     .\end{align*}
+         
+     
+     \break
+
+
+
+
+
+
+ XXX TIKz
+
+
+     \end{multicols}
+   The cross product of two unit vectors is $ \pm$ the other one.\\
+   Note: $ \|\vec{ i} \times  \vec{ j} \|  $  is the area of a parallelogram formed by $ \vec{ i} , \vec{ j} $ which is a squar of side length $ 1$.
+
+   \ex{}{
+   Let $ \vec{ u} = \langle  1 ,3 -2  \rangle $ and $ \vec{ v} = \langle -1, 0 5  \rangle $. Find $ \vec{ u} \times  \vec{ v} $ and verify that it is orthogonal to $ \vec{ u} $ and $ \vec{ v} $ \\
+   \begin{align*}
+     \vec{ u} \times  \vec{ v} &= \langle 15, -3 , 3  \rangle \\
+     \vec{ u} \cdot  \left( \vec{ u} \times  \vec{ v}  \right) &= \langle 1, 3 , -2  \rangle \cdot  \langle 15, -3 , 3  \rangle\\
+      &= 15 - 9 - 6 = 0 \\
+      \vec{ v} \cdot  \left( \vec{ u} \times  \vec{ v}  \right) &= \langle -1, 0 , 5  \rangle \cdot  \langle 15, -3 , 3  \rangle\\
+      &= -15 + 0 + 15 = 0
+   .\end{align*}
+   $ \implies \vec{ u}  \times  \vec{ v} $ is orthogonal to both $ \vec{ u} $ and $ \vec{ v} $.\\
+
+   }
+   \ex{}{
+   Find tha area of the parallelogram with sides given by $ \vec{ u}= \langle 1, -5 , 2  \rangle  $ and $ \vec{ v} = \langle -3 ,2 6 \rangle $
+
+   \begin{align*}
+     \text{ Area } &= \|\vec{ u} \times  \vec{ v} \| \\
+     \vec{ u} \times  \vec{ v} &= \langle -34, -12 , -31  \rangle \\
+      \|\vec{ u} \times  \vec{ v} \| &= \sqrt{ (-34)^2 + (-12)^2 + (-13)^2 } \approx 38.33 \\ 
+   .\end{align*}
+   }
+   \ex{}{
+   Let $ \vec{ u} = \langle 1,0,1  \rangle $, $ \vec{ v} = \langle 2, 1, -1  \rangle $ and $ \vec{ w} = \langle 0,1,3  \rangle $ \\
+   Show that 
+   \[
+   \vec{ u} \times  \left( \vec{ v} \times  \vec{ w}  \right) \neq \left( \vec{ u} \times  \vec{ v}  \right) \times \vec{ w}  
+   .\] 
+   \[
+   \vec{ v} \times  \vec{ w} = \langle -4, -6 , 2  \rangle
+   .\]
+   \begin{align*}
+     \vec{ u} \times  \left( \vec{ v} \times  \vec{ w}  \right) &= \langle 1,0,1  \rangle \times  \langle -4, -6 , 2  \rangle\\
+     &= \langle 0 - 1 \left( -6 \right) , 4-2 , -5-0  \rangle\\
+     &= \langle 6, 2 , -6  \rangle\\
+
+     \left( \vec{ u} \times  \vec{ v}  \right) &= \langle 1, 0 , 1  \rangle \times \langle 2,1,-1  \rangle \\
+      &= \langle -1, 2+1 , 1-0  \rangle \\
+      &= \langle -1, 3 , 1  \rangle\\
+      \left( \vec{ u} \times  \vec{ v}  \right) \times  \vec{ w} &= \langle -1, 3 , 1  \rangle \times \langle 0,1,3  \rangle\\
+      &= \langle 9-1, 0 - \left( -3 \right) , -1-0  \rangle = \langle 8,3,-1  \rangle = \left( \vec{ u} \times  \vec{ v}  \right) \times  \vec{ w} \\
+   .\end{align*}
+   Hence $ \vec{ u}  \times  \left(  \vec{ v} \times  \vec{ w}  \right) \neq \left( \vec{ u} \times  \vec{ v}  \right) \times  \vec{ w} $
+   }
+   \ex{}{
+   Suppose $ \vec{ p},  \vec{ u} , \vec{ v} , \vec{ w} \in \mathbb{R} ^3 $. Which of the following statements make sense ? (some are undefined)                \\
+   \begin{enumerate}[label=(\roman*)]
+     \item $ \vec{ u} \cdot  \left( \vec{ v} \times  \vec{ w}  \right) $ Yes
+     \item     $ \vec{ u} \times  \left( \vec{ v} \cdot  \vec{ w}  \right) $ No
+     \item $ \vec{ u} \times  \left( \vec{ v} \times  \vec{ w}  \right) $ Yes
+     \item $ \vec{ u} \cdot  \left( \vec{ v} \cdot  \vec{ w}  \right) $ No
+     \item $ \vec{ u} \cdot  \left( \vec{ v} \times   \vec{ w} \times  \vec{ p}  \right)$ No
+    \item $ \left( \vec{ u} \times  \vec{ v}  \right) \cdot  \left( \vec{ w}  \times  \vec{ p}  \right) $        Yes
+     \end{enumerate}
+     
+   }
+   \ex{}{
+   Find a unit vector that is orthogonal to both $ \langle 1,1,0  \rangle $ and $ \langle 1,0,1  \rangle $\\
+   \textbf{Solution:} \\
+   \[
+   \langle 1,1,0  \rangle \times  \langle 1,0,1  \rangle = \langle 1, -1 , -1  \rangle
+   .\] 
+   \[
+     \implies \frac{1}{ \sqrt{1+1+1} }  \text{ is a unit vector  that is orthogonal to both } \langle 1,1,0  \rangle \text{ and } \langle 1,0,1  \rangle
+   .\] 
+   Note: \\
+   \[
+   \frac{1}{ \sqrt{3} } \langle -1,1,1 \rangle  \text{ is also a solution (there are two)}
+   .\] 
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+ 
+
+
+    
+
+
+
+   XXX NEW NOTES ABOVE OLD BELOW XXX
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,18 +759,6 @@ Instead we'll introduce one of the key ideas of linear algebra- that of linearit
 f \left( \vec{v_1} +\vec{w_1} , \vec{v_2} ,\ldots, \vec{v_m}  \right) = f \left( \vec{v_1} ,\vec{v_2} ,..,\vec{v_m}  \right) +f \left( \vec{w_1} ,\vec{v_2} ,\ldots,\vec{v_m}  \right) 
 .\] 
 
-\\
-\chapter{Section 2}
-\section{section 2}
-\subsection{subsection 2}
 
 
-
-
-
-
-
-
-
-
-\end{document}
+\end{document}                   
