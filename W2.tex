@@ -7,9 +7,24 @@
 %\usepackage[tagged, highstructure]{accessibility}
 \usepackage{tocloft}
 \usepackage{arydshln}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{tikz-cd}
+\usepackage{polynom}
+\usepackage{pifont}
+\newcommand{\pistar}{{\zf\symbol{"4A}}}
+% a tiny helper for a stretched phantom (for the underbrace)
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}}
 
 
-
+\newlist{steplist}{enumerate}{1}
+\setlist[steplist,1]{%
+  label=\underline{\textbf{\arabic*:}}, % gives “1:” “2:” … (bold, underlined)
+  labelsep=0.6em,                      % space after the label
+  leftmargin=2.8em,                    % indent so text lines up neatly
+  itemsep=1\baselineskip,              % vertical gap between steps
+  topsep=0pt,                          % no extra space before/after list
+  align=left
+}
 
 \begin{document}
 \title{Linear Algebra I}
@@ -17,42 +32,268 @@
 \date{}
 \maketitle
 \tableofcontents
-\newpage
-\\
-\section{Parallelpiped}
-\textit{A parallelepiped is a 3-dimensional figure formed by six parallelograms} \\
+\newpage  
+
+
+\thm{}{
+    \label{thm:sec-\thesection.\arabic{theorem}?}
+    Let $\vec{u} $, $\vec{v} $, $\vec{w} \in \mathbb{R}^{3} $ and $c\in \mathbb{R}$ we have
+
+    \begin{enumerate}[label=(\roman*)]
+      \item $\vec{v} \times \vec{w} = -  \vec{w} \times \vec{v} $
+      \item $\vec{v} \times  \left( \vec{w} +\vec{u}  \right) = \vec{v} \times \vec{w} + \vec{v} \times  \vec{u}                  $
+      \item $\vec{v} \times \left( c \vec{w}  \right) = c \left( \vec{v} \times  \vec{w}  \right) $ 
+      \item $\vec{v} \times \vec{v} = \vec{0} $, $\|\vec{v} \times \vec{v} \|=0$, $\implies \vec{v} \times  \vec{v} =\vec{0} $.
+      \item $\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) = - \vec{v} \cdot \left( \vec{u} \times \vec{w}  \right) $ 
+      \item $\vec{u} \times \left( \vec{v} \times \vec{w}  \right) = \left( \vec{u} **\vec{v}  \right) \vec{w}  $
+      \item Jacobi Identity: $\left( \vec{u} \times  \vec{v}  \right)\times \vec{w} + \left( \vec{v} \times \vec{w}  \right) \times  \vec{u}  + \left( \vec{w} \times \vec{u} \right) \times \vec{v}  = \vec{0}   $
+    \end{enumerate}
+}
+
+
+
+ \pf{Proof:}{
+  \begin{enumerate}[label=(\roman*)]
+    \item 
+
+      Let \[
+\vec{v} = \langle v_1,v_2,v_3  \rangle \quad \vec{w} = \langle w_1,w_2,w_3  \rangle \] \[
+\vec{v} \times \vec{w} = \langle v_2w_3-w_2v_3, v_3w_1-v_1w_3, v_1w_2-v_2w_1  \rangle  
+%= \langle v_2\left( w_3+u_3 \right) -\left( w_2+u_2 \right) v_3, v_3 \left( w_1+u_1 \right) -v_1\left( w_3+u_3 \right)   \rangle 
+.\] 
+\[
+=\langle -1 \left( w_2v_3-w_3v_2, -\left( w_3v_1-w_1v_3 \right) , -\left( w_1v_2-w_2v_1 \right)  \right)   \rangle 
+.\] \[
+= - \left( \vec{w} \times \vec{v}  \right) 
+.\] 
+    
+
+    \item   \\
+       $\vec{v} \times  \left( \vec{w} +\vec{u}  \right) = \langle v_1,v_2,v_3  \rangle \times  \left(  \langle w_1+u_1, w_2+u_2, w_3+u_3  \rangle  \right) $ 
+    \[
+    \langle v_2\left( w_3+u_3 \right) - \left( w_2+u_2 \right) v_3, v_3\left( w_1+u_1 \right) - v_1\left( w_3+u_3 \right) , v_1\left( w_2+u_2 \right) - v_2\left( w_1+u_1 \right)   \rangle 
+    .\] \[
+    = \langle v2w_3-w2v_3+v_2u_3-u2v_3, v3w_1-v_1w_3+v_3u_1-v_1u_3, v_1,w_2-v_2w_1+v_1u_2-v_2u_1  \rangle 
+    .\] 
+\[
+= \langle v_2w_3-w_2v_3, v_3w_1-v_1w_3, v_1w_2-v_2w_1  \rangle + \langle v_2u_3-u_2v_3, v_3u_1-v_1u_3, v_1u_2-v_2u_1  \rangle 
+.\] \[
+= \vec{v} \times \vec{w} +\vec{ v} \times \vec{u} 
+.\]
+    \item 
+      \[
+\vec{v} \times \left( c\vec{w} \right) = \langle v_1,v_2,v_3  \rangle \times  \langle cw_1,cw_2,cw_3  \rangle 
+.\] \[
+= \langle c \left( v_2w_3 -w_2v_3 \right) , c\left( v_2w_1-v_1w_3 \right) , c\left( v_1w_2-v_2w_1 \right)   \rangle 
+.\] \[
+=c \left( \vec{v} \times  \vec{w}  \right) 
+.\]
+  \item 
+    \[
+\vec{v} \times \vec{v} = \langle v_2v_3- v_2v_3, v_3v_1- v_1v_3, v_1v_2-v_2v_1  \rangle = \langle 0,0,0  \rangle 
+.\] 
+
+Note the property we take for granted in multiplying real numbers: $\left( ab \right)c = a \left( bc  \right)   $ (associativity) is not satisfied for cross products i.e
+\[
+\left( \vec{u} \times  \vec{v}  \right) \times  \vec{w}  \neq \vec{u} \times  \left( \vec{v}  \times  \vec{w}  \right) 
+.\] 
+We won't prove the rest of the identities, since the proofs become quite convoluted for this early stage.\\
+    \end{enumerate}
+One observation worth making 
+\[
+\vec{ u} \times  \left(  \vec{ v} \times \vec{ w}  \right) = \left(  \vec{ u} \cdot  \vec{ w}  \right) \vec{ v} - \left(  \vec{ u} \cdot  \vec{ v}  \right) \vec{ w}
+.\] 
+Whileas,
+\begin{align*}
+  \left( \vec{ u} \times  \vec{ v}  \right) \times  \vec{ w} &= - \vec{ w} \times  \left( \vec{ u} \times  \vec{ v}  \right) - \left[ \left( \vec{ w} \cdot  \vec{ v}  \right) \vec{ u} - \left( \vec{ w} \cdot  \vec{ u}  \right) \vec{ v}  \right]  \\
+  &= \left( \vec{ w} \cdot \vec{ u}  \right) \vec{ v} - \left( \vec{ w} \cdot \vec{ v}  \right) \vec{ u} \\
+  &\neq \vec{ u} \times  \left( \vec{ v} \times  \vec{ w}  \right) 
+.\end{align*}
+i.e. a property of real numbers that we take for granted,  $ \left( a \cdot  b \right) \cdot c = a \left( b \cdot  c \right) \qquad  \forall  a,b,c \in \mathbb{R}$ associativity of multiplication is not satisfied for cross products.\\
+  } 
+  \ex{}{
+  Find the angle in between the vectors $\vec{u} = \langle -2,5 \rangle$ and $\vec{v} = \langle 5, 12 \rangle$.\\
+  \[
+  \| \vec{ v} \|= \sqrt{ \left( -2 \right) ^2 + 5^2} = \sqrt{4+25} = \sqrt{29}
+  .\] 
+  \[
+  \| \vec{ u} \|= \sqrt{ 5^2 + 12^2} = \sqrt{25+144} = \sqrt{169} = 13
+  .\] 
+  \[
+  \vec{ u} \cdot  \vec{ v} = -10 + 60 = 50
+  .\] 
+  \[
+  \vec{ u} \cdot  \vec{ v} = \| \vec{ u} \| \| \vec{ v} \| \cos \phi  = 13 \sqrt{29} \cos \phi \qquad  \implies 50 = 13 \sqrt{29} \cos \phi
+  .\] 
+  \[
+  \frac{ 50  }{ 13 \sqrt{29} } = \cos \phi 
+  .\] 
+  \[
+  \phi = \cos^{-1} \left( \frac{ 50  }{ 13 \sqrt{29} } \right)
+  .\] 
+  }
+  \ex{}{
+  Determine whether the following vectors are orthogonal
+  \begin{enumerate} [label=(\alph*)]
+    \item  $ \langle -5,3,7  \rangle $ and $ \langle 6, -8 ,2  \rangle $
+    \item $ \langle 4,6  \rangle $ and $ \langle -3 ,2  \rangle $
+    \item    $ \langle 1,0,1,0,1,0,1  \rangle $ and $ \langle 0,1,0,1,0,1,1  \rangle $
+    \item $ \langle x,y,z  \rangle $ and $ \langle y, -x, 0  \rangle $
+    \end{enumerate}
+    \underline{Dot Product:}\\
+    \begin{enumerate} [label=(\alph*)]
+      \item $ -30 -24 +14 \neq 0 \implies $ not orthogonal
+      \item $ -12 + 12 = 0 \implies$ orthogonal
+      \item $ x - xy + 0 =0 \implies$  orthogonal 
+      \end{enumerate}
+      
+      
+    
+  }
+  
+
+  \section{Volume of a Parallelepiped}
+   \textit{A parallelepiped is a 3-dimensional figure formed by six parallelograms} \\
 \textbf{Volume of a parallelepiped:} \\
 \\
-Let $\vec{u} $, $\vec{v} $, $\vec{w} \in \mathbb{R}^3$
-XXX TEXIT
+Let $\vec{u} $, $\vec{v} $, $\vec{w} \in \mathbb{R}^3$ \\
 \\
+
+XXX TEXIT  FIX
+
+\\
+\\
+\begin{figure}
+  
+  \tdplotsetmaincoords{100}{75}{50}
+\begin{tikzpicture}[
+    tdplot_main_coords,
+    line cap=round,   >=Stealth,
+    thick,
+    every node/.style={font=\small}
+  ]
+
+% ── fundamental vectors ───────────────────────────────────────────────
+\coordinate (O) at (0,0,0);        % origin
+\coordinate (U) at (4,0,0);        % \vec u       (along +x)
+\coordinate (P) at (1.2,2,0);      % back-shift   (into +y)
+\coordinate (W) at (0.8,1.0,3);    % \vec w       (slanted up/out)
+\coordinate (V) at (2.3,0.8,0);    % \vec v       (in base plane)
+
+% corners of the parallelepiped
+\coordinate (A)  at (U);
+\coordinate (B)  at (P);
+\coordinate (C)  at ($(U)+(P)$);
+
+\coordinate (Ow) at (W);
+\coordinate (Aw) at ($(U)+(W)$);
+\coordinate (Bw) at ($(P)+(W)$);
+\coordinate (Cw) at ($(U)+(P)+(W)$);
+
+% ── edges (solid = visible, dashed = hidden) ──────────────────────────
+% base rectangle
+\draw[blue!70!black]        (O)--(A)--(C);
+\draw[blue!70!black,dashed] (C)--(B)--(O);
+
+% verticals (W-edges)
+\draw[blue!70!black]        (O)--(Ow)  (A)--(Aw)  (C)--(Cw);
+\draw[blue!70!black,dashed] (B)--(Bw);
+
+% top rectangle
+\draw[blue!70!black]        (Ow)--(Aw)--(Cw)--(Bw)--cycle;
+
+% ── main vectors ──────────────────────────────────────────────────────
+\draw[->,very thick,blue!80!black]  (O) -- (U)
+      node[below right=-2pt] {$\vec u$};
+
+\draw[->,very thick,green!70!black] (O) -- (V)
+      node[above right=-1pt] {$\vec v$};
+
+\draw[->,very thick,magenta!70]     (O) -- (W)
+      node[above left=-1pt] {$\vec w$};
+
+% copy of w at the tip of v (helps visualise the height)
+\draw[very thick,magenta!70,dashed,->] (V) -- ($(V)+(W)$);
+
+% (optional) dashed trace of v across the base
+\draw[blue!70!black,dashed]
+      (V) .. controls +(0.8,0.1,0) and +(0,-0.2,0) .. (A);
+
+% a vertical reference axis (normal to the base)
+\draw[purple!80!black,very thick] (O) -- (0,0,4)
+      node[above,align=center] {perpendicular\\[-2pt] to the base};
+
+\end{tikzpicture}
+
+\end{figure}
+\\
+\clearpage
 \\
 The three vectors  $\vec{u} $, $\vec{w} $ and $\vec{v} $ (assuming one doesn't lie on the plane defined by the other two.) determine a parallelpiped. \\
 \\
-The volume of a parallelpiped is given by the \textit{(area of base) ( $\perp$ height)}. If we call the perpendicular height $h$ then
+A parallelpiped is an oblique prism and thus
+the volume of a parallelpiped is given by the \textit{(area of base) ( $\perp$ height)}. If we call the perpendicular height $h$ then
 \[
 V_p = | \vec{v} \times \vec{w} | \cdot h
 .\] 
 The perpendicular height is the length of a projection of $u$ onto the direction perpendicular to the base. $\vec{v} \times \vec{w} $ is perpendicular to the base.\\
-XXX TEXIT\\
-\\
-\\
-\\
-\textbf{EX:} \textit{Find the volume of the parallelpiped determined by the vectors $\vec{u} = \langle 1,2,2  \rangle $, $\vec{v} = \langle 2,3,5  \rangle $ and $\vec{w} = \langle 3,0,1  \rangle $}\\
+XXX TEXIT\\ 
+  
+
+
+\raggedcolumns
+\begin{multicols}{2}
+
+
+\break
+
+
+Let $ \theta $ be the angle between $ \vec{ w} $ and $ \vec{ u} \times \vec{ v}  $  \\
+\[
+\cos \theta = \frac{ h  }{ \| \vec{ w} \| } \qquad \implies h = \| \vec{ w} \| \cos \theta
+.\] 
+\begin{align*}
+  \text{ Hence the volume of a parallelpiped} &= \| \vec{ u} \times  \vec{ v} \|  \| \vec{ w} \| \cos \theta\\
+  &= \| \vec{ u} \times  \vec{ v} \| \cdot \vec{ w} \\
+.\end{align*}
+by definition of the cross product
+\end{multicols}
+
+
+\ex{}{
+  \textit{Find the volume of the parallelpiped determined by the vectors $\vec{u} = \langle 1,2,2  \rangle $, $\vec{v} = \langle 2,3,5  \rangle $ and $\vec{w} = \langle 3,0,1  \rangle $}\\
 \textbf{Solution:} \[
 |\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) | = \|\langle 1,2,2  \rangle \cdot \langle 3,13,-9  \rangle \| = | 3 + 26 -18| =11
 .\] 
-\textbf{Note:}  Since the volume of the parallelpidped determined by $\vec{u} $, $\vec{v} $ and $ \vec{ w} $ is equal to $|\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) |$ it should be true that 
+
+
+}
+
+  \nt{
+  Since the volume of the parallelpidped determined by $\vec{u} $, $\vec{v} $ and $ \vec{ w} $ is equal to $|\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) |$ it should be true that 
 \[
 |\vec{u} \cdot \left( \vec{v} \times \vec{w}  \right) | = |\vec{u} \cdot \left( \vec{w} \times \vec{v}  \right) | = \|\vec{v} \cdot \left( \vec{u} \times  \vec{w}  \right) \|= \|\vec{v} \cdot \left( \vec{w} \times \vec{u}  \right) \|= \|\vec{w} \cdot \left( \vec{v} \times \vec{u}  \right) \|= \|\vec{w} \cdot \left( \vec{u} \times \vec{v}  \right) \|
 .\] 
-These properties come from the following two facts
+These properties come from the following three facts
 \begin{enumerate}[label=(\roman*)]
   \item $\vec{v} \times \vec{w} = - \vec{w} \times  \vec{v} $
-  \item $\vec{u} \cdot  \left( \vec{v} \times  \vec{w} = -\vec{v} \cdot \left( \vec{u} \times \vec{w}  \right)  \right) $
+  \item $\vec{u} \cdot  \left( \vec{v} \times  \vec{w} = -\vec{v} \cdot \left( \vec{u} \times \vec{w}  \right)  \right) $\\
+  \item $\vec{u} \cdot  \vec{ v} = \vec{ v} \cdot  \vec{ u} $\\
 \end{enumerate}
-\section{Vectors and Lines in $\mathbb{R}^3$}
-A line in $\mathbb{R}^2 $ is completely determined by knowing 
+  }
+  For example, to show 
+  \[
+  \| \left( \vec{ u} \times  \vec{ v}  \right) \cdot  \vec{ w} \|= \| \vec{ v} \times \vec{w} \| \cdot \vec{ u}
+  .\]
+  \begin{align*}
+    \left( \vec{ u} \times  \vec{ v}  \right) \cdot  \vec{w } &= \vec{ w} \cdot  \left( \vec{ u} \times  \vec{ v}  \right) &= - \vec{ u} \cdot \left( \vec{ w} \times  \vec{ v}  \right)   \\
+    &= - \vec{ u} \cdot  \left( - \vec{ v} \times  \vec{ w}  \right) &= \vec{ u} \cdot  \left( \vec{ v} \times  \vec{ w}  \right)   \\
+    &= \left( \vec{ v}  \times  \vec{ w}  \right) \cdot  \vec{ u} 
+  .\end{align*}
+  Hence $ \| \left( \vec{ u} \times  \vec{ v}  \right) \cdot  \vec{ w} \|= \| \left( \vec{ v} \times  \vec{ w} \cdot  \vec{ u}  \right) \|$
+  
+  \section{Vectors in $\mathbb{R}^3$}
+  A line in $\mathbb{R}^2 $ is completely determined by knowing 
 \begin{itemize}
         \item The slope
         \item A point on the line
@@ -64,15 +305,74 @@ A line in $\mathbb{R}^3 $ is completely determined by knowing
 \end{itemize}
 Suppose a line $L$ in  $\mathbb{R}^3$ passes through the point $p_0$ and has the direction vector $\vec{v} $and we want to find the vector equation of $L$.\\
 XXX TEXIT\\
+
+\\
+
+\begin{tikzpicture}[scale=0.55,>=Stealth,line cap=round,font=\small]
+
+  % -------- colours ---------------------------------------------------
+  \definecolor{ax}{RGB}{150,70,200}     % axis colour (purple)
+  \definecolor{vecblue}{RGB}{40,60,160} % blue rays
+  \definecolor{vecred}{RGB}{204, 45, 64}% vector v
+  \definecolor{vecgreen}{RGB}{ 10,160, 90}% point P0
+
+  % -------- axes ------------------------------------------------------
+  \coordinate (O) at (0,0);
+  \draw[ax,very thick,->] (-6,0) -- (12.5,0);      %  x-axis
+  \draw[ax,very thick,->] (0,-2) -- (0,6.5);       %  y-axis
+  \draw[ax,very thick,->] (O) -- (-6,-6);          %  extra diagonal
+  \draw[ax,thick,dashed] (-6,0) -- (O);            %  x negative (dashed)
+  \draw[ax,thick,dashed] (0,-2) -- (O);            %  y negative (dashed)
+
+  % -------- basic vectors --------------------------------------------
+  \coordinate (v)  at (3,1);          %  \vec v
+  \coordinate (P0) at (2,2.5);        %  \vec{OP_0}
+
+  % \vec v from the origin
+  \draw[->,very thick,vecred] (O) -- (v)
+        node[below right=-1pt] {$\vec v$};
+
+  % \vec{OP_0}
+  \draw[->,very thick,vecblue] (O) -- (P0)
+        node[above left=-1pt] {$\vec{OP_0}$};
+
+  % copy of v starting at P0 (illustrates OP_0+v)
+  \draw[->,very thick,vecred] (P0) -- ($(P0)+(3,1)$)
+        node[above=2pt] {$\vec v$};
+
+  % dashed arc showing the angle between v and OP_0
+  \draw[ax,dashed] (1.4,0.46) arc (18:51:1.55);
+
+  % -------- the rays  OP_0 + k v  (k = −2.5, −1, 0, 1, 2, 3) ----------
+  \foreach \x/\y/\txt/\pos in
+    { -5.5/0  /{$\vec{OP_0}-2.5\vec v$}/left,
+      -1  /1.5/{$\vec{OP_0}-\vec v$}/above left,
+       2  /2.5/{$\vec{OP_0}$}/above left,
+       5  /3.5/{$\vec{OP_0}+\vec v$}/above,
+       8  /4.5/{$\vec{OP_0}+2\vec v$}/above,
+      11  /5.5/{$\vec{OP_0}+3\vec v$}/above}
+  {%
+     \draw[->,very thick,vecblue] (O) -- (\x,\y)
+           node[\pos] {\txt};
+  }
+
+  % -------- mark the point P_0 ---------------------------------------
+  \fill[vecgreen] (P0) circle (3pt) node[above right=-1pt] {$P_0$};
+
+\end{tikzpicture}
 \\
 $L$ passes through $p_0$ and has the same direction as $\vec{v} $. To get to any point on the line, you start at the origin, go to $p_0$ and then go any amount you like in the $\vec{v} $ direction (or $-\vec{v} $ ).\\
 \\
 Vector equation of $L$ :\\
-All vectors $\vec{OX} $, whose tips lie on the line $L$ satisfy the vector equation 
+All vectors $\vec{r}\left(t  \right)  $, whose tips lie on the line $L$ satisfy the vector equation 
 \[
-\vec{OX} = \vec{Op_0} +t \vec{v} 
-.\] As we vary $t$ the line is traced out by the tips of the vectors $\vec{Op_0} +t \vec{v} $.\\
-\section{Parametric Equations}
+\vec{r} \left( t \right)  = \vec{Op_0} +t \vec{v} 
+.\] As we vary $t$ the line is traced out by the tips of the vectors $\vec{Op_0} +t \vec{v} $.\\  
+
+
+\section{Co-ordinates of Vector equation}
+    
+
 Suppose $P_0 = \left( x_0,y_0,z_0 \right) $ and $\vec{v} = \langle a,b,c  \rangle $, then the vector $\langle x,y,z  \rangle $ lies on $L$ if
 \[
 \langle x,y,z  \rangle = \langle x_0,y_0,z_0  \rangle _ t \langle a,b,c  \rangle 
@@ -88,7 +388,12 @@ $\implies$ Parametric equations of a line through $\left( x_0,y_0,z_0 \right) $ 
 \end{align*}
 This may look like a lot of unknowns but, remember, $x_0$, $y_0$, $z_0$, $a$, $b$, $c$ are all known.\\
 \\
-\textbf{EX:} \textit{Find the vector equation of the line passing through $P \left( -8,1,4 \right) $ and $Q \left( 3,-2,4 \right) $}\\
+\nt{
+Since there are an infinite number  of points on a line, and, because any scalar multiple of $ \vec{ v} = \langle a,b,c  \rangle $ series as a direction vector for a line that means that there are an infinite number of different looking vector equations for the same line.\\
+}
+
+\ex{}{
+\textit{Find the vector equation of the line passing through $P \left( -8,1,4 \right) $ and $Q \left( 3,-2,4 \right) $}\\
 \textbf{Solution:} TEXT XXX \\
 direction vector $\vec{v} $ joining $P$ to $Q$ $= \langle 11,-3,0  \rangle $ \\
 \begin{align*}
@@ -100,15 +405,176 @@ Note we could also have described the line as
         \vec{s} \left( t \right) = \langle 3,-2,4  \rangle + t \langle 11,-3,0  \rangle \\
         = \langle 3+11t, -2-3t,4  \rangle 
 .\end{align*}
-\section{Planes in $\mathbb{R}^3$}
+}
+\section{ Planes in $\mathbb{R}^3$}
 A plane in $\mathbb{R}^3$ is completely determined by knowing a point that lies on that plane and a vector that is orthogonal to the plane.\\
 \\
 Suppose $P_0\left( x_0,y_0,z_0 \right) $ is a point on a plane with normal vector $\vec{n} = \langle a,b,c  \rangle $ \\
 \\
+
+\tdplotsetmaincoords{70}{25} % (elev, azimuth) – tweak view if desired
+
+\begin{tikzpicture}[tdplot_main_coords,
+                    line cap=round,
+                    >=Stealth,
+                    scale=0.9,
+                    every node/.style={font=\small}]
+
+% -----------------------------------------------------------------
+% colours
+% -----------------------------------------------------------------
+\definecolor{axcol}{RGB}{25,50,140}      % axes
+\definecolor{planecol}{RGB}{  5,160,140} % plane edges
+\definecolor{p0col}{RGB}{ 30,140,255}    % P0 vector/point
+\definecolor{pcol}{RGB}{210, 40, 80}     % P  vector/point
+\definecolor{segcol}{RGB}{  0,160,110}   % P0–P segment
+\definecolor{ncol}{RGB}{ 50, 60,180}     % normal arrow
+
+% -----------------------------------------------------------------
+% plane (choose four corners in the z=0 plane)
+% -----------------------------------------------------------------
+\coordinate (A) at (-4,-2,0);
+\coordinate (B) at ( 5,-1,0);
+\coordinate (C) at ( 6, 2,0);
+\coordinate (D) at (-3, 1,0);
+
+\draw[planecol, very thick] (A)--(B)--(C)--(D)--cycle;
+
+% -----------------------------------------------------------------
+% axes
+% -----------------------------------------------------------------
+\coordinate (O) at (0,0,0);
+\draw[axcol,very thick,->] (O) -- (7,0,0) node[below right=-2pt] {$x$};
+\draw[axcol,very thick,->] (O) -- (0,0,6) node[left=2pt] {$z$};
+\draw[axcol,very thick,->] (O) -- (-5,-5,0) node[left] {$y$};     % back/left axis
+% dashed negative parts
+\draw[axcol,dashed,thick] (O) -- (-2,0,0);
+\draw[axcol,dashed,thick] (O) -- (0,-2,0);
+\draw[axcol,dashed,thick] (O) -- (0,0,-2);
+
+% -----------------------------------------------------------------
+% points & vectors
+% -----------------------------------------------------------------
+\coordinate (P0) at (2,1,1);          % blue point
+\coordinate (P)  at (4,1.8,1.6);      % red point
+
+% OP0
+\draw[->,very thick,p0col] (O) -- (P0)
+      node[above left=-2pt] {$\vec{OP_0}$};
+
+% OP
+\draw[->,very thick,pcol] (O) -- (P)
+      node[above right=-2pt] {$\vec{OP}$};
+
+% segment P0–P
+\draw[very thick,segcol] (P0) -- (P);
+
+% marks for the two points
+\fill[p0col] (P0) circle (3pt)
+      node[above=4pt] {$P_0(x_0,y_0,z_0)$};
+\fill[pcol]  (P)  circle (3pt)
+      node[right=3pt] {$P(x,y,z)$};
+
+% (optional) dashed helper curve (projection or path)
+\draw[axcol,dashed] (O) .. controls (1,0.3,0.3) .. (P0);
+
+% -----------------------------------------------------------------
+% normal vector (drawn at a convenient spot on the plane)
+% -----------------------------------------------------------------
+\coordinate (Nbase) at (5,0.6,0);        % foot on the plane
+\draw[->,very thick,ncol] (Nbase) -- ++(0,0,3)
+      node[right] {$\vec n\!{}_{\!\perp}$};
+
+\end{tikzpicture}\\
+\\
+\\
+\\
+\tdplotsetmaincoords{68}{200}  %  (elev, azimuth) – adjust to taste
+
+\begin{tikzpicture}[tdplot_main_coords,
+                    line cap=round, >=Stealth,
+                    every node/.style={font=\small},
+                    scale=0.9]
+
+%──────────────── colours ──────────────────────────────────────────────
+\colorlet{axcol}    = {rgb:(0.1,0.25,0.55)} %  axes (deep navy)
+\colorlet{planecol} = {rgb:(0.0,0.65,0.48)} %  plane outline (teal)
+\colorlet{p0col}    = {rgb:(0.0,0.45,0.95)} %  P0 vector / dot (blue)
+\colorlet{pcol}     = {rgb:(0.80,0.10,0.30)}%  P  vector / dot (red)
+\colorlet{segcol}   = {rgb:(0.0,0.55,0.35)} %  P0–P connector  (green)
+\colorlet{ncol}     = {rgb:(0.20,0.25,0.70)}%  normal arrow (purple-blue)
+\colorlet{dashcol}  = {axcol}               %  dashed helpers (axes colour)
+
+%──────────────── axes ─────────────────────────────────────────────────
+\coordinate (O) at (0,0,0);
+\draw[axcol,very thick,->] (O) -- (6.5,0,0) node[below right=-2pt] {$x$};
+\draw[axcol,very thick,->] (O) -- (-4,-4,0) node[left=0pt] {$y$};
+\draw[axcol,very thick,->] (O) -- (0,0,6)  node[left=2pt] {$z$};
+
+% negative/dashed parts for a little depth cue
+\draw[axcol,dashed,thick] (O) -- (-2,0,0);
+\draw[axcol,dashed,thick] (O) -- (0,-2,0);
+\draw[axcol,dashed,thick] (O) -- (0,0,-2);
+
+%──────────────── tilted plane  (4 co-planar points) ───────────────────
+\coordinate (A) at (-3.5,-2, 0.5);
+\coordinate (B) at ( 5.5,-1, 1.2);
+\coordinate (C) at ( 6.5, 3, 2.4);
+\coordinate (D) at (-2.5, 3, 1.7);
+\draw[planecol,very thick] (A)--(B)--(C)--(D)--cycle;
+
+%──────────────── key points & vectors ─────────────────────────────────
+\coordinate (P0) at (2.0,1.2,2.0);   %  blue   point
+\coordinate (P)  at (4.2,2.0,2.8);   %  red    point
+
+%  OP0  (blue)
+\draw[->,very thick,p0col] (O) -- (P0)
+      node[above left=-1pt] {$\vec{OP_0}$};
+
+%  OP   (red)
+\draw[->,very thick,pcol]  (O) -- (P)
+      node[above right=-1pt] {$\vec{OP}$};
+
+%  P0–P connector (green, no arrow head so you can tell it from OP)
+\draw[very thick,segcol] (P0) -- (P);
+
+% dot markers
+\fill[p0col] (P0) circle (3pt) node[above=4pt] {$P_{0}(x_{0},y_{0},z_{0})$};
+\fill[pcol]  (P)  circle (3pt) node[right=4pt] {$P(x,y,z)$};
+
+%──────────────── helper dashed projections ────────────────────────────
+\draw[dashcol,dashed] (O) .. controls (1,0.3,0) .. (P0);  % dashed arc
+\draw[dashcol,dashed] (P0) -- ($(P0)-(0,0,P0_z)$);        % drop to x–y plane
+\draw[dashcol,dashed] ($(P0)-(0,0,P0_z)$) -- (O);         % over to origin
+
+%──────────────── outward normal vector  n_⊥ ───────────────────────────
+%  (use two non-parallel edges of the quadrilateral to compute one)
+\path let
+   \p1 = ($(B)-(A)$),
+   \p2 = ($(D)-(A)$),
+   \n1 = {veclen(\x1,\y1,\z1)},
+   \n2 = {veclen(\x2,\y2,\z2)}
+ in
+ {%
+   % cross product for normal (scaled)
+   \pgfmathsetmacro{\nx}{\y1*\z2 - \z1*\y2}
+   \pgfmathsetmacro{\ny}{\z1*\x2 - \x1*\z2}
+   \pgfmathsetmacro{\nz}{\x1*\y2 - \y1*\x2}
+   \pgfmathsetmacro{\scale}{2.5/veclen(\nx,\ny,\nz)} % normalise length ~2.5
+   \coordinate (Ndir) at (\scale*\nx,\scale*\ny,\scale*\nz);
+ };
+
+\coordinate (Nbase) at (3.8,0.7,1.25);      % nice spot on the plane
+\draw[->,very thick,ncol] (Nbase) -- ++(Ndir)
+      node[above right=-1pt] {$\vec n_{\!\perp}$};
+
+\end{tikzpicture}\\
+\\
+\\
 XXX TEXIT\\
 \\
 \\
-\textbf{Question:}  \textit{How do we describe every other point $P\left( x,y,z \right) $ that lies on that plane?} \\
+  \textit{How do we describe every other point $P\left( x,y,z \right) $ that lies on that plane?} \\
 \\
 The vector $\vec{P_0P} $ lies on the plane and hence $\vec{P_0P} \perp \vec{n} $ i.e. $\vec{P_0P \cdot \vec{n} } =0$ 
 \[
@@ -119,9 +585,20 @@ The vector $\vec{P_0P} $ lies on the plane and hence $\vec{P_0P} \perp \vec{n} $
         a\left( x-x_0 \right) +b\left( y-y_0 \right) +c\left( z-z_0 \right) =0\\
         \text{i.e.  } ax+ by +cz = ax_0 + by_0 +cz_0
 .\end{align*}
-Note: The coefficients here are the components of the normal vector $\vec{n} $.\\
-\\
-\textbf{EX:}  \textit{Find the equation of the plane that passes through the point $\left( 1,-1,-1 \right) $ and is parallel to the plane $5x-y-z=6$}\\
+i.e. every point $ \left( x,y,z \right) $ in the plane containing $ \left( x_0 ,y_0 ,z_0 \right) $ with normal vector $ \vec{ n} = \langle a,b,c  \rangle $ satisfies the equation
+\[
+ax +by +cz = a x_0 +b y_0 +c z_0
+.\] 
+
+\nt{
+The coefficients of $ x$, $ y$, $ z$ in the equation are the components of the normal vector $ \langle a,b,c  \rangle $
+}
+
+
+
+
+\ex{}{
+\textit{Find the equation of the plane that passes through the point $\left( 1,-1,-1 \right) $ and is parallel to the plane $5x-y-z=6$}\\
 \\
 \textbf{Solution:} $\vec{n} = \langle  5,-1,-1  \rangle $ since the plane is parallel to $5x-y-z=6$.\\
 \begin{align*}
@@ -140,7 +617,10 @@ where $\langle a_1,b_1,c_1  \rangle $ is not proportional to $\langle a_2,b_2,c_
         y=y_0+bt\\
         z=z_0+ct
 .\end{align*}
-\textbf{EX:}  \textit{Find the parametric equations of the line of intersection of the two planes} 
+}
+
+\ex{}{
+ \textit{Find the parametric equations of the line of intersection of the two planes} 
 \begin{align*}
         x+y+z =1 \quad \vec{n_1} = \langle 1,1,1  \rangle \\
         x+2y+2z=1 \quad \vec{n_2} = \langle 1,2,2  \rangle 
@@ -162,15 +642,13 @@ Thus the parametric equation of the line of intersection is given by
         y=0-t \qquad y=-t\\
         z=0+t \qquad z=t
 .\end{align*}
-In this question we were trying to solve the linear system 
-\begin{align*}
-        x+y+z=1\\
-        x+2y+2z=1
-.\end{align*}   
-Here we have two linear equations with three unknowns. we next try to generalise this system of linear equations with $n$ unknowns.\\
-\\
-Note: Two planes in $\mathbb{R}^3$ could:
-\begin{itemize}
+}
+
+
+ 
+
+\section{Two planes in $  \mathbb{R} ^3$}
+ \begin{itemize}
         \item \textbf{(a)} be parallel and not intersect (e.g. have the same normal vector $\vec{n} = \langle a,b,c  \rangle $ but have a different constant for e.g $ax + by +cz =d_1$ and $ax+by+cz =d_2$
         \item \textbf{(b)}  be parallel and intersect (this occurs when they are the same plane e.g. $x+y+z=1$ and $2x +2y +2z =2$, (notice they only differ by an overall scalar).
         \item \textbf{(c)} intersect in a line
@@ -185,30 +663,54 @@ Three planes in $\mathbb{R}^3 $ could:
         \item (d) not intersect at all, e.g. three parallel, non-intersecting planes $x=0$,  $x=1$, $x=2$
 \end{itemize}
 \\
+\section{Three Planes in $ \mathbb{R} ^3$}
+  
+ \begin{itemize}
+   \item Intersect in a point e.g. $xy$, $yz$ and $xz$ plane intersect at the origin $\left( 0,0,0 \right) $ \\
+        \item  intersect in a line, e.g. $xy$ plane and the $xz$ plane intersect in the x-axis  \\
+        \item intersect in a plane, e.g.  $xy$ plane and the $xy$ plane \\
+        \item not intersect at all, e.g. three parallel, non-intersecting planes $x=0$,  $x=1$, $x=2$
+\end{itemize}
+\\
 Given three linear equations in $\mathbb{R}^3$ e.g
 \begin{align*}
         x-5y+4z=-2\\
         2x-7y+3z=1\\
         -2x +y +8z=0\\
 .\end{align*}
-How do we find the solutions to the system? i.e. the points of intersections of the three planes?
+How do we find the solutions to the system? i.e. the points of intersections of the three planes?\\
+We will develope a technique but first we need some definitions.
 \section{Linear Systems Definitions}
-\begin{itemize}
-        \item A \underline{linear equation}  in $n$ variables $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$ is an equation of the form
+
+
+
+\dfn{Linear Equation :}{
+       A \underline{linear equation}  in $n$ variables $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$ is an equation of the form
 \[
 a_1x_1+a_2x_2+a_3x_3+\ldots+a_nx_n =b
 .\] 
 Where we have $a_1$,$a_2$, $a_3$, $\ldots$, $a_n$, $b \in \mathbb{R}$ are constants.
-\item A \underline{system of linear equations } in $n$ variables (also known as a linear system) is a collection of one, or more, linear equations involving $n$ variables $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$.\\ 
+
+ 
+}
+\dfn{ :}{
+     A \underline{system of linear equations } in $n$ variables (also known as a linear system) is a collection of one, or more, linear equations involving $n$ variables $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$.\\ 
         For example \begin{align*}
                 x_1 -5x_2 +4x_3 = -2\\
                 2x_1 -7x_2 +3x_3 =1\\
                 -2x_1+x_2+8x_3 =0
-.\end{align*}
-\item A \underline{solution}  of a linear system in $n$ variables is a list of numbers ( $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$) that satisfy every equation in the system.
-\item The \underline{solution set}  of a linear system is the set of all possible solutions of the system.
-\end{itemize}
-We will introduce a second method of solving systems of equations\\
+.\end{align*}     
+}
+
+\dfn{Solution :}{
+ A \underline{solution}  of a linear system in $n$ variables is a list of numbers ( $x_1$, $x_2$, $x_3$, $\ldots$, $x_n$) that satisfy every equation in the system.   
+}
+
+\dfn{Solution Set :}{
+ The \underline{solution set}  of a linear system is the set of all possible solutions of the system.           
+}
+
+ We will introduce a second method of solving systems of equations\\
 \newpage
 \begin{multicols}{2}
         \textbf{Method 1:} 
@@ -250,17 +752,297 @@ We will introduce a second method of solving systems of equations\\
 \right]
 \end{align*}
 \end{multicols}
-\\
-\\
-\textbf{Solve:} 
+\textit{ We will shortly give a list of row operations that can be performed that will not alter the solution set. For now, think carefully about each one:}\\
+\ex{}{
+Solve
 \begin{align*}
-        x-5y+4z =-2\\
-        2x-7y +3z =1\\
-        -2x +y +8z =0\\
+  x-5y+4z &=-2\\
+  2x -7y +3z &=1\\
+  -2x +y +8z &=0\\
 .\end{align*}
+   \[
+   \text{Augmented matrix:} \left[
+   \begin{array}{ccc;{2pt/2pt}c}  
+     1 & -5 & 4& -2\\
+     2& -7&3 &1\\
+     -2& 1 & 8&0\\
+   \end{array}
+   \right]
+   .\] 
+   \textit{ We are just pulling out the coefficients and arranging them in an array but keeping the structure. Goal is to introduce some zeros.}\\
+   Want zeros under the $ 1$ in the top left position.
+   \[
+   \xrightarrow[ r_2- 2 r_1]{} \left[
+   \begin{array}{ccc;{2pt/2pt}c}  
+     1 & -5 & 4 & -2\\
+     0 & 3 & -5 & 5\\
+     -2 & 1 & 8 & 0\\
+   \end{array}
+   \right] \xrightarrow[ r_3 + 2 r_1]{}
+   \left[
+   \begin{array}{ccc;{2pt/2pt}c}  
+     1 & -5 & 4 & -2\\
+     0 & 3 & -5 & 5\\
+     0 &  -9 & 16 &-4\\
+   \end{array}
+   \right]
+   .\] 
+   Nex I want to make the entry under the $ 3 $ a zero
+
+   \[
+   \xrightarrow[ r_3- 3 r_2]{}
+   \left[
+   \begin{array}{ccc;{2pt/2pt}c}  
+     1 & -5 & 4 & 2\\
+     0 & 3 & -5 & 5\\
+     0 & 0 & 1 & 11\\
+   \end{array}
+   \right]
+   .\] 
+   We could stop at this point and say 
+   \begin{align*}
+     x - 5y +4z &= -2\\
+     3y -5z =5\\
+     z=11
+   .\end{align*}
+     and solve using back substitution
+
+
+     \raggedcolumns
+     \begin{multicols}{2}
+     \begin{align*}
+       3y - 5 \left( 11 \right) =5\\
+       3y =60\\
+       y=20
+     .\end{align*}
+     
+     \break
+      \begin{align*}
+        x - 5 \left( 20 \right) +4 \left( 11 \right) = -2\\
+        x - 56=-2\\
+        x = 54
+      .\end{align*}
+     \end{multicols}
+       or we could continue and isolate each variable in the augmented matrix:
+       \raggedcolumns
+       \begin{multicols}{2}
+       
+
+
+
+         \[
+\left[
+\begin{array}{rrr|r}
+ 1 &
+ % --- circled –5 ---
+ \tikz[baseline=(c1.base)]{
+      \node[inner sep=1pt] (c1){\(-5\)};
+      \draw[pink,thick] (c1.center) circle [radius=10pt];
+ } &
+ % --- circled 4 ---
+ \tikz[baseline=(c2.base)]{
+      \node[inner sep=1pt] (c2){\(4\)};
+      \draw[pink,thick] (c2.center) circle [radius=10pt];
+ } & -2 \\[6pt]
+ 0 & 3 &
+ % --- circled –5 ---
+ \tikz[baseline=(c3.base)]{
+      \node[inner sep=1pt] (c3){\(-5\)};
+      \draw[pink,thick] (c3.center) circle [radius=10pt];
+ } &  5 \\[6pt]
+ 0 & 0 &  1 & 11
+\end{array}
+\right]
+\]
+       
+       \break
+       \\
+       We want zeros in the circled positions
+       \end{multicols}
+
+       \[
+       \xrightarrow[ r_3 + 5 r_2]{}
+       \left[
+       \begin{array}{ccc;{2pt/2pt}c}  
+         1 & -5 & 4 & -2\\
+         0 & 3 & 0 & 60\\
+         0 & 0 & 1 & 11 \\
+       \end{array}
+       \right]       \xrightarrow[ r_1 - 4 r_3]{}
+       \left[
+       \begin{array}{ccc;{2pt/2pt}c}  
+         1 & -5 & 0 & -46\\
+         0 & 3 & 0 & 60\\
+         0 & 0 & 1 & 11\\
+       \end{array}
+       \right]
+       .\] 
+       \[
+       \xrightarrow[ r_1 + \frac{5}{3} r_2]{}
+       \left[
+       \begin{array}{ccc;{2pt/2pt}c}  
+         1 & 0 & 0 & 54\\
+         0 & 3 & 0 & 60\\
+         0 & 0 & 1 & 11\\
+       \end{array}
+       \right]      \xrightarrow[ r_2 \times  \frac{1}{3}]{}  \left[
+       \begin{array}{ccc;{2pt/2pt}c}  
+         1 & 0 & 0 & 54\\
+         0 & 1 & 0 & 20\\
+         0 & 0 & 1 & 11\\
+       \end{array}
+       \right]
+       .\] 
+       Going back to the system of equations we get
+       \begin{align*}
+         x&=54\\
+         y&=20\\
+         z&=11
+       .\end{align*}
+       
+}
+
+  \section{Row Operations}
+    
+
+ \dfn{Elementary Row Operations :}{
+  Row operations that result in an equivalent system of linear equations ( i.e.  a system that has the same solution set as the original) are called \underline{ elementary row operations}   
+ }
+ 
+  There are only three types of elementary row operations:
+  \begin{enumerate}[label=(\arabic*).]  
+    \item \textbf{Replacement}: Replace on row by the sum of itself and a multiple of another row\\
+      e.g 
+      \[
+      r_2 \to r_2+5 r_3 \qquad  \text{ or } \qquad  r_3 \to r_3 - 2 r_1
+      .\] 
+    \item   \textbf{Scaling}: Multiplying all entries in a row by a non-zero constant\\
+       e.g. 
+       \[
+       r_2 \to 4 r_2
+       .\] 
+     \item \textbf{Interchanging}: Interchanging two rows:\\
+       e.g. 
+       \[
+         r_1 \leftrightarrow      r_2
+       .\] 
+  \end{enumerate}
+  \section{ The row Reduction Algorithm}
+  A nice algorithm exist for row reducing an augmented matrix to its simplest form ( for solving)- it is called the row reduciton algorithm.\\
+
+  We wish to develop a method for solving systems of $m$ simultaneous linear
+equations with $n$ unknowns
+\[
+\begin{aligned}
+a_{11}x_{1}+a_{12}x_{2}+\dots +a_{1n}x_{n} &= b_{1}\\
+a_{21}x_{1}+a_{22}x_{2}+\dots +a_{2n}x_{n} &= b_{2}\\
+&\ \;\vdots \\[-2pt]
+a_{m1}x_{1}+a_{m2}x_{2}+\dots +a_{mn}x_{n} &= b_{m}
+\end{aligned}
+\]
+where $a_{ij}$ and $b_i$ are known constants $(1\le i\le m,\;1\le j\le n)$.  \\
+ \\
+The most common technique for solving simultaneous systems of linear
+equations is \emph{Gauss–Jordan elimination}. This method, which involves
+carefully eliminating one variable after another, is a typical procedure
+used to solve systems of linear equations. We will formulate this recipe in
+the form of an algorithm, that is, a sequence of instructions that a person
+(or a computer) can perform mechanically, ending up with a solution to the
+given system. For convenience, we will not carry around the symbols
+representing the unknowns, and will encode the given system of linear
+equations by an $m\times(n+1)$ augmented matrix.   \\
+\dfn{Matrices :}{
+ A matrix is a rectangular array of numbers arranged in rows and columns.\\
+ An $ n \times  m$ array has $ n$ rows and $ m$ columns.
+}
+\dfn{Leading Entry :}{
+A \underline{leading entry} of a row of a matrix is the leftmost non-zero entry in a non-zero row
+}
+
+\dfn{Echelon Form :}{
+ A rectangular matrix is in \textbf{ echelon form } if it has the following properties:\\
+ \begin{enumerate}[label=(\arabic*).]  
+   \item All nonzero rows are above any rows of all zeros
+   \item Each leading entry of a row is in a column to the right of the leading entry of the row above it.
+   \item All entries in a column below a leadin entry are zeros
+ \end{enumerate}
+ 
+}
+ \dfn{ Reduced Echelon Form :}{
+    If a matrix is in echelon form and satisfies the following additional conditions, then it
+is in \textbf{ reduced echelon form} 
+\begin{enumerate}[label=(\arabic*).]  
+  \item The leading entry in each nonzero row is $ 1$
+  \item  Each leading $ 1$ is the only nonzero in its column
+\end{enumerate}
+
+ }
+ 
+
+ \section{ The Row Reduction Algorithm}
+
+ \begin{itemize}
+\item To obtain an \emph{echelon form} of a matrix:
+
+  \begin{steplist}
+    \item Begin with the leftmost non-zero column.  
+          This is a pivot column.  
+          The pivot position is always at the top.
+
+    \item Select a non-zero entry in the pivot column as a pivot.  
+          If necessary, interchange rows to move this entry into the
+          pivot position.
+
+    \item Use row-replacement operations to create zeros in all positions
+          below the pivot (use the pivot as your means of “clearing out”
+          the column).
+
+    \item Cover the row containing the pivot position and cover all rows,
+          if any, above it.  
+          Apply steps 1–3 to the sub-matrix that remains.  
+          Repeat the process until there are no more non-zero rows to modify.
+  \end{steplist}
+
+\item To continue to the \emph{reduced echelon form} of the original matrix:
+
+  \begin{steplist}[resume] % continue numbering: 5, 6, …
+    \item Beginning with the rightmost pivot and working upward and to
+          the left, create zeros above each pivot.
+
+    \item If a pivot is not 1, make it 1 by a scaling operation.
+  \end{steplist}
+\end{itemize}  
 
 
 
 
 
-\end{document}
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}       
