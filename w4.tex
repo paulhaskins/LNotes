@@ -1,0 +1,532 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+XXX INCLUDE START OF W4
+\\
+\\
+\section{Identity Matrix}
+\dfn{Identity Matrix:}{
+        The $n\times n$ Identity matrix is the $n\times n$ matrix whose $\left( i,j \right) $ entry is 1  $i=j$ and $0$ if $i\neq j$ i.e. it is the $n\times n$ matrix where the diagonal entries are all $1$ and all the other entries are zero. \\
+$ I_n =\begin{bmatrix}
+    1 & 0 & 0 & \dots  & 0 \\
+    0 & 1 & 0 & \dots  & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \dots  & 1\end{bmatrix} \qquad \text{This diagonal is known as the main diagonal of an $n\times n$ matrix.}$
+}
+For each $m\times n$ matrix we $A$, we have that $I_mA =A$ and $A I_n =A$
+ \ex{}{
+Let 
+\begin{align*}
+        A = \begin{bmatrix}
+        1 & -5 & 2\\
+        -3 & 0 & 7\\
+        \end{bmatrix}\\
+        A I_3 =  \begin{bmatrix}
+        1 & -5 & 2\\
+        -3 & 0 & 7\
+        \end{bmatrix} \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & 1\\
+        \end{bmatrix} = \begin{bmatrix}
+        1 & -5 & 2\\
+        -3 & 0 & 7\\
+        \end{bmatrix}\\
+        I_2 A = \begin{bmatrix}
+        1 & 0\\
+        0 & 1\\
+        \end{bmatrix}\begin{bmatrix}
+        1 & -5 & 2\\
+        -3 & 0 & 7\\
+        \end{bmatrix}= \begin{bmatrix}
+        1 & -5 & 2\\
+        -3 & 0 & 7\\
+        \end{bmatrix}   
+.\end{align*}}
+\section{Invertible Matrices}
+\dfn{Invertible Matrix :}{
+An $nxn$ matrix $A$ is said to be invertible if there exists an $n\times n$ matrix $B$ such that $AB =BA =I_n$ \\
+The matrix $B$ is called the \underline{inverse } of $A$ and is denoted by $A^{-1}$
+}
+\nt{
+\begin{itemize}
+        \item $A^{-1}$ is unique.
+                \pf{Proof:}{(proof by contradiction)\\
+ Suppose there existed another $n\times n$ matrix $C $ such that $AC = CA =I_n$ then
+\[
+C= CI_n = C \left( A A^{-1} \right) = \left( CA \right) \left( A^{-1} \right) =I_nA^{-1}=A^{-1} \text{  i.e. } C =A^{-1}
+.\] }
+\item If $A$ and $B$ are both invariable $n\times  n$ matrices the $AB$ is invertible and $\left( AB \right) ^{-1}= B ^{-1}A^{-1}$ 
+        \pf{Proof:}{
+        \[
+        \left( AB \right) \left( B^{-1} A^{-1} \right) = A \left( B B^{-1} \right) A^{-1} = A \left( I_n \right) A^{-1}=I_n
+        .\] This shows that $B^{-1}A^{-1}$ is an inverse of the matrix $AB$ and since inverses are unique we conclude that $\left( AB \right) ^{-1}= B^{-1}A^{-1}$.
+        }
+\item If $A$ is an invertible $n\times  n $ matrix then \[
+\left( A^{-1} \right) ^{-1}=A
+
+.\] 
+\pf{Proof:}{
+Since $A A^{-1}= A^{-1}A= I_n$\\
+$\implies$ $A$ is the inverse of $A^{-1}$ i.e. $A = \left( A^{-1} \right) ^{-1}$.
+
+}
+
+\end{itemize}
+}
+\section{Inverse of a $2\times 2$ Matrix}\\
+Let $A = \begin{bmatrix}
+a & b\\
+c & d\\
+\end{bmatrix}$. We want to find a $2\times 2$ matrix $A^{-1}= \begin{bmatrix}
+x & y\\
+z & w\\
+\end{bmatrix}$ such that $A A^{-1}= A^{-1}A= I_2$.\\
+i.e. $\begin{bmatrix}
+a & b\\
+c & d\\
+\end{bmatrix}\begin{bmatrix}
+x & y\\
+z & w\\
+\end{bmatrix}= \begin{bmatrix}
+1 & 0\\
+0 & 1\\
+\end{bmatrix}$
+\raggedcolumns
+\begin{multicols}{2}
+\begin{align*}
+        ax+bz=1\\
+        ay+bw=0\\
+        cx+dz=0\\
+        cy+dw=1\\
+.\end{align*}
+\break
+\begin{align*}
+        ax=1-bz \implies x= \frac{1-bz}{a}\\
+        cx=-dz \implies x= - \frac{dz}{c}\\
+        \implies \frac{1-bz}{a}= - \frac{dz}{c}\\
+        \frac{1}{a} - \frac{b}{a}z + \frac{dz}{c}=0\\
+        z \left( \frac{d}{c}-\frac{b}{a} \right) = - \frac{1}{a}\\
+        z \left( \frac{ad-bc}{ac} \right) =-\frac{1}{a}\\
+        \implies z= \frac{-ac}{a \left( ad-bc \right) }\\
+        z= \frac{-c}{ad-bc}
+.\end{align*}
+\end{multicols}\\
+
+Hence, $x = - \frac{d }{c}\left(  - \frac{c}{ad-bc} \right) = \frac{d}{ad-bc}$\\
+Similarly it can be show that\\
+$y= - \frac{b}{ad-bc}$ and $w = \frac{a}{ad-bc}$ \\
+\[
+\implies A^{-1}= \begin{bmatrix}
+\frac{d}{ad-bc} & \frac{-b}{ad-bc}\\
+ \frac{-c}{ad-bc}& \frac{a}{ad-bc}\\
+\end{bmatrix} = \frac{1}{ad-bc} \begin{bmatrix}
+d & -b\\
+-c & d\\
+\end{bmatrix}
+.\] 
+\nt{This definition depends on what  $ad-bc \neq 0$ i.e. the inverse is not defined if $ad-bc=0$.}
+\dfn{Determinant of a $2\times 2$ Matrix :}{
+For a $2\times 2$ matrix $A = \begin{bmatrix}
+a & b\\
+c & d\\
+\end{bmatrix}$ the quantity $ad-bc$ is known as the \underline{determinant of $A$.} It is denoted by $det \left( A \right) $ \[
+\text{det}\begin{bmatrix}
+a & b\\
+c & d\\
+\end{bmatrix} = ad-bc
+.\]  If $ad-bc=0$ then $A $ is not invertible. 
+}
+\ex{}{
+
+\begin{enumerate}[label=(\alph*)]
+        \item  Let $A = \begin{bmatrix}
+        1 & 3\\
+        2 & 7\\
+        \end{bmatrix}$ Find $A^{-1}$ :\\
+        \[
+        A^{-1}= \frac{1}{7-6}\begin{bmatrix}
+        7 & -3\\
+        -2 & 1\\
+        \end{bmatrix}= \begin{bmatrix}
+        7 & -3\\
+        -2 & 1\\
+        \end{bmatrix}
+        .\] 
+  \item  Rewrite the following linear system as a matrix equation and hence solve:\\
+          \begin{multicols}{2}
+          \begin{align*}
+                  x_1+3x_2=0\\
+                  2x_1+7x_2=-1\\
+          .\end{align*}
+          
+          \break
+          \begin{align*}
+                \Big\to  \begin{bmatrix}
+                  1 & 3\\
+                  2 & 7\\
+                  \end{bmatrix}\begin{bmatrix}
+                  x_1 \\
+                  x_2\\
+                  \end{bmatrix}= \begin{bmatrix}
+                  0 \\
+                  -1 \\
+                  \end{bmatrix}
+          .\end{align*}
+          \end{multicols}
+          We have the form $A \vec{x} = \vec{b } $ : multiplying both sides on the left by $A^{-1}$ we get
+          \begin{align*}
+                  A^{-1}\left( A\vec{x}  \right) = A^{-1}\vec{b}\\
+                  \left( A^{-1}A \right) \vec{x} = A^{-1}\vec{b}\\
+                  \vec{x} = A^{-1}\vec{b}\\
+                  \implies \begin{bmatrix}
+                  x_1\\
+                  x_2\\
+                  \end{bmatrix}
+                = \begin{bmatrix}
+                7 & -3\\
+                -2 & 1\\
+                \end{bmatrix}\begin{bmatrix}
+                0\\
+                -1\\
+                \end{bmatrix}
+                = \begin{bmatrix}
+                3\\
+                -1\\
+                \end{bmatrix}\\
+                \text{ i.e. } x_1=3 \quad  \text{ } x_2=-1
+          .\end{align*}
+          
+\end{enumerate}
+}
+\thm{}{Suppose $A$ is an invertible $n \times n$ matrix. For every $\vec{b} \in \mathbb{R}^{n}$ the equation 
+        \[
+        A \vec{x} =\vec{b} 
+        .\] has a unique solution $\vec{x} =A^{-1}\vec{b} $
+}
+\pf{Proof:}{
+First we will show that $A^{-1}\vec{b} $ is a solution to $A \vec{x} = \vec{b } $, then we will show that it is the unique solution.\\
+\[
+A \left( A^{-1}\vec{b}  \right) = \left( A A^{-1} \vec{b}  \right) = I_n \vec{b } = \vec{b } 
+.\] 
+
+i.e. $A^{-1}\vec{b} $ is a solution to the matrix equation $A \vec{x} =\vec{b} $.\\
+\textbf{Uniqueness:} Suppose $\vec{u} \in \mathbb{R}^{n}$ is also a solution to $A\vec{x} =\vec{b} $ i.e.  $A\vec{u} = \vec{b} $.\\
+Multiplying both sides of this equation by $A^{-1}$ on the left we get     
+}
+
+\begin{align*}
+        A^{-1} \left( A \vec{u }  \right) = A^{-1}\vec{b}\\
+        \text{ie} I_n \vec{u} = A^{-1}\vec{b } \\
+        \text{ie} \vec{u}  = A^{-1} \vec{b } \\
+.\end{align*}
+Hence, $A^{-1} \vec{b}  $ is a unique solution to $A \vec{x} = \vec{b } $.\\
+\section{Elementary Matrices}
+\dfn{Elementary matrices :}{
+An \underline{elementary matrix} 
+ is a matrix that is obtained by performing a single elementary row operation on the identity matrix.
+}
+\ex{}{
+\begin{align*}
+        \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & 1\\
+        \end{bmatrix} \xrightarrow[r_3-2r_1]{} \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        -2 & 0 & 1\\
+        \end{bmatrix}\\
+        \begin{bmatrix}
+         1& 0 & 0 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1\\
+        \end{bmatrix} \xrightarrow[r_2 \times 5]{}
+        \begin{bmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 5 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1\\
+        \end{bmatrix}\\
+        \begin{bmatrix}
+        1 & 0\\
+        0 & 1\
+        \end{bmatrix} \xrightarrow[r_1\leftrightarrow r_2]{} \begin{bmatrix}
+        0 & 1\\
+        1 & 0\\
+        \end{bmatrix}
+.\end{align*}
+}
+\ex{}{
+Let $A = \begin{bmatrix}
+a & b & c\\
+d & e &f \\
+ g& h & i\\
+\end{bmatrix}$ and Let
+\[
+E_1 = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+-2 & 0 & 1\\
+\end{bmatrix} \text{ } E_2 = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 5 & 0\\
+0 & 0 & 1\\
+\end{bmatrix} \text{ } E_3 = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & 1 & 0\\
+\end{bmatrix}
+.\] 
+Find $E_1A$, $E_2A$ and $E_3 A$ and describe the effect that multiplying $A$ on the left by these matrices has on the rows of $A$.\\
+\[
+E_1A = \begin{bmatrix}
+a & b & c\\
+d  & e  & f\\
+g-2a & h-2b & i-2c\\
+\end{bmatrix}           
+.\] $r_3$ is replaced with  $r_3 - 2r_1$. Note that  $r_3 -2r_1$ was exactly the row operation performed on the identity matrix to obtain $E_1 $ 
+\[
+E_2A = \begin{bmatrix}
+a & b & c\\
+5d  & 5e & 5f\\
+g & h & i\\
+\end{bmatrix}
+.\] 
+$r_2$ is replaced with  $5r_2$. Note that $5r_2$ was exactly the row operation performed on the identity matrix to obtain $E_2$.
+\[
+E_3A = \begin{bmatrix}
+a & b & c\\
+g & h & i\\
+ d & e &f \\
+\end{bmatrix}
+.\] 
+$r_2$ and $r_3 $ of $A $are interchanged $\left( r_2 \lefrrightarrow r_3 \right) $.\\
+Note that $r_2 \leftrightarrow r_3$ was exactly the row operation performed on the identity matrix to obtain $E_3$.
+}
+\textbf{Conclusions:}\\
+\begin{enumerate}[label=(\roman*)]
+  \item Row operations can be performed on a matrix $A$ by multiplying $ A$ on the left by an elementary matrix.
+  \item The row operation performed on $I_n$ to obtain an elementary matrix  $E$ is the same as the row operation that $E$ induces on $A$ by multiplying $A$  on the left by $E$.\\
+  \end{enumerate}
+  \textbf{Question:}\\
+  \textit{Are row operations reversible?}\\
+  Yes!\\
+  \begin{itemize}
+          \item Scaling: (non-zero scalar) 
+                  $r_i \to \alpha r_i $,  $\alpha \neq 0 $ can be reversed by $r_i \to \frac{1}{\alpha }r_i$
+          \item Replacement: $r_i \to r_i + \beta r_j$ can be reversed by  $r_i \to r_i - \beta r_j$, $\left( \beta \neq 0 \right) $.
+          \item Interchanging: $r_i \leftrightarrow r_j$can be reversed by repeating this again. 
+  \end{itemize}
+  \textit{What does this tell us about elementary matrices?} \\
+  They are invertible i.e.  for each elementary matrix $E$, the exists $E^{-1}$ such that $E E^{-1}= E^{-1}E=I$.
+\[
+E_1 = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+-2 & 0 & 1\\
+\end{bmatrix} \text{ } E_2 = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 5 & 0\\
+0 & 0 & 1\\
+\end{bmatrix} \text{ } E_3 = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & 1 & 0\\
+\end{bmatrix}
+.\] Find the inverses of the elementary matrices above.\\
+\[
+E_1^{-1}= \begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+2 & 0 & 1\\
+\end{bmatrix} \text{  } E_2^{-1} = \begin{bmatrix}
+1 & 0 & 0\\
+0 & \frac{1}{5} & 0\\
+0 & 0 & 1\\
+\end{bmatrix} \text{  } E_3^{-1} = \begin{bmatrix}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & 1 & 0\\
+\end{bmatrix}   
+.\] 
+\nt{Each elementary matrix  $E$ is invertible. The inverse of $E$ is an elementary matrix of the same type (replacement, scaling, interchanging) that transforms  $E$ back into the identity}
+\nt{The reduced row echelon form of an $n \times n$ matrix is either:
+\begin{itemize}
+        \item the $n \times n$ identity matrix ( if there are n pivots)
+        \item \underline{or}  a matrix whose last row has all zeros.
+\end{itemize}}
+\thm{}
+{
+An $n \times n$ matrix $A$ is invertible if and only if $A$ is row equivalent to the $n \times n$ identity matrix $I_n$
+}
+\pf{Proof}{\\
+$\implies$\\
+Suppose $A$ is invertible (we want to show that $A$ is equivalent to  $I_n $ ). Then $A\vec{x} =\vec{b}$ has a unique solution for every $\vec{b} \in \mathbb{R}^{n}$. This implies that $A$ has a pivot position in each column. Since  $A$ is a square matrix it also has a pivot in every row. The  $n$ pivots lie along the main diagonal of $A$ (the pivot positions $a_{ij}$ where $i=j$ ). Thus the reduced row echelon form of A has leading $1$'s along the diagonal and zeros above and below them i.e.  reduced row echelon form of $A$ is $I_n$. \\
+$\impliedby$ \\
+Conversely, suppose $A $ is row equivalent to  $I_n$. This means that there exists a finite number of elementary matrices $E_1, \ldots ,E_p$ such that \[
+E_pE_{p-1}\ldots E_2E_1A =I_n
+.\] 
+
+Since each $E_j$ is invertible, the product of  $p$ elementary matrices is invertible.\\
+We multiply both sides of the equation above on the left by  $\left( E_pE_{p-1}\ldots E_2E_1 \right) ^{-1}$. to get 
+\[
+\left( E_pE_{p-1}\ldots E_2E_1 \right) ^{-1} \left( E_pE_{p-1}\ldots E_2E_1 \right) A = \left( E_pE_{p-1}\ldots E_2E_1 \right) ^{-1} I_n
+.\] 
+\[
+\implies A = \left( E_pE_{p-1}\ldots E_2E_1 \right) ^{-1}
+.\] 
+Since $A$ is equal to the inverse of an invariable matrix we can conclude that $A$ is invertible
+}
+
+What's more is that this theorem gives us a formula for calculating $A^{-1}$.
+\begin{align*}
+        A^{-1}= \left( E_pE_{p-1}\ldots E_2E_1 \right)\\
+.\end{align*}
+Therefore the same sequence of row operations that turned $A$ into $I_n$ will turn $I_n $ into $A^{-1}$.\\
+$\implies$ In order to find $A^{-1}$ we row reduce the $n \times 2n$ matrix $\left[ A, I_n \right] $ to $\left[ I_n, A^{-1} \right] $.
+\ex{}{
+\begin{enumerate} [label=(\alph*)]
+  \item Let $A = \begin{bmatrix}
+  0 & 1 & 2\\
+  1 & 0 & 3\\
+  4 & -3 & 8\\
+  \end{bmatrix}$ Find $A^{-1}$ \\
+  \begin{align*}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            0 & 1 & 2 & 1 & 0 & 0\\
+            1 & 0 & 3 & 0 & 1 & 0\\
+            4 & -3 & 8 & 0 & 0 & 1\\
+          \end{array}
+          \right] \xrightarrow[r_1 \leftrightarrow r_2]{}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            1 & 0 & 3 & 0 & 1 & 0\\
+            0 & 1 & 2 & 1 & 0 & 0\\
+            4 & -3 & 8 & 0 & 0 & 1\\
+          \end{array}
+          \right]\\
+          \xrightarrow[r_3-4r_1]{}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            1 & 0 & 3 & 0 & 1 & 0\\
+            0 &1  &2  &1  &0  &0 \\
+            0 & -3 & -4 & 0 & -4 & 1\\
+          \end{array}
+          \right] \xrightarrow[r_3+3r_2]{}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            1 & 0 & 3 & 0 & 1 & 0\\
+            0 & 1 & 2 & 1 & 0 & 0\\
+            0 & 0 & 2 & 3 & -4 & 1\\
+          \end{array}
+          \right]       \\
+          \xrightarrow[r_2-r_3]{}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            1 & 0 & 3 & 0 & 1 & 0\\
+            0 & 1 & 0 & -2 & 4 & -1\\
+            0 & 0 & 2 & 3 & -4 & 1\\
+          \end{array}
+          \right] \xrightarrow[r_3 \times  \frac{1}{2}]{}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            1 & 0 & 3 & 0 & 1 & 0\\
+            0 & 1 & 0 & -2 & 4 & -1\\
+            0 & 0 & 1 & \frac{3}{2} & -2 & \frac{1}{2}\\
+          \end{array}
+          \right]\\
+          \xrightarrow[r_1-3r_2]{}
+          \left[
+          \begin{array}{ccc;{2pt/2pt}ccc}  
+            1 & 0 & 0 & -\frac{9}{2} & 7 & -\frac{3}{2}\\
+            0 & 1 & 0 & -2 & 4 & -1\\
+            0 & 0 & 1 & \frac{3}{2} & -2 & \frac{1}{2}\\
+          \end{array}
+          \right] \implies A^{-1}= \begin{bmatrix}
+          - \frac{9}{2} & 7 & - \frac{3}{2}\\
+          -2 & 4 & -1\\
+          \frac{3}{2} & -2 & \frac{1}{2}\\
+          \end{bmatrix}\\
+  .\end{align*}
+  \item  Find a sequence of elementary matrices $E_1,E_2,\ldots, E_p$ such that $E_p E_{p-1}\ldots E_2E_1A =I_3$.\\
+          \[
+          E_1 = \begin{bmatrix}
+          0 & 1 & 0\\
+          1 & 0 & 0\\
+          0 & 0 & 1\\
+          \end{bmatrix} \text{ , } E_2= \begin{bmatrix}
+          1 & 0 & 0\\
+          0 &1  0& \\
+          -4 & 0 & 1\\
+          \end{bmatrix} \text{, } E_3 = \begin{bmatrix}
+          1 & 0 & -3\\
+          0 & 1 & 0\\
+          0 &0  &1 \\
+          \end{bmatrix}
+          .\] 
+  \end{enumerate}
+  
+}
+
+\section{The Invertible Matrix Theorem}
+Let $A $ be an $n \times n$ matrix. The following statements are equivalent:
+\begin{enumerate} [label=(\alph*)]
+  \item $A$ is an invertible matrix
+  \item $A$ is row equivalent to $I_n$
+  \item $A$ has $n$ pivot positions
+  \item The system $A \vec{x} = \vec{b} $ has a unique solutions $\forall \vec{b} \in \mathbb{R}^{n}$
+  \item The system $A \vec{x} = \vec{0} $ has the unique solution $\vec{x} =\vec{0} $ 
+  \item There is an $n \times n$ matrix $A^{-1}$ such that $A^{-1}A =I_n$
+  \end{enumerate}
+  \section{Inverse matrices and the determinant}
+          Suppose $A = \begin{bmatrix}
+          a_{11} & a_{12} & a_{13}\\
+          a_{21} & a_{22} & a_{23}\\
+          a_{31} & a_{32} & a_{33}\\
+          \end{bmatrix}$ is an invertible $3 \times  3 $ matrix.\\
+          Row reducing $ A$ to reduced echelon form $\left( I_3 \right) $ we discover that the following conditions on $A $ must be satisfied for $A^{-1}$ to exist:
+          \[
+          a_{11} det \begin{bmatrix}
+          a_{22} & a_{23}\\
+           a_{32}& a_{33}\\
+          \end{bmatrix} - a_{12} det \begin{bmatrix}
+          a_{21} & a_{23}\\
+          a_{31} & a_{33}\\
+          \end{bmatrix} + a_{13} det \begin{bmatrix}
+          a_{21} & a_{22}\\
+          a_{31} & a_{32}\\
+          \end{bmatrix}\neq 0
+          .\] 
+          The above is one definition of the determinant of a $3 \times  3$ matrix.\\
+          \nt{\textbf{Notation:} Suppose $A$ is an $n \times n$ matrix. We use $A^{ij}$ to denote the $\left( n-1 \right) \times \left( n-1 \right) $ matrix obtained from $A$ by deleting the $i $th row and the $j$th column.}
+          \nt{The determinant above could thus be written as
+\[
+a_{11} det A^{11}- a_{12} det A^{12} + a_{13} det A^{13}
+.\] 
+Informally the determinant of the $3 \times  3$ matrix $A$ is a signed sum of all possible products of $3$ entries from  $A$, chosen in a way that every row and every column is represented in the product only once.
+          }
+          
+          
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
