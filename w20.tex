@@ -14,6 +14,8 @@
 \newcommand{\pistar}{{\zf\symbol{"4A}}}
 % a tiny helper for a stretched phantom (for the underbrace)
 \newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
 
 
 
@@ -239,7 +241,7 @@ and $ ab = -cd $ \\
    \vline & \vline & \vline\\
    \end{bmatrix}$ then 
    \[
-   B ^{ T} A B = = \begin{bmatrix}
+   B ^{ T} A B = \begin{bmatrix}
        -1 & 0 & 0 & \dots  & 0 \\
        0 & 1 & 0 & \dots  & 0 \\
        \vdots & \vdots & \vdots & \ddots & \vdots \\
@@ -250,9 +252,9 @@ and $ ab = -cd $ \\
   }
   \section{Quadratic Forms}
  Consider a quadratic form $ q$ in the variables $ x_1, \ldots , x_n$,
+ 
  \[
  q \left( x_1,  \ldots , x_n \right) = \sum\limits_{i \le j}^{}  \alpha_{ij} x_i x_j 
- 
  .\] 
  We can view this quadratic form as a particular instance of a symmetric bilinear form evaluated at  $ \langle  \vec{ x} , \vec{ x}   \rangle $ as follows:\\
 
@@ -386,7 +388,8 @@ and $ ab = -cd $ \\
           \end{bmatrix}$
           then the matric of $ \langle ,  \rangle $ with respect to $ \mathcal{F}$ is $ B ^{T}A B $.\\
           \textit{ i.e. $ A$ and $ B^{T}A B$ represent the same bilinear form with respect to different bases.}\\
- }             
+ } 
+ 
  \dfn{ :}{
  Two $n \times n$  matrices $ A, B \in M _{ n \times  n\left(  \mathbb{R} \right) }$    are said to be congruent if there exists an invertible matrix $ C$ such that \[
  B = C ^{T} A C
@@ -511,7 +514,7 @@ and $ ab = -cd $ \\
              .\] 
    }
 
-   \thm{(Test for Postive Definiteness)}
+\thm{(Test for Postive Definiteness)}
    {
       Suppose $ A$ is a real symmetric matrix, then $ A$ is positive definite ifand only if:
       \begin{enumerate}[label=(\arabic*).]  
@@ -608,8 +611,35 @@ and $ ab = -cd $ \\
      -2 < x &<4
      .\end{align*}
 
- XXX PLOT
+  \\
+  \\
 
+  \begin{tikzpicture}
+  \begin{axis}[
+      xmin=-9, xmax=7,
+      ymin=-400, ymax=400,
+      axis lines=middle,      % if this key is missing on old TeX, use the two lines below instead
+      % axis x line=middle,
+      % axis y line=middle,
+      xlabel={$x$}, ylabel={$f(x)$},
+      grid=both,
+      samples=300,
+      domain=-9:7,
+      thick,
+  ]
+    % ----- the cubic  f(x) = -(x-1)(x+6)(x-4) ---------------------------
+    \addplot[blue] {-(x-1)*(x+6)*(x-4)};
+
+    % ----- mark its three real zeros -----------------------------------
+    \addplot[only marks, mark=*] coordinates {(-6,0) (1,0) (4,0)};
+  \end{axis}
+\end{tikzpicture}
+
+
+
+
+
+  \\
      \begin{align*}
       \text{ det } A &= 2 \left[ \left( x+4 \right) \left( x+1 \right) - \left( x-4 \right) ^2  \right] - x \left( x \right) \left( x+1 \right) \\
       &= 2 \left[ x^2 +5x +4 - \left( x^2 -8x +16 \right) \right] - x^3 -x^2\\
@@ -663,7 +693,28 @@ and $ ab = -cd $ \\
         &= - \left( a-1 \right) \left( a+3 \right) \left( a-2 \right) >0\\
         a<-3 \qquad  \text{ or } \qquad  1 < a < 2
        .\end{align*}
-       XXX PLOT\\
+              \\
+         \begin{tikzpicture}
+  \begin{axis}[
+      xmin=-5, xmax=5,
+      ymin=-20, ymax=20,
+      axis lines=middle,
+      xlabel={$a$}, ylabel={$f(a)$},
+      grid=both,            % optional: light background grid
+      samples=200,          % number of evaluation points
+      domain=-5:5,
+      thick,
+  ]
+    % ----- the cubic f(a) = -(a-1)(a+3)(a-2) ---------------------------
+    \addplot[blue] {-(x-1)*(x+3)*(x-2)};
+    
+    % ----- mark its three real zeros -----------------------------------
+    \addplot[only marks, mark=*] coordinates {(-3,0) (1,0) (2,0)};
+  \end{axis}
+\end{tikzpicture}
+
+       \\
+       \\
        Putting everything together, we have $ A$ is positive definite if and only if $ 1 < a < 2$.
     \end{enumerate}
     
@@ -679,7 +730,8 @@ and $ ab = -cd $ \\
         \item    Eigenvalues: $ \lambda >0 \qquad  \forall $ eigenvalues $ \lambda $ of $ A$
         \item Sylvester's Criterion: the determinants of all the $ k \times  k$ upper left submatrices are all positive 
         \end{enumerate}
-      }
+    }
+      
       \pf{Proof:}{
        (1) $ \iff$ (2)\\
        $ A$ is symmetric $ \iff $   $ \exists $ an orthogonal matrix $ B$ such that $ B ^{T} A B = \begin{bmatrix}
@@ -725,16 +777,4 @@ and $ ab = -cd $ \\
           $ \iff  \text{ det } A_k >0$ 
       }
       
-    
- 
- 
- 
- 
- 
- 
-
-
-
-
-
 \end{document}
