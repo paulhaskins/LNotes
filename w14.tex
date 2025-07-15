@@ -1,4 +1,4 @@
-\documentclass{report}
+ \documentclass{report}
 
 \input{preamble}
 \input{macros}
@@ -28,7 +28,7 @@ An $n \times n$  matrix $ A$ has at most $ n$ eigenvalues }
  \[
  \text{ det } \left( A - \lambda I \right) = 0
  .\] 
- Recall $ \text{ det } A = \sum\limits_{ \sigma}^{}  \text{ sgn } \left( \sigma \right) b_{1 \sigma \left( 1 \right) } b _{ 2 \sigma \left( 2 \right) }\ldots  b_{ n \sigma \left(  n \right) }
+ Recall $ \text{ det } A = \sum\limits_{ \sigma}^{}  \text{ sgn } \left( \sigma \right) b_{1 \sigma \left( 1 \right) } b _{ 2 \sigma \left( 2 \right) }\cdots  b_{ n \sigma \left(  n \right) }
  $
  where $ \sigma$ is a permutation over $ n$ elements.\\
  Each term in the sum is a product of $ n $ entries from $ B$ with exactly one entry from each row and one entry from each column.\\
@@ -39,7 +39,7 @@ An $n \times n$  matrix $ A$ has at most $ n$ eigenvalues }
 \\
 \thm{}
 {
-Suppose $ \phi : V \to V$ is a linear operatro on the vectors space $ V$ of dimension $ n$.\\
+Suppose $ \phi : V \to V$ is a linear operator on the vectors space $ V$ of dimension $ n$.\\
 If $ \phi $ has $ n$ distinct eigenvalues then the corresponding eigenvectors from a basis for $ V$ .\\
 }
 
@@ -52,7 +52,7 @@ If $ \phi $ has $ n$ distinct eigenvalues then the corresponding eigenvectors fr
       Suppose $ \vec{ v_1} ,\ldots \vec{ v_{k+1} } $ are eigenvectors corresponding to $ k+1$  disctinct eigenvalues $ \lambda_1 , \lambda_2 , \ldots , \lambda_{k+1}$.\\
       Suppose $ \left\{ \vec{ v_1}, \vec{ v_2} ,\ldots, \vec{ v_{k+1}}   \right\} $ is a linearly dependent set $ \implies \exists  c_1,c_2, \ldots , c_{k+1} \in \mathbb{R}$ not all zero such that
       \[
-      c_1 \vec{ v_1} +  c_ 2 \vec{ v_2}+ \ldots + c_{k+1} \vec{ v_{k+1}} = \vec{ 0} \text{ XXX INCLUDE STAR} 
+      c_1 \vec{ v_1} +  c_ 2 \vec{ v_2}+ \ldots + c_{k+1} \vec{ v_{k+1}} = \vec{ 0} \qquad  \qquad  \star 
       .\] 
       \[
       \phi  \left(  \sum\limits_{i=1}^{k+1} c_i \vec{ v_i} = \phi  \left(  \vec{ 0}  \right) = \vec{ 0}   
@@ -65,7 +65,7 @@ If $ \phi $ has $ n$ distinct eigenvalues then the corresponding eigenvectors fr
       \sum\limits_{i=1}^{k+1} c_i \left( \lambda_i \vec{ v_i}  \right)   = \vec{ 0} 
       
       .\] 
-      Multiplying XXX STAR EQN ABOVE XXX by $ \lambda_{k+1}$ and subtracting from above we get:
+      Multiplying $ \star$ by $ \lambda_{k+1}$ and subtracting from above we get:
       \[
       c_1 \left( \lambda_1 \vec{ v_1}  \right) +c_2 \left( \lambda_2 \vec{ v_2}  \right) + \ldots + c_k \left( \lambda_k \vec{ v_k}  \right)  + c_{k+1} \left( \lambda_{k+1} \vec{ v_{k+1}}  \right)  = \vec{ 0} 
       .\] 
@@ -81,7 +81,7 @@ If $ \phi $ has $ n$ distinct eigenvalues then the corresponding eigenvectors fr
       .\] 
       Since the eigenvalues are distinct  we have that $ c_i =0 $ for all $ 1 \le i \le k$ 
       \[
-      \implies \text{ the linear dependence relation }  XXX STAR \text{becomes }
+      \implies \text{ the linear dependence relation } \star \text{ becomes }
       .\] 
       $ c_{k+1} \vec{ v_{k+1}} =0$ and hence $ c _{k+1} =0 $ $ \implies \left\{ \vec{ v_1} , \vec{ v_2} , \ldots , \vec{ v _{k+1}}  \right\}$  is a linearly independent set.\\
 }
@@ -181,14 +181,13 @@ x-1\; & -x^{3} & +5x^{2} & -8x & +4 \\[-2pt]
       &        &        &        0
 \end{array}
 \]
-     CHECK IT XXXX
    $ \implies - \lambda ^3 + 5 \lambda^2 - 8 \lambda +4 = \left( \lambda-1 \right) \left( \lambda^2 -4\lambda +4 \right) \left( -1 \right) $ \\
    $ = \left( \lambda -1  \right) \left(  \lambda-2 \right) ^2 \left( -1 \right) =0$
    $ \implies \lambda=1, \lambda=2 $ are the eigenvalues 
      
    \begin{itemize}
    	\item $ \lambda =1$ 
-	  $ \mathbb{N} \left( A-I \right)  \left[
+	  $ \mathcal{N} \left( A-I \right)  \left[
 	  \begin{array}{ccc;{2pt/2pt}c}  
 	  2 & 1 & -3 & 0\\
 	  1 & 2 & -3 & 0\\
@@ -242,13 +241,13 @@ x-1\; & -x^{3} & +5x^{2} & -8x & +4 \\[-2pt]
 	   1\\
 	   \end{bmatrix}
 	  .\] 
-	  Eigienspace corresponding to $ \lambda =1$  span $ \left\{ \begin{bmatrix}
+	  Eigenspace corresponding to $ \lambda =1$  span $ \left\{ \begin{bmatrix}
 	  1\\
 	  1\\
 	  1\\
 	  \end{bmatrix}
 	   \right\} $ \\
-	   	\item $ \lambda =2$ $ \mathbb{N} \left( A -2 I \right) : \left[
+	   	\item $ \lambda =2$ $ \mathcal{N} \left( A -2 I \right) : \left[
 	   	\begin{array}{ccc;{2pt/2pt}c}  
 	   	1 & 1 & -3 & 0\\
 	   	1 & 1 & -3 & 0\\
@@ -300,7 +299,7 @@ x-1\; & -x^{3} & +5x^{2} & -8x & +4 \\[-2pt]
   
   \end{multicols}
   \[
-	  \implies \mathbb{N} \left( A-2I \right) = \text{ span } \left\{ \begin{bmatrix}
+	  \implies \mathcal{N} \left( A-2I \right) = \text{ span } \left\{ \begin{bmatrix}
 	  1\\
 	  1\\
 	  0\\
@@ -382,7 +381,7 @@ x-1\; & -x^{3} & +5x^{2} & -8x & +4 \\[-2pt]
 \underline{Eigenvectors:}\\
 $ \lambda = 2+3i$ \\
 \[
-\mathbb{N} \left( A - \left( 2+3i \right) I \right) = \text{ all solutions to } \begin{bmatrix}
+\mathcal{N} \left( A - \left( 2+3i \right) I \right) = \text{ all solutions to } \begin{bmatrix}
 2-2-3i & -3\\
  3& 2-2-3i \\
 \end{bmatrix} m\begin{bmatrix}
@@ -435,7 +434,7 @@ i\\
  \right\} $} 
  Note this is a complex vector space,it is a subspace of $ \mathbb{C} ^2$. \\ Similarly, $ \lambda = 2 -3i $
  \[
- \mathbb{N} \left(  A - \left( 2-3i \right) I \right) = \text{ all solutions to }  \begin{bmatrix}
+ \mathcal{N} \left(  A - \left( 2-3i \right) I \right) = \text{ all solutions to }  \begin{bmatrix}
  2-2+3i & -3\\
  3 & 2-2+3i\\
  \end{bmatrix} \begin{bmatrix}
@@ -508,8 +507,8 @@ i\\
  In particular,  $ \chi _T \left( \lambda \right) $ has a root $ \lambda \in \mathbb{C} $, and hence, an eigenvector $ \vec{ v} $ associated with $ \lambda$.
 }
 
-   \section{Reccurence Relations}
-   A reccurence relation is an equation that expresses the $ n$-th term of a sequence as a function of the preceeding terms. (Recurrsive sequence).\\
+   \section{Recurrence Relations}
+   A recurrence relation is an equation that expresses the $ n$-th term of a sequence as a function of the preceeding terms. (Recurrsive sequence).\\
    	\textbf{Example:} 
 	\[
 	x_n = 4 x_{n-1} -2 y _{n-1}  \qquad  x_0 = 4
@@ -517,7 +516,7 @@ i\\
 	\[
 	y_n = x_{n-1} + y_{n-1} \qquad y_0 = 1
 	.\] 
-	Goal is to find a closed form solution , i.e.  a non-reccursive definition of  $ x_n$ and $ y_n$.\\
+	Goal is to find a closed form solution , i.e.  a non-recurrsive definition of  $ x_n$ and $ y_n$.\\
 	\[
 	\text{ Let } \vec{ u_n} = \begin{bmatrix}
 	x_n\\
@@ -556,7 +555,7 @@ i\\
 		\implies \lambda =3 , \quad \lambda =2
 	 .\end{align*}
                \[
-               \mathbb{N} \left(  A - 3I  \right) : \left[
+               \mathcal{N} \left(  A - 3I  \right) : \left[
                \begin{array}{cc;{2pt/2pt}c}  
                1 & -2 & 0\\
                1 & -2 & 0\\
@@ -576,7 +575,7 @@ i\\
 	       \end{bmatrix}
 	       $ \\
 	       \[
-	       \mathbb{N} \left( A -2 I \right)  = \left[
+	       \mathcal{N} \left( A -2 I \right)  = \left[
 	       \begin{array}{cc;{2pt/2pt}c}  
 	       2 & -2 & 0\\
 	       1 & -1 & 0\\
@@ -700,7 +699,7 @@ where $ \mathcal{F} = \left\{  \begin{bmatrix}
  Not all matrices are diagonalizable, for example, $ A = \begin{bmatrix}
  1 & 1\\
  0 & 1\\
-\end{bmatrix}$ has one eigenvalue  $ \lambda =1$ and $ \mathbb{N} \left(  a - I \right) = \left\{ \begin{bmatrix}
+\end{bmatrix}$ has one eigenvalue  $ \lambda =1$ and $ \mathcal{N} \left(  a - I \right) = \left\{ \begin{bmatrix}
 x\\
 0\\
 \end{bmatrix}
@@ -747,12 +746,12 @@ x\\
 	 0\\
 	 1\\
 	 \end{bmatrix}
-	  \in \mathbb{N} \left( A - I   \right)        ^2
+	  \in \mathcal{N} \left( A - I   \right)        ^2
 .\] 
-any vector that lies in $  \mathbb{N} \left(  A - \lambda I   \right) ^{k} $  for some $ k$ is called a generalised eigenvector. By carefully choosing a basis for $ \mathbb{R} ^2$ consisting of eigenvectors and generalised eigenvectors $ A$ can be represented by a matrxi that is not far off being a diagonal matrix.\\
+any vector that lies in $  \mathcal{N} \left(  A - \lambda I   \right) ^{k} $  for some $ k$ is called a generalised eigenvector. By carefully choosing a basis for $ \mathbb{R} ^2$ consisting of eigenvectors and generalised eigenvectors $ A$ can be represented by a matrxi that is not far off being a diagonal matrix.\\
 \\
 \dfn{ Generalised eienvector of a Linear Operator :}{
-         Suppose $ T : V \to V$ is a linear operatro. A vector $ \vec{ v} \in V$ is called a generalised eigienvector of $ T$ corresponding to $ \lambda $ if $ \left( T - \lambda I  \right)  ^{k} \vec{ v} = \vec{ 0}  $ for some $ k \ge 1$.
+         Suppose $ T : V \to V$ is a linear operator. A vector $ \vec{ v} \in V$ is called a generalised eigienvector of $ T$ corresponding to $ \lambda $ if $ \left( T - \lambda I  \right)  ^{k} \vec{ v} = \vec{ 0}  $ for some $ k \ge 1$.
 }
    It can be shown that the set of generalised eienvectors associated with a fixed $ \lambda \in \mathbb{R} $ along with the zero vector forms a subspace of $ V$, it is called the generalised eigenspace of $ T $ associated with $ \lambda$ .
    \\
@@ -763,6 +762,7 @@ any vector that lies in $  \mathbb{N} \left(  A - \lambda I   \right) ^{k} $  fo
    0 & 1\\
    \end{bmatrix}$)
    }
+
    \thm{}
    {
    Suppose $ T: V \to V$ is a linear operator on the vector space. There exist a chain of increasing subspaces of $ V$,
@@ -793,11 +793,20 @@ any vector that lies in $  \mathbb{N} \left(  A - \lambda I   \right) ^{k} $  fo
   ker\left( T - \lambda I  \right)   ^{ j} = ker \left(  T - \lambda I \right) ^{k} \forall j \ge k+1 
   .\] 
   Assume $ ker \left(  T - \lambda I \right) ^{l} = ker \left( T- \lambda I \right) ^{k}$ for some $ l > k +1$\\
-  We want to show that $ ker \left(  T - \lambda I  \right)  ^{l + 1} = ker \left(  T - \lambda I  \right) ^{ k}$  or equivelantly $ ker \left(  T - \lambda I  \right)  ^{l + 1} = ker \left(  T - \lambda I  \right) ^{ l}$  \\
+  We want to show that $ ker \left(  T - \lambda I  \right)  ^{l + 1} = ker \left(  T - \lambda I  \right) ^{ k}$  or equivalently $ ker \left(  T - \lambda I  \right)  ^{l + 1} = ker \left(  T - \lambda I  \right) ^{ l}$  \\
   \\
   \\
-  We know that XXX BOX $ ker \left( T - \lambda I  \right) ^{l} \subseteq ker \left( T -  \lambda I \right) ^{ l+1} 
-   $ to show the reverse inclusion, suppose $ \vec{ v} \in ker   \left( T - \lambda I \right) ^{ l +1} $  i.e.  \\
+  We know that 
+  \begin{tcolorbox}[colframe=violet, boxrule=0.9pt, left=6pt, right=6pt,
+                  top=4pt, bottom=4pt]
+\[
+  \ker\!\bigl(T-\lambda I\bigr)^{\ell}
+  \;\subseteq\;
+  \ker\!\bigl(T-\lambda I\bigr)^{\ell+1}
+  \qquad (\star)
+\]
+\end{tcolorbox}
+\\ to show the reverse inclusion, suppose $ \vec{ v} \in ker   \left( T - \lambda I \right) ^{ l +1} $  i.e.  \\
  \[
  \left( T - \lambda I \right) ^{ l+1} \vec{ v} = 0
  .\] 
@@ -816,10 +825,16 @@ any vector that lies in $  \mathbb{N} \left(  A - \lambda I   \right) ^{k} $  fo
  \[
  \text{ i.e. } \vec{ v} \in ker \left( T - \lambda I \right) ^{k+1} = ker \left( T - \lambda I  \right) ^{k} = ker \left( T - \lambda I \right) ^{l}
  .\] 
-  \[
-  \implies BOX XXX
-  .\]  
-  Hence, XXX BOX 1 and XXX BOX 2 imply that 
+  \begin{tcolorbox}[colframe=blue, boxrule=0.9pt, left=6pt, right=6pt,
+                  top=4pt, bottom=4pt]
+\[
+ \implies \ker\!\bigl(T-\lambda I\bigr)^{\ell+1}
+  \;\subseteq\;
+  \ker\!\bigl(T-\lambda I\bigr)^{\ell}
+  \qquad (\star)
+\]
+\end{tcolorbox}
+Hence, \color{violet}{(\star)} \color{black}{ and} \color{blue}{(\star)} \color{black}{imply} that 
   \[
   ker \left(  T - \lambda I \right) ^{l+1} = ker \left(  T - \lambda I  \right) ^{l} = ker \left( T - \lambda I \right) ^{k}
   .\] 
@@ -854,7 +869,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
  \[
  \chi _A \left( \lambda \right) = \left(  -1 \right) \left(  \lambda -2 \right)  \left( \lambda -3 \right) ^2 
  .\] 
- \underline{Eigenvectors:} $  \qquad  \lambda =2 \qquad  \mathbb{N}   \left(  A -2I \right)  $ 
+ \underline{Eigenvectors:} $  \qquad  \lambda =2 \qquad  \mathcal{N}   \left(  A -2I \right)  $ 
 
  \[
   \left[
@@ -897,7 +912,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
     \right] \qquad x =2z \quad y =z \quad z \text{ free }
     .\] 
     \[
-	    \implies \mathbb{N} \left( A - 2I \right) = \left\{ z \begin{bmatrix}
+	    \implies \mathcal{N} \left( A - 2I \right) = \left\{ z \begin{bmatrix}
 	    2\\
 	    1\\
 	    1\\
@@ -912,7 +927,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
     \end{bmatrix}
     .\] 
     \[
-    \mathbb{N} \left( A - 2 I \right) ^2: \left[
+    \mathcal{N} \left( A - 2 I \right) ^2: \left[
     \begin{array}{ccc;{2pt/2pt}c}  
     -3 & 2 & 4 & 0\\
     -1 & 1 & 1 & 0\\
@@ -926,11 +941,11 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
     \end{array}
     \right]
     .\] 
-    clearly $ \mathbb{N} \left(  A -2I \right) ^2 = \mathbb{N} \left( A - 2I \right) $.\\
-    $ \implies A $ only has eigenvectors associated with $ \lambda =2 $, $ \mathbb{N} \left(  A -2I \right) ^{j} = \mathbb{N} \left( A -2I \right) \qquad  \forall j \ge 1   $\\
+    clearly $ \mathcal{N} \left(  A -2I \right) ^2 = \mathcal{N} \left( A - 2I \right) $.\\
+    $ \implies A $ only has eigenvectors associated with $ \lambda =2 $, $ \mathcal{N} \left(  A -2I \right) ^{j} = \mathcal{N} \left( A -2I \right) \qquad  \forall j \ge 1   $\\
     \\
     \\
- $ \lambda = 3$, $  \mathbb{N} \left(  A - 3 I \right)  $   \\
+ $ \lambda = 3$, $  \mathcal{N} \left(  A - 3 I \right)  $   \\
  \[
    \left[
    \begin{array}{ccc;{2pt/2pt}c}  
@@ -947,12 +962,12 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
    \right]
  .\] 
  \[
-	 x=z \quad y=0 \quad z \text{ free } \qquad  \implies \mathbb{N} \left( A -3I \right) = \left\{ z  \begin{bmatrix}
+	 x=z \quad y=0 \quad z \text{ free } \qquad  \implies \mathcal{N} \left( A -3I \right) = \left\{ z  \begin{bmatrix}
 	 1\\
 	 0\\
 	 1\\
 	 \end{bmatrix}
-	 \mid z \in \mathbb{R} \right\} 
+	 \mid z \in \mathcal{R} \right\} 
  .\] 
  \[
  \left( A - 3I \right) ^2 = \begin{bmatrix}
@@ -962,7 +977,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
  \end{bmatrix}
  .\] 
  \[
- \mathbb{N} \left(  A -3I \right) ^2: \quad \left[
+ \mathcal{N} \left(  A -3I \right) ^2: \quad \left[
  \begin{array}{ccc;{2pt/2pt}c}  
  2 & 0 & -2 & 0\\
  1 & 0 & -1 & 0\\
@@ -977,7 +992,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
  \right]
  .\] 
  \[
-	 x=z \quad y \text{ free }  z \text{ free } \qquad  \mathbb{N} \left( A - 3 I \right) ^2 =  \left\{ \begin{bmatrix}
+	 x=z \quad y \text{ free }  z \text{ free } \qquad  \mathcal{N} \left( A - 3 I \right) ^2 =  \left\{ \begin{bmatrix}
 	 z\\
 	 y\\
 	 z\\
@@ -1001,7 +1016,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
 	  1\\
 	  0\\
 	  \end{bmatrix}
-	  \right\}  XXX 
+	  \right\} = \left\{ \vec{ b_1} , \vec{ b_2} , \vec{ b_3} \right\}
  .\] 
  Note $ A \vec{ b_1} = 2 \vec{ b_1} $, $ A \vec{ b_2} = 3 \vec{ b_2} $, $ A \vec{ b_3} = \begin{bmatrix}
  1\\
@@ -1010,17 +1025,17 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
  \end{bmatrix}
  = \vec{ b_2}  + 3 \vec{ b_3} $           \\
  \[
-	 \implies \left[ A \right]  _{ \mathcal{B}\mathcal{B} }         \begin{bmatrix}
+	 \implies \left[ A \right]  _{ \mathcal{B}\mathcal{B} }  =       \begin{bmatrix}
 	 2 & 0 & 0\\
 	 0 & 3 & 1\\
 	 0 & 0 & 3\\
 	 \end{bmatrix}
  .\] 
- Hence, $A$ is similar to a matrix thtat is not quite a diagonal matrix but note far off it.\\
+ Hence, $A$ is similar to a matrix that is not quite a diagonal matrix but note far off it.\\
  \\
  Our goal is to show that there are always $ n$ linearly independent generalised eigienvectors for an $n \times n$  matrix $ A$.\\
  \\
- Recall: If $ T: V \to V$ is a linear operatro on the vector space $ V$ and $ \lambda $ is an eigenvalue of $ T$. $ ker \left( T - \lambda I \right) \backslash {0} $  is a subspace of $ V$ called the eigenspace associated with the eignevalue $ \lambda$ . We use $ E_{ \lambda}$  to denote this eigenspace.
+ Recall: If $ T: V \to V$ is a linear operator on the vector space $ V$ and $ \lambda $ is an eigenvalue of $ T$. $ ker \left( T - \lambda I \right) \backslash \{0\} $  is a subspace of $ V$ called the eigenspace associated with the eignevalue $ \lambda$ . We use $ E_{ \lambda}$  to denote this eigenspace.
 
 }
 
@@ -1036,16 +1051,43 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
                    
       \ex{}{
 	      Suppose $  T: \mathbb{R} ^2 \to \mathbb{R} ^2$ is a reflection of  $  \mathbb{R} ^2 $ in a line through the origin by $ \vec{ v_1} $. Suppose $ \vec{  v_2} $ is orthogonal to $ \vec{ v_1 } $ .\\
-	      XXX INCLUDE IMAGE\\
+       \begin{tikzpicture}[scale=1.8,>=latex] % >=latex gives classical arrow heads
+  %-------------------------------------------------
+  % coordinate axes
+  \draw[very thick,->] (-3,0) -- (3,0);   % x-axis
+  \draw[very thick,->] (0,-2) -- (0,3);   % y-axis
+
+  %-------------------------------------------------
+  % eigenvector v1  (green / teal)
+  \draw[dashed,teal] (-3,1) -- (3,-1);                  % dashed line (eigenspace)
+  \draw[teal,very thick,->] (0,0) -- (-1,0.333);        % arrow for v1
+  \node[teal,above] at (-1,0.4) {$\vec v_{1}$};
+
+  % annotation for v1
+  \node[teal,align=left] at (-3.1,-1.6)
+        {$T(\alpha\vec v_{1})=\alpha\vec v_{1}$\\
+         $\alpha\vec v_{1}$ is an eigenvector\\
+         with eigenvalue $\lambda=1\quad\forall\,\alpha$};
+
+  %-------------------------------------------------
+  % eigenvector v2  (purple / violet)
+  \draw[violet,very thick,->] (0,0) -- (1,2);           % arrow for v2
+  \node[violet,right] at (1.05,2.05) {$\vec v_{2}$};
+
+  % annotation for v2
+  \node[violet,align=left] at (3.0,1.3)
+        {$T(\beta\vec v_{2})=-\beta\vec v_{2}$\\
+         $\beta\vec v_{2}$ is an eigenvector\\
+         with eigenvalue $\lambda=-1 \qquad  \forall \beta$};
+\end{tikzpicture}
 
 	\\
 	\\
 	\[
-		U_1 = span { \vec{ v_1} }           \text{is a 1-dimensional invariant subsapce} 
+		U_1 = \text{ span }{ \vec{ v_1} }           \text{ is a 1-dimensional invariant subspace} 
 	.\] 
 	\[
-	
-		U_2 = span { \vec{ v_2} }           \text{is a 1-dimensional invariant subsapce} 
+		U_2 = \text{ span }{ \vec{ v_2} }           \text{ is a 1-dimensional invariant subspace} 
 	.\] 
 	If $ \mathcal{B} =   \left\{ \vec{ v_1} , \vec{ v_2}  \right\} $ \\
 	\[
@@ -1056,9 +1098,51 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
 	.\]    
       }
       \ex{}{
-      Suppose $ T: \mathbb{R} ^3 \to \mathbb{R}^3 $  is a rotation of $ \mathbb{R} ^3 $ around some line through ther origin, for example the z-axis
+      Suppose $ T: \mathbb{R} ^3 \to \mathbb{R}^3 $  is a rotation of $ \mathbb{R} ^3 $ around some line through the origin, for example the z-axis
       \\
-      XXX INCLUDE INMAGE XXX \\
+      \tikzset{
+  axis/.style      = {very thick, ->, color=purple},
+  planeedge/.style = {thick,  color=planeclr},
+  hidden/.style    = {thin,  color=purple,  dotted},
+  rotarrow/.style  = {->,  line width=1pt, color=planeclr}
+}
+
+\begin{tikzpicture}[scale=1.2,>=Latex,line join=round]
+%---------------------------------------------------------------
+% handy coordinates ---------------------------------------------------------
+  \coordinate (O) at (0,0);         % origin
+  \coordinate (X) at (4,0);         % +x axis direction
+  \coordinate (Z) at (0,4);         % +z axis direction (vertical)
+  \coordinate (Y) at (-3.2,-2);     % -- a “y–like’’ diagonal (for illustration)
+
+% plane corners  (a simple parallelogram that lies “beneath’’ axes)
+  \coordinate (A) at (-3.5,-1.5);
+  \coordinate (B) at (4,-1.5);
+  \coordinate (C) at (5,1);
+  \coordinate (D) at (-2.5,1);
+
+%---------------------------------------------------------------
+% 1) the blue plane ---------------------------------------------------------
+  \draw[planeedge] (A)--(B)--(C)--(D)--cycle;            % visible rim
+  \draw[planeedge,dashed] (A)--(O);                      % hidden rim bit
+
+%---------------------------------------------------------------
+% 2) the three purple axes --------------------------------------------------
+  \draw[axis] (O) -- (X);                                % +x (right)
+  \draw[axis] (O) -- (Z);                                % +z (up)
+  \draw[axis] (O) -- (Y);                                % “−y’’ (down-left)
+
+% hidden continuation of z below the plane
+  \draw[hidden]  (O) -- (0,-3.2);
+
+% a dotted line inside the plane (just to echo the sketch)
+  \draw[hidden] (O) -- (2,1);
+
+%---------------------------------------------------------------
+% 3) little rotation arrow about the z–axis --------------------
+  \draw[rotarrow] (-0.2,2.0) arc [start angle=-90,end angle=  180,radius=0.6];
+
+\end{tikzpicture}
       \\
       \\
       \[
@@ -1077,7 +1161,20 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
       $ for some $ x , y , a , b \in \mathbb{R}$ i.e.  the $ x-y$ plane is invariant under $ T$.\\
       It is a 2-dimensional invariant subspace\\
       Note:\\
-        XXX \\
+     \[
+\bigl[T\bigr]_{\varepsilon , \varepsilon} \;=\;
+\left[
+\begin{array}{cc|c}
+ \star & \star & 0 \\[4pt]
+ \star & \star & 0 \\[4pt]
+ 0 & 0 & 1
+\end{array}
+\right]
+\]
+
+
+
+        where $ \star$ is a real number.\\
 	\\
 	\\
 	\\
@@ -1095,7 +1192,7 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
       A $ T:V \to V$ 1 - dimensional  invariant subspace is an eigenspace corresponding to some eigenvalue $\lambda $    .\\
       Let $ U = span \left{  \vec{ v}  \right} $ and suppose $ U$ is an invariant subspace.\\
  $ T \left(  \vec{ v}  \right)  \in U $  by definition.\\
- Hence $ T \left( \vec{ v}  \right)= \lambda \vec{ v}  \in U$  for some $ \lambda \in \mathbb{R}$ and $ T lr \alpha \vec{ v} = \alpha T \left( \vec{ v}  \right)  = \lambda \left( \alpha \vec{ v}  \right)  \qquad  \forall  \alpha \in \mathbb{R}$.\\
+ Hence $ T \left( \vec{ v}  \right)= \lambda \vec{ v}  \in U$  for some $ \lambda \in \mathbb{R}$ and $ T \left(   \alpha \vec{ v}\right)  = \alpha T \left( \vec{ v}  \right)  = \lambda \left( \alpha \vec{ v}  \right)  \qquad  \forall  \alpha \in \mathbb{R}$.\\
  \\
  i.e.  all vectors in $ U $ are eigenvectors with eigenvalue $ \lambda$ ie $ U = E_{ \lambda}$
       }
@@ -1103,12 +1200,12 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
 
       \thm{}
       {
-           Suppose $ A$ is an $n \times n$  matrix and $ \lambda$ is an eigenvalue of $ A$. Then $ \mathbb{N} \left(  A -  \lambda I \right)^{j} $ is an $ A$- invariant subspace of $  \mathbb{R} ^{ n}$.\\
-	   i.e.  $ \vec{ v} \in \mathbb{N} \left( A - \lambda I \right)^{j} \implies A \vec{ v} \in \mathbb{N} \left( A - \lambda I  \right) ^{ j}$
+           Suppose $ A$ is an $n \times n$  matrix and $ \lambda$ is an eigenvalue of $ A$. Then $ \mathcal{N} \left(  A -  \lambda I \right)^{j} $ is an $ A$- invariant subspace of $  \mathcal{R} ^{ n}$.\\
+	   i.e.  $ \vec{ v} \in \mathbb{N} \left( A - \lambda I \right)^{j} \implies A \vec{ v} \in \mathcal{N} \left( A - \lambda I  \right) ^{ j}$
       }
       
    \pf{Proof:}{
-    Let $ \vec{ v} \in \mathbb{N} \left( A -  \lambda I \right)^{ j} $\\
+    Let $ \vec{ v} \in \mathcal{N} \left( A -  \lambda I \right)^{ j} $\\
     i.e. $ \left( A -  \lambda I \right)^{j} $ 
  \[
  \left( A - \lambda I \right)  \left(  A \vec{ v}  \right) = \left( A - \lambda I  \right) ^{j} \left( A \vec{ v} - \lambda \vec{ v} + \lambda \vec{ v}  \right) 
@@ -1117,9 +1214,9 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
 	 &= \left( A - \lambda I \right) ^{j} \left( \left( A - \lambda I \right) \vec{ v} + \lambda \vec{ v}  \right) \\
 	 &= \left( A - \lambda I \right) \left( A - \lambda I \right) \vec{ v } + \left( A - \lambda I  \right) ^{ j} \left( \lambda \vec{ v}  \right) \\
 	 &= \vec{ 0} + \lambda \vec{ 0} = \vec{ 0}\\
-  	 &= \implies  A \vec{v} \in \mathbb{N} \left( A - \lambda I \right) ^{j}
+  	 &= \implies  A \vec{v} \in \mathcal{N} \left( A - \lambda I \right) ^{j}
  .\end{align*}
- \textbf{Note:} This implies that the generalised eigenspace of $ A$  corresponding to $ \lambda$ is an $ A$ invariant subspace of $ \mathbb{R} ^n$ since the generalised eigenspace $ = \mathbb{N} \left( A - \lambda I   \right) ^{k}$ for some $ k $.
+ \textbf{Note:} This implies that the generalised eigenspace of $ A$  corresponding to $ \lambda$ is an $ A$ invariant subspace of $ \mathbb{R} ^n$ since the generalised eigenspace $ = \mathcal{N} \left( A - \lambda I   \right) ^{k}$ for some $ k $.
 
 }
   
@@ -1137,4 +1234,4 @@ Does there exist a basis for $  \mathbb{R} ^3 $ consisting of generalised eigenv
 
 
 
-\end{document}
+\end{document}          
