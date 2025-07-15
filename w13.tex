@@ -1,4 +1,4 @@
-\documentclass{report}
+ \documentclass{report}
 
 \input{preamble}
 \input{macros}
@@ -67,7 +67,7 @@
   .\] 
 }
  \dfn{Diagonalizable Matrices :}{
- An $n \times n$  matrix A is said to be \underline{diagonalizable} if $ A$ is simlar to a diagonal matrix $ D$, i.e. there exists an invertible matrix $ B$ such that $ D = B ^{-1} A B$
+ An $n \times n$  matrix A is said to be \underline{diagonalizable} if $ A$ is similar to a diagonal matrix $ D$, i.e. there exists an invertible matrix $ B$ such that $ D = B ^{-1} A B$
  }
  \nt{
  If $ A$ is diagonalizable, then computing powers of $ A$ is straightforward, since $ A = B D B ^{-1}$
@@ -199,7 +199,7 @@
   \\
   \section{Finding Eigenvalues and Eigenvectors}
     
-  In order to find the eigenvectors we start by finding the eigenvalues: For an $n \times n$ marix $ A$, this involves finding $ \lambda$ such that $ A \vec{ v} = \lambda \vec{ v} $ for non-zero vectors $ \vec{ v}$.\\
+  In order to find the eigenvectors we start by finding the eigenvalues: For an $n \times n$ matrix $ A$, this involves finding $ \lambda$ such that $ A \vec{ v} = \lambda \vec{ v} $ for non-zero vectors $ \vec{ v}$.\\
  \[
   A \vec{ v} - \lambda \vec{ v} = \vec{ 0} 
  .\] 
@@ -244,8 +244,8 @@ To find eigenvalues we solve $ \text{ det } \left( A - \lambda I \right) $
 \end{bmatrix} =0
 .\] 
 \begin{align*}
-	\left( 1- \lambda \right) \left(  2- \lambda \right) \\
-	&= 2 - 3 \lambda -10 =0\\
+ &\left( 1- \lambda \right) \left(  2- \lambda \right) -12\\
+	&= 2 - 3 \lambda+ \lambda ^2 -12 =0\\
 	&= \lambda^2 - 3\lambda -10 =0\\
 	&= \left( \lambda-5 \right) \left( \lambda+2 \right)            =0\\
 	& \lambda=5 \qquad \lambda=-2
@@ -320,7 +320,7 @@ To find eigenvalues we solve $ \text{ det } \left( A - \lambda I \right) $
      -1\\
      \end{bmatrix}
       \right\}$, forms a basis for $   \mathbb{R} ^2$.\\
-      The linear operatro $ \phi : \mathbb{R} ^2 \to \mathbb{R} ^2 $ defined by $ \phi  \left( \vec{ v}  \right) = A \vec{ v} $ where $ A = \begin{bmatrix}
+      The linear operator $ \phi : \mathbb{R} ^2 \to \mathbb{R} ^2 $ defined by $ \phi  \left( \vec{ v}  \right) = A \vec{ v} $ where $ A = \begin{bmatrix}
       1 & 3\\
       4 & 2\\
       \end{bmatrix}$.\\
@@ -414,7 +414,7 @@ All vectors $ \vec{ v} \in V$ that satisfy $ \phi  \left( \vec{ v}  \right) = \l
       Suppose $ \vec{ u_1} , \vec{ u_2}  \in U_{\lambda}$  i.e.  $ \phi  \left(  \vec{ u_1}  \right) = \lambda \vec{ u_1} $ and $ \phi  \left(  \vec{ u_2}  \right)= \lambda \vec{ u_2}    $.\\
       Then,
       \[
-      \phi  \left(  \vec{ u_1} + \vec{ u_2}  \right) = \phi  \left(  \vec{ u_1}  \right) + \phi \left( \vec{ u_2}  \right) = \lamba \vec{ u_1} + \lambda \vec{  u_2} = \lambda \left(  \vec{ u_1} + \vec{ u_2}  \right)   \implies \vec{ u_1} + \vec{ u_2}  \in U_{ \lambda}
+      \phi  \left(  \vec{ u_1} + \vec{ u_2}  \right) = \phi  \left(  \vec{ u_1}  \right) + \phi \left( \vec{ u_2}  \right) = \lambda \vec{ u_1} + \lambda \vec{  u_2} = \lambda \left(  \vec{ u_1} + \vec{ u_2}  \right)   \implies \vec{ u_1} + \vec{ u_2}  \in U_{ \lambda}
       .\] 
       \\
       \underline{Scalar multiplication:}\\
@@ -434,7 +434,7 @@ All vectors $ \vec{ v} \in V$ that satisfy $ \phi  \left( \vec{ v}  \right) = \l
       }
       \thm{Upper/Lower Triangular Matrices}
       {
-        Suppose $ A$ is an $n \times n$  upper (or lower) triangluar matrix, say 
+        Suppose $ A$ is an $n \times n$  upper (or lower) triangular matrix, say 
 	\[
 	A = \begin{bmatrix}
 		a_{11} & a_{12} & a_{13} & \dots  & a_{1n} \\
@@ -463,7 +463,7 @@ All vectors $ \vec{ v} \in V$ that satisfy $ \phi  \left( \vec{ v}  \right) = \l
       \sin \theta  &  \cos \theta \\
       \end{bmatrix}$
       \\
-      We know that $ A$ rotatrs $ \mathbb{R} $ counterclockwise about the origin by an angle of $  \theta$.\\
+      We know that $ A$ rotates $ \mathbb{R} $ counterclockwise about the origin by an angle of $  \theta$.\\
       \textit{ Is $ A$ diagonalizable?}\\
       \\
       \textbf{Solution:}\\
@@ -487,7 +487,7 @@ All vectors $ \vec{ v} \in V$ that satisfy $ \phi  \left( \vec{ v}  \right) = \l
  \lambda = \frac{ 2 \cos \theta \pm \sqrt{ 4 \left(  \cos ^2 \theta -1 \right) }   }{ 2 }
  .\] 
  \[
- \lambda = \frac{  2 \cos \theta  \pm \sqrt{-4 \sin \theta }  }{  2}
+ \lambda = \frac{  2 \cos \theta  \pm \sqrt{-4 \sin ^2\theta }  }{  2}
  .\] 
  if $ \sin \theta \neq 0$ then $  \lambda \notin  \mathbb{R} $\\
  $ \implies$ no eigenvalues if $  \theta \in \mathbb{R} \backslash \left\{ k \pi \backslash k \in \mathbb{Z} \right\} $ \\
@@ -572,4 +572,4 @@ All vectors $ \vec{ v} \in V$ that satisfy $ \phi  \left( \vec{ v}  \right) = \l
 
 
 
-\end{document}          
+\end{document}                              
