@@ -37,9 +37,9 @@ Suppose $ J = J _k \left( \lambda \right) = \begin{bmatrix}
 Then 
 \begin{enumerate}[label=(\arabic*).]  
 \item $ J$ has one eigenvalue and one linearly independent eigenvector
-\item  $ \left( J - \lambda I \right) ^{ i}$ has ones $ i$ steps above the main diagonal in the $ i+1 ,i+2,\ldots, k$  columns and zeros elsewhere, $ \forall 1 \leq 1 \leq k-1$ $ \left( J - \lambda I \right) ^{l} $ is the zero matrix $ \forall  l \ge k$ 
+\item  $ \left( J - \lambda I \right) ^{ i}$ has ones $ i$ steps above the main diagonal in the $ i+1 ,i+2,\ldots, k$  columns and zeros elsewhere, $ \forall 1 \leq i \leq k-1$ $ \left( J - \lambda I \right) ^{l} $ is the zero matrix $ \forall  l \ge k$ 
 \item $ \mathcal{N} \left( J - \lambda I \right) ^{i} = span \left\{ \vec{ e}_1, \vec{ e_2} , \ldots , \vec{ e_i}  \right\} $ 
-	for each $ i $, $ 1 \leq i \leq k$ (where $ \vec{ e_i} =$ $i^{\text{th}}$ standard basis vectorin $ \mathbb{C} ^{k}$ )
+	for each $ i $, $ 1 \leq i \leq k$ (where $ \vec{ e_i} =$ $i^{\text{th}}$ standard basis vector in $ \mathbb{C} ^{k}$ )
 \end{enumerate}
 \pf{Proof:}{
 (3)\\
@@ -94,7 +94,7 @@ Two matrices $ A_1$ and $ A_2$ are similar if and only if they have the same Jor
    $ \implies A_1$ and $ A_2$ have the same number of Jordan blocks of size $ j \times j$ for each $ j \ge i$.\\
    $ \implies$ the Jordan Normal Forms of $ A_1$ and $ A_2$ are the same up to a permutation of the Jordan blocks.\\
 }
-\underline{Multiplying Matrices with square blcoks along the diagonal:}\\
+\underline{Multiplying Matrices with square blocks along the diagonal:}\\
 \[
 \text{ Suppose } A = \begin{bmatrix}
 B & 0\\
@@ -253,7 +253,7 @@ and so on,
    \end{bmatrix}$, \textit{Find } $ A ^{n}$ \\
    \begin{align*}
     \chi_A \left( \lambda \right) = \left( 8 - \lambda \right) \left(  -4 -\lambda \right) +36 &=0\\
-    \lambda ^2 - 4 \lambda - 4 &= 0\\
+    \lambda ^2 + 4 \lambda - 4 &= 0\\
     \left( \lambda - 2 \right) ^2 &= 0\\
     \lambda &= 2 \text{ is the only eigenvalue.}\\
    .\end{align*}
@@ -271,20 +271,22 @@ and so on,
    \right]
    .\] 
    \[
-    dim \left( \mathcal{N} \left( A - 2I \right)  \right) =1    \qquad  \begin{aligned}
-\mathcal{N}_{1}:&
-\;
-\begin{array}{c}
-\bullet\\[-0.25em]
-|\\[-0.25em]
-\bullet
-\end{array}
-\quad
-\text{1 Jordan chain}\\[1em]
-\mathcal{N}_{2}:&\;
+    dim \left( \mathcal{N} \left( A - 2I \right)  \right) =1 \qquad 
+\begin{aligned}
+ \mathcal{N}_1 \qquad &\bullet\\[-0.35ex]
+ & \; \big|\\[-0.35ex] 
+\mathcal{N}_2 \qquad  &\bullet
 \end{aligned}
-XXX FIX
+\text{ 1 Jordan Chain}
    .\] 
+
+   \\
+
+
+
+
+
+   \\
    $ \implies$ Jordan Normal Form of $ A = \begin{bmatrix}
    2 & 1\\
    0 & 2\\
@@ -309,23 +311,28 @@ XXX FIX
      \end{bmatrix}
       \right\} $ \\
       \[
-      XXX
-      .\] 
-      \[
-         \begin{bmatrix}
-         8 & -9\\
-         4 & -4\\
-         \end{bmatrix}= \begin{bmatrix}
-         6 & 1\\
-         4 & 0\\
-         \end{bmatrix} \begin{bmatrix}
-         2 & 1\\
-         0 & 2\\
-         \end{bmatrix} \begin{bmatrix}
-         0 & -1\\
-         -4 & 6\\
-         \end{bmatrix} \left( - \frac{1}{4} \right) 
-      .\] 
+\underbrace{\begin{bmatrix}
+  8 & -9\\
+  4 & -4
+\end{bmatrix}}_{\mathclap{\bigl[A\bigr]_{\mathcal E,\mathcal E}}}
+\;=\;
+\underbrace{\begin{bmatrix}
+  6 &  1\\
+  4 &  0
+\end{bmatrix}}_{\mathclap{P_{\mathcal B\to\mathcal E}}}
+\;
+\underbrace{\begin{bmatrix}
+  2 & 1\\
+  0 & 2
+\end{bmatrix}}_{\mathclap{\bigl[A\bigr]_{\mathcal B,\mathcal B}}}
+\;
+\underbrace{\begin{bmatrix}
+  0 & -1\\
+ -4 &  6
+\end{bmatrix}}_{\mathclap{P_{\mathcal E\to\mathcal B}}}
+\;\Bigl(-\tfrac14\Bigr).
+\]
+
       \[
       \implies A ^{n} = \begin{bmatrix}
       6 & 1\\
@@ -391,7 +398,7 @@ XXX FIX
  }
  \thm{Cayley Hamilton Theorem}
  {
- Suppose $ A$ is an $n \times n$  matrix, and $ \chi _a \left( x \right) = \text{ det } \left( A - x I \right) $ is the charactersistic polynomial of $ A$. $ \chi _a \left( A \right) =0$.\\
+ Suppose $ A$ is an $n \times n$  matrix, and $ \chi _a \left( x \right) = \text{ det } \left( A - x I \right) $ is the characteristic polynomial of $ A$. $ \chi _a \left( A \right) =0$.\\
 
  }
  
@@ -425,7 +432,7 @@ A \;=\; J_{k}(\lambda)\;=\;
      We know that $ \left( A - \lambda I \right) ^{k}=0$
      $ \implies \chi _A \left( A \right) = \left( -1 \right) ^{k} \left( A - \lambda I \right) ^{k}=  0 $.\\
      $ \implies A$ satisfies its characteristic polynomial.\\
-     Assume statmenet true for $ m-1$ and
+     Assume statement true for $ m-1$ and
      \[
      \text{ let } A = \begin{bmatrix}
        J_1 & 0 & 0 & \dots  & 0 \\
@@ -442,26 +449,25 @@ A \;=\; J_{k}(\lambda)\;=\;
      .\] 
 
         \[
-\det\!\Bigl(
+\det \left(
 \underbrace{%
-\begin{pmatrix}
+\begin{bmatrix}
 \begin{array}{c|c|c}
 J_{1}-xI & 0 & 0 \\ \hline
 0        & J_{m-1}-xI & 0 \\ \hline
 0        & I          & 0
 \end{array}
-\end{pmatrix}}_{\displaystyle M}\;
+\end{bmatrix}}_{\displaystyle M}\;
 \underbrace{%
-\begin{pmatrix}
+\begin{bmatrix}
 \begin{array}{c|c|c}
 0 & I & 0 \\ \hline
 0 & 0 & 0 \\ \hline
 0 & 0 & J_{n}-xI
 \end{array}
-\end{pmatrix}}_{\displaystyle N}
-\Bigr)
+\end{bmatrix}}_{\displaystyle N}
+\right) = \chi _B \left( x \right) \chi _{J _ m } \left( x \right)
 \]
- XXX\\
 
 
 
@@ -473,17 +479,50 @@ J_{1}-xI & 0 & 0 \\ \hline
 \begin{array}{c|c}
 \begin{array}{cccc}
 J_{1} &        &        &        \\[4pt]
-J_{2} & \ddots &        &        \\[4pt]
-      & \ddots & \ddots &        \\[4pt]
-      &        & J_{m-1}&
+ & \ddots &        &        \\[4pt]
+      &  & \ddots &        \\[4pt]
+      &        & & J_{m-1}
 \end{array}
 & 0 \\ \hline
 0 & J_{m}
 \end{array}
 \right)^{\,k}
      .\] 
-     XXX\\
-        XXXXXX\\
+
+     \[
+\sum_{k=0}^{} c_k
+\!\left(
+  \left[
+    \begin{array}{c: c}
+      B & 0 \\ \hdashline
+      0 & J_m
+    \end{array}
+  \right]
+\right)^{\!k}
+\;=\;
+\left[
+  \begin{array}{c: c}
+    \displaystyle\sum_{k=0}^{} c_k\,B^{k} & 0 \\ \hdashline
+    0 & \displaystyle\sum_{k=0}^{} c_k\,J_m^{k}
+  \end{array}
+\right].
+\]
+
+\[ =
+\Bigl[
+  \begin{array}{c: c}
+    \chi_{A}(\beta) & 0 \\ \hdashline
+    0               & \chi_{A}(J_m)
+  \end{array}
+\Bigr]
+\;=\;
+\Bigl[
+  \begin{array}{c: c}
+    \chi_{B}(\beta)\,\chi_{J_m}(\beta) & 0 \\ \hdashline
+    0                                   & \chi_{B}(J_m)\,\chi_{J_m}(J_m)
+  \end{array}
+\Bigr].
+\]
 
         $ \chi _B \left( B \right) =0$ by assumption and $ \chi _{J_m} \left( J_m \right) =0$ from $ m =1$.\\
         $ \implies \chi _A \left( A \right) =0$     \
@@ -492,7 +531,7 @@ J_{2} & \ddots &        &        \\[4pt]
         \\
      \underline{Case 2:} \\
      Suppose $ A \in M_{n \times  n} \left( \mathbb{C} \right) $ and $ J$ is the Jordan Normal Form of $ A$.\\
-     The by above, $ \chi _J \left( J \right) =0$. But, since $ A$ is simliar to $ J$
+     The by above, $ \chi _J \left( J \right) =0$. But, since $ A$ is similar to $ J$
      \[
      \chi _A \left( \lambda \right) = \chi _J \left( \lambda \right) 
      .\] 
@@ -680,20 +719,14 @@ J_{i}\;=\;
    For each block $ J_i$, $ \left( J_i - \lambda I \right) ^{k_i} =0$ and $ \left( J_i - \lambda I \right) ^{l} \neq 0 $ if $ l < k_i$.\\
    Hence in order for $ m \left( J_i \right) =0 \qquad  \forall  i$, $ m \left( x \right) - \left( x - \lambda \right) ^{k}$ where $ k$ is the size of the largest Jordan block.
   }
-
-  \textbf{Corraly}\\
-  \\XXX\\
-  \\
-  \\
-  Suppose $ A \in M _{ n \times  n}\left( \mathbb{C} \right) $ with eigenvalues $ \lambda_1 , \ldots , \lambda_p$
+            \begin{corollary}[ ]
+                       Suppose $ A \in M _{ n \times  n}\left( \mathbb{C} \right) $ with eigenvalues $ \lambda_1 , \ldots , \lambda_p$
   \[
   m \left( x \right) = \left( x - \lambda_1 \right) ^{k_1} \left( x - \lambda_2 \right) ^{ k_2} \ldots  \left( x - \lambda_p \right) ^{k_p}
   .\] 
-  with $ k_i$ being the size of the largest Jordan block associated with $ \lambda_i$
-   XXX END CORALLy
-   \\
-   \\
-   \\
+  with $ k_i$ being the size of the largest Jordan block associated with $ \lambda_i$                        
+            \end{corollary}
+
    \pf{Proof:}{
    Suppose $ J$ is the Jordan Normal Form of $ A$ 
    \[
@@ -792,19 +825,17 @@ J \;=\;
        \\
        \[
        \text{ JNF of } A = \left(
-\begin{array}{cc:ccc:cc}
-0 & 1 & 0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0\\ \hdashline
-0 & 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0\\ \hdashline
-0 & 0 & 0 & 0 & 0 & 1 & 1\\
-0 & 0 & 0 & 0 & 0 & 0 & 1
+\begin{array}{cc:cc:cc}
+0 & 1 & 0 & 0  & 0 & 0\\
+0 & 0 & 0 & 0  & 0 & 0\\ \hdashline
+0 & 0 & 0 & 1  & 0 & 0\\
+0 & 0 & 0 & 0  & 0 & 0\\ \hdashline
+0 & 0 & 0 & 0  & 1 & 1\\
+0 & 0 & 0 & 0  & 0 & 1
 \end{array}
 \right)
        .\] 
 
-       XXX remove row
       }
       
   
@@ -830,4 +861,4 @@ J \;=\;
 
 
 
-\end{document}       
+\end{document}                                          
