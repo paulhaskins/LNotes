@@ -123,6 +123,13 @@
   In this case there was one Jordan chain for each eigenvalue that resulted in a basis for the generalised eigenspace associated with each eigenvalue. This is not always the case. 
   }                  
 
+
+
+
+
+
+  
+
         \ex{}{
         Suppose $ \lambda$ is the only eigenvalue of a $  7 \times  7 $ matrix $ A$. Suppose 
 	\begin{align*}
@@ -288,6 +295,7 @@ J_{3}(\lambda)\;\oplus\;J_{2}(\lambda)\;\oplus\;J_{2}(\lambda).
 
   To find a chain of length $ 3$  we must find a vector $ \vec{ v_3} \in \mathcal{N} _3$  that is not in $ \mathcal{N} _2$. $ \vec{ v_3} $ generates the chain $ \left\{ \vec{ v_1} , \vec{ v_2}, \vec{ v_3}   \right\} = \left\{ \left( A- \lambda I \right) ^2 \vec{ v_3} , \left( A - \lambda I  \right) \vec{ v_3} , \vec{ v_3}  \right\} $
   }
+ 
   
  \ex{}{
  Let $ A = \begin{bmatrix}
@@ -592,6 +600,10 @@ J_{3}(\lambda)\;\oplus\;J_{2}(\lambda)\;\oplus\;J_{2}(\lambda).
  .\] 
 
     }
+
+
+
+      
   \section{Possible Jordan Normal Forms for a $ 2 \times  2$ matrix:}
   \[
   \begin{bmatrix}
@@ -764,6 +776,13 @@ O & E
     \end{enumerate}
     
    }
+
+
+
+
+   
+
+   
    \nt{
    \[
 	   dim \left( \mathcal{N} \left( A - \lambda I \right)  \right) = \text{ geometric multiplicity }
@@ -820,6 +839,9 @@ Applying $ \left( A - \lambda I  \right) $  to both sides we get
      The first vectors are linearly independent by assumption $ \implies a_{ i j }=0 \forall  i,j$
 
    }
+
+
+
    
    For what follows, assume $ A \in M _{ n \times  n} \left(  \mathbb{C} \right) $ .\\
    \underline{Simple Eigenvalue:} \\
@@ -965,7 +987,8 @@ W_3: & $\bullet$ &
 	 \end{bmatrix}
 .\]  
  \end{enumerate}     
-      
+
+     
   \ex{}{
 	  \textit{Find the JNF of $ A = \begin{bmatrix}
 	  4 & 1\\
@@ -992,7 +1015,11 @@ W_3: & $\bullet$ &
 	    0 & 2\\
 	    \end{bmatrix}
 	  .\] 
-  }                  
+  }
+
+
+
+  
                  
   \ex{}{
 	  \textit{Find the JNF of} $ A = \begin{bmatrix}
@@ -1036,7 +1063,10 @@ W_3: & $\bullet$ &
   \end{bmatrix}
   .\] 
   }
-                 
+
+
+
+  
   \ex{}{
 	    \textit{Find the JNF of} $ A =  \begin{bmatrix}
 	    -2 & -7 & 6\\
@@ -1123,6 +1153,14 @@ W_3: & $\bullet$ &
     \end{bmatrix}
     .\] 
     }
+
+
+
+
+
+
+    
+    
     \thm{Similar of matrices} 
     {
        Suppose $ A$ and $ C$ are similar $ n \times  n$ matrices ( i.e. $ \exists  B $ such taht $ C = B^{-1} A B$). \\
@@ -1152,14 +1190,109 @@ W_3: & $\bullet$ &
 		      \implies \vec{ v} = \sum\limits_{i=1}^{k} c_i B^{-1} \left( \vec{ v} _i \right) 
 		      .\] 
 		      \[
-			      \implies \left\{ B ^{-1} \left( \vec{ v} _1 \right), B ^{-1\left( \vec{ v} _2 \right), \ldots , B ^{-1\left( \vec{ v_2}  \right) } \right\}  \text{ spans } \mathcal{N} \left( C \right)
+         \implies \left\{ B ^{-1} \left( \vec{ v} _1 \right), B ^{-1}\left( \vec{ v} _2 \right), \ldots , B ^{-1\left( \vec{ v_2}  \right) } \right\}  \text{ spans } \mathcal{N} \left( C \right)
 		      .\] 
 		      Next we wish to show that this set is linearly independent. Suppose $ \exists  \alpha _1 \alpha_2 , \ldots , \alpha_k$ such that
-		      
+        \[
+        \sum\limits_{i=1}^{k} \alpha _i B ^{-1} \left( \vec{ v_i}  \right) = \vec{ 0}
+        .\] 
+        \[
+        \implies B ^{-1} \sum\limits_{i=1}^{k} \alpha _i \vec{ v_i} 
+        .\] 
+        but, since $ B$ is invertible, $ \mathcal{N} \left(  B^{-1} \right) = \{ \vec{ 0} \}$
+        \[
+        \implies B ^{-1} \left( \sum\limits_{i=1}^{k} \alpha _i \vec{ v_i}  \right) = \vec{ 0} 
+        .\] 
+        but, since $ \left\{ \vec{ v_1} , \ldots , \vec{ v_k}  \right\} $ is a basis for $ \mathcal{N} \left( A \right) $, 
+        \[
+        \implies \alpha_i = 0 \qquad  \forall i
+        .\] 
+        Hence $ \left\{ B^{-1} \left( \vec{ v_1}  \right) , B ^{-1} \left( \vec{ v_2}  \right) ,\ldots, B ^{ -1}\left( \vec{ v_k}  \right) \right\}$ forms a basis for $ \mathcal{N} \left( C \right)$.\\
+        i.e.  $ dim \left( \mathcal{N} \left( A \right)  \right) = dim \left( \mathcal{N} \left( C \right)  \right) $ \\
+        i.e.  nullity of $ A$ is equal to the nullity of $ C$.\\
+       \item \underline{Rank:} \\
+        Since $ A$ and $ C$ are both  $n \times n$  matrices and 
+        \[
+        null A + rk A = null C + rk C = n
+        .\] 
+        and, as proven above $ null A = null C$ \\
+        $ \implies rk A = rk C$ \\
+        \item \underline{Determinant:} \\
+         \begin{align*}
+          \text{ det }  \left( C \right) &= \text{ det } \left( B^{-1} A B \right)\\
+          &= \text{ det } \left( B^{-1} \right) \text{ det } \left( A \right) \text{ det } \left( B \right)\\
+          &= \left( \text{ det } B \right) ^{-1} \text{ det } \left( A \right) \text{ det } \left( B \right)\\
+          &= \text{ det } \left( A \right) 
+         .\end{align*}
+         \item \underline{Trace:} \\
+          Firstly $ tr \left( AB \right) = tr \left( BA \right) \qquad  \forall $ $n \times n$ matrices $ A$ and $ B$.\\
+           \textit{why?}   $ \qquad  tr \left( AB \right) = \sum\limits_{i=1}^{n} \left( AB \right) _{i i}$ \\
+           recall $ \left( AB \right) _{i i}$ is the $ i$ th row of $ A$ $ \cdot $ the $ i$ th column of $ B$.\\
+           i.e. $ \left( AB \right) _{ i i }= \sum\limits_{j=1}^{n} A_{ i j } B_{ j i}$.\\
+           \[
+           \implies tr \left( AB \right) = \sum\limits_{i=1}^{n} \sum\limits_{j=1}^{n} A_{ i j } B_{ j i} 
+           .\] 
+           \[
+            = \sum\limits_{i=1}^{n} \left( A_{i 1} B_{ 1 i}+ A_{ i 2} B _{ 2 i} + \ldots +A_{i n }B_{n i} \right) = A_{ 1 1} B_{ 1 1} + A_{ 2 1} B_{ 1 2} + \ldots + A_{ n 1} B_{ 1 n} + A_{ 1 2} B_{ 2 1} + \ldots + A_{ n n} B_{ n n}
+           .\]
+           summing across columns this sum equals:\\
+           \begin{align*}
+            &= \sum\limits_{i=1}^{n} \left( A_{ i 1} B_{ 1 i} + A_{ i 2} B_{ 2 i} + \ldots + A_{ i n} B_{ n i} \right)\\
+            &= \sum\limits_{i=1}^{n} \sum\limits_{j=1}^{n} A_{ j i} B_{ i j} = \sum\limits_{i=1}^{n} \sum\limits_{j=1}^{n} B_{ i j} A_{ j i} \\
+            &= \sum\limits_{i=1}^{n} \left( BA \right) _{i i} = tr \left( BA \right)
+           .\end{align*}
+           Hence, $ tr \left( C \right) = tr \left( B ^{-1} A B \right) = tr \left(  \left( AB \right) B ^{-1} \right)  = tr \left( A \right) $
+          \item Finally to show that $ \left( A- \lambda I  \right) ^{k} $ and $ \left( C - \lambda I \right) ^{k}$ are similar:
+           \begin{align*}
+            \left( C - \lambda I  \right) &= B^{-1} A B - \lambda B^{-1} I B\\
+            &= B^{-1} \left( A - \lambda I \right) B\\
+            \implies \left( C - \lambda I  \right) ^{k} &= \left( B^{-1} \left( A - \lambda I  \right) B \right) ^{k}\\
+           .\end{align*}
       \end{enumerate}
-      
     }
- XXX FIX AND FINISH W_{16}   
+
+    \thm{Fundamental Theorem of Algebra:}
+    {
+      Given any positive integer $ n \ge 1$, and any set of complex numbers $ \left\{ a_0, a_1, \ldots , a_n \right\}$ such that $ a_n \neq 0$, then the polynomial 
+      \[
+      f \left( z \right) = a_n z^n + a_{n-1} z^{n-1} + \ldots + a_1 z + a_0
+      .\] 
+      factors into linear factors i.e. $ \exists $ $ b_1 , b_2 ,\ldots , b_n \in \mathbb{C}$ such that
+      \[
+      f \left( z \right) = a_n \left( z - b_1 \right) \left( z - b_2 \right) \ldots \left( z - b_n \right)
+      .\] 
+    }
+    Suppose $ A \in M_{ n \times  n} \left(  \mathbb{C} \right) $
+    \begin{itemize}
+     \item $ \chi _A \left( \lambda \right) $ is a polynomial of degree $ n$ with complex coefficients
+     \item By the Fundamental Theorem of Algebra $ \chi _A \left( \lambda \right) $ factorises into $ n$ linear factors
+     \item $ \implies A$ has $ n$ eigenvalues ( with repetitions possible) \\
+      $ \implies$ sum of algebraic multiplicities of eigenvalues is $ n$ \\
+      Note: algebraic multiplicity of an eigenvalue $ \lambda$ $ = dim \left( V \left( \lambda \right)  \right) $ which is equal to the dimension of the generalised eigenspace corresponding to $ \lambda$.\\
+      $ \implies$ For every $ A \in M _{ n \times  n} \left(  \mathbb{C} \right) $  there exists a basis for $ \mathbb{C} ^{n}$ consisting of $ n$ generalised eigenvectors of $ A$.
+    \end{itemize}
+    \begin{corollary}[ ]
+              Suppose $ A \in M_{ n \times n} \left(  \mathbb{C} \right) $.\\
+              If $ \lambda_1 , \lambda_2, \ldots , \lambda_k$ are the eigenvalues of $ A$ with geometric multiplicities $ d_1, d_2, \ldots , d_k$ then 
+              \[
+              d_1+d_2+\ldots + d_k \leq n
+              .\] 
+              with equality if and only if $ A$ is diagonalizable.
+    \end{corollary}
+    \pf{Proof:}{
+     For each eigenvalue $ \lambda_i$ of $ A$ with geometric multiplicity $ d_i$ which is less than or equal to the algebraic multiplicity of $ \lambda_i$ and so 
+     \[
+     \sum\limits_{i=1}^{k} d_i \leq \sum\limits_{i=1}^{k} \text{ algebraic multiplicity of } \lambda_i = n
+     .\] 
+\[
+\sum\limits_{i=1}^{k} d_i = n \iff  \text{ there are } n \text{ linearly independent eigenvectors of } A
+.\] 
+i.e.  $ \iff A$ is diagonalizable.\\
+     
+    }
+    
+    
+     
 
 
 
@@ -1175,5 +1308,4 @@ W_3: & $\bullet$ &
 
 
 
-
-\end{document}            
+\end{document}     
