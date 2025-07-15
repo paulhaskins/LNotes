@@ -77,12 +77,11 @@ $ \implies \left[ T \right] _{ \mathcal{F} \mathcal{F}}$ takes the form
 		0 & 0 & 0 & 0 & 0 & \star\\
 	\end{bmatrix}
 .\]
-XXX  \\
-\\
-\\
-We are building up to the fact that if $ T$ has invariant subspaces whose bases toghether form a basis for $ V$, call it $  \mathcal{F}$, then $ \left[ T \right] _{ \mathcal{F} \mathcal{F}}$ consists of blocks along the diagonal and zeros elsewhere.\\
-We are breaking down $ V$ into subspaces of dimensions $ k$, where $ T$ acts line an operator on $ \mathbb{R} ^{ k}$.\\
-\section{Sums and Direct Products of Vectorspaces}
+ The top left $ 3 \times  3$ represents the restriction of $ T$ to $ U$, $ T \big|_{U}^{} $ i.e.  the linear transformation $ T$ induces on the $ 3$-dim subspace $ U$.\\
+    \\
+We are building up to the fact that if $ T$ has invariant subspaces whose bases together form a basis for $ V$, call it $  \mathcal{F}$, then $ \left[ T \right] _{ \mathcal{F} \mathcal{F}}$ consists of blocks along the diagonal and zeros elsewhere.\\
+We are breaking down $ V$ into subspaces of dimensions $ k$, where $ T$ acts like an operator on $ \mathbb{R} ^{ k}$.\\
+\section{Sums and Direct Products of Vector Spaces}
  \dfn{ :}{
  Let $ V_1, V_2, \ldots , V_k$ be subspaces of a vector space $ V$. The  sum 
  \[
@@ -181,14 +180,14 @@ b\\
 i.e.  the sum is direct: $ V_1 \oplus V_2 = \mathbb{R} ^2$\\
  }
  \ex{}{
-	 Similarly,  if $ U_n = span \left\{  \vec{ e_1} ,\ldots , \vec{ e_n}  \right\}$ , and $ U_m = span \left\{ \vec{ e_n+1}, \vec{ e_n+2}, \ldots , \vec{ e_{n+m}}    \right\} $, $ U_n, U_m \subseteq \mathbb{R} ^{n+m}$. Then 
+  Similarly,  if $ U_n = span \left\{  \vec{ e_1} ,\ldots , \vec{ e_n}  \right\}$ , and $ U_m = span \left\{ \vec{ e_{n+1}}, \vec{ e_{n+2}}, \ldots , \vec{ e_{n+m}}    \right\} $, $ U_n, U_m \subseteq \mathbb{R} ^{n+m}$. Then 
 	 \[
-	 \mathbb{R} ^{n_m} = U_n \oplus U_m 
+	 \mathbb{R} ^{n+m} = U_n \oplus U_m 
 	 .\] 
  }
  
  \ex{}{
- SSuppose $ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \in V $ is a collection of non-zero vectors. Let 
+ Suppose $ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k}  \in V $ is a collection of non-zero vectors. Let 
  \[
 	 V_i = \left\{ \lambda \vec{ v_i} \mid \lambda \in \mathbb{R} \right\}
  .\] 
@@ -288,8 +287,11 @@ and this is direct if and only if $ \vec{ 0} = c_1 \vec{ v_1} + c_2 \vec{  v_2} 
   \end{bmatrix}
   .\] 
   }
+
+
+
+
   \mlem{}{
-  
   	Let $ V_1, V_2, \ldots , V_k$ be subspaces of a vector space $ V$. The following are equivalent(TFAE):
 	\begin{enumerate}[label=(\arabic*).]  
 	\item $ \sum\limits_{i=1}^{k} V_i $ is a direct sum.
@@ -297,6 +299,8 @@ and this is direct if and only if $ \vec{ 0} = c_1 \vec{ v_1} + c_2 \vec{  v_2} 
 	$ can be expressed uniquely in the form $ \vec{ v_1} + \vec{ v_2} + \ldots + \vec{ v_k}  $ with $ \vec{ v_i} \in V_i$
 	\end{enumerate}
 }
+
+
 \pf{Proof:}{
  $ (1) \implies (2)$ \\
  Suppose $ \vec{ v} = \sum\limits_{i=1}^{k} V_i
@@ -317,15 +321,21 @@ and this is direct if and only if $ \vec{ 0} = c_1 \vec{ v_1} + c_2 \vec{  v_2} 
 Let $ V_1$, $ V_2$ be subspaces of a vector space $ V$. \[
 dim \left( V_1 + V_2 \right) = dim \left( V_1 \right) + dim \left( V_2 \right) - dim \left( V_1 \cap V_2 \right)
 .\] 
-}  
+} 
+
+
+
 \pf{Proof:}{
-	Let $ \left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k}  \right\} $ be a basis for $ V_1 \cap  V_2 $. Extend this to a basis for $ V_1$ by adding vectors $ \left\{ \vec{ f_1} , \vec{ f_2} , \ldots , \vec{ f_{\ell}}$ and to a basis for $ V_2$ by adding $ \vec{ w_1} ,\ldots \vec{ w_m} $ so that 
+ Let $ \left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k}  \right\} $ be a basis for $ V_1 \cap  V_2 $. Extend this to a basis for $ V_1$ by adding vectors $ \left\{ \vec{ f_1} , \vec{ f_2} , \ldots , \vec{ f_{\ell}}\right\}$ and to a basis for $ V_2$ by adding $ \vec{ w_1} ,\ldots \vec{ w_m} $ so that 
 		\[
 	\left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k} , \vec{ f_1} , \ldots , \vec{ f_{\ell}} \text{ is a basis for } V_1 \right\}
 		.\] 
 		\[
 	\left\{ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_k} , \vec{ w_1} , \ldots , \vec{ w_m} \text{ is a basis for } V_2 \right\}
 		.\]
+
+
+
 \underline{Claim:}\\
 $ \left\{ \vec{ b_1} , \ldots, \vec{ b_k} , \vec{ f_1} ,\ldots , \vec{ f_{\ell }}, \vec{ w_1} ,\ldots, \vec{ w_m}  \right\} $ forms a basis for $ V_1 + V_2$\\
 It certainly spans $ V_1 + V_2$ since it contains a basis for $ V_1$ and a basis for $ V_2$.\\
@@ -359,8 +369,15 @@ but $ \left\{ \vec{ b_1} , \ldots, \vec{ b_k} , \vec{ w_1} ,\ldots, \vec{ w_m}  
 	dim \left( V_1 \right) &= k + \ell \qquad  \implies dim \left( V_1 + V_2 \right) = dim \left( V_1 \right) + dim \left( V_2 \right) - dim \left( V_1 \cap V_2 \right)\\
 	dim \left( V_1 \cap V_2 \right) &= k
  .\end{align*}
-
 }
+
+
+
+
+
+
+
+
 
 \section{External Direct  Sum}
 \dfn{ :}{
@@ -404,6 +421,19 @@ And so the external direct sum can be view as an internal direct sum.
  	           \item  Given a vector $ \vec{ 0} \neq \vec{ v} \in V$, we define its index (relative to $ T$) to be the minimal $ r \ge 1$ such that $ T ^{r} \vec{ v} = \vec{ 0}$. 
  	           \end{enumerate}
  	      }
+
+
+
+
+
+
+
+
+
+
+
+
+        
 \ex{}{
 Suppose $ T: \mathbb{R} ^2 \to \mathbb{R} ^2 $ 
 \[
@@ -536,6 +566,20 @@ $ \implies $ $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{
 	  \end{bmatrix}
 	   \right\} $.\\
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  \nt{
  Given a vector $ \vec{ v} \in V$, consider the subspace $ U = span \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{ v}  \right) , \ldots  \right\}  \subseteq V$.\\
  $ U$ is a cyclic subspace of $ V$ , called the subspace generated by $ \vec{ v} $. \\
@@ -645,7 +689,7 @@ $ \implies $ $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{
     
     }
     
-   XXX THIS FILE CHECK ALOT XXX 
+
  
 
  
@@ -662,4 +706,4 @@ $ \implies $ $ \left\{ \vec{ v} , T \left( \vec{ v}  \right) , T ^2 \left( \vec{
 
 
      
-\end{document}         
+\end{document}          
