@@ -1,4 +1,4 @@
-\documentclass{report}
+ \documentclass{report}
 
 \input{preamble}
 \input{macros}
@@ -11,9 +11,8 @@
 \usepackage{tikz-cd}
 \usepackage{polynom}
 \usepackage{pifont}
-\newcommand{\pistar}{{\zf\symbol{"4A}}}
-% a tiny helper for a stretched phantom (for the underbrace)
 \newcommand\mc[1]{\multicolumn{1}{c}{#1}}
+\usepackage{comment}
 
 
 
@@ -24,10 +23,12 @@
 \maketitle
 \tableofcontents
 \newpage  
-         \ex{}{
+    
+
+\ex{}{
           Let $ \mathcal{P} _1 \left[ x \right] $ be the set of polynomials of degree at most 1.\\
           Let $ \langle f,g  \rangle = \int_{0}^{1} f\left( x \right) g \left( x \right) dx $ \\
-          $ \langle ,  \rangle $ is an inner product defined on $ \mathcal{P} _1 \left[ x \right] \times  \mathcal{P} _1 \left[ x \right] $ (already prvoen)\\
+          $ \langle ,  \rangle $ is an inner product defined on $ \mathcal{P} _1 \left[ x \right] \times  \mathcal{P} _1 \left[ x \right] $ (already proven)\\
           \\
           $ \mathcal{B} = \left\{ 1 , x \right\} $ is not orthogonal :\\
           \[
@@ -55,11 +56,19 @@
           \[
           \text{ orthonormal basis } = \left\{ 1, \sqrt{ 12 } \left( x - \frac{1}{2} \right) \right\}
           .\] 
-         }
+    }
+
+ 
+
+
+
          \dfn{ :}{
          Suppose $ \langle ,  \rangle : V \times  V \to \mathbb{R}$ is a symmetric bilinear form defined on a real vector space $ V$. \\
          Two vectors $ \vec{ u}, \vec{ v} \in V$ are called orthogonal if $ \langle \vec{ u}, \vec{ v} \rangle = 0$.\\
          }
+
+
+   
          \section{Orthogonal basis for symmetric bilinear forms}
          \thm{}
          {
@@ -88,7 +97,7 @@
          \[
          \implies \exists  \quad \vec{ v_1} \in V \text{ such that } \langle \vec{ v_1} , \vec{ v_1}   \rangle \neq 0
          .\] 
-         Let $ u = span  { \vec{ v_1} }$ and 
+         Let $ u =\text{span}   \vec{ v_1} $ and 
          \[
           W = U ^{\perp} = \left\{ \vec{ w} \in V \mid \langle \vec{ w} , \vec{ v_1}   \rangle =0 \right\}
          .\] 
@@ -123,12 +132,14 @@
          .\] 
          
          }
+
+ 
          \thm{}
          {
          Suppose $ A$ is a real $n \times n$  symmetric matrix. Then there exists an invertible matrix $ B$ such that $ B ^{T}A B$ is a diagonal matrix.\\
          }
          \pf{Proof:}{
-         If $ A$ is real and symmetric it defineds a symmetric bilinear form on $ \mathbb{R} ^{n}$.\\
+         If $ A$ is real and symmetric it defined a symmetric bilinear form on $ \mathbb{R} ^{n}$.\\
          \[
          \langle \vec{ x} , \vec{ y}   \rangle = \left( \vec{ x}  \right) ^{ T} A \vec{ y} \qquad  \forall  \vec{ x} , \vec{ y} \in \mathbb{R} ^{n}
          .\] 
@@ -150,19 +161,18 @@
 
  \textit{ We will prove next week that for a symmetric matrix $ A$ with distinct eigenvalues, the eigenvectors of $ A$ are orthogonal.}\\
          
- \\
+
  \ex{}{
  Let $ A = \begin{bmatrix}
  6 & 2\\
  2 & 3\\
- \end{bmatrix}$. Find a baisis $ \mathcal{B}$ of $ \mathbb{R} $ of $ \mathbb{R} ^2$ such that $ B^{T}A B$ is diagonal.\\
+ \end{bmatrix}$. Find a basis $ \mathcal{B}$ of $ \mathbb{R} $ of $ \mathbb{R} ^2$ such that $ B^{T}A B$ is diagonal.\\
  \begin{align*}
   \chi _A \left( \lambda \right) &= \left( 6-\lambda \right)  \left( 3 - \lambda \right) -4 =0 \\
   &= 18 - 9 \lambda + \lambda ^2 -4 =0 \\
   &= \lambda ^2 - 9 \lambda + 14 =0\\
   &= \left( \lambda - 7 \right) \left( \lambda - 2 \right) =0 \\
   & \implies \lambda _1 = 7, \lambda _2 = 2
-
  .\end{align*}
  \[
  \lambda=7: \qquad  \left[
@@ -174,7 +184,7 @@
 2\\
 1\\
 \end{bmatrix}
- .]
+ .\]
  \[
  \lambda=2: \qquad  \left[
  \begin{array}{cc;{2pt/2pt}c}  
@@ -232,7 +242,7 @@
    &= \sum\limits_{i , j } ^{}  x_i y_j \left( \vec{ v_i}  \right) ^{T} A \vec{ v_j} \\
    &= \sum\limits_{i , j } ^{}  x_i y_j \lambda _i \left( \vec{ v_i}  \right) ^{T} \vec{ v_j} \\
   .\end{align*}
-  Therfore, in the example above, with 
+  Therefore, in the example above, with 
   \[
   \vec{ v_1} = \begin{bmatrix}
    2\\
@@ -252,12 +262,19 @@
   Motivation for defining and equivalent for on $ \mathbb{C} ^{n} \times  \mathbb{C} ^{n}$.\\
  }
  
+
+
+
+
+
+ 
     Next we wish to define an equivalent inner product on $ \mathbb{C} ^{n} \times  \mathbb{C} ^{n}$. The inner product $ \langle \vec{ x}, \vec{ y}   \rangle = \left( \vec{ x}  \right) ^{T} \vec{ y} $  defined on $ \mathbb{R} ^{n}$ won't work on $ \mathbb{C} ^{n}$ since 
+    
     \[
     \langle \vec{ x} , \vec{ x}   \rangle = \sum\limits_{i=1}^{n} x_i ^2 \qquad  \text{ could be negative.}
-    
     .\] 
-    A natural dot product to defind on $ \mathbb{C} ^{n}$ is $ \langle ,  \rangle : \mathbb{C} ^{n} \times  \mathbb{C} ^{n} \to \mathbb{C}$
+    
+    A natural dot product defined on $ \mathbb{C} ^{n}$ is $ \langle ,  \rangle : \mathbb{C} ^{n} \times  \mathbb{C} ^{n} \to \mathbb{C}$
     \[
     \langle \vec{ z} ,\vec{ w}   \rangle = \sum\limits_{i=1}^{n} \overline{ z_i} w_i = \overline{ \vec{ z}  } ^{T} \vec{ w} 
     .\] 
@@ -282,6 +299,11 @@
     \end{enumerate}
     
     }
+
+
+
+
+    
     \ex{}{
     The dot product on $ \mathbb{C} ^{n}$ defined as 
     \[
@@ -301,7 +323,7 @@
   &= \lambda \langle \vec{ y} , \vec{ x}   \rangle + \langle \vec{ y} , \vec{ u}   \rangle
  .\end{align*}
     }
-    In a similar mannar to the real case, a sesquilinear form can be defined using an $n \times n$  matrix with complex entries aftere fixing a basis $ \mathcal{B} = \left\{  \vec{ b_1} , \ldots , \vec{ b_n}  \right\} $  for $ \mathbb{C} ^{n}$.\\
+    In a similar mannar to the real case, a sesquilinear form can be defined using an $n \times n$  matrix with complex entries after fixing a basis $ \mathcal{B} = \left\{  \vec{ b_1} , \ldots , \vec{ b_n}  \right\} $  for $ \mathbb{C} ^{n}$.\\
     \[
     \text{ If } \vec{ x} , \vec{ y} \in \mathbb{C} ^{n}, \qquad  \vec{ x} = \sum\limits_{i=1}^{n} x_i \vec{ b_i} , \qquad  \vec{ y} = \sum\limits_{i=1}^{n} y_i \vec{ b_i}\qquad \forall x_i, y_i \in \mathbb{C}
     .\] 
@@ -332,7 +354,7 @@
    }
    Suppose $ V$ is a complex vector space.
    \dfn{Hermitian Form :}{
-   A \underline{Hermitian form} is a squesilinear form $ f: V \times  V \to \mathbb{C}$ that satisfies
+   A \underline{Hermitian form} is a sesquilinear form $ f: V \times  V \to \mathbb{C}$ that satisfies
    \[
    f \left( \vec{ u} ,\vec{ v}  \right) = \overline{ f \left( \vec{ v} ,\vec{ u}  \right)} \qquad  \text{( conjugate symmetry)}
    .\] 
@@ -353,6 +375,12 @@
      A &= A ^{*} 
     .\end{align*}
    }
+
+
+
+
+
+   
    \dfn{Hermitian Matrices :}{
    $ A \in M _{ n \times n} \left( \mathbb{C} \right) $ is said to be \underline{Hermitian} if $ A ^{*} = A$ 
    }
@@ -381,17 +409,19 @@
       \item Positive definite?\\
        \begin{align*}
         \langle \vec{ x} ,\vec{ x}   \rangle &= \sum\limits_{i=1}^{n} | x_i | ^2 \ge 0 \text{ with equality}\\
-        \iff x_i &= 0 \qquad  \forall  i \\
+        $\iff x_i &= 0 \qquad  \forall  i $\\
        \text{ i.e. } \vec{ x} &= \vec{ 0}
         \implies \text{ The dot product on } \mathbb{C} ^{n} \text{ is an inner product.}
        .\end{align*}
      \end{itemize}
-     The matrix of the dot product on $ \mathbb{C} ^{n}$ with respect to the standard basis on $ \mathbb{C} ^{n}, \left\{ \vec{ e_1} , \ldots \vec{ e_n}  \right\} $ is $ A$ where $ A_{ij} = \langle  \vec{ e_i} , \vec{ e_j}   \rangle = \begin{cases}
+     The matrix of the dot product on $ \mathbb{C} ^{n}$ with respect to the standard basis on $ \mathbb{C} ^{n}, \left\{ \vec{ e_1} , \ldots \vec{ e_n}  \right\} $ is $ A$ where
+     \[
+       A_{ij} = \langle  \vec{ e_i} , \vec{ e_j}   \rangle = \begin{cases}
       0 & \text{if } i\neq j \\
       1 &  \text{if } i=j
      \end{cases}
     \qquad  \implies A = I_n
-    $
+     .\]
    }
    As before, with the inner product defined on $ \mathbb{C} ^{n}$, we can define length, $ \forall  \vec{ x} \in \mathbb{C} ^{n}$
    \[
@@ -400,16 +430,19 @@
    and, the angle between two vectors $ \vec{ x} , \vec{ y} \in \mathbb{C} ^{n}$ as $ \theta $ where $ \langle \vec{ x} ,\vec{ y}   \rangle = \| \vec{ x} \| \| \vec{ y} \| \cos \theta$
    \\
    \mlem{}{
-    Suppose $ \langle ,  \rangle : \mathbb{C} ^{n }  \times  \mathbb{C} ^{n} \to \mathbb{C}$   is the dot prodcut on $ \mathbb{C} ^{n}$. Then 
+    Suppose $ \langle ,  \rangle : \mathbb{C} ^{n }  \times  \mathbb{C} ^{n} \to \mathbb{C}$   is the dot product on $ \mathbb{C} ^{n}$. Then 
     \begin{enumerate}[label=(\roman*)]
       \item $ \langle \vec{ x} , A \vec{ y}   \rangle = \langle A ^{*} \vec{ x} , \vec{ y}   \rangle $ and 
       \item   $ \langle A \vec{ x} , \vec{ y}   \rangle = \langle \vec{ x} , A ^{*} \vec{ y}   \rangle $
       \end{enumerate}
    }
+
+
+
    \pf{Proof:}{
     \begin{align*}
      \langle \vec{ x} , A \vec{ y}   \rangle &= \left( \vec{ x}  \right) ^{*} A \vec{ y} = \overline{ \left( \vec{ x}  \right) ^{T}} A \vec{ y} \\
-     &= \overline{ \left( \vec{ x} ^{T} \right) \left( A ^{T} \right) ^{ T} \vec{ y} \\
+     &= \overline{ \left( \vec{ x} ^{T} \right)} \left( A ^{T} \right) ^{ T} \vec{ y} \\
       &= \overline{ \left( \vec{ x}  \right) ^{T}} \overline{ \overline{ \left( A^{T} \right) ^{T}}} \vec{ y} \\
       &= \overline{ \left( \vec{ x}  \right) ^{T}} \overline{ \left(  \overline{ \left(  A ^{T} \right) } \right) ^{ T}} \vec{ y } \qquad  \text{ note }  \overline{ B ^{T}} = \overline{ B} ^{T}\\
       &= \overline{ \left( \vec{ x}  \right) ^{T} \left(  \overline{\left( A^{T} \right) } \right) ^{T} } \vec{ y} \\
@@ -472,6 +505,10 @@
    \end{bmatrix}
    .\] 
    }
+
+
+
+
    \thm{Orthogonal Eigenvectors :}
    {
    Suppose $ A ^{*} = A$. Suppose $ A \vec{ v_1} = \lambda_1 \vec{ v_1} $ and $ A \vec{ v_2} = \lambda_2 \vec{ v_2} $ with $  \lambda_1 \neq \lambda_2$.\\
@@ -630,7 +667,7 @@
    \right]
    .\] 
    \[
-   dim \mathcal{N} \left( A +I \right) =  2
+      \text{dim} \mathcal{N} \left( A +I \right) =  2
    .\] 
    \[
    \text{ Let } \vec{ v_1} = \begin{bmatrix}
@@ -670,7 +707,7 @@
    1\\
    1\\
    1\\
-   \end{bmatrix}
+   \end{bmatrix} $
     $ \\
     Note: $ \langle \vec{v_1 }, \vec{ v_3}   \rangle =0 $, $ \qquad  \langle \vec{ v_2} , \vec{ v_3}   \rangle =0$ but $ \langle \vec{ v_1} , \vec{ v_2}   \rangle  \neq 0$ \\
     $ \implies$ Apply Gram-Schmidt process to $ \vec{ v_1} , \vec{ v_2}$ to orthogonalize them.\\
@@ -726,7 +763,8 @@
     \end{bmatrix}
     .\] 
    }
-   \section{Orthogonal Matrices}
+
+    \section{Orthogonal Matrices}
    \dfn{Orthogonal Matrix :}{
      Suppose $ B \in M_{n \times  n}$. $ B$ is said to be \underline{orthogonal} if $ B ^{T} = B ^{-1}$ or $ B^{T}B = I_n$
    }
@@ -736,24 +774,22 @@
    }
    \pf{Proof:}{
    $ B ^{T}B = I_n$ \\
-   $ \iff \left( B ^{T} B \right) _{ ij} = begin{cases}
+   \[ \iff \left( B ^{T} B \right) _{ ij} = \begin{cases}
     1 & \text{if } i =j \\
     0 & \text{ if }  i \neq j
    \end{cases}
-   $    
+   \]   
    \[
-    \iff \left( i ^{ \text{th}} \text{row of } B ^{T} \right) \cdot  \left( j ^{ \text{ th}} \text{ column of } B\right)  = begin{cases}
+    \iff \left( i ^{ \text{th}} \text{row of } B ^{T} \right) \cdot  \left( j ^{ \text{ th}} \text{ column of } B\right)  = \begin{cases}
      1 & \text{if } i= j \\
      0 & \text{if } i \neq j
     \end{cases}
-    
    .\] 
    \[
-    \iff \left( i ^{ \text{ th}} \text{ column of } B \right)  \cdot  \left( j ^{ \text{ th}} \text{ column of } B \right) = begin{cases}
+    \iff \left( i ^{ \text{ th}} \text{ column of } B \right)  \cdot  \left( j ^{ \text{ th}} \text{ column of } B \right) = \begin{cases}
      1 & \text{if } i = j \\
      0 & \text{if } i \neq j
     \end{cases}
-    
    .\] 
    \[
     \iff \text{ The columns of } B \text{ are orthonormal.}
@@ -793,8 +829,6 @@
     .\end{align*}
    }
    
-   
-   
     
    
    
@@ -828,16 +862,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-\end{document}  
+\end{document}                               
