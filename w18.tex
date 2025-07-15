@@ -1,4 +1,4 @@
-\documentclass{report}
+ \documentclass{report}
 
 \input{preamble}
 \input{macros}
@@ -25,7 +25,7 @@
 \tableofcontents
 \newpage  
  Suppose $ T: V \to V$ is a linear operator defined on the complex vector space $ V$, and let $ p \left( x \right) \in \mathcal{P} \left[ x \right] $, where $ \mathcal{P} \left[ x \right] = \left\{ \sum\limits_{i=1}^{k} a_i x^i \mid a_i \in \mathbb{C}, k \in \mathbb{N} \right\} $ .\\
- For all polynomials $ p \left( x \right) \in \mathcal{P} \left[ x \right] $, $ p \left( T \right)  $ is a linear operator defined on $ V $ (follows from the fact taht $ T $ is linear).\\
+ For all polynomials $ p \left( x \right) \in \mathcal{P} \left[ x \right] $, $ p \left( T \right)  $ is a linear operator defined on $ V $ (follows from the fact that $ T $ is linear).\\
  \[
  p \left( T \right) :V \to V
  .\] 
@@ -696,7 +696,7 @@ P_{\mathcal B \to \varepsilon}.
       x\\
       y\\
       \end{bmatrix}
-      = \langle \begin{bmatrix}
+      = \left\langle \begin{bmatrix}
       x\\
       y\\
       \end{bmatrix}
@@ -704,11 +704,11 @@ P_{\mathcal B \to \varepsilon}.
       1\\
       0\\
       \end{bmatrix}
-        \rangle  \begin{bmatrix}
+        \right\rangle  \begin{bmatrix}
         1\\
         0\\
         \end{bmatrix}
-        + \langle \begin{bmatrix}
+        + \left\langle \begin{bmatrix}
         x\\
         y\\
         \end{bmatrix}
@@ -716,7 +716,7 @@ P_{\mathcal B \to \varepsilon}.
         0\\
         1\\
         \end{bmatrix}
-          \rangle \begin{bmatrix}
+          \right\rangle \begin{bmatrix}
           0\\
           1\\
           \end{bmatrix}
@@ -747,7 +747,7 @@ P_{\mathcal B \to \varepsilon}.
      \end{bmatrix}
      $
      \[
-     \vec{ v} = \langle \begin{bmatrix}
+     \vec{ v} = \left\langle \begin{bmatrix}
      2\\
      5\\
      \end{bmatrix}
@@ -755,11 +755,11 @@ P_{\mathcal B \to \varepsilon}.
      3\\
      7\\
      \end{bmatrix}
-      \rangle  \frac{1}{  \sqrt{58} }     \begin{bmatrix}
+      \right\rangle  \frac{1}{  \sqrt{58} }     \begin{bmatrix}
       3\\
       7\\
       \end{bmatrix}
-      + \langle \begin{bmatrix}
+      + \left\langle \begin{bmatrix}
       2\\
       5\\
       \end{bmatrix}
@@ -767,7 +767,7 @@ P_{\mathcal B \to \varepsilon}.
       -7\\
       3\\
       \end{bmatrix}
-        \rangle  \frac{1}{  \sqrt{58} }     \begin{bmatrix}
+       \right \rangle  \frac{1}{  \sqrt{58} }     \begin{bmatrix}
         -7\\
         3\\
         \end{bmatrix}
@@ -853,7 +853,7 @@ P_{\mathcal B \to \varepsilon}.
       \vec{ v_{k+1}} = \sum\limits_{i=1}^{k} \frac{ \langle  \vec{ V _{ k+1}} , \vec{ w_i}   \rangle   }{ \langle \vec{ w_i} , \vec{ w_i}   \rangle  }\vec{ w_i} + \left(  \vec{ v _{ k+1}} - \sum\limits_{i=1}^{k} \frac{ \langle \vec{ v_{k+1}}, \vec{ w_i}    \rangle   }{ \langle \vec{ w_i} , \vec{ w_i}   \rangle  } \vec{ w_i} \right)
        \right) 
      .\]
-     where the firs term is the part of $ \vec{ v_{k+1}} $ that lies in the k-dimensional subspace spanned by $ \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  \right\} $ and the second term is the perpendicular part.\\
+     where the first term is the part of $ \vec{ v_{k+1}} $ that lies in the k-dimensional subspace spanned by $ \left\{ \vec{ w_1} , \ldots , \vec{ w_k}  \right\} $ and the second term is the perpendicular part.\\
      \\
      Define 
      \[
@@ -1006,4 +1006,4 @@ P_{\mathcal B \to \varepsilon}.
 
 
 
-\end{document}   
+\end{document}              
