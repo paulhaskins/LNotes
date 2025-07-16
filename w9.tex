@@ -75,7 +75,7 @@ Hence the set is linearly independent and so        $ \left\{ 1,x,x^2,\ldots, x^
  The dimension of $ \mathcal{P}_k \left[ x \right] $ is $ k+1$ since the basis has $ k+1$ vectors.\\
  }
  \ex{}{
-	 Which of the following sets is forms a basis for $ \mathcal{P} _2 \left[ x \right] $?\\
+	 Which of the following sets forms a basis for $ \mathcal{P} _2 \left[ x \right] $?\\
 	 \\
 	 \begin{enumerate} [label=(\alph*)]
 	 \item $ \left\{ 1,1+x,1+x+x^2 \right\} $\\
@@ -105,7 +105,7 @@ Hence the set is linearly independent and so        $ \left\{ 1,x,x^2,\ldots, x^
 	 \right]
 	 .\] 
 	 Does $  \left\{ 1, 1+x , 1+x+x^2 \right\}$  span $ \mathcal{P}_2 \left[ x \right] $?\\\\
-	 Let $ a +bx +dx^2$ be a n arbitrary vector in $ \mathcal{P}_2 \left[ x \right] $. Does there exist $ c_0,c_1,c_2 \in \mathbb{R}$ such that
+	 Let $ a +bx +dx^2$ be an arbitrary vector in $ \mathcal{P}_2 \left[ x \right] $. Does there exist $ c_0,c_1,c_2 \in \mathbb{R}$ such that
 	 \[
 	 c_0\left( 1 \right) c_1 \left( 1+x \right) + c_2 \left( 1+x+x^2 \right) = a + bx + dx^2
 	 .\] 
@@ -171,7 +171,7 @@ i.e. $ c_0+c_2 =0$, $ c_1+ c_2 =0$, $ c_0 -3c_1 -3c_2 =0$
   \end{array}
 \right].
 \]   
-Piv in every column $ \implies$ only solution is $ c_0 = c_1 = c_2 = 0$\\
+Pivot in every column $ \implies$ only solution is $ c_0 = c_1 = c_2 = 0$\\
 $ \implies$ The set is linearly independent.\\
 Does the set $ \left\{ 1+x^2, x-3x^2, 1+x-3x^2 \right\} $  span  $ \mathcal{P}_2 \left[ x \right] $?\\
 i.e. given $ a +bx +dx^2 \in \mathcal{P}_2 \left[ x \right]$ does there exist $ c_0,c_1,c_2 \in \mathbb{R}$ such that
@@ -204,7 +204,7 @@ Hence the set $ \left\{ 1+x^2, x-3x^2, 1+x-3x^2 \right\} $ spans $ \mathcal{P}_2
  }   
  \ex{}{
  \[
-	 \text{ Let} U = \text{ span } \left\{ 1+x-2x^2+3x^3, 2+3x^3, 2+3x =4x^2 +6x^3, -7-4x+15x^2-18x^3, 5-4x-11x^2+12x^3 \right\} 
+	 \text{ Let} U = \text{ span } \left\{ 1+x-2x^2+3x^3, 2+3x^3, 2+3x -4x^2 +6x^3, -7-4x+15x^2-18x^3, 5-4x-11x^2+12x^3 \right\} 
  .\] 
  \textit{Find a basis for $ U$ }\\
   The set of vectors clearly spans $ U$, we just need to check if the set is linearly independent, and if not we need to reduce the set to a linearly independent set.\\
@@ -274,7 +274,7 @@ Hence $ U_1$ is a subspace of $ \mathcal{P}_2 \left[ x \right] $.\\
 	    	&= \left( a+c \right) \left( b + d  \right) = ab + ad + bc + cd \\
 			    	&= 0 + ad + bc + 0 = ad + bc\\
     .\end{align*}
-     Which is not necessarily zerom\\
+     Which is not necessarily zero.\\
      Counter example: $ 5x^2$, $ 7 \in U_2$
      but $ 7+ 5x^2  \notin U_2 $ \\
      Hence $ U_2$ is not closed under addition.\\
@@ -312,6 +312,8 @@ Hence $ U_1$ is a subspace of $ \mathcal{P}_2 \left[ x \right] $.\\
   \right]
   .\]               Pivot in every column $ \implies$ $ A$ is linearly independent and hence $ A$ is a basis for $ \mathcal{P}_3 \left[ x \right] $.\\
   }
+
+
 \ex{}{
 Which of the following sets is a basis for $ M_{2\times  2}$ 
 \begin{enumerate} [label=(\alph*)]
@@ -398,7 +400,7 @@ Which of the following sets is a basis for $ M_{2\times  2}$
    \[
    \text{ i.e. } \begin{bmatrix}
    c_1 & c_1+c_2\\
-   c_1+c_2 c_3 & c_1 +c_2 +c_3 +c_4\\
+   c_1+c_2 +c_3 & c_1 +c_2 +c_3 +c_4\\
    \end{bmatrix}= \begin{bmatrix}
    0 & 0\\
    0 & 0\\
@@ -494,6 +496,8 @@ a_{11} + a_{22} + \ldots + a_{nn} = \sum\limits_{i=1}^{n} a_{ii}
 	 $ \implies U$ is closed under scalar multiplication.\\
 	 Hence $ U$ is a subspace of $ M_{n \times n}$.\\
  }
+
+
  \section{Linear Transformations}
  	
  \dfn{Linear Transformation :}{
@@ -539,12 +543,14 @@ a_{11} + a_{22} + \ldots + a_{nn} = \sum\limits_{i=1}^{n} a_{ii}
      
  \end{enumerate}
 }
+
    \mlem{}{
    Suppose $ T: V \to W$ is a linear transformation. Let $ \vec{ 0}_v $ and $ \vec{ 0}_w$ be the zero vectors in $ V$ and $ W$ respectively. Then
    \begin{enumerate}[label=(\roman*)]
    \item $ T \left( \vec{ 0}_v \right) = \vec{ 0}_w$
    \item      $ T \left( - \vec{ v}  \right) = - T \left( \vec{ v}  \right)  \forall  \vec{ v}  \in V$
    \end{enumerate}
+  }
     \pf{Proof:}{
     (i)\\
           We note that $ 0 _{  \vec{ v} } = \vec{ 0 _v} \forall \vec{ v}  \in V $ also $ 0 _{  \vec{ w} } = \vec{ 0 _w} \forall \vec{ w}  \in W $.\\
@@ -613,7 +619,7 @@ T \left( p \left( x \right)  \right) = x \left( p \left( x \right)  \right)
     and $ 3 \left(  p\left( x \right) + q \left( x \right)  \right) \left( p \left( x \right) + q \left( x \right)  \right) '$ is not, in general equal to $ 3 p \left( x \right) p' \left( x \right) + 3 q \left( x \right) q' \left( x \right)  $
     $ \implies \alpha$ is not a linear transformation\\
     \\
-    Counter example:\\
+    Counterexample:\\
     Consider $ p\left( x \right) = x+5$, $ q \left( x \right) = x^2 -x +2$
     \begin{align*}
     	\alpha \left( p\left( x \right) + q\left( x \right)  \right) = \alpha \left(  x^2 +7 \right) = 3 \left( x^2+7 \right) \left( 2x \right) \\
@@ -651,7 +657,7 @@ T \left( p \left( x \right)  \right) = x \left( p \left( x \right)  \right)
    Hence $ T$ is a linear transformation.
    }
  \nt{
- There was nothing special about the matrix $ A$ in the previous example that influenced the fact that $ A$ determined a linear transformation from $ \mathbb{R} ^2 \to \mathbb{R} ^3$. All $ 3 \times 2$ matrices determine linear transformations from $ \mathbb{R} ^2 \to \mathbb{R} ^3$ defined by $ T: \mathbb{R} ^2 \to \mathbb{R} ^3$, $ T \left( \vec{ x}  \right) = A \vec{ x} $ wher $ A$ is any $ 3 \times 2$ matrix.\\
+ There was nothing special about the matrix $ A$ in the previous example that influenced the fact that $ A$ determined a linear transformation from $ \mathbb{R} ^2 \to \mathbb{R} ^3$. All $ 3 \times 2$ matrices determine linear transformations from $ \mathbb{R} ^2 \to \mathbb{R} ^3$ defined by $ T: \mathbb{R} ^2 \to \mathbb{R} ^3$, $ T \left( \vec{ x}  \right) = A \vec{ x} $ where $ A$ is any $ 3 \times 2$ matrix.\\
  \\
  In general, if $ A \in M _{m \times  n} \left(  \mathbb{R} \right) $  then the mapping $ T: \mathbb{R} ^{n} \to \mathbb{R} ^{ m}$ defined by $ T \left( \vec{ x}  \right) = A \vec{ x} $, $ \forall  \vec{ x} \in \mathbb{R} ^{ n}$ is a linear transformation.\\
  }
@@ -670,4 +676,4 @@ T \left( p \left( x \right)  \right) = x \left( p \left( x \right)  \right)
 
 
 
-\end{document}        
+\end{document}                                          
