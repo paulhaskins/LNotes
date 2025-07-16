@@ -194,10 +194,10 @@ In order to express $\sum_{\tilde{\sigma}}
       \textit{Since $ \binom{1}{k}$ induces no inversion in the top row and $ k-1$ in the bottom row, since there are $ k-1$ terms less that are less than $ k$.}\\
  \begin{align*}
    \implies \text{sgn } \left( \tilde{ \alpha}   \left( -1 \right) ^{\text{\# of inversions in } \tilde{ \alpha}   } \right)\\
-   = \left( -1 \right) ^{\text{\# of inversions in } \tilde{ \sigma}   }\\
-   = \text{sgn } \tilde{ \sigma}   \left( -1 \right) ^{k+1}\\
+   &= \left( -1 \right) ^{\text{\# of inversions in } \tilde{ \sigma}   }\\
+   &= \text{sgn } \tilde{ \sigma}   \left( -1 \right) ^{k+1}\\
+   sgn \left( \tilde{ \alpha } \right) &= sgn \left( \tilde{ \sigma}    \right)  \left( -1 \right) ^{k+1}   
  .\end{align*}
-            XXX INCLUDE GREEN TEXT XXX\\
             \\
 Hence, all the terms in the sum, $ \text{det } A$ that contain 
 \begin{align*}
@@ -241,7 +241,7 @@ a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
 \end{array}
 \right\}
 \; \text{\(j^{\text{th}}\) row}
-                       \]      XXX FIX THIS XXX\\
+                       \]     \\
         \begin{align*}
                 \implies \text{det } A = \left( -1 \right) \sum\limits_{k=1}^{n} a_{ji} \text{det } \tilde{ A }   ^{1i}\\
                 = \sum\limits_{k=1}^{n} \left( -1 \right) ^{i+2} a_{ji} \text{det } \tilde{ A }   ^{1i}\\
@@ -562,12 +562,11 @@ a_{n1} & a_{n2} & \cdots & a_{nn}
 \right]
 \qquad
 \begin{array}{@{}l@{}}
-\\[12pt]              % ← skip two rows
+\\[10pt]              % ← skip two rows
 \leftarrow\; \text{$i$-th row}\\[24pt]
 \leftarrow\; \text{$j$-th row}
 \end{array}
 \]
-   XXX EDIT THIS XXX\\
  \[
 \text{ det } A^{1} = a_{i1} C_{j 1} + a_{i2} C_{j 2} + \ldots + a_{in} C_{j n} \quad\text{ ( expanding across the $j^{\text{th}}$ row )}
 .\] 
@@ -624,4 +623,4 @@ c_{21} & c_{22} & \ldots & c_{2n}\\
 
                                           
   
-\end{document}      
+\end{document}                                          
