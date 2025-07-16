@@ -21,14 +21,14 @@
 \section{Linear Dependence and Independence}
         
      \dfn{Linearly Independent Vectors :}{
-     A set of vectors $\{v_1, v_2, \ldots, v_n\}$ is said to to be \underline{linearly independent} if the only linear comibination which is equal to the zero vector is the combination where all the coefficients are zero, i.e. if the equation
+     A set of vectors $\{v_1, v_2, \ldots, v_n\}$ is said to to be \underline{linearly independent} if the only linear combination which is equal to the zero vector is the combination where all the coefficients are zero, i.e. if the equation
      \[
      c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_n \vec{ v_n} = \vec{0}
      .\]              only has the solution $c_1 = c_2 = \ldots = c_n = 0$.\\
      Otherwise, the vectors are said to be \underline{linearly dependent}.\\
      }
 \dfn{Linear Dependence relation :}{
-Suppose a set of vectors $\{v_1, v_2, \ldots, v_n\} \subseteq \mathbb{R} ^{ n}$ is linearly dependent and $ c_1 \vec{ v_1} + c_2 \vec{ v_2} +\ldots c_k \vec{ v_k} = \vec{0} $ with not all of the $ c_i$ equald to zero then $ c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_k \vec{ v_k} $  is called a \underline{linear dependence relation}\\
+Suppose a set of vectors $\{v_1, v_2, \ldots, v_n\} \subseteq \mathbb{R} ^{ n}$ is linearly dependent and $ c_1 \vec{ v_1} + c_2 \vec{ v_2} +\ldots c_k \vec{ v_k} = \vec{0} $ with not all of the $ c_i$ equal to zero then $ c_1 \vec{ v_1} + c_2 \vec{ v_2} + \ldots + c_k \vec{ v_k} $  is called a \underline{linear dependence relation}\\
 }
        \ex{}{
        \textit{Are the following sets of vectors linearly independent or dependent?}
@@ -246,7 +246,7 @@ Suppose a set of vectors $\{v_1, v_2, \ldots, v_n\} \subseteq \mathbb{R} ^{ n}$ 
   }
     \ex{}{
         \begin{enumerate}[label=(\roman*)]
-        \item \textit{Find two linearly dependent vecotres in $ \mathbb{R} ^{2}$} 
+        \item \textit{Find two linearly dependent vectores in $ \mathbb{R} ^{2}$} 
         \item                  Find three linearly independent vectors in $ \mathbb{R} ^{2}$.
         \item                                      Find three linearly dependent vectors in $ \mathbb{R} ^{3}$.
 	\item Find three linearly independent vectors in $ \mathbb{R} ^{3}$.
@@ -280,7 +280,7 @@ Suppose a set of vectors $\{v_1, v_2, \ldots, v_n\} \subseteq \mathbb{R} ^{ n}$ 
    \[
    0 \vec{ v_1} + 0 \vec{ v_2} + \ldots + 1 \vec{ v_j} + \ldots + 0 \vec{ v_k} = \vec{0} 
    .\]        
-  \item If a set of non-zero vectors contains tow vectors that are equal to each other, or proprotional to each other, then the set is linearly dependent.\\
+  \item If a set of non-zero vectors contains two vectors that are equal to each other, or proportional to each other, then the set is linearly dependent.\\
 	  \textbf{Example:} Suppose $ \{ \vec{ w} , \lambda \vec{w} , \vec{ v_1}, \ldots , \vec{ v_k}   \} \subseteq \mathbb{R}^{n}$, where $ \lambda \in \mathbb{R} \backslash \{ 0 \} $\\
 	  \[
 	  \left( -\lambda \right) \vec{w}+ 1 \left( \lambda \vec{ w}  \right) + 0 \vec{ v_1} + \ldots + 0 \vec{ v_k} = \vec{0} 
@@ -292,7 +292,7 @@ Suppose a set of vectors $\{v_1, v_2, \ldots, v_n\} \subseteq \mathbb{R} ^{ n}$ 
 	   \[
 	   \vec{ v_j} = \sum\limits_{i\neq j}^{} c_i \vec{ v_i}
 	   .\] 
-	   Note that sicne $ \vec{ v_j} \neq \vec{0}$, at least one of the coefficients $ c_i$ must be non-zero.\\
+	   Note that since $ \vec{ v_j} \neq \vec{0}$, at least one of the coefficients $ c_i$ must be non-zero.\\
 	   Then, we can write
 	   \[
 	   \vec{0} = - \vec{ v_j} + \sum\limits_{i\neq j}^{} c_i \vec{ v_i}
@@ -572,7 +572,7 @@ y_2\\
 		   \end{bmatrix}
 		    \right\}  \text{ does not span } \mathbb{R} ^{2}
 	   .\] 
-   \item   If $ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k} \in \mathbb{R} ^{m}$ span $ \mathbb{R} ^{m}$ then $ k \ge m$ since there must be a pivto in every row of the matrix whose columns are $ \vec{ v_1} ,\vec{ v_2} ,\ldots, \vec{ v_k} $ (and since there are $ m$ rows, there must at least $ m$ columns in the matrix in order to accomodate a pivot in each row).\\
+   \item   If $ \vec{ v_1} , \vec{ v_2} ,\ldots , \vec{ v_k} \in \mathbb{R} ^{m}$ span $ \mathbb{R} ^{m}$ then $ k \ge m$ since there must be a pivot in every row of the matrix whose columns are $ \vec{ v_1} ,\vec{ v_2} ,\ldots, \vec{ v_k} $ (and since there are $ m$ rows, there must at least $ m$ columns in the matrix in order to accomodate a pivot in each row).\\
    \end{enumerate}
    
    
@@ -770,10 +770,10 @@ Every basis of $ \mathbb{R} ^{n}$ has exactly $ n$  elements.\\
  
  }
   \\
-  $ (1) \iff (2)$ : The columns of $ B$ span $ \mathbb{R} ^{n}$ if and only if there is a pivot in eevery row of $ B$ $ \iff$ $ B$ has $ n$ pivots, and so there is a pivot in every column of $ B$ i.e. the columns of $ B$ are linearly independent.\\
+  $ (1) \iff (2)$ : The columns of $ B$ span $ \mathbb{R} ^{n}$ if and only if there is a pivot in every row of $ B$ $ \iff$ $ B$ has $ n$ pivots, and so there is a pivot in every column of $ B$ i.e. the columns of $ B$ are linearly independent.\\
   \\
   $ (1)\iff (2) \iff (3)$ \\
-   $ (1) \iff (4)$ An  $n \times n$ matix $ B$ has n pivot entries if and only if it is invertible.\\
+   $ (1) \iff (4)$ An  $n \times n$ matrix $ B$ has n pivot entries if and only if it is invertible.\\
 \nt{
          \begin{enumerate}[label=(\arabic*).]  
          \item A set of vectors that span $ \mathbb{R} ^{n}$ can be reduced to a basis.
@@ -866,7 +866,7 @@ c\\
 	                      1\\
 	                      \end{bmatrix}
 	                      \in U
-	                  .\]   Since $ \vec{ v} + \vec{ w} \in U \implies U$ is closde under addition
+	                  .\]   Since $ \vec{ v} + \vec{ w} \in U \implies U$ is closed under addition
      \item    \textit{Closed under scalar multiplication?} Let $ \vec{  v} \in U$ , $ \vec{ v} = \begin{bmatrix}
      c\\
      c\\
@@ -905,4 +905,4 @@ c\\
      
                                           
   
-\end{document} 
+\end{document}
