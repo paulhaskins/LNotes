@@ -13,6 +13,16 @@
 
 \loadspellchecklist[en][wordlist.txt]
 \setupspellchecking[state=start]
+\definecolor{outer}{RGB}{0,150,95}   % greenish (vector-space level)
+\definecolor{inner}{RGB}{90,50,160}  % violet / navy (coordinate level)
+\tikzset{
+  space/.style ={text=outerclr},                    % for V, W, R^n, R^m
+  coord/.style ={text=innerclr},                    % for v, Tv, columns
+  oarr /.style ={outerclr, -{Latex[length=3.5mm]}}, % outer arrows
+  iarr /.style ={innerclr, -{Latex[length=3mm]}},   % inner arrows
+  every node/.style={font=\small}
+}
+
 
 \begin{document}
 \title{Linear Algebra I}
@@ -300,11 +310,26 @@ Check!\\
   We know there exists a bijective linear transformation from $ V \to \mathbb{R} ^{n}$ determined by the co-ordinate mapping $ \vec{ v} \to \left[ \vec{ v}  \right] _{ \mathcal{B}}$, equally the co-ordinate mapping  from $ W \to \mathbb{R} ^{m}$ given by $ \vec{ W} \to \left[ \vec{ W}  \right] _{ \mathcal{C}}$ is an isomorphism.\\
    Suppose $ \vec{ v} = \sum\limits_{i=1}^{n} b_i \vec{ v_i}$ and     $ T \left( \vec{ v}  \right) = \sum\limits_{i=1}^{m} c_i \vec{ w_i}$,\\
    \\
+                            \\
+ \[\begin{tikzcd}
+	V && T && W \\
+	& {\vec{v}} && {T\left(\vec{v} \right)} \\
+	{\left[ \quad \right]_{\mathcal{B}}} &&&& {\left[ \quad \right]_{\mathcal{C}}} \\
+	& \begin{array}{c} \begin{bmatrix} b_1\\ b_2 \\ \vdots \\ b_n\end{bmatrix}_{\mathcal{B}} \end{array} && \begin{array}{c} \begin{bmatrix} c_1\\ c_2 \\ \vdots \\ c_n\end{bmatrix}_{\mathcal{C}} \end{array} \\
+	{\mathbb{R}^n} && {\left[T \right]_{\mathcal{B}, \mathcal{C}}} && {\mathbb{R}^m}
+	\arrow[from=1-1, to=1-5]
+	\arrow[from=1-1, to=5-1]
+	\arrow[from=1-5, to=5-5]
+	\arrow[from=2-2, to=2-4]
+	\arrow[from=2-2, to=4-2]
+	\arrow[from=2-4, to=4-4]
+	\arrow[from=4-2, to=4-4]
+	\arrow[from=5-1, to=5-5]
+\end{tikzcd}\]
 
 
+\\
 
-
-     XXX INCLUDE MAPPING DIAGRAMS XXX\\
 
 
      \\
@@ -419,38 +444,30 @@ Since $  \left[ T \right] _{ \mathcal{B} \mathcal{C}}$ is a composition of linea
     \end{bmatrix}
     .\] 
   }
-    
-  XXX  FIXX TO INCLUDE BLUE INCLUDE MAPPING DIAGRAMS XXX\\
-
-   \[
-\begin{tikzcd}[row sep=large, column sep=large]
-\mathcal{P}_{2}[x]
-  \arrow[r,"D"]
-  \arrow[d, "{[\,\cdot\,]_{\mathcal{B}}}"']
-& \mathcal{P}_{1}[x]
-  \arrow[d, "{[\,\cdot\,]_{\mathcal{C}}}"] \\[2ex]
-\mathbb{R}^{3}
-  \arrow[r, "{[D]_{\mathcal{B},\mathcal{C}}}"']
-& \mathbb{R}^{2}
-\end{tikzcd}
-\]
-
-
+   
+    \[\begin{tikzcd}
+     \mathcal{P}_2\left[ x \right]  && D && \mathcal{P}_1\left[ x \right]  \\
+	& {a+bx+cx^2} && {b+2cx} \\
+	{ \quad \qquad \left[ \quad \right]_{\mathcal{B}}} &&&& { \qquad \qquad \left[ \quad \right]_{\mathcal{C}}} \\
+	& \begin{array}{c} \begin{bmatrix} a\\ b\\ c\end{bmatrix}_{\mathcal{B}} \end{array} && \begin{array}{c} \begin{bmatrix} b\\ 2c\end{bmatrix}_{\mathcal{C}} \end{array} \\
+	{\mathbb{R}^3} && {\left[D \right]_{\mathcal{B}, \mathcal{C}}} && {\mathbb{R}^2}
+	\arrow[from=1-1, to=1-5]
+	\arrow[from=1-1, to=5-1]
+	\arrow[from=1-5, to=5-5]
+	\arrow[from=2-2, to=2-4]
+	\arrow[from=2-2, to=4-2]
+	\arrow[from=2-4, to=4-4]
+	\arrow[from=4-2, to=4-4]
+	\arrow[from=5-1, to=5-5]
+\end{tikzcd}\] \\
 \\
-\\
-\
-\
 
 
 
-For a typical polynomial \(p(x)=a+bx+cx^{2}\) the diagram acts as  
-\[
-a+bx+cx^{2}\;\xmapsto{\,D\,}\;b+2cx,
-\qquad
-\begin{bmatrix}a\\ b\\ c\end{bmatrix}_{\mathcal{B}}
-\;\xmapsto{[D]_{\mathcal{B},\mathcal{C}}}\;
-\begin{bmatrix}b\\ 2c\end{bmatrix}_{\mathcal{C}}.
-\]
+
+
+ \\
+ \\
 
 Indeed,
 \[
@@ -882,8 +899,66 @@ $
             \end{bmatrix}
            .\] 
 
-    XXX INCLUDE MAPPING DIAGRAMS XXX\\
+     \begin{tikzpicture}[>=Latex,
+                    outer/.style={font=\small,draw=none,text=violet!80!black},
+                    inner/.style={font=\small,draw=none,text=blue!70!black},
+                    oarr /.style={-Latex,line width=.9pt,violet!80!black},
+                    iarr/.style={-Latex,line width=.8pt,blue!70!black}]
 
+%-------------------------------------------------------------------
+% 1.  outer corner nodes (vector spaces)
+%-------------------------------------------------------------------
+\node[outer] (TL) at (0, 2) {$\mathcal{M}_{2\times 2}$};
+\node[outer] (TR) at (8, 2) {$\mathcal{M}_{2\times 2}$};
+\node[outer] (BL) at (0,-2) {$\mathbb{R}^{4}$};
+\node[outer] (BR) at (8,-2) {$\mathbb{R}^{4}$};
+
+% outer arrows
+\draw[oarr] (TL) -- node[above] {$\phi$} (TR);
+\draw[oarr] (TL) -- node[left]  {$[\;]_{\mathcal{E}}$} (BL);
+\draw[oarr] (TR) -- node[right] {$[\;]_{\mathcal{E}}$} (BR);
+\draw[oarr] (BL) -- node[below] {$\bigl[\phi\bigr]_{\mathcal{E},\mathcal{E}}$} (BR);
+
+%-------------------------------------------------------------------
+% 2.  inner nodes  (actual matrices / coordinate columns)
+%-------------------------------------------------------------------
+% matrices
+\node[inner] (MatL) at (2.3, 0.9)
+      {$\displaystyle
+        \begin{bmatrix}
+          a & b\\
+          c & d
+        \end{bmatrix}$};
+
+\node[inner] (MatR) at (5.7, 0.9)
+      {$\displaystyle
+        \begin{bmatrix}
+          a+c & b+d\\
+          a   &  b
+        \end{bmatrix}$};
+
+% coordinate column vectors
+\node[inner] (VecL) at (2.3,-0.9)
+      {$\displaystyle
+        \begin{bmatrix}
+          a\\ b\\ c\\ d
+        \end{bmatrix}_{\! \mathcal{E}}$};
+
+\node[inner] (VecR) at (5.7,-0.9)
+      {$\displaystyle
+        \begin{bmatrix}
+          a+c\\ b+d\\ a\\ b
+        \end{bmatrix}_{\! \mathcal{E}}$};
+
+% inner arrows
+\draw[iarr] (MatL) -- (MatR);
+\draw[iarr] (MatL) -- (VecL);
+\draw[iarr] (MatR) -- (VecR);
+\draw[iarr] (VecL) -- (VecR);
+
+\end{tikzpicture}
+\\
+\\
 
     \[
       \text{ since } \left[ \phi  \right]  _{ \mathcal{E} \mathcal{E}} \begin{bmatrix}
@@ -987,37 +1062,40 @@ $
       0 & 0 & 3\\
     \end{bmatrix}                = \left[ D \right] _{ \mathcal{F} , \mathcal{E}} \cdot \left[ T \right] _{ \mathcal{E} \mathcal{F}} 
     .\] 
+
+ \[
+\begin{tikzpicture}[>=Latex,
+                    every node/.style={font=\small},
+                    x=1cm,y=1cm]
+
+\node (P2L) at (0, 1.8) {$\mathcal P_{2}[x]$};
+\node (P3)  at (4, 1.8) {$\mathcal P_{3}[x]$};
+\node (P2R) at (8, 1.8) {$\mathcal P_{2}[x]$};
+
+\node (R3L) at (0, 0)   {$\mathbb R^{3}$};
+\node (R4)  at (4, 0)   {$\mathbb R^{4}$};
+\node (R3R) at (8, 0)   {$\mathbb R^{3}$};
+
+\draw[->,thick] (P2L) -- node[above] {$T$}               (P3);
+\draw[->,thick] (P3)  -- node[above] {$D$}               (P2R);
+
+\draw[->,thick] (P2L) -- node[left]  {$[\;]_{\mathcal{E}}$}      (R3L);
+\draw[->,thick] (P3)  -- node[right] {$[\;]_{\mathcal F}$}(R4);
+\draw[->,thick] (P2R) -- node[right] {$[\;]_{\mathcal{E}}$}      (R3R);
+
+\draw[->,thick] (R3L) -- node[below] {$[T]_{\mathcal{E},\mathcal F}$} (R4);
+\draw[->,thick] (R4)  -- node[below] {$[D]_{\mathcal F,\mathcal{E}}$} (R3R);
+
+\draw[->,thick, bend left=18]  (P2L) to node[above] {$D\!\circ\!T$} (P2R);
+\draw[->,thick, bend right=18] (R3L) to node[below] {$[D]_{\mathcal F,\mathcal{E}}\!\circ\![T]_{\mathcal{E},\mathcal F}$}
+                               (R3R);
+
+\node at (6.3,-1.05) {$  =\;\bigl[(D\!\circ\!T)\bigr]_{\mathcal{E},\mathcal{E}}$};
+
+\end{tikzpicture}
+\] 
   }
    
-     
-     % -------------------------------------------------------------
-\[
-\begin{tikzcd}[row sep=2.7em,column sep=3.4em]
-P_{2}[x]
-  \arrow[r,"T"]
-  \arrow[d,"{[\;]_{\varepsilon}}"']
-  \arrow[bend left=25,r,"{D\!\circ\! T}"]
-& P_{3}[x]
-  \arrow[r,"D"]
-  \arrow[d,"{[\;]_{f}}"]
-& P_{2}[x]
-  \arrow[d,"{[\;]_{\varepsilon}}"] \\[0.2em]
-\mathbb{R}^{3}
-  \arrow[r,"{[T]_{\varepsilon,f}}"']
-  \arrow[bend left=25,rr,"{[D\!\circ\! T]_{\varepsilon,\varepsilon}}"]
-& \mathbb{R}^{4}
-  \arrow[r,"{[D]_{f,\varepsilon}}"']
-& \mathbb{R}^{3}
-\end{tikzcd}
-\]
-
-\[
-[D]_{f,\varepsilon}\,[T]_{\varepsilon,f}
-  \;=\;
-[D\!\circ\! T]_{\varepsilon,\varepsilon}.
-\]
-% -------------------------------------------------------------
- XXX FIX DIAGRAM
   
 
 
