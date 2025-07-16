@@ -7,7 +7,7 @@
 %\usepackage[tagged, highstructure]{accessibility}
 \usepackage{tocloft}
 \usepackage{arydshln}
-\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing} 
 
 
 
@@ -19,11 +19,11 @@
 \maketitle
 \tableofcontents
 \newpage  
-\section{Linear Trasnformations Determined by Matrices}
+\section{Linear Transformations Determined by Matrices}
  Suppose $ A \in M _{ m \times  n}\left(  \mathbb{R}\right) $                                                 then the mapping $ T: \mathbb{R} ^{n} \to \mathbb{R} ^{m}$ defined by 
  \[
  T \left( \vec{ x}  \right) = A \vec{ x} \forall  \vec{ x} \in \mathbb{R} ^{n}
- .\]                    is a linear trnasformation.\\
+ .\]                    is a linear transformation.\\
  \textit{Why?} \\
  Let $ \vec{ x} , \vec{ y}  \in \mathbb{R}^{n} $, $ \lambda \in \mathbb{R}$
  \[
@@ -41,7 +41,7 @@
  \\
  \thm{}
  {
-	 Suppose $ V$, $ W$ are vector spaces. Evey linear transformation $ T: V \to W$ is uniquely determined by the values $ T \left(  \vec{ v_1}  \right) , T \left( \vec{ v_2}  \right) , \ldots , T \left( \vec{ v_n}  \right) $ where $ \left\{ \vec{ v_1} ,\vec{ v_2} ,\ldots , \vec{ v_n}  \right\}$ is a basis for $ V$.
+	 Suppose $ V$, $ W$ are vector spaces. Every linear transformation $ T: V \to W$ is uniquely determined by the values $ T \left(  \vec{ v_1}  \right) , T \left( \vec{ v_2}  \right) , \ldots , T \left( \vec{ v_n}  \right) $ where $ \left\{ \vec{ v_1} ,\vec{ v_2} ,\ldots , \vec{ v_n}  \right\}$ is a basis for $ V$.
  }
   \textit{How do we prove this?} \\
   We take an arbitrary vector in the space and see can we determine its image under $ T$ just by knowing the images of the basis vectors.\\
@@ -86,7 +86,7 @@ y\\
 T \begin{bmatrix}
 1\\
 0\\
-\end{bmatrix}
+\end{bmatrix} =
 \begin{bmatrix}
 1 & -3 \\
 3 & 5 \\
@@ -158,7 +158,7 @@ c_{1} \\ c_{2} \\ \vdots \\ c_{n}
 
 
 
-      i.e. $ T \left( \vec{ v}  \right) = A \vec{ v} $ where $ A$ is the  $m \times n$ matric whose $j^{\text{th}}$ column is $ T \left( \vec{ b_j}  \right)$ i.e. the columns of $ A$ are the images of the basis vectors under $ T$.\\
+      i.e. $ T \left( \vec{ v}  \right) = A \vec{ v} $ where $ A$ is the  $m \times n$ matrix whose $j^{\text{th}}$ column is $ T \left( \vec{ b_j}  \right)$ i.e. the columns of $ A$ are the images of the basis vectors under $ T$.\\
       }
       
       \nt{
@@ -169,35 +169,59 @@ c_{1} \\ c_{2} \\ \vdots \\ c_{n}
      \nt{
      A linear transformation $ T: \mathbb{R} ^{1} \to \mathbb{R} ^{1}$  is given by $  T \left(  \vec{ x}  \right) = \alpha \vec{ x}  \forall  \alpha \in \mathbb{R} $. We can visualise this by thinking of $ T$ mapping the $ x$ axis to the line through the origin with slope $ \alpha$. Note that we need $ \mathbb{R} ^2 $ to visualise this. For linear transformations from $ \mathbb{R} ^{n}$ to $ \mathbb{R} ^{m}$ with $ n >1 $ we need to think differently in order to visualise them. But, we can also view $ T : \mathbb{R} ^{1} \to \mathbb{R} ^{1}$. $ T \left( \vec{ x}  \right)  = \alpha \vec{ x} $    just using a one dimensional line.\\
      Suppose $ \alpha=2 $, $ T \left( \vec{ x}  \right) = 2 \vec{ x} $
-       \begin{tikzpicture}[>=Stealth,x=1cm,y=1cm] % x-scale = 1 cm per unit
-  %% --- 1.  horizontal axis ----------------------------------
-  \draw[very thick,->] (-6.7,0) -- (6.7,0) node[right] {$s$};
+    \\
 
-  %% --- 2.  tick-marks & labels ------------------------------
-  \foreach \x in {-6,...,6}
-    {\draw (\x,0) -- (\x,0.2) node[below=4pt] {\x};}
+       \begin{tikzpicture}[
+    scale=0.8,
+    >=Stealth,
+    axis/.style={thick,->},
+    tick/.style={thick},
+    hop/.style={pink,thick,->},
+    hopodd/.style={pink!80!magenta,thick,->},
+]
 
-  %% --- 3.  pink “jump” arrows -------------------------------
-  % (large one first so the shorter ones sit on top nicely)
-  \draw[magenta,thick,->] (-6,0.2) .. controls (-5,1) and (-3,1) .. (-2,0.2);
+% ------------------------------------------------------------------
+% Axis from -6.5 to 6.5 (extra room for arrow tips)
+\draw[axis] (-6.5,0) -- (6.5,0) node[below right] {$s$};
+\draw[axis,<-] (-6.5,0) -- (-6.6,0); % just a little back-arrow feel
 
-  % left-hand cluster
-  \draw[magenta,thick,->] (-6,0.2) .. controls (-5.8,0.4) and (-5.2,0.4) .. (-5,0.2);
-  \draw[magenta,thick,->] (-4,0.2) .. controls (-3.5,0.6) and (-3.2,0.6) .. (-3,0.2);
-  \draw[magenta,thick,->] (-3,0.2) .. controls (-2.8,0.5) and (-2.2,0.5) .. (-2,0.2);
-  \draw[magenta,thick,->] (-2,0.2) .. controls (-1.8,0.4) and (-1.2,0.4) .. (-1,0.2);
+% Ticks and labels
+\foreach \x in {-6,-5,...,6}{
+  \draw[tick] (\x,0.12) -- (\x,-0.12) node[below] {\small $\x$};
+}
 
-  % middle & right-hand cluster
-  \draw[magenta,thick,->] (0,0.2) .. controls (0.2,0.5) and (0.8,0.5) .. (1,0.2);
-  \draw[magenta,thick,->] (1,0.2) .. controls (1.2,0.5) and (1.8,0.5) .. (2,0.2);
-  \draw[magenta,thick,->] (2,0.2) .. controls (2.5,0.9) and (3.5,0.9) .. (4,0.2);
-  \draw[magenta,thick,->] (3,0.2) .. controls (3.25,0.6) and (3.75,0.6) .. (4,0.2);
-  \draw[magenta,thick,->] (4,0.2) .. controls (4.5,1) and (5.5,1) .. (6,0.2);
+% Pink dot at 0
+\fill[pink] (0,0) circle (2pt);
+
+% ------------------------------------------------------------------
+% Helper macro: hop from integer a to integer b with peak height h
+% Usage: \jumparc{start}{end}{height}{style}
+\newcommand{\jumparc}[4]{%
+  \draw[#4] (#1,0) .. controls ($(#1,0)+(0,{#3})$) and ($(#2,0)+(0,{#3})$) .. (#2,0);
+}
+
+% Heights to vary the “wiggle” look (adjust to taste)
+\def\hsmall{0.4}
+\def\hmed{0.8}
+\def\hbig{1.1}
+
+% ------------------------------------------------------------------
+% EVEN hops: -6→-4, -4→-2, -2→0, 0→2, 2→4, 4→6
+\jumparc{-3}{-6}{\hbig}{hop}
+\jumparc{-2}{-4}{\hmed}{hop}
+\jumparc{2}{4}{\hmed}{hop}
+\jumparc{2.5}{5}{\hmed}{hop}
+
+% ODD hops: -5→-3, -3→-1, -1→1, 1→3, 3→5
+% (Stop at 5; 5→7 would be off-axis.)
+\jumparc{-2.5}{-5}{\hmed}{hopodd}
+\jumparc{-1}{-2}{\hsmall}{hopodd}
+\jumparc{1}{2}{\hmed}{hopodd}
+\jumparc{3}{6}{\hbig}{hopodd}
+
 \end{tikzpicture}
-       \\
-       XXX
           \\
-     $ T$  streches the $ x$ axis by a factor of $ 2$.\\
+     $ T$  stretches the $ x$ axis by a factor of $ 2$.\\
      }
       
        \ex{}{
@@ -268,13 +292,14 @@ c_{1} \\ c_{2} \\ \vdots \\ c_{n}
   \draw[very thick,->] (0,-3) -- (0,3);          % y–axis
 
   %% ------------------------------------------------- green arrow on +x
-  \draw[very thick,teal!70!black,-{Stealth[length=4pt]}] (0,0) -- (3.5,0);
+  \draw[very thick,teal!70!black,-{Stealth[length=8pt]}] (0,0) -- (1.5,0);
 
   %% ------------------------------------------------- pink “rotation” arrow
   % straight up-down segment
-  \draw[pink!80!magenta,very thick] (0,0) -- (0,2.3);
+  \draw[pink!80!magenta,very thick, -{Stealth[length=8pt]} ] (0,0) -- (0,2.3);
+  \draw[pink!80!magenta,very thick, -{Stealth[length=8pt]} ] (0,0) -- (0,-2.3);
   % curved part with arrow-tip at top
-  \draw[pink!80!magenta,very thick,-{Stealth[length=4pt]}]
+  \draw[pink!80!magenta,very thick,-{Stealth[length=8pt]}]
         (0,2.3) .. controls (-1.3,1.0) and (-1.3,-1.0) .. (0,-2.3);
 
   %% ------------------------------------------------- LEFT dotted vertical (blue)
@@ -296,9 +321,8 @@ c_{1} \\ c_{2} \\ \vdots \\ c_{n}
   \end{scope}
 \end{tikzpicture}
 \\
-XXX Green arrow and pink arrow INCLUDE XXX
 
-		$ T_1$ fixes the x-component and changes the sing of the y-component.\\
+		$ T_1$ fixes the x-component and changes the sign of the y-component.\\
 		$ T_1$ reflects points in the $ x$-axis.\\
                 \item 
 			\raggedcolumns
@@ -356,11 +380,11 @@ XXX Green arrow and pink arrow INCLUDE XXX
   \draw[very thick,axisblue,->] (0,-4.5) -- (0,4.5); % y–axis
 
   %--- 2. highlighted green segment on +x ------------------------------------
-  \draw[very thick,greenarrow,-{Stealth[length=5pt]}] (0,0) -- (3,0);
+  \draw[line width=1.5pt,greenarrow,-{Stealth[length=8pt]}] (0,0) -- (1,0);
 
   %--- 3. magenta dotted column on the y–axis --------------------------------
   \begin{scope}[pinkpt]
-    \draw[dotted,thick] (0,-4) -- (0,4);
+    \draw[dotted,line width=1.5pt] (0,-4) -- (0,4);
     \foreach \y in {-4,-2,0,2,4}
       \fill (0,\y) circle (3pt);
   \end{scope}
@@ -374,7 +398,6 @@ XXX Green arrow and pink arrow INCLUDE XXX
 
 \end{tikzpicture}
 \\
- XXX Make green and pink arrow more visible XXX
  \\
 			      $ T_2$ fixes the x axis and projects the y-axis orthogonally onto the origin\\
 			      $ T_2$ orthogonally projects $ \mathbb{R} ^2$ onto the $ x$-axis.\\
@@ -439,7 +462,120 @@ XXX Green arrow and pink arrow INCLUDE XXX
 			y\\
 			\end{bmatrix}
 			.\] 
-            XXX Include SIDE BY SIDE XXX
+   \\
+      \raggedcolumns
+      \begin{multicols}{2}
+ \begin{tikzpicture}[scale=1.0,
+  >=Stealth,
+  axis/.style={thick,->},
+  eone/.style={very thick,green!60!black,->},
+  eoneimg/.style={very thick,pink!80!magenta,->,dashed},
+  srcA/.style={blue!70!black,fill=blue!15,draw=blue!70!black,inner sep=1.5pt,font=\scriptsize},
+  srcB/.style={violet!70!black,fill=violet!15,draw=violet!70!black,inner sep=1.5pt,font=\scriptsize},
+  guideA/.style={blue!70!black,dotted,thick,->},
+  guideB/.style={violet!70!black,dotted,thick,->}
+]
+
+% --- parameter: stretch factor k (>1) ---
+\def\k{2.4}
+
+% axes
+\draw[axis] (-2.5,0) -- (\k+0.8,0);
+\draw[axis] (0,-1.8) -- (0,1.8);
+
+% annotation box k>1
+\node[draw=red!60,fill=red!5,rounded corners=2pt,anchor=south west] at (-2.3,1.55) {$k>1$};
+
+% e1 arrow  (0,0)->(1,0)
+\draw[eone] (0,0) -- (1,0)
+  node[above,pos=1,black] {\scriptsize $\begin{bmatrix}1\\0\end{bmatrix}$};
+
+% T_k(e1)  dashed continuation (1,0)->(k,0)
+\draw[eoneimg] (1,0) -- (\k,0)
+  node[above,pos=1,black] {\scriptsize $T_k\!\begin{bmatrix}1\\0\end{bmatrix}
+  =\begin{bmatrix}k\\0\end{bmatrix}$};
+
+% -------- sample point to the right (cyan-ish / blue style A) ----------
+\coordinate (SA) at (-1.3,-0.9); % source (x,y)
+\node[srcA,anchor=south west] at (SA)
+  {$\begin{bmatrix}x\\y\end{bmatrix}$};
+\coordinate (IA) at ({\k*-1.3},-0.9); % image (kx,y)
+\node[srcA,anchor=south east] at (IA)
+  {$T_k\!\begin{bmatrix}x\\y\end{bmatrix}=
+    \begin{bmatrix}k x\\y\end{bmatrix}$};
+\draw[guideA] (SA) -- (IA);
+
+% -------- sample point below (violet style B) --------------------------
+\coordinate (SB) at (0.4,-0.9); % another (x,y)
+\node[srcB,anchor=north] at (0.2,-0.9)
+  {$\begin{bmatrix}x\\y\end{bmatrix}$};
+\coordinate (IB) at ({\k*0.6},-0.9); % image
+\node[srcB,anchor=north] at (2.5, -1) 
+  {$T_k\!\begin{bmatrix}x\\y\end{bmatrix}=
+    \begin{bmatrix}k x\\y\end{bmatrix}$};
+\draw[guideB] (SB) -- (IB);
+
+\end{tikzpicture}
+\\
+
+
+
+
+       $ T_3$ stretches the $ xy$  plane away from the $ y$-axis by a factor of $ k$.  \\
+      \break
+         \begin{tikzpicture}[scale=1.0,
+  >=Stealth,
+  axis/.style={thick,->},
+  eone/.style={very thick,green!60!black,->},
+  eoneimg/.style={very thick,pink!80!magenta,->,dashed},
+  srcA/.style={blue!70!black,fill=blue!15,draw=blue!70!black,inner sep=1.5pt,font=\scriptsize},
+  srcB/.style={violet!70!black,fill=violet!15,draw=violet!70!black,inner sep=1.5pt,font=\scriptsize},
+  guideA/.style={blue!70!black,dotted,thick,->},
+  guideB/.style={violet!70!black,dotted,thick,->}
+]
+
+% --- parameter: stretch factor k (>1) ---
+\def\k{2.4}
+
+% axes
+\draw[axis] (-2.5,0) -- (\k+0.8,0);
+\draw[axis] (0,-1.8) -- (0,1.8);
+
+% annotation box k>1
+\node[draw=red!60,fill=red!5,rounded corners=2pt,anchor=south west] at (-2.3,1.55) {$0<k<1$};
+
+% T_k(e1)  dashed continuation (1,0)->(k,0)
+\draw[eoneimg] (1,0) -- (\k,0)
+  node[below,pos=1,black] {\scriptsize $\begin{bmatrix}1\\0\end{bmatrix}
+  $};
+ \draw[black] (0,0) -- (1,0)
+  node[below,pos=1,black] {\scriptsize $\begin{bmatrix}k\\0\end{bmatrix}
+  $}; 
+
+% -------- sample point below (violet style B) --------------------------
+\coordinate (SB) at (0.4,0.9); % another (x,y)
+\node[srcB,anchor=north] at (0.2,0.9)
+  {$\begin{bmatrix}kx\\y\end{bmatrix}$};
+\coordinate (IB) at ({\k*0.6},0.9); % image
+\node[srcB,anchor=north] at (1.7, 1) 
+  {$
+    \begin{bmatrix} x\\y\end{bmatrix}$};
+\draw[guideB] (IB) -- (SB);
+
+\end{tikzpicture} \\
+$ 0 < k <1$ $ T_3$ compresses the $ xy$  plane towards the $ y$-axis horizontally.
+       
+
+
+      \end{multicols}
+      
+
+
+
+   \\
+   \\
+   \\
+
 		
 			If $ k=1$ $ A_3$ is the identity matrix and $ T_3$ fixes the plane 
 			\[
@@ -588,14 +724,11 @@ A \;=\;
 \draw[very thick,teal!70!black] (A) -- (C) -- (B) -- cycle;
 
 % inner “right-angle’’ marker (optional aesthetic detail)
-\path let \p1=(C),\p2=(B),\p3=(A) in
-      coordinate (M) at ($(\p1)!(\p2)!(\p3)$);
-\draw[teal!70!black] ($(M)+(0.15,0)$) -- (M) -- ($(M)+(0,0.15)$);
 
 % ------------------------------------------------------------------
 % magenta dashed altitude  A-B -------------------------------------
 \draw[magenta!70,dashed,thick] (A) -- (B)
-      node[midway,right=4pt,magenta!70] {$y-x$};
+      node[midway,left=4pt,magenta!70] {$y-x$};
 
 % ------------------------------------------------------------------
 % the four labelled dots -------------------------------------------
@@ -609,7 +742,6 @@ A \;=\;
 
 \end{tikzpicture}
        \\
-       XXX FIX DIGRAM XXX
        \\
     }
     
@@ -638,55 +770,63 @@ A \;=\;
 	  \end{bmatrix}
 	   \right\}$ \\
 	   Find the matrix of the transformation of $ \mathbb{R} ^2$ that rotates the plane by an angle $ \theta$ in the counter-clockwise direction.\\
-        \begin{tikzpicture}[line cap=round,line join=round,>=Stealth,
-                    every node/.style={font=\small},
-                    x=1cm,y=1cm]        % 1 cm = 1 unit
+   
+  \\
+   \def\rotang{35} % rotation angle in DEGREES (anticlockwise)
 
-% ----- you can change θ here once and everything updates  ------------------
-\def\ang{35} % degrees, positive = anticlockwise
+\begin{tikzpicture}[line cap=round,line join=round,>=Stealth,
+                    every node/.style={font=\small}]
 
-% ---------------------------------------------------------------------------
-% axes (dark-blue)
+% ----- axes ---------------------------------------------------------
 \draw[very thick,blue!80!black,->] (-5,0) -- (5,0);
 \draw[very thick,blue!80!black,->] (0,-3) -- (0,5);
 
-% ---------------------------------------------------------------------------
-% basis vectors before rotation
-\draw[very thick,teal!70!black,-{Stealth[length=4pt]}] (0,0) -- (4,0)
-      node[below right=1pt] {\(\bigl[\!\begin{smallmatrix}1\\0\end{smallmatrix}\!\bigr]\)};
-\draw[very thick,cyan!70!black,-{Stealth[length=4pt]}] (0,0) -- (0,4)
-      node[above left] {\(\bigl[\!\begin{smallmatrix}0\\1\end{smallmatrix}\!\bigr]\)};
+% ----- convenient scale for basis arrows ----------------------------
+\def\R{4} % length used for unit-basis display arrows
 
-% ---------------------------------------------------------------------------
-% images under the rotation  T
-\coordinate (Te1) at ({4*cos(\ang)},{4*sin(\ang)});
-\coordinate (Te2) at ({-4*sin(\ang)},{ 4*cos(\ang)});
+% base coords
+\coordinate (O)  at (0,0);
+\coordinate (E1) at (\R,0);
+\coordinate (E2) at (0,\R);
+\coordinate (Te1) at ({\R*cos(\rotang)},{\R*sin(\rotang)+0.2});
+\coordinate (Te2) at ({-\R*sin(\rotang)},{ \R*cos(\rotang)});
 
-\draw[very thick,magenta!80,-{Stealth[length=4pt]}] (0,0) -- (Te1)
-      node[above=1pt, magenta!80] %
-      {$T\!\bigl[\!\begin{smallmatrix}1\\0\end{smallmatrix}\!\bigr]
-        =\bigl[\!\begin{smallmatrix}\cos\theta\\\sin\theta\end{smallmatrix}\!\bigr]$};
+% ----- original basis vectors --------------------------------------
+\draw[very thick,green!60!black,-{Stealth[length=4pt]}] (O)--(E1)
+  node[below=4pt,pos=.55] {$\begin{bmatrix}1\\0\end{bmatrix}$};
 
-\draw[very thick,violet,-{Stealth[length=4pt]}] (0,0) -- (Te2)
-      node[left,violet] %
-      {$T\!\bigl[\!\begin{smallmatrix}0\\1\end{smallmatrix}\!\bigr]
-        =\bigl[\!\begin{smallmatrix}-\sin\theta\\\cos\theta\end{smallmatrix}\!\bigr]$};
+\draw[very thick,cyan!70!black,-{Stealth[length=4pt]}] (O)--(E2)
+  node[above, right=4pt,pos=.55] {$\begin{bmatrix}0\\1\end{bmatrix}$};
 
-% ---------------------------------------------------------------------------
-% angle arcs  (two copies just for the visual)
-\pic[draw=black!60,->,"$\theta$",angle radius=10pt,angle eccentricity=1.25]
-     {angle={(4,0)}--(0,0)--(Te1)};
+% ----- rotated images ------------------------------------------------
+\draw[very thick,magenta!80,-{Stealth[length=4pt]}] (O)--(Te1)
+  node[above, right=4pt,magenta!80,pos=.7]
+    {$T\!\begin{bmatrix}1\\0\end{bmatrix}=
+      \begin{bmatrix}\cos\theta\\\sin\theta\end{bmatrix}$};
 
-\pic[draw=black!60,->,"$\theta$",angle radius=12pt,angle eccentricity=1.25]
-     {angle={(Te1)}--(0,0)--(0,4)};
+\draw[very thick,violet,-{Stealth[length=4pt]}] (O)--(Te2)
+  node[left=4pt,violet,pos=.6]
+    {$T\!\begin{bmatrix}0\\1\end{bmatrix}=
+      \begin{bmatrix}-\sin\theta\\\cos\theta\end{bmatrix}$};
+
+% ----- manual angle arcs (no angles/quotes libs) --------------------
+% small radius for arc from E1 direction (0°) to Te1 direction (\rotang°)
+\def\arcradA{0.9}
+\draw[->,black!60] (\arcradA,0) arc[start angle=0, end angle=\rotang, radius=\arcradA];
+% place label at midway angle
+\node[black!80] at ({0.65*\arcradA*cos(\rotang/2)},{0.65*\arcradA*sin(\rotang/2)}) {$\theta$};
+
+% second arc from Te1 direction (\rotang°) to E2 direction (90°)
+\def\arcradB{1.1}
+\path ({\arcradB*cos(\rotang)},{\arcradB*sin(\rotang)}) 
+  coordinate (0, 1.1);
+\draw[->,black!60] (0 , 1.1) arc[start angle=\rotang, end angle=90, radius=\arcradB];
+% label at midway between \rotang and 90
+\pgfmathsetmacro{\midang}{0.5*(\rotang+ 180)}
+\node[black!80] at ({0.7*\arcradB*cos(\midang)},{0.7*\arcradB*sin(\midang)}) {$\theta$};
 
 \end{tikzpicture}
   \\
-  XXX INCLUDE ANLGLE OF THETA XXX
-  \\
-
-
-
 
 	   \[
 	   \implies \text{ Matrix of rotation is } \begin{bmatrix}
@@ -913,10 +1053,10 @@ A \;=\;
 	   \end{bmatrix}
 	   .\] 
    }
-   \section{Kernal and Image }
+   \section{Kernel and Image }
    Suppose $ T: V \to W$ is a linear transformation between vector spaces $ V$ and $ W$ .\\
-   \dfn{Kernal of a Transformation :}{
-   The \underline{kernal} of $ T$ is defined to be the set of all vectors $ \vec{ v}  \in V$ such that $ T \left( \vec{ v}  \right) = \vec{ 0} _W$ . It is denoted by $ \ker T$ .\\
+   \dfn{Kernel of a Transformation :}{
+   The \underline{kernel} of $ T$ is defined to be the set of all vectors $ \vec{ v}  \in V$ such that $ T \left( \vec{ v}  \right) = \vec{ 0} _W$ . It is denoted by $ \ker T$ .\\
    \[
    \text{ i.e. } \ker T = \left\{ \vec{ v}  \in V \mid T \left( \vec{ v}  \right) = \vec{ 0} _W \right\}
    .\] 
@@ -928,10 +1068,10 @@ A \;=\;
 	   .\] 
    }
      \ex{}{
-     Conside the linear transformation \\
+     Consider the linear transformation \\
      $ D : \mathcal{P}_k \left[ x \right] \to \mathcal{P} _k \left[ x \right]$ defined by
      $ D \left( p \left( x \right)  \right) = p' \left( x \right) $ \\
-     Find (i) the kernal of $ D$ , (ii) the image of $ D$ .\\
+     Find (i) the kernel of $ D$ , (ii) the image of $ D$ .\\
      \begin{enumerate}[label=(\roman*)]
      \item 
 	     \begin{align*}
@@ -953,7 +1093,7 @@ $ Im D = \mathcal{P} _{k-1}\left[ x \right]$
     \nt{
    Suppose $ A \in M _{m \times n} $ and let $ T: \mathbb{R} ^n \to \mathbb{R} ^m$ be defined as $ T \left( \vec{ x}  \right) = A\vec{x}  \forall  \vec{ x}  \in \mathbb{R} ^{n}$.
 \\
-\textit{Recall: $ A$ is the $m \times n$ matrix whos $i^{\text{th}}$ column is} $ T \left(  \vec{ e_i}  \right) $ \\
+\textit{Recall: $ A$ is the $m \times n$ matrix whose $i^{\text{th}}$ column is} $ T \left(  \vec{ e_i}  \right) $ \\
 \begin{align*}
 	\text{ ker } T & = \left\{ \vec{ x}  \in \mathbb{R} ^n \mid T \left( \vec{ x}  \right) = \vec{ 0}\right\}\\
 	& = \left\{ \vec{ x}  \in \mathbb{R} ^n \mid A\vec{x}  = \vec{ 0}\right\}\\
@@ -978,4 +1118,4 @@ $ Im D = \mathcal{P} _{k-1}\left[ x \right]$
        
 
 
-\end{document}               
+\end{document} 
