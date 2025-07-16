@@ -19,7 +19,7 @@
 \maketitle
 \tableofcontents
 \newpage  
-  \section{Kernal and Image}
+  \section{Kernel and Image}
   \ex{}{
   \textit{ Find the kernel and image of $ T: \mathbb{R} ^2 \to \mathbb{R} ^2$
    \[
@@ -130,9 +130,20 @@
 
 \nt{
 Suppose $ A \in M_{m \times  n}$  and let $ T: \mathbb{R} ^n \to \mathbb{R} ^m$ be defined as $ T \left( \vec{ x}  \right) = A \vec{ x}  \forall  \vec{ x} \in \mathbb{R} ^{n}$ .
-\textit{Recall: $ A$ is the } 
+\textit{Recall: $ A$ is the $m \times  n $ matrix whose $i^{\text{th}}$ column is $ T \left( \vec{ e_i}  \right) $
 }
- XXX THIS ISNT COMPLETED CHECK IF ALREADY DONE IN THE LECTURE NOTES XXX\\
+\\
+\begin{align*}
+ ker T &= \left\{ \vec{ x} \in \mathbb{R} ^n \mid T \left( \vec{ x}  \right) = \vec{ 0 } \right\} \\
+ &= \left\{ \vec{ x} \in \mathbb{R} ^n \mid A \vec{ x} = \vec{ 0 } \right\}\\
+ &= \mathcal{N} \left( A \right) \text{ (the null space of $ A$)}\\
+.\end{align*}
+\begin{align*}
+ Im T &= \left\{ \vec{ y} \in \mathbb{R} ^m \mid \vec{ y} = T \left( \vec{ x}  \right) \text{ for some } \vec{ x} \in \mathbb{R} ^n \right\}\\
+ &= \left\{ \vec{ y} \in \mathbb{R} ^m \mid \vec{ y} = A \vec{ x}  \text{ for some } \vec{ x} \in \mathbb{R} ^n \right\}\\
+ &= \left\{ \vec{ y} \in \mathbb{R} ^m \mid \vec{ y} \text{ lies in the span of the columns of } A \right\}\\
+ &= \mathcal{C} \left( A \right) \text{ (the column space of $ A$)}\\
+.\end{align*} }
  \\
  \\
  \thm{}
@@ -181,11 +192,11 @@ Suppose $ A \in M_{m \times  n}$  and let $ T: \mathbb{R} ^n \to \mathbb{R} ^m$ 
  \\
  \\
  (iii)\\
- In the case wher $ V = \mathbb{R} ^{n}$ and $ W = \mathbb{R} ^{m}$ there exists $ A \in M_{m \times n}$  such that $ T \left(  \vec{ v}  \right) = A \vec{ v}  \forall  \vec{ x} \in \mathbb{R} ^{n}$ and hence, $ dim \left(  ker T \right) = dim \left( \mathcal{N} \left( A \right)  \right)  $ and $ dim \left(  Im T \right) = dim \left( \mathcal{C} \left( A \right) \right)  $ and so  $  dim \left(  ker T \right) + dim \left( Im T \right) = n = dim V$
+ In the case where $ V = \mathbb{R} ^{n}$ and $ W = \mathbb{R} ^{m}$ there exists $ A \in M_{m \times n}$  such that $ T \left(  \vec{ v}  \right) = A \vec{ v}  \forall  \vec{ x} \in \mathbb{R} ^{n}$ and hence, $ dim \left(  ker T \right) = dim \left( \mathcal{N} \left( A \right)  \right)  $ and $ dim \left(  Im T \right) = dim \left( \mathcal{C} \left( A \right) \right)  $ and so  $  dim \left(  ker T \right) + dim \left( Im T \right) = n = dim V$
  }
  
  We can consider now the more general case where $ V$ and $ W$ are arbitrary vector spaces $ T: V \to W$ linear transformation.\\
- Let $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\}$ be a basis for $ ker T$. If span $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\} \neq V $ we can extend this to a basiss for $ V$ by adding vectors $ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_{\ell}}$ that lie outside span $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\}$ such  that the set $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k} , \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_{\ell}}  \right\}$ is a basis for $ V$.\\
+ Let $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\}$ be a basis for $ ker T$. If span $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\} \neq V $ we can extend this to a basis for $ V$ by adding vectors $ \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_{\ell}}$ that lie outside span $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k}  \right\}$ such  that the set $ \left\{ \vec{ u_1} , \vec{ u_2} , \ldots \vec{ u_k} , \vec{ b_1} , \vec{ b_2} , \ldots , \vec{ b_{\ell}}  \right\}$ is a basis for $ V$.\\
  Then we can write any vector $ \vec{ v}  \in V$ as a linear combination of the basis vectors, i.e. $ \exists  \alpha _1, \alpha_2 , \ldots \alpha_k$ $ \gamma_1, \gamma_2, \ldots ,\gamma_{\ell} \in \mathbb{R}$ such that
  \[
  \vec{ v} = \alpha_1 \vec{ u_1} + \alpha_2 \vec{ u_2} + \ldots + \alpha_k \vec{ u_k} + \gamma_1 \vec{ b_1} + \gamma_2 \vec{ b_2} + \ldots + \gamma_{\ell} \vec{ b_{\ell}}
@@ -212,7 +223,7 @@ By the linearity of \(T\),
   T\!\bigl(c_1\vec b_1+c_2\vec b_2+\dots+c_{\ell}\vec b_{\ell}\bigr)=\vec 0 .
 \]
 Hence \(c_1\vec b_1+c_2\vec b_2+\dots+c_{\ell}\vec b_{\ell}\in\ker T\).\\[6pt]
-\(\{\vec u_1,\dots,\vec u_k\}\) forms a basis for \(\ker T\)\(\;\Rightarrow\;\)there exist scalars $ \lambda_1, \lambda_2 ,\ldots , \lambda_k \in \mathbb{R} $ such that
+\(\{\vec u_1,\dots,\vec u_k\}\) forms a basis for \(\ker T\)\(\;\Rightarrow\;\) there exist scalars $ \lambda_1, \lambda_2 ,\ldots , \lambda_k \in \mathbb{R} $ such that
 \[
 	\sum\limits_{i=1}^{\ell } c_i \vec b_i = = \sum\limits_{j=1}^{k } \lambda_j \vec{u_j}
 .\] 
@@ -382,7 +393,7 @@ $ null D + rk D = k+1 = dim \left(  \mathcal{P}_k \left[ x \right] \right) $
                 \item 
                  $ T$ is injective $ \iff ker T = \vec{  {0}}$ i.e.  $ \mathcal{N } \left( A \right) = \left\{ \vec{ 0}  \right\}$.\\
                  $ \iff $ columns of $ A$ are linearly independent.\\
-                 Since the columns of $ A$ lie in $ \mathbb{R} ^3$, and ther are five of them they cannot be linearly independent.\\
+                 Since the columns of $ A$ lie in $ \mathbb{R} ^3$, and there are five of them they cannot be linearly independent.\\
                  Hence $ T$ is not injective.\\
                 \item 
                  $ T $ is surjective $ \iff Im T = \mathbb{R} ^3$ i.e.  $ \mathcal{C} \left( A \right) = \mathbb{R} ^3$.\\
@@ -403,7 +414,7 @@ $ null D + rk D = k+1 = dim \left(  \mathcal{P}_k \left[ x \right] \right) $
  }
   
  \ex{}{
-  Supoose $ T: \mathcal{P}_2 \left[ x \right]$  \to $ M_{ 2 \times 2}$ is defined as
+  Suppose $ T: \mathcal{P}_2 \left[ x \right]$  \to $ M_{ 2 \times 2}$ is defined as
   \[
   T \left( ax^2 +bx +c \right) = \begin{bmatrix}
   a+b & a+c\\
@@ -485,8 +496,10 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
          $ dim \left(  Im T \right) = 3 \implies \mathcal{F} $ forms a basis for $ Im T$.\\
         \end{enumerate}
  }
+
      \mlem{}{
       For any linear transformation $ T: V \to W$ we have that $ rk \left( T \right) \leq min \left\{ dim V, dim W \right\}$\\
+     }
       \pf{Proof:}{
        $ Im T$ is a subspace of $ W$ and hence $ dim \left(  Im T \right)= rk T \leq dim W$.\\
        On the other hand,  $ rk T + null T = dim V$ and $ null T \geq 0$ $ \implies rk T \leq dim V$.\\
@@ -524,7 +537,7 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
        \textbf{Note:} Since $ dim \mathbb{R}^2 =2$ and $ rk T + null T = 2$ if $ rk T =2 $ then $ null T = 0$ i.e. the same linear transformation will work for both (i) and (iii) and if $ rk T =0$ then $ null T = 2$ i.e. the same linear transformation will work for both (ii) and (iv).\\
        \\
        \textit{ (i) and (iii) }\\
-       $ T : \mathbb{R} ^2 \to \mathbb{R} ^2$ need $ ker T = { \vec{ 0} }$ and $ Im T = \mathbb{R} ^2$ if $ T \left(  \vec{ x}  \right) = A \vec{ x} $ for some $ 2 \times  2$  matrix $ A$ then we require tht $ W \left( A \right) = {\vec{ 0} } \qquad  \mathcal{C} \left( A \right) = \mathbb{R} ^2$ which will happend if there is a pivton in every column (or row) of $ A$  i.e.  if $ A$ is invertible.\\
+       $ T : \mathbb{R} ^2 \to \mathbb{R} ^2$ need $ ker T = { \vec{ 0} }$ and $ Im T = \mathbb{R} ^2$ if $ T \left(  \vec{ x}  \right) = A \vec{ x} $ for some $ 2 \times  2$  matrix $ A$ then we require tht $ W \left( A \right) = {\vec{ 0} } \qquad  \mathcal{C} \left( A \right) = \mathbb{R} ^2$ which will happen if there is a pivot in every column (or row) of $ A$  i.e.  if $ A$ is invertible.\\
     
        \[
        \text{\textbf{Example:} } A = \begin{bmatrix}
@@ -545,7 +558,7 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
        \end{bmatrix}$
        \section{Co-ordinate Vectors }
        Suppose $ V$ is a vector space with of dimension $ n$ and $ \mathcal{B} = \left\{ \vec{ b_1} ,\ldots , \vec{ b_n}  \right\} $ is a basis for $ V$.\\
-       Let $ \vec{ v} \in V$. Thre exists a unique set of scalars $ \lambda_1, \lambda_2, \ldots , \lambda_n \in \mathbb{R}$ such that $ V = \lambda_1 \vec{ v_1} + \lambda_2 \vec{ v_2} + \ldots + \lambda _n \vec{ v_n} $.\\
+       Let $ \vec{ v} \in V$. There exists a unique set of scalars $ \lambda_1, \lambda_2, \ldots , \lambda_n \in \mathbb{R}$ such that $ V = \lambda_1 \vec{ v_1} + \lambda_2 \vec{ v_2} + \ldots + \lambda _n \vec{ v_n} $.\\
        We define \[
         \left[ \vec{ v}  \right]_{ \mathcal{B}}  = \begin{bmatrix}
         \lambda_1\\
@@ -564,7 +577,6 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
    .\] 
    $ T$ is an isomorphism.
   }
-   
   \pf{Proof:}{
    Let $ \vec{ v} , \vec{ w}  \in V$ $ \exists  \lambda_i , \alpha_i \qquad 1 \leq i \leq n$  such that
     \[
@@ -679,6 +691,7 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
     _{ \mathcal{C}}
     .\] 
    }
+
    \section{Expressing Vectors in $ \mathbb{R} ^2$ as co-ordinate vectors with respect to different bases}
    Let $ \mathcal{E} = \left\{ \vec{ e_1} , \vec{ e_2}  \right\} = \left\{ \begin{bmatrix}
    1\\
@@ -829,7 +842,6 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
   \fill[violet!50,opacity=.5] (1,2) circle (2.5pt);
 \end{tikzpicture}
                    \\
-   XXX VERIFY THE BELOW PLOT MATCHES XXX
    \\
                          \begin{tikzpicture}[scale=0.9,
         % ----- reusable styles ------------------------------------------
@@ -867,17 +879,18 @@ Pivot in every column $ \implies$ there is a unique solution to the system, name
   % 3. Turquoise vectors (from (-2,0))
   %    — translucent “high-lighter” first
   \draw[hlC] (-2,0) -- (0,0);
-  \draw[hlC] (-2,0) -- (1,6);
+  \draw[hlC] (-2,0) -- (1,3);
   %    — crisp arrowed strokes on top
   \draw[cyanvec] (-2,0) -- (0,0);
-  \draw[cyanvec] (-2,0) -- (1,6);
+  \draw[cyanvec] (-2,0) -- (1,3);
 
   % ----------------------------------------------------------------------
   % 4. Pink and purple basis vectors from the origin
   \draw[pinkvec]   (0,0) -- (1,0);   %  (1,0)
-  \draw[purplevec] (0,0) -- (1,2);   %  (1,2)
+  \draw[purplevec] (0,0) -- (1,1);   %  (1,2)
 \end{tikzpicture}
- 
+    \\
+    \\
 
 
-\end{document}                                          
+\end{document}                   
